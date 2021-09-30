@@ -26,25 +26,9 @@ class Angler:
                 return k
 
     def angler_info_all(self):
-        # a_team = 'Личник' if self.angler_team is None else self.angler_team
-        return f'{self.get_angler_class_name()} . {self.angler_info_id()} . {self.angler_info_fio()} .' \
-               f' {self.angler_info_rank()} . {self.angler_info_team()}'
-
-    def angler_info_id(self):
-        return self.angler_id
-
-    def angler_info_fio(self):
-        return self.angler_fio
-
-    def angler_info_rank(self):
         a_rank = 'нет данных' if self.angler_rank is None else self.angler_rank
-        return a_rank
-
-    def angler_info_team(self):
-        if self.angler_team is None:
-            return f'Личник'
-        else:
-            return self.angler_team
+        a_team = 'Личник' if self.angler_team is None else self.angler_team
+        return f'{self.get_angler_class_name()} . {self.angler_id} . {self.angler_fio} . {a_rank} . {a_team}'
 
 
 if __name__ == '__main__':
