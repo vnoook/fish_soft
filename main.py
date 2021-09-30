@@ -20,51 +20,49 @@ class Angler:
         self.angler_rank = a_rank
         self.angler_team = a_team
 
-    def angler_info_all(self):
-        a_team = 'Личник' if self.angler_team is None else self.angler_team
-        print(f'{self.angler_id} . {self.angler_fio} . {self.angler_rank} . {a_team}')
-
-    def angler_info_id(self):
-        print(f'{self.angler_fio} = {self.angler_id}')
-
-    def angler_info_fio(self):
-        print(f'{self.angler_id} = {self.angler_fio}')
-
-    def angler_info_rank(self):
-        a_rank = 'нет данных' if self.angler_rank is None else self.angler_rank
-        print(f'{self.angler_fio} = {self.angler_rank}')
-
-    def angler_info_team(self):
-        if self.angler_team is None:
-            print(f'{self.angler_fio} не в команде, он Личник')
-        else:
-            print(f'{self.angler_fio} в команде {self.angler_team}')
-
     def get_angler_class_name(self):
         for k, v in globals().items():
             if v is self:
                 return k
 
+    def angler_info_all(self):
+        # a_team = 'Личник' if self.angler_team is None else self.angler_team
+        return f'{self.get_angler_class_name()} . {self.angler_info_id()} . {self.angler_info_fio()} .' \
+               f' {self.angler_info_rank()} . {self.angler_info_team()}'
+
+    def angler_info_id(self):
+        return self.angler_id
+
+    def angler_info_fio(self):
+        return self.angler_fio
+
+    def angler_info_rank(self):
+        a_rank = 'нет данных' if self.angler_rank is None else self.angler_rank
+        return a_rank
+
+    def angler_info_team(self):
+        if self.angler_team is None:
+            return f'Личник'
+        else:
+            return self.angler_team
+
+
 if __name__ == '__main__':
     print()
 
     a1 = Angler(1, 'fio1', 'rank1', 'team1')
-    print(a1.get_angler_class_name())
     print(a1.angler_info_all())
     print()
 
     a2 = Angler(2, 'fio2', a_rank='rank2',)
-    print(a2.get_angler_class_name())
     print(a2.angler_info_all())
     print()
 
     a3 = Angler(3, 'fio3', a_team='team3')
-    print(a3.get_angler_class_name())
     print(a3.angler_info_all())
     print()
 
     a4 = Angler(4, 'fio4',)
-    print(a4.get_angler_class_name())
     print(a4.angler_info_all())
     print()
 
