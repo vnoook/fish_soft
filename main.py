@@ -36,10 +36,14 @@ class Angler:
 
     def angler_info_team(self):
         if self.angler_team is None:
-            print(f'{self.angler_fio} в команде, он Личник')
+            print(f'{self.angler_fio} не в команде, он Личник')
         else:
             print(f'{self.angler_fio} в команде {self.angler_team}')
 
+    def get_angler_class_name(self):
+        for k, v in globals().items():
+            if v is self:
+                return k
 
 if __name__ == '__main__':
     print()
