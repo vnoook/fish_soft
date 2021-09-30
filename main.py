@@ -48,10 +48,31 @@ class Angler:
 if __name__ == '__main__':
     print()
 
-    # создание экземпляров рыболовов по количеству в table_anglers
-    for angler_id, angler_fio in table_anglers.items():
-        print(f'Angler{angler_id} ... {angler_fio} ... {table_anglers_rank[angler_id]}')
-        # string_angler_class = 'Angler'+angler_id
-        # globals()[string_angler_class] = Angler(angler_id, angler_fio)
-
+    a1 = Angler(1, 'fio1', 'rank1', 'team1')
+    print(a1.get_angler_class_name())
+    print(a1.angler_info_all())
     print()
+
+    a2 = Angler(2, 'fio2', a_rank='rank2',)
+    print(a2.get_angler_class_name())
+    print(a2.angler_info_all())
+    print()
+
+    a3 = Angler(3, 'fio3', a_team='team3')
+    print(a3.get_angler_class_name())
+    print(a3.angler_info_all())
+    print()
+
+    a4 = Angler(4, 'fio4',)
+    print(a4.get_angler_class_name())
+    print(a4.angler_info_all())
+    print()
+
+    # # создание экземпляров рыбаков по количеству из table_anglers
+    # for angler_id, angler_fio in table_anglers.items():
+    #     # создаётся название экземпляра
+    #     string_angler_class = 'Angler'+str(angler_id)
+    #     # создаётся экземпляр
+    #     globals()[string_angler_class] = Angler(angler_id, angler_fio)
+    #     # print(f'{string_angler_class} ... {angler_fio} ... {table_anglers_rank[angler_id]}')
+    #     print(globals()[string_angler_class].angler_info_all())
