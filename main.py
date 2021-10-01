@@ -30,6 +30,15 @@ class Tournament:
         # длительность периода в минутах
         self.duration_period = d_period
 
+    def get_tournament_info(self):
+        q_sector = 'нет' if self.quantity_sector is None else self.quantity_sector
+        q_zone = 'нет' if self.quantity_zone is None else self.quantity_zone
+        return f'В этих соревнованиях: туров {self.quantity_tur}, ' \
+               f'периодов {self.quantity_period}, ' \
+               f'зон {q_zone}, ' \
+               f'секторов {q_sector}, ' \
+               f'период длится {self.duration_period} минут'
+
 
 # класс Рыбак
 class Angler:
@@ -72,10 +81,15 @@ def create_anglers():
         print(f'{globals()["Angler"+str(angler_id)].get_all_info()}')
 
 
+def create_tournament():
+    tournament = Tournament(q_tur=1, q_period=4, q_zone=1, q_sector=None, d_period=45)
+    print(tournament.get_tournament_info())
+
+
 if __name__ == '__main__':
     print()
+
+    create_tournament()
+    print()
     create_anglers()
-
-
-
-    # print()
+    print()
