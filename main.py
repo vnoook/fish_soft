@@ -9,11 +9,26 @@ table_anglers_rank = {1: '1 разряд', 2: '2 разряд', 3: '3 разря
                       5: None, 6: 'МС', 7: 'КМС', 8: 'МС'}
 # таблица рыбаков с id и командами
 table_anglers_teams = {1: 'team1', 2: 'team1', 3: 'team2', 4: 'team3',
-                       5: 'team2', 6: None, 7: None, 8: None}
+                       5: 'team2', 6: 'team3', 7: None, 8: None}
 # таблица поимок в четырёх периодах
 table_catches = {1: [1, 4, 7, 1], 2: [2, 52, 0, 2], 3: [43, 4, 5, 6], 4: [1, 0, 4, 22],
                  5: [8, 0, 12, 71], 6: [15, 18, 1, 0], 7: [0, 16, 13, 3], 8: [5, 17, 4, 4]}
 table_tournament = ''
+
+
+# класс Соревнование
+class Tournament:
+    def __init__(self, q_tur=1, q_period=4, q_zone=1, q_sector=None, d_period=45):
+        # количество туров
+        self.quantity_tur = q_tur
+        # количество периодов
+        self.quantity_period = q_period
+        # количество зон
+        self.quantity_zone = q_zone
+        # количество секторов
+        self.quantity_sector = q_sector
+        # длительность периода в минутах
+        self.duration_period = d_period
 
 
 # класс Рыбак
@@ -42,20 +57,25 @@ class Angler:
         return f'{self.get_angler_class_name()} . {self.angler_id} . {self.angler_fio} . {self.get_rank()} . {self.get_team()}'
 
 
-if __name__ == '__main__':
-    print()
-
+def create_anglers():
     # создание экземпляров рыбаков по количеству из table_anglers
     for angler_id, angler_fio in table_anglers.items():
         # создаётся название экземпляра
         string_angler_class = 'Angler'+str(angler_id)
 
         # создаётся экземпляр
-        globals()["Angler"+str(angler_id)] = Angler(angler_id,
-                                                    angler_fio,
-                                                    a_rank=table_anglers_rank[angler_id],
-                                                    a_team=table_anglers_teams[angler_id]
-                                                    )
+        globals()[string_angler_class] = Angler(angler_id,
+                                                angler_fio,
+                                                a_rank=table_anglers_rank[angler_id],
+                                                a_team=table_anglers_teams[angler_id]
+                                                )
         print(f'{globals()["Angler"+str(angler_id)].get_all_info()}')
 
-        # print()
+
+if __name__ == '__main__':
+    print()
+    create_anglers()
+
+
+
+    # print()
