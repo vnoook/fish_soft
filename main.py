@@ -17,7 +17,7 @@ table_catches = {1: [1, 4, 7, 1], 2: [2, 52, 0, 2], 3: [43, 4, 5, 6], 4: [1, 0, 
 
 # класс Соревнование
 class Tournament:
-    def __init__(self, q_tur=1, q_period=4, q_zone=1, q_sector=None, d_period=45):
+    def __init__(self, q_tur=1, q_period=4, q_zone=1, q_sector=None, d_period=45, q_anglers=15):
         # количество туров
         self.quantity_tur = q_tur
         # количество периодов
@@ -28,6 +28,8 @@ class Tournament:
         self.quantity_sector = q_sector
         # длительность периода в минутах
         self.duration_period = d_period
+        # количество соревнующихся
+        self.quantity_anglers = q_anglers
 
     def get_tournament_info(self):
         q_sector = 'нет' if self.quantity_sector is None else self.quantity_sector
@@ -36,7 +38,8 @@ class Tournament:
                f'периодов {self.quantity_period}, ' \
                f'зон {q_zone}, ' \
                f'секторов {q_sector}, ' \
-               f'период длится {self.duration_period} минут'
+               f'период длится {self.duration_period} минут, ' \
+               f'количество соревнующихся {self.quantity_anglers}'
 
 
 # класс Рыбак
@@ -65,6 +68,11 @@ class Angler:
         return f'{self.get_angler_class_name()} . {self.angler_id} . {self.angler_fio} . {self.get_rank()} . {self.get_team()}'
 
 
+def create_tournament():
+    tournament = Tournament(q_tur=1, q_period=4, q_zone=1, q_sector=None, d_period=45, q_anglers=8)
+    print(tournament.get_tournament_info())
+
+
 def create_anglers():
     # создание экземпляров рыбаков по количеству из table_anglers
     for angler_id, angler_fio in table_anglers.items():
@@ -80,15 +88,13 @@ def create_anglers():
         print(f'{globals()["Angler"+str(angler_id)].get_all_info()}')
 
 
-def create_tournament():
-    tournament = Tournament(q_tur=1, q_period=4, q_zone=1, q_sector=None, d_period=45)
-    print(tournament.get_tournament_info())
-
-
 if __name__ == '__main__':
     print()
-
     create_tournament()
     print()
     create_anglers()
     print()
+
+# сортировка списка
+# list_big_files = sorted(list_big_files, key=lambda nud: (nud[2], nud[0], nud[1]))
+# list_big_files = sorted(list_big_files, key=lambda size_big_file: size_big_file[0], reverse=True)
