@@ -14,8 +14,8 @@ table_anglers_teams = {1: 'Караси', 2: 'Караси', 3: 'Тим-Ту', 4
 table_catches = {1: (1,  4,  7,  1),
                  2: (2,  52, 0,  2),
                  3: (43, 4,  5,  6),
-                 4: (1,  0,  4,  22),
-                 5: (8,  0,  12, 71),
+                 4: (1,  0,  12, 22),
+                 5: (15, 4,  12, 71),
                  6: (15, 18, 1,  0),
                  7: (0,  16, 13, 3),
                  8: (5,  17, 4,  4)}
@@ -118,31 +118,48 @@ def create_anglers():
 def calc_tur(t_catches, n_tur):
     # формирования списка поимок в туре
     catches_tur = [[k,v[n_tur - 1]] for k,v in table_catches.items()]
-    print(catches_tur)
+    print(f'{catches_tur = }')
 
     # сортировка списка по поимкам
     catches_tur_sort = sorted(catches_tur, key=lambda nud: (nud[1], nud[0]), reverse=True)
-    print(catches_tur_sort)
+    print(f'{catches_tur_sort = }')
+
+    # формирование поимок в туре отсортированное с уменьшением
+    catches = sorted((v[1] for v in catches_tur_sort), reverse=True)
+    print(f'{catches = }')
 
     # формирование уникальных поимок в туре отсортированное с уменьшением
     unique_catches = sorted(list(set(v[1] for v in catches_tur_sort)), reverse=True)
-    print(unique_catches)
+    print(f'{unique_catches = }')
 
-    # print([x[0] for x in list1].count(1))
+    # алгоритм подсчёта мест и очков
+    for catch in unique_catches:
+        q_catch = catches.count(catch)
+        print(catch, q_catch)
+        if q_catch == 1:
+            # тут выдать данные и внести их в итоговую таблицу - id, catch, очки, место
+            pass
+        else:
+            # тут посчитать очки, место на несколько поимок
+            pass
 
-    return catches_tur
+    # итоговая таблица с очками и местами тура
+    tur_result = []
+
+    return tur_result
 
 
 if __name__ == '__main__':
-    print()
-    create_tournament()
-    print()
-    create_anglers()
+    # print()
+    # create_tournament()
+    # print()
+    # create_anglers()
+
     print()
     calc_tur(table_catches, 1)
-    print()
-    calc_tur(table_catches, 2)
-    print()
-    calc_tur(table_catches, 3)
+    # print()
+    # calc_tur(table_catches, 2)
+    # print()
+    # calc_tur(table_catches, 3)
     # print()
     # calc_tur(table_catches, 4)
