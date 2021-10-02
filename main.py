@@ -124,10 +124,12 @@ def calc_tur(t_catches, n_tur):
     catches_tur_sort = sorted(catches_tur, key=lambda nud: (nud[1], nud[0]), reverse=True)
     print(catches_tur_sort)
 
+    # формирование уникальных поимок в туре отсортированное с уменьшением
+    unique_catches = sorted(list(set(v[1] for v in catches_tur_sort)), reverse=True)
+    print(unique_catches)
+
     # print([x[0] for x in list1].count(1))
 
-    # list_big_files = sorted(list_big_files, key=lambda nud: (nud[2], nud[0], nud[1]))
-    # list_big_files = sorted(list_big_files, key=lambda size_big_file: size_big_file[0], reverse=True)
     return catches_tur
 
 
@@ -142,5 +144,5 @@ if __name__ == '__main__':
     calc_tur(table_catches, 2)
     print()
     calc_tur(table_catches, 3)
-    print()
-    calc_tur(table_catches, 4)
+    # print()
+    # calc_tur(table_catches, 4)
