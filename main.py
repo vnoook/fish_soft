@@ -8,11 +8,17 @@ table_anglers = {1: 'Иванов', 2: 'Петров', 3: 'Ветров', 4: 'Ф
 table_anglers_rank = {1: '1 разряд', 2: '2 разряд', 3: '3 разряд', 4: '1 разряд',
                       5: None, 6: 'МС', 7: 'КМС', 8: 'МС'}
 # таблица рыбаков с id и командами
-table_anglers_teams = {1: 'team1', 2: 'team1', 3: 'team2', 4: 'team3',
-                       5: 'team2', 6: 'team3', 7: None, 8: None}
-# таблица поимок в Tournament.quantity_period (4) периодах
-table_catches = {1: [1, 4, 7, 1], 2: [2, 52, 0, 2], 3: [43, 4, 5, 6], 4: [1, 0, 4, 22],
-                 5: [8, 0, 12, 71], 6: [15, 18, 1, 0], 7: [0, 16, 13, 3], 8: [5, 17, 4, 4]}
+table_anglers_teams = {1: 'Караси', 2: 'Караси', 3: 'Тим Ту', 4: 'FreeHunt',
+                       5: 'Тим Ту', 6: 'FreeHunt', 7: None, 8: None}
+# таблица поимок в Tournament.quantity_period периодах
+table_catches = {1: [1,  4,  7,  1],
+                 2: [2,  52, 0,  2],
+                 3: [43, 4,  5,  6],
+                 4: [1,  0,  4,  22],
+                 5: [8,  0,  12, 71],
+                 6: [15, 18, 1,  0],
+                 7: [0,  16, 13, 3],
+                 8: [5,  17, 4,  4]}
 
 
 # класс Соревнование
@@ -52,6 +58,7 @@ class Angler:
         self.angler_fio = a_fio
         self.angler_rank = a_rank
         self.angler_team = a_team
+        self.flag_disqual = False
 
     def get_angler_class_name(self):
         for k, v in globals().items():
@@ -62,10 +69,15 @@ class Angler:
         return f'{"без разряда" if self.angler_rank is None else self.angler_rank}'
 
     def get_team(self):
-        return f'{"Личник" if self.angler_team is None else self.angler_team}'
+        return f'{"личник" if self.angler_team is None else self.angler_team}'
+
+    def get_flag_disqual(self):
+        return f'{"дисквалифицирован" if self.flag_disqual else "не дисквалифицирован"}'
 
     def get_all_info(self):
-        return f'{self.get_angler_class_name()} . {self.angler_id} . {self.angler_fio} . {self.get_rank()} . {self.get_team()}'
+        return f'Объект {self.get_angler_class_name()}, id={self.angler_id}, ' \
+               f'{str(self.angler_fio).center(8)}, {str(self.get_rank()).ljust(12)}, ' \
+               f'{str(self.get_team()).ljust(8)} . {self.get_flag_disqual()}'
 
 
 def create_tournament():
@@ -88,13 +100,23 @@ def create_anglers():
         print(f'{globals()["Angler"+str(angler_id)].get_all_info()}')
 
 
+# функция считающая победителей в одном периоде
+# на вход даётся таблица уловов и номер тура который нужно посчитать
+# возвращать нужно сортированный список по убыванию уже с местами
+# (место, ид участника, улов, количество очков за этот период)
+def calc_tur(t_catches, n_tur):
+    tuple_won = (t_catches, n_tur)
+    print(*tuple_won)
+    # сортировка списка
+    # list_big_files = sorted(list_big_files, key=lambda nud: (nud[2], nud[0], nud[1]))
+    # list_big_files = sorted(list_big_files, key=lambda size_big_file: size_big_file[0], reverse=True)
+    pass
+    return None
+
+
 if __name__ == '__main__':
     print()
     create_tournament()
     print()
     create_anglers()
     print()
-
-# сортировка списка
-# list_big_files = sorted(list_big_files, key=lambda nud: (nud[2], nud[0], nud[1]))
-# list_big_files = sorted(list_big_files, key=lambda size_big_file: size_big_file[0], reverse=True)
