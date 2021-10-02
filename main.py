@@ -8,22 +8,27 @@ table_anglers = {1: 'Иванов', 2: 'Петров', 3: 'Ветров', 4: 'Ф
 table_anglers_rank = {1: '1 разряд', 2: '2 разряд', 3: '3 разряд', 4: '1 разряд',
                       5: None, 6: 'МС', 7: 'КМС', 8: 'МС'}
 # таблица рыбаков с id и командами
-table_anglers_teams = {1: 'Караси', 2: 'Караси', 3: 'Тим Ту', 4: 'FreeHunt',
-                       5: 'Тим Ту', 6: 'FreeHunt', 7: None, 8: None}
+table_anglers_teams = {1: 'Караси', 2: 'Караси', 3: 'Тим-Ту', 4: 'FreeHunt',
+                       5: 'Тим-Ту', 6: 'FreeHunt', 7: None, 8: None}
 # таблица поимок в Tournament.quantity_period периодах
-table_catches = {1: [1,  4,  7,  1],
-                 2: [2,  52, 0,  2],
-                 3: [43, 4,  5,  6],
-                 4: [1,  0,  4,  22],
-                 5: [8,  0,  12, 71],
-                 6: [15, 18, 1,  0],
-                 7: [0,  16, 13, 3],
-                 8: [5,  17, 4,  4]}
+table_catches = {1: (1,  4,  7,  1),
+                 2: (2,  52, 0,  2),
+                 3: (43, 4,  5,  6),
+                 4: (1,  0,  4,  22),
+                 5: (8,  0,  12, 71),
+                 6: (15, 18, 1,  0),
+                 7: (0,  16, 13, 3),
+                 8: (5,  17, 4,  4)}
 
+import uuid
 
 # класс Соревнование
 class Tournament:
     def __init__(self, q_tur=1, q_period=4, q_zone=1, q_sector=None, d_period=45, q_anglers=15):
+        # TODO
+        # дата начала соревнований
+        # уникальный номер сорев для списка сорев в будущем, делать через uuid.uuid4()
+
         # количество туров
         self.quantity_tur = q_tur
         # количество периодов
@@ -54,11 +59,13 @@ class Angler:
         # TODO
         # тут сделать проверку входных данных, а только потом присвоить
         # id только число, фио только буквы, ранг и команда None если не заполнено
+        self.__angler_uid = uuid.uuid4()
         self.angler_id = a_id
         self.angler_fio = a_fio
         self.angler_rank = a_rank
         self.angler_team = a_team
         self.flag_disqual = False
+        self.flag_team = True if a_team is not None else False
 
     def get_angler_class_name(self):
         for k, v in globals().items():
@@ -74,10 +81,14 @@ class Angler:
     def get_flag_disqual(self):
         return f'{"дисквалифицирован" if self.flag_disqual else "не дисквалифицирован"}'
 
+    def get_flag_team(self):
+        return f'{"в команде" if self.flag_team else "не в команде"}'
+
     def get_all_info(self):
         return f'Объект {self.get_angler_class_name()}, id={self.angler_id}, ' \
                f'{str(self.angler_fio).center(8)}, {str(self.get_rank()).ljust(12)}, ' \
-               f'{str(self.get_team()).ljust(8)} . {self.get_flag_disqual()}'
+               f'{str(self.get_team()).ljust(12)}, ' \
+               f'{self.get_flag_disqual()}, {self.get_flag_team()}'
 
 
 def create_tournament():
@@ -105,13 +116,19 @@ def create_anglers():
 # возвращать нужно сортированный список по убыванию уже с местами
 # (место, ид участника, улов, количество очков за этот период)
 def calc_tur(t_catches, n_tur):
-    tuple_won = (t_catches, n_tur)
-    print(*tuple_won)
-    # сортировка списка
+    # формирования списка поимок в туре
+    catches_tur = [[k,v[n_tur - 1]] for k,v in table_catches.items()]
+    print(catches_tur)
+
+    # сортировка списка по поимкам
+    catches_tur_sort = sorted(catches_tur, key=lambda nud: (nud[1], nud[0]), reverse=True)
+    print(catches_tur_sort)
+
+    # print([x[0] for x in list1].count(1))
+
     # list_big_files = sorted(list_big_files, key=lambda nud: (nud[2], nud[0], nud[1]))
     # list_big_files = sorted(list_big_files, key=lambda size_big_file: size_big_file[0], reverse=True)
-    pass
-    return None
+    return catches_tur
 
 
 if __name__ == '__main__':
@@ -120,3 +137,10 @@ if __name__ == '__main__':
     print()
     create_anglers()
     print()
+    calc_tur(table_catches, 1)
+    print()
+    calc_tur(table_catches, 2)
+    print()
+    calc_tur(table_catches, 3)
+    print()
+    calc_tur(table_catches, 4)
