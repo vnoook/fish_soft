@@ -1,6 +1,9 @@
 # вспомогательные данные для расчётов консольной версии
 # впоследствии это будет браться из базы ИЛИ формы GUI
 # !!! главное чтобы в table_anglers И table_anglers_rank И table_anglers_teams ключи id совпадали
+
+import uuid
+
 # таблица рыбаков с id и fio
 table_anglers = {1: 'Иванов', 2: 'Петров', 3: 'Ветров', 4: 'Фролов',
                  5: 'Попков', 6: 'Котова', 7: 'Рыбова', 8: 'Локтев'}
@@ -18,9 +21,9 @@ table_catches = {1: (1,  4,  7,  1),
                  5: (15, 4,  12, 71),
                  6: (15, 18, 1,  0),
                  7: (0,  16, 13, 3),
-                 8: (5,  17, 4,  4)}
+                 8: (5,  17, 4,  4)
+                 }
 
-import uuid
 
 # класс Соревнование
 class Tournament:
@@ -91,11 +94,13 @@ class Angler:
                f'{self.get_flag_disqual()}, {self.get_flag_team()}'
 
 
+# функция по созданию сорев, чисто утилитарная для хранения переменных в конкретных соревах
 def create_tournament():
     tournament = Tournament(q_tur=1, q_period=4, q_zone=1, q_sector=None, d_period=45, q_anglers=8)
     print(tournament.get_tournament_info())
 
 
+# функция по созданию рыбака на соревах
 def create_anglers():
     # создание экземпляров рыбаков по количеству из table_anglers
     for angler_id, angler_fio in table_anglers.items():
@@ -111,13 +116,18 @@ def create_anglers():
         print(f'{globals()["Angler"+str(angler_id)].get_all_info()}')
 
 
+# функция для проверки входных данных на наличие только цифр
+def only_numbers():
+    pass
+
+
 # функция считающая победителей в одном периоде
 # на вход даётся таблица уловов и номер тура который нужно посчитать
 # возвращать нужно сортированный список по убыванию уже с местами
 # (место, ид участника, улов, количество очков за этот период)
 def calc_tur(t_catches, n_tur):
     # список поимок в туре и id рыбака
-    catches_tur = [[k,v[n_tur - 1]] for k,v in table_catches.items()]
+    catches_tur = [[k, v[n_tur - 1]] for k, v in t_catches.items()]
     print(f'{catches_tur      = }')
 
     # сортировка списка по поимкам по уловам с уменьшением
@@ -148,7 +158,7 @@ def calc_tur(t_catches, n_tur):
             # print(f'{a_index = }', end=', ')
 
             # улов
-            a_catch = catch
+            # a_catch = catch
             # print(f'{a_catch = }', end=', ')
 
             # место
@@ -178,11 +188,11 @@ def calc_tur(t_catches, n_tur):
 
             # место
             a_place = '?'
-            # print(f'{a_place = }', end=', ')
+            print(f'{a_place = }', end=', ')
 
             # очки
             a_score = '?'
-            # print(f'{a_score = }', end=', ')
+            print(f'{a_score = }', end=', ')
 
             tur_result[a_index].append(a_place)
             tur_result[a_index].append(a_score)
