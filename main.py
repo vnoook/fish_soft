@@ -121,6 +121,17 @@ def only_numbers():
     pass
 
 
+# функция расчёта очков с известными - начало отсчёта, количество очков
+def calc_scores(index_start, index_quantity):
+    scores = 0
+    # print(f'{index_start = }, {index_quantity = }')
+    for x_q in range(index_start, index_start+index_quantity):
+        # print(f'{x_q = }')
+        scores = scores + x_q / index_quantity
+    # print(scores)
+    return scores
+
+
 # функция считающая победителей в одном периоде
 # на вход даётся таблица уловов и номер тура который нужно посчитать
 # возвращать нужно сортированный список по убыванию уже с местами
@@ -128,11 +139,11 @@ def only_numbers():
 def calc_tur(t_catches, n_tur):
     # список id рыбаков с уловами в конкретном n_tur туре
     catches_tur = [[k, v[n_tur - 1]] for k, v in t_catches.items()]
-    # print(f'{catches_tur      = }')
+    print(f'{catches_tur      = }')
 
     # сортировка списка рыбаков по уловам с уменьшением
     catches_tur_sort = sorted(catches_tur, key=lambda nud: (nud[1], nud[0]), reverse=True)
-    # print(f'{catches_tur_sort = }')
+    print(f'{catches_tur_sort = }')
 
     # список только поимок в туре отсортированное с уменьшением
     catches = sorted((v[1] for v in catches_tur_sort), reverse=True)
@@ -151,6 +162,8 @@ def calc_tur(t_catches, n_tur):
     index_offset = 0
     # переменная для сохранения предыдущего улова для
     prev_catch = None
+
+    index_first = None
 
     # алгоритм подсчёта мест и очков
     # иду по отсортированным уловам, смотрю их индекс и повтор уловов
@@ -183,7 +196,9 @@ def calc_tur(t_catches, n_tur):
         # ситуация когда повтор улова есть
         else:
             # индекс улова
-            if prev_catch != catch:
+            # если предыдущее не одинаковое, то значит это первый элемент за которым пойдут одинаковые
+            if catch != prev_catch:
+                index_first = (catches.index(catch)+1) + index_offset
                 index_offset = 0
             else:
                 index_offset += 1
@@ -199,7 +214,7 @@ def calc_tur(t_catches, n_tur):
             print(f'{a_place = }', end=',  ')
 
             # очки
-            a_score = '?'
+            a_score = calc_scores(index_first, q_catch)
             print(f'{a_score = }')
 
             tur_result[a_index].append(a_place)
@@ -223,3 +238,5 @@ if __name__ == '__main__':
     for tur in range(1, len(table_catches[1])+1):
         print(tur, '*'*50)
         calc_tur(table_catches, tur)
+
+    # calc_scores(1, 4)
