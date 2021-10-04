@@ -147,47 +147,60 @@ def calc_tur(t_catches, n_tur):
     # копирование отсортированной таблицы
     tur_result = catches_tur_sort[:]
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     # смещение при расчётах
     index_offset = 0
-
+    # переменная для сохранения предыдущего улова для
     prev_catch = None
-    catch = None
-    print(prev_catch, catch)
 
     # алгоритм подсчёта мест и очков
+    # иду по отсортированным уловам, смотрю их индекс и повтор уловов
     for catch in catches:
         q_catch = catches.count(catch)
-        # print(catch, q_catch)
 
+        # ситуация когда повтора улова нет
+        # взять данные и внести их в итоговую таблицу - место, очки
         if q_catch == 1:
-            # тут выдать данные и внести их в итоговую таблицу - id, catch, место, очки
-            # print()
+            # индекс улова
             index_offset = 0
-
-            # id = index
-            # a_index = catches.index(catch)
             a_index = catches.index(catch) + index_offset
-            print(f'{a_index = }')
+            print(f'{a_index = }', end=',   ')
 
             # улов
-            # a_catch = catch
-            # print(f'{a_catch = }', end=', ')
+            a_catch = catch
+            print(f'{a_catch = }', end=',   ')
 
             # место
             a_place = unique_catches.index(catch) + 1
-            # print(f'{a_place = }', end=', ')
+            print(f'{a_place = }', end=',   ')
 
             # очки
             a_score = unique_catches.index(catch) + 1
-            # print(f'{a_score = }', end=', ')
+            print(f'{a_score = }')
 
             tur_result[a_index].append(a_place)
             tur_result[a_index].append(a_score)
+
+        # ситуация когда повтор улова есть
         else:
             # тут посчитать очки, место при одинаковых поимках
             # print()
 
-            # id = index
+            # индекс улова
             a_index = catches.index(catch) + index_offset
             print(f'{a_index = }')
 
@@ -210,11 +223,27 @@ def calc_tur(t_catches, n_tur):
 
             # tur_result[a_index].append(a_place)
             # tur_result[a_index].append(a_score)
+
             if prev_catch == catch:
                 index_offset += 1
+            # else:
+            #     index_offset += 1
 
         prev_catch = catch
-        print(prev_catch, catch)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     # print()
     print()
@@ -229,7 +258,7 @@ if __name__ == '__main__':
     # print()
     # create_anglers()
 
-    # for tur in (1, 6):
+    # for tur in (5, ):
     for tur in range(1, len(table_catches[1])+1):
         print(tur, '*'*50)
         calc_tur(table_catches, tur)
