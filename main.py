@@ -14,14 +14,14 @@ table_anglers_rank = {1: '1 разряд', 2: '2 разряд', 3: '3 разря
 table_anglers_teams = {1: 'Караси', 2: 'Караси', 3: 'Тим-Ту', 4: 'FreeHunt',
                        5: 'Тим-Ту', 6: 'FreeHunt', 7: None, 8: None}
 # таблица поимок в Tournament.quantity_period периодах
-table_catches = {1: (1,  4,  7,  1),
-                 2: (2,  52, 0,  2),
-                 3: (43, 4,  5,  6),
-                 4: (1,  0,  12, 22),
-                 5: (15, 4,  12, 71),
-                 6: (15, 18, 1,  0),
-                 7: (0,  16, 13, 3),
-                 8: (5,  17, 4,  4)
+table_catches = {1: (1,  4,  7,  1,  1,  9),
+                 2: (2,  52, 7,  2,  2,  9),
+                 3: (43, 4,  7,  6,  3,  9),
+                 4: (1,  0,  12, 22, 4,  9),
+                 5: (15, 4,  12, 71, 5,  9),
+                 6: (15, 18, 1,  0,  6,  9),
+                 7: (0,  16, 13, 3,  7,  9),
+                 8: (5,  17, 1,  4,  8,  9)
                  }
 
 
@@ -210,11 +210,7 @@ if __name__ == '__main__':
     # print()
     # create_anglers()
 
-    print('*'*50)
-    calc_tur(table_catches, 1)
-    # print('*'*50)
-    # calc_tur(table_catches, 2)
-    # print('*'*50)
-    # calc_tur(table_catches, 3)
-    # print('*'*50)
-    # calc_tur(table_catches, 4)
+    # for tur in range(1, len(table_catches[1])+1):
+    for tur in range(0 + 1):
+        print('*'*50)
+        calc_tur(table_catches, tur)
