@@ -128,11 +128,11 @@ def only_numbers():
 def calc_tur(t_catches, n_tur):
     # список id рыбаков с уловами в конкретном n_tur туре
     catches_tur = [[k, v[n_tur - 1]] for k, v in t_catches.items()]
-    print(f'{catches_tur      = }')
+    # print(f'{catches_tur      = }')
 
     # сортировка списка рыбаков по уловам с уменьшением
     catches_tur_sort = sorted(catches_tur, key=lambda nud: (nud[1], nud[0]), reverse=True)
-    print(f'{catches_tur_sort = }')
+    # print(f'{catches_tur_sort = }')
 
     # список только поимок в туре отсортированное с уменьшением
     catches = sorted((v[1] for v in catches_tur_sort), reverse=True)
@@ -146,21 +146,6 @@ def calc_tur(t_catches, n_tur):
     # итоговая таблица с очками и местами тура
     # копирование отсортированной таблицы
     tur_result = catches_tur_sort[:]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     # смещение при расчётах
     index_offset = 0
@@ -178,15 +163,15 @@ def calc_tur(t_catches, n_tur):
             # индекс улова
             index_offset = 0
             a_index = catches.index(catch) + index_offset
-            print(f'{a_index = }', end=',   ')
+            print(f'{a_index = }', end=',...')
 
             # улов
             a_catch = catch
-            print(f'{a_catch = }', end=',   ')
+            print(f'{a_catch = }', end=',...')
 
             # место
             a_place = unique_catches.index(catch) + 1
-            print(f'{a_place = }', end=',   ')
+            print(f'{a_place = }', end=',...')
 
             # очки
             a_score = unique_catches.index(catch) + 1
@@ -197,55 +182,31 @@ def calc_tur(t_catches, n_tur):
 
         # ситуация когда повтор улова есть
         else:
-            # тут посчитать очки, место при одинаковых поимках
-            # print()
-
             # индекс улова
+            if prev_catch != catch:
+                index_offset = 0
+            else:
+                index_offset += 1
             a_index = catches.index(catch) + index_offset
-            print(f'{a_index = }')
+            print(f'{a_index = }', end=',  ')
 
             # улов
-            # a_catch = catch
-            # print(f'{a_catch = }', end=', ')
-
-            # количество повторов улова
-            # a_q_catch = q_catch
-            # print(f'{a_q_catch = }', end=', ')
+            a_catch = catch
+            print(f'{a_catch = }', end=',  ')
 
             # место
-            a_place = '?'
-            # a_place = unique_catches.index(catch) + 1
-            # print(f'{a_place = }', end=', ')
+            a_place = unique_catches.index(catch) + 1
+            print(f'{a_place = }', end=',  ')
 
             # очки
             a_score = '?'
-            # print(f'{a_score = }', end=', ')
+            print(f'{a_score = }')
 
-            # tur_result[a_index].append(a_place)
-            # tur_result[a_index].append(a_score)
-
-            if prev_catch == catch:
-                index_offset += 1
-            # else:
-            #     index_offset += 1
+            tur_result[a_index].append(a_place)
+            tur_result[a_index].append(a_score)
 
         prev_catch = catch
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    # print()
     print()
     print(f'{tur_result = }')
 
