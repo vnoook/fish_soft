@@ -171,8 +171,8 @@ def calc_tur(t_catches, n_tur):
         q_catch = catches.count(catch)
 
         # ситуация когда повтора улова нет
-        # взять данные и внести их в итоговую таблицу - место, очки
         if q_catch == 1:
+            # взять данные и внести их в итоговую таблицу - место, очки
             # индекс улова
             index_offset = 0
             a_index = catches.index(catch) + index_offset
@@ -183,7 +183,7 @@ def calc_tur(t_catches, n_tur):
             print(f'{a_catch = }', end=',...')
 
             # место
-            a_place = unique_catches.index(catch) + 1
+            a_place = a_index + 1
             print(f'{a_place = }', end=',...')
 
             # очки
@@ -198,7 +198,7 @@ def calc_tur(t_catches, n_tur):
             # индекс улова
             # если предыдущее не одинаковое, то значит это первый элемент за которым пойдут одинаковые
             if catch != prev_catch:
-                index_first = (catches.index(catch)+1) + index_offset
+                index_first = (catches.index(catch) + index_offset) + 1
                 index_offset = 0
             else:
                 index_offset += 1
@@ -210,7 +210,7 @@ def calc_tur(t_catches, n_tur):
             print(f'{a_catch = }', end=',  ')
 
             # место
-            a_place = unique_catches.index(catch) + 1
+            a_place = a_index + 1
             print(f'{a_place = }', end=',  ')
 
             # очки
@@ -239,4 +239,8 @@ if __name__ == '__main__':
         print(tur, '*'*50)
         calc_tur(table_catches, tur)
 
-    # calc_scores(1, 4)
+    print('*' * 50)
+    print(f'{calc_scores(7, 2) = }')
+    print(f'{calc_scores(8, 4) = }')
+    print(f'{calc_scores(9, 1) = }')
+    print(f'{calc_scores(4, 5) = }')
