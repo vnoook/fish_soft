@@ -24,6 +24,16 @@ table_catches = {1: (1,  4,  7,  1,  1,  9),
                  8: (5,  17, 1,  4,  8,  9)
                  }
 
+# table_catches = {1: (11, 22, 33, 41, 51, 69, 70, 81, 99, 100),
+#                  2: (12, 22, 33, 42, 52, 69, 71, 81, 99, 101),
+#                  3: (13, 22, 33, 43, 53, 69, 72, 82, 99, 101),
+#                  4: (14, 22, 34, 43, 54, 68, 73, 83, 98, 100),
+#                  5: (15, 22, 34, 44, 55, 67, 74, 84, 98, 102),
+#                  6: (16, 22, 35, 45, 56, 66, 74, 85, 98, 102),
+#                  7: (17, 22, 36, 46, 57, 65, 74, 86, 99, 100),
+#                  8: (18, 22, 37, 46, 57, 64, 74, 87, 99, 100)
+#                  }
+
 
 # класс Соревнование
 class Tournament:
@@ -118,10 +128,11 @@ def create_anglers():
 
 # функция для проверки входных данных на наличие только цифр
 def only_numbers():
+    # TODO
     pass
 
 
-# функция расчёта очков с известными - начало отсчёта, количество очков
+# функция подсчёта очков с известными - начальное место одинаковых уловов, количество одинаковых уловов
 def calc_scores(index_start, index_quantity):
     scores = 0
     # print(f'{index_start = }, {index_quantity = }')
@@ -176,18 +187,19 @@ def calc_tur(t_catches, n_tur):
             # индекс улова
             index_offset = 0
             a_index = catches.index(catch) + index_offset
-            print(f'{a_index = }', end=',...')
+            print(f'{a_index = }', end=',   ')
 
             # улов
             a_catch = catch
-            print(f'{a_catch = }', end=',...')
+            print(f'{a_catch = }', end=',   ')
 
             # место
             a_place = a_index + 1
-            print(f'{a_place = }', end=',...')
+            print(f'{a_place = }', end=',   ')
 
             # очки
-            a_score = unique_catches.index(catch) + 1
+            a_score = catches.index(catch) + 1
+            # a_score = calc_scores(index_first, 1)
             print(f'{a_score = }')
 
             tur_result[a_index].append(a_place)
@@ -203,15 +215,15 @@ def calc_tur(t_catches, n_tur):
             else:
                 index_offset += 1
             a_index = catches.index(catch) + index_offset
-            print(f'{a_index = }', end=',  ')
+            print(f'{a_index = }', end=',   ')
 
             # улов
             a_catch = catch
-            print(f'{a_catch = }', end=',  ')
+            print(f'{a_catch = }', end=',   ')
 
             # место
             a_place = a_index + 1
-            print(f'{a_place = }', end=',  ')
+            print(f'{a_place = }', end=',   ')
 
             # очки
             a_score = calc_scores(index_first, q_catch)
@@ -234,13 +246,13 @@ if __name__ == '__main__':
     # print()
     # create_anglers()
 
-    # for tur in (5, ):
-    for tur in range(1, len(table_catches[1])+1):
+    # for tur in range(1, len(table_catches[1])+1):
+    for tur in (1, ):
         print(tur, '*'*50)
         calc_tur(table_catches, tur)
 
-    print('*' * 50)
-    print(f'{calc_scores(7, 2) = }')
-    print(f'{calc_scores(8, 4) = }')
-    print(f'{calc_scores(9, 1) = }')
-    print(f'{calc_scores(4, 5) = }')
+    # print('*' * 50)
+    # print(f'{calc_scores(7, 2) = }')
+    # print(f'{calc_scores(8, 4) = }')
+    # print(f'{calc_scores(9, 1) = }')
+    # print(f'{calc_scores(4, 5) = }')
