@@ -169,70 +169,46 @@ def calc_tur(t_catches, n_tur):
     # копирование отсортированной таблицы
     tur_result = catches_tur_sort[:]
 
-    # смещение при расчётах
-    index_offset = 0
     # переменная для сохранения предыдущего улова для
     prev_catch = None
-
-    index_first = None
+    # переменная для хранения первого улова за которым пойдут повторяющиеся уловы, нужна для подсчёта очков
+    first_repeat_catch = None
+    # индекс улова
+    catch_index = -1
 
     # алгоритм подсчёта мест и очков
     # иду по отсортированным уловам, смотрю их индекс и повтор уловов
     for catch in catches:
         q_catch = catches.count(catch)
+        catch_index += 1
 
-        # ситуация когда повтора улова нет
-        if q_catch == 1:
-            # взять данные и внести их в итоговую таблицу - место, очки
-            # индекс улова
-            index_offset = 0
-            a_index = catches.index(catch) + index_offset
-            print(f'{a_index = }', end=',   ')
+        # улов
+        print(f'{catch = }', end=',   ')
 
-            # улов
-            a_catch = catch
-            print(f'{a_catch = }', end=',   ')
+        # индекс улова
+        print(f'{catch_index = }', end=',   ')
 
-            # место
-            a_place = a_index + 1
-            print(f'{a_place = }', end=',   ')
+        # место
+        angler_place = catch_index + 1
+        print(f'{angler_place = }', end=',   ')
 
-            # очки
-            a_score = catches.index(catch) + 1
-            # a_score = calc_scores(index_first, 1)
-            print(f'{a_score = }')
+        # очки
+        # если предыдущий улов не равен текущему, то значит это первый элемент за которым пойдут одинаковые
+        if catch != prev_catch:
+            first_repeat_catch = catches.index(catch) + 1
 
-            tur_result[a_index].append(a_place)
-            tur_result[a_index].append(a_score)
+        if q_catch == 1:  # ситуация когда повтора улова нет
+            angler_score = calc_scores(angler_place, 1)
+        else:  # ситуация когда повтор улова есть
+            angler_score = calc_scores(first_repeat_catch, q_catch)
+        print(f'{angler_score = }')
 
-        # ситуация когда повтор улова есть
-        else:
-            # индекс улова
-            # если предыдущее не одинаковое, то значит это первый элемент за которым пойдут одинаковые
-            if catch != prev_catch:
-                index_first = (catches.index(catch) + index_offset) + 1
-                index_offset = 0
-            else:
-                index_offset += 1
-            a_index = catches.index(catch) + index_offset
-            print(f'{a_index = }', end=',   ')
-
-            # улов
-            a_catch = catch
-            print(f'{a_catch = }', end=',   ')
-
-            # место
-            a_place = a_index + 1
-            print(f'{a_place = }', end=',   ')
-
-            # очки
-            a_score = calc_scores(index_first, q_catch)
-            print(f'{a_score = }')
-
-            tur_result[a_index].append(a_place)
-            tur_result[a_index].append(a_score)
-
+        # запоминание предыдущего улова
         prev_catch = catch
+
+        # добавление места и очков в итоговую таблицу
+        tur_result[catch_index].append(angler_place)
+        tur_result[catch_index].append(angler_score)
 
     print()
     print(f'{tur_result = }')
