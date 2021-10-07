@@ -64,6 +64,11 @@ class Tournament:
                f'период длится {self.duration_period} минут, ' \
                f'количество соревнующихся {self.quantity_anglers}'
 
+    def get_tournament_class_name(self):
+        for k, v in globals().items():
+            if v is self:
+                return k
+
 
 # класс Рыбак
 class Angler:
