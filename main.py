@@ -152,7 +152,8 @@ def calc_tur(t_catches, n_tur):
     print(f'{catches_tur      = }')
 
     # сортировка списка рыбаков по уловам с уменьшением
-    catches_tur_sort = sorted(catches_tur, key=lambda nud: (nud[1], nud[0]), reverse=True)
+    # catches_tur_sort = sorted(catches_tur, key=lambda nud: (nud[1], nud[0]), reverse=True)
+    catches_tur_sort = sorted(catches_tur, key=lambda nud: nud[1], reverse=True)
     print(f'{catches_tur_sort = }')
 
     # список только поимок в туре отсортированное с уменьшением
@@ -178,7 +179,9 @@ def calc_tur(t_catches, n_tur):
     # алгоритм подсчёта мест и очков
     # иду по отсортированным уловам, смотрю их индекс и повтор уловов
     for catch in catches:
+        # количество повторов уловов
         q_catch = catches.count(catch)
+        # увеличение индекса
         catch_index += 1
 
         # улов
@@ -192,12 +195,12 @@ def calc_tur(t_catches, n_tur):
         print(f'{angler_place = }', end=',   ')
 
         # очки
-        # если предыдущий улов не равен текущему, то значит это первый элемент за которым пойдут одинаковые
+        # если текущий улов не равен предыдущему, то значит это первый элемент за которым пойдут повторные
         if catch != prev_catch:
             first_repeat_catch = catches.index(catch) + 1
 
         if q_catch == 1:  # ситуация когда повтора улова нет
-            angler_score = calc_scores(angler_place, 1)
+            angler_score = calc_scores(angler_place, q_catch)
         else:  # ситуация когда повтор улова есть
             angler_score = calc_scores(first_repeat_catch, q_catch)
         print(f'{angler_score = }')
