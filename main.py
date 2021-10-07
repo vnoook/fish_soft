@@ -67,6 +67,8 @@ class Tournament:
 
 # класс Рыбак
 class Angler:
+    angler_count = 0
+
     def __init__(self, a_id, a_fio, a_rank=None, a_team=None):
         # TODO
         # тут сделать проверку входных данных, а только потом присвоить
@@ -78,6 +80,7 @@ class Angler:
         self.angler_team = a_team
         self.flag_disqual = False
         self.flag_team = True if a_team is not None else False
+        Angler.angler_count += 1
 
     def get_angler_class_name(self):
         for k, v in globals().items():
