@@ -23,16 +23,6 @@ table_catches = {1: (1,  4,  7,  1,  1,  9),
                  7: (0,  16, 13, 3,  7,  9),
                  8: (5,  17, 1,  4,  8,  9)}
 
-# table_catches = {1: (11, 22, 33, 41, 51, 69, 70, 81, 99, 100),
-#                  2: (12, 22, 33, 42, 52, 69, 71, 81, 99, 101),
-#                  3: (13, 22, 33, 43, 53, 69, 72, 82, 99, 101),
-#                  4: (14, 22, 34, 43, 54, 68, 73, 83, 98, 100),
-#                  5: (15, 22, 34, 44, 55, 67, 74, 84, 98, 102),
-#                  6: (16, 22, 35, 45, 56, 66, 74, 85, 98, 102),
-#                  7: (17, 22, 36, 46, 57, 65, 74, 86, 99, 100),
-#                  8: (18, 22, 37, 46, 57, 64, 74, 87, 99, 100),
-#                  9: (19, 22, 39, 47, 57, 64, 72, 88, 90, 10)}
-
 
 # класс Соревнование
 class Tournament:
@@ -142,11 +132,8 @@ def only_numbers():
 # функция подсчёта очков с известными - начальное место одинаковых уловов, количество одинаковых уловов
 def calc_scores(index_start, index_quantity):
     scores = 0
-    # print(f'{index_start = }, {index_quantity = }')
     for x_q in range(index_start, index_start+index_quantity):
-        # print(f'{x_q = }')
         scores = scores + x_q / index_quantity
-    # print(scores)
     return scores
 
 
@@ -221,24 +208,18 @@ def calc_tur(t_catches, n_tur):
         tur_result[catch_index].append(angler_score)
 
     print()
+    # итоговая таблица с местами и очками
     print(f'{tur_result = }')
 
     return tur_result
 
 
 if __name__ == '__main__':
-    # print()
-    # create_tournament()
-    # print()
-    # create_anglers()
+    print()
+    create_tournament()
+    print()
+    create_anglers()
 
-    # for tur in (1, ):
     for tur in range(1, len(table_catches[1])+1):
         print(tur, '*'*50)
         calc_tur(table_catches, tur)
-
-    # print('*' * 50)
-    # print(f'{calc_scores(7, 2) = }')
-    # print(f'{calc_scores(8, 4) = }')
-    # print(f'{calc_scores(9, 1) = }')
-    # print(f'{calc_scores(4, 5) = }')
