@@ -151,9 +151,9 @@ def calc_scores(index_start, index_quantity):
 # (место, ид участника, улов, количество очков за этот период)
 # TODO
 # избавиться от лишних списков и реализовать расчёты с помощью обращений к первоначальному отсортированному списку
-def calc_period(t_catches, n_period):
+def calc_period(p_catches, n_period):
     # список id рыбаков с уловами в конкретном n_period туре
-    catches_period = [[k, v[n_period - 1]] for k, v in t_catches.items()]
+    catches_period = [[k, v[n_period - 1]] for k, v in p_catches.items()]
     print(f'{catches_period      = }')
 
     # сортировка списка рыбаков по уловам с уменьшением
