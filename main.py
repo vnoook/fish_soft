@@ -1,6 +1,10 @@
 # вспомогательные данные для расчётов консольной версии
 # впоследствии это будет браться из базы ИЛИ формы GUI
 # !!! главное чтобы в table_anglers И table_anglers_rank И table_anglers_teams ключи id совпадали
+# TODO
+# 1) сделать жеребьёвку
+# 2) сделать связку sqlite3
+# 3) вывести классы в отдельный файл
 
 import uuid
 
@@ -23,19 +27,11 @@ table_catches = {1: (1,  4,  7,  1,  1,  9),
                  7: (0,  16, 13, 3,  7,  9),
                  8: (5,  17, 1,  4,  8,  9)}
 
-# table_catches = {1: (11, 22, 33, 41, 51, 69, 70, 81, 99, 100),
-#                  2: (12, 22, 33, 42, 52, 69, 71, 81, 99, 101),
-#                  3: (13, 22, 33, 43, 53, 69, 72, 82, 99, 101),
-#                  4: (14, 22, 34, 43, 54, 68, 73, 83, 98, 100),
-#                  5: (15, 22, 34, 44, 55, 67, 74, 84, 98, 102),
-#                  6: (16, 22, 35, 45, 56, 66, 74, 85, 98, 102),
-#                  7: (17, 22, 36, 46, 57, 65, 74, 86, 99, 100),
-#                  8: (18, 22, 37, 46, 57, 64, 74, 87, 99, 100),
-#                  9: (19, 22, 39, 47, 57, 64, 72, 88, 90, 10)}
-
 
 # класс Соревнование
 class Tournament:
+    """ Класс Соревнование """
+
     def __init__(self, q_tur=1, q_period=4, q_zone=1, q_sector=None, d_period=45, q_anglers=15):
         # TODO
         # дата начала соревнований
@@ -64,9 +60,18 @@ class Tournament:
                f'период длится {self.duration_period} минут, ' \
                f'количество соревнующихся {self.quantity_anglers}'
 
+    def get_tournament_class_name(self):
+        for k, v in globals().items():
+            if v is self:
+                return k
+
 
 # класс Рыбак
 class Angler:
+    """ Класс Рыбак """
+
+    angler_count = 0
+
     def __init__(self, a_id, a_fio, a_rank=None, a_team=None):
         # TODO
         # тут сделать проверку входных данных, а только потом присвоить
@@ -78,6 +83,7 @@ class Angler:
         self.angler_team = a_team
         self.flag_disqual = False
         self.flag_team = True if a_team is not None else False
+        Angler.angler_count += 1
 
     def get_angler_class_name(self):
         for k, v in globals().items():
@@ -134,11 +140,8 @@ def only_numbers():
 # функция подсчёта очков с известными - начальное место одинаковых уловов, количество одинаковых уловов
 def calc_scores(index_start, index_quantity):
     scores = 0
-    # print(f'{index_start = }, {index_quantity = }')
     for x_q in range(index_start, index_start+index_quantity):
-        # print(f'{x_q = }')
         scores = scores + x_q / index_quantity
-    # print(scores)
     return scores
 
 
@@ -146,27 +149,28 @@ def calc_scores(index_start, index_quantity):
 # на вход даётся таблица уловов и номер тура который нужно посчитать
 # возвращать нужно сортированный список по убыванию уже с местами
 # (место, ид участника, улов, количество очков за этот период)
-def calc_tur(t_catches, n_tur):
-    # список id рыбаков с уловами в конкретном n_tur туре
-    catches_tur = [[k, v[n_tur - 1]] for k, v in t_catches.items()]
-    print(f'{catches_tur      = }')
+# TODO
+# избавиться от лишних списков и реализовать расчёты с помощью обращений к первоначальному отсортированному списку
+def calc_period(p_catches, n_period):
+    # список id рыбаков с уловами в конкретном n_period туре
+    catches_period = [[k, v[n_period - 1]] for k, v in p_catches.items()]
+    print(f'{catches_period      = }')
 
     # сортировка списка рыбаков по уловам с уменьшением
-    catches_tur_sort = sorted(catches_tur, key=lambda nud: (nud[1], nud[0]), reverse=True)
-    print(f'{catches_tur_sort = }')
+    catches_period_sort = sorted(catches_period, key=lambda nud: nud[1], reverse=True)
+    print(f'{catches_period_sort = }')
 
     # список только поимок в туре отсортированное с уменьшением
-    catches = sorted((v[1] for v in catches_tur_sort), reverse=True)
+    catches = sorted((v[1] for v in catches_period_sort), reverse=True)
     print(f'{catches          = }')
 
     # уникальные поимки в туре отсортированные с уменьшением
-    # unique_catches = sorted(list(set(v[1] for v in catches)), reverse=True)
     unique_catches = sorted(list(set(catches)), reverse=True)
     print(f'{unique_catches   = }')
 
     # итоговая таблица с очками и местами тура
     # копирование отсортированной таблицы
-    tur_result = catches_tur_sort[:]
+    period_result = catches_period_sort[:]
 
     # переменная для сохранения предыдущего улова для
     prev_catch = None
@@ -178,7 +182,9 @@ def calc_tur(t_catches, n_tur):
     # алгоритм подсчёта мест и очков
     # иду по отсортированным уловам, смотрю их индекс и повтор уловов
     for catch in catches:
+        # количество повторов уловов
         q_catch = catches.count(catch)
+        # увеличение индекса
         catch_index += 1
 
         # улов
@@ -192,12 +198,12 @@ def calc_tur(t_catches, n_tur):
         print(f'{angler_place = }', end=',   ')
 
         # очки
-        # если предыдущий улов не равен текущему, то значит это первый элемент за которым пойдут одинаковые
+        # если текущий улов не равен предыдущему, то значит это первый элемент за которым пойдут повторные
         if catch != prev_catch:
             first_repeat_catch = catches.index(catch) + 1
 
         if q_catch == 1:  # ситуация когда повтора улова нет
-            angler_score = calc_scores(angler_place, 1)
+            angler_score = calc_scores(angler_place, q_catch)
         else:  # ситуация когда повтор улова есть
             angler_score = calc_scores(first_repeat_catch, q_catch)
         print(f'{angler_score = }')
@@ -206,28 +212,22 @@ def calc_tur(t_catches, n_tur):
         prev_catch = catch
 
         # добавление места и очков в итоговую таблицу
-        tur_result[catch_index].append(angler_place)
-        tur_result[catch_index].append(angler_score)
+        period_result[catch_index].append(angler_place)
+        period_result[catch_index].append(angler_score)
 
     print()
-    print(f'{tur_result = }')
+    # итоговая таблица с местами и очками
+    print(f'{period_result = }')
 
-    return tur_result
+    return period_result
 
 
 if __name__ == '__main__':
-    # print()
-    # create_tournament()
-    # print()
-    # create_anglers()
+    print()
+    create_tournament()
+    print()
+    create_anglers()
 
-    # for tur in (1, ):
-    for tur in range(1, len(table_catches[1])+1):
-        print(tur, '*'*50)
-        calc_tur(table_catches, tur)
-
-    # print('*' * 50)
-    # print(f'{calc_scores(7, 2) = }')
-    # print(f'{calc_scores(8, 4) = }')
-    # print(f'{calc_scores(9, 1) = }')
-    # print(f'{calc_scores(4, 5) = }')
+    for period in range(1, len(table_catches[1])+1):
+        print(period, '*'*50)
+        calc_period(table_catches, period)
