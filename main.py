@@ -5,6 +5,7 @@
 # 1) сделать жеребьёвку
 # 2) сделать связку sqlite3
 # 3) вывести классы в отдельный файл
+# 4) сделать коменты ко всему
 
 import uuid
 
@@ -70,6 +71,8 @@ class Tournament:
 class Angler:
     """ Класс Рыбак """
 
+    # TODO
+    # описать переменную и зачем она?
     angler_count = 0
 
     def __init__(self, a_id, a_fio, a_rank=None, a_team=None):
