@@ -1,7 +1,7 @@
-
 def get_list_coodr_of_fields(start_x, start_y, shift_x, shift_y, field_h, q_sportmen):
     # список всех полей и их координаты
-    get_list_coodr_of_fields = []
+    list_coodr_of_fields = []
+    list_coodr_of_field = []
 
     # точка начала отчёта
     start_dot_x = start_x
@@ -28,7 +28,8 @@ def get_list_coodr_of_fields(start_x, start_y, shift_x, shift_y, field_h, q_spor
               ('Sportik11_period4_', 40),
               ('Sportik12_points_', 40),
               ('Sportik13_team_place_', 40),
-              ('Sportik14_self_place_', 40))
+              ('Sportik14_self_place_', 40)
+              )
 
     # количество спортиков
     q_sportiks = q_sportmen
@@ -38,23 +39,30 @@ def get_list_coodr_of_fields(start_x, start_y, shift_x, shift_y, field_h, q_spor
 
     for sportik in range(1, q_sportiks+1):
         field_step_x = start_dot_x
+        list_coodr_of_field = []
         for field in fields:
             field_name = field[0] + str(sportik)
             field_width = field[1]
 
-            print(f'[{field_step_x},{field_step_y}] {field_name} ({field_width} {field_height})', end=' ')
+            # print(f'[{field_step_x},{field_step_y}] {field_name} ({field_width} {field_height})', end=' ')
+            list_coodr_of_field.append(field_name)
+            list_coodr_of_field.append(field_step_x)
+            list_coodr_of_field.append(field_step_y)
 
             field_step_x = field_step_x + field_width
-            print(f'<{field_step_x},{field_step_y}>', end=' ... ')
+            # print(f'<{field_step_x},{field_step_y}>', end=' ... ')
 
             field_step_x = field_step_x + gap_x
-            print(f'{gap_x}', end=' ... ')
+            # print(f'{gap_x}', end=' ... ')
 
-        print(f'{field_step_x}', end='')
+        # print(f'{field_step_x}', end='')
 
         field_step_y = field_step_y + field_height + gap_y
 
-        print()
-    return get_list_coodr_of_fields
+        list_coodr_of_fields.append(list_coodr_of_field)
 
-print(get_list_coodr_of_fields(5, 100, 20, 10, 20, 200))
+        # print()
+    return list_coodr_of_fields
+
+print()
+print(*get_list_coodr_of_fields(5, 100, 20, 10, 20, 4), sep='\n')
