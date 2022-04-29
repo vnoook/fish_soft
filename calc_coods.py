@@ -1,14 +1,13 @@
 def get_list_fields_and_coords(start_x, start_y, shift_x, shift_y, field_h, q_sportmen):
-    '''универсальная функция для описания полей и расчёта их координат на форме'''
+    """Универсальная функция для описания полей и расчёта их координат на форме"""
     # список всех полей и их координаты
     list_coodr_of_fields = []
-    list_coodr_of_field = []
 
     # точка начала отчёта
     start_dot_x = start_x
     start_dot_y = start_y
 
-    # растояние между объектами на форме
+    # расстояние между объектами на форме
     gap_x = shift_x
     gap_y = shift_y
 
@@ -30,7 +29,7 @@ def get_list_fields_and_coords(start_x, start_y, shift_x, shift_y, field_h, q_sp
               ('Sportik12_points_', 40),
               ('Sportik13_team_place_', 40),
               ('Sportik14_self_place_', 40)
-    )
+              )
 
     # количество спортиков
     q_sportiks = q_sportmen
@@ -39,7 +38,7 @@ def get_list_fields_and_coords(start_x, start_y, shift_x, shift_y, field_h, q_sp
     field_step_y = start_dot_y
 
     # цикл расчёта координат каждого поля
-    for sportik in range(1, q_sportiks+1):
+    for sportik in range(1, q_sportiks + 1):
         # шаг вправо начинается с первой точки и идёт вправо
         field_step_x = start_dot_x
         # список координат в строке
@@ -70,6 +69,7 @@ def get_list_fields_and_coords(start_x, start_y, shift_x, shift_y, field_h, q_sp
         list_coodr_of_fields.append(list_coodr_of_field)
 
     return list_coodr_of_fields
+
 
 if __name__ == '__main__':
     print()
