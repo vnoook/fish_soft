@@ -5,33 +5,40 @@
 # 1) сделать жеребьёвку
 # 2) сделать связку sqlite3
 # 3) вывести классы в отдельный файл
-# 4) сделать коменты ко всему
+# 4) сделать комменты ко всему
 
 import uuid
 
 # таблица рыбаков с id и fio
 table_anglers = {1: 'Иванов', 2: 'Петров', 3: 'Ветров', 4: 'Фролов',
-                 5: 'Попков', 6: 'Котова', 7: 'Рыбова', 8: 'Локтев'}
+                 5: 'Попков', 6: 'Котова', 7: 'Рыбова', 8: 'Локтев'
+                 }
+
 # таблица рыбаков с id и разрядами
 table_anglers_rank = {1: '1 разряд', 2: '2 разряд', 3: '3 разряд', 4: '1 разряд',
-                      5: None, 6: 'МС', 7: 'КМС', 8: 'МС'}
+                      5: None, 6: 'МС', 7: 'КМС', 8: 'МС'
+                      }
+
 # таблица рыбаков с id и командами
 table_anglers_teams = {1: 'Караси', 2: 'Караси', 3: 'Тим-Ту', 4: 'FreeHunt',
-                       5: 'Тим-Ту', 6: 'FreeHunt', 7: None, 8: None}
+                       5: 'Тим-Ту', 6: 'FreeHunt', 7: None, 8: None
+                       }
+
 # таблица поимок в Tournament.quantity_period периодах
-table_catches = {1: (1,  4,  7,  1,  1,  9),
-                 2: (2,  52, 7,  2,  2,  9),
-                 3: (43, 4,  7,  6,  3,  9),
-                 4: (1,  0,  12, 22, 4,  9),
-                 5: (15, 4,  12, 71, 5,  9),
-                 6: (15, 18, 1,  0,  6,  9),
-                 7: (0,  16, 13, 3,  7,  9),
-                 8: (5,  17, 1,  4,  8,  9)}
+table_catches = {1: (1, 4, 7, 1, 1, 9),
+                 2: (2, 52, 7, 2, 2, 9),
+                 3: (43, 4, 7, 6, 3, 9),
+                 4: (1, 0, 12, 22, 4, 9),
+                 5: (15, 4, 12, 71, 5, 9),
+                 6: (15, 18, 1, 0, 6, 9),
+                 7: (0, 16, 13, 3, 7, 9),
+                 8: (5, 17, 1, 4, 8, 9)
+                 }
 
 
 # класс Соревнование
 class Tournament:
-    """ Класс Соревнование """
+    """Класс Соревнование"""
 
     def __init__(self, q_tur=1, q_period=4, q_zone=1, q_sector=None, d_period=45, q_anglers=15):
         # TODO
@@ -69,7 +76,7 @@ class Tournament:
 
 # класс Рыбак
 class Angler:
-    """ Класс Рыбак """
+    """Класс Рыбак"""
 
     # TODO
     # описать переменную и зачем она?
@@ -123,7 +130,7 @@ def create_anglers():
     # создание экземпляров рыбаков по количеству из table_anglers
     for angler_id, angler_fio in table_anglers.items():
         # создаётся название экземпляра
-        string_angler_class = 'Angler'+str(angler_id)
+        string_angler_class = 'Angler' + str(angler_id)
 
         # создаётся экземпляр
         globals()[string_angler_class] = Angler(angler_id,
@@ -131,7 +138,7 @@ def create_anglers():
                                                 a_rank=table_anglers_rank[angler_id],
                                                 a_team=table_anglers_teams[angler_id]
                                                 )
-        print(f'{globals()["Angler"+str(angler_id)].get_all_info()}')
+        print(f'{globals()["Angler" + str(angler_id)].get_all_info()}')
 
 
 # функция для проверки входных данных на наличие только цифр
@@ -143,7 +150,7 @@ def only_numbers():
 # функция подсчёта очков с известными - начальное место одинаковых уловов, количество одинаковых уловов
 def calc_scores(index_start, index_quantity):
     scores = 0
-    for x_q in range(index_start, index_start+index_quantity):
+    for x_q in range(index_start, index_start + index_quantity):
         scores = scores + x_q / index_quantity
     return scores
 
@@ -231,6 +238,6 @@ if __name__ == '__main__':
     print()
     create_anglers()
 
-    for period in range(1, len(table_catches[1])+1):
-        print(period, '*'*50)
+    for period in range(1, len(table_catches[1]) + 1):
+        print(period, '*' * 50)
         calc_period(table_catches, period)
