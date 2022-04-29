@@ -29,7 +29,7 @@ def get_list_fields_and_coords(start_x, start_y, shift_x, shift_y, field_h, q_sp
               ('Sportik12_points_', 40),
               ('Sportik13_team_place_', 40),
               ('Sportik14_self_place_', 40)
-              )
+    )
 
     # количество спортиков
     q_sportiks = q_sportmen
