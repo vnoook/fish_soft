@@ -73,5 +73,5 @@ def get_list_fields_and_coords(start_x, start_y, shift_x, shift_y, field_h, q_sp
 
 if __name__ == '__main__':
     print()
-    lst1 = get_list_fields_and_coords(5, 100, 20, 10, 20, 3)
+    lst1 = get_list_fields_and_coords(start_x=5, start_y=100, shift_x=20, shift_y=10, field_h=20, q_sportmen=3)
     print(*lst1, sep='\n')
