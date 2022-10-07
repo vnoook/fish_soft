@@ -8,7 +8,7 @@ import pprint as pp
 
 
 class Window(PyQt5.QtWidgets.QWidget):
-    checkbox_number = 0
+    checkbox_counter = 0
 
     def __init__(self):
         super().__init__()
@@ -31,8 +31,8 @@ class Window(PyQt5.QtWidgets.QWidget):
         self.dict_obj = {}
 
     def add_checkbox(self):
-        Window.checkbox_number = Window.checkbox_number + 1
-        checkbox_name = 'checkbox_' + str(Window.checkbox_number)
+        Window.checkbox_counter = Window.checkbox_counter + 1
+        checkbox_name = 'checkbox_' + str(Window.checkbox_counter)
 
         self.checkBox = PyQt5.QtWidgets.QCheckBox()
         self.checkBox.setObjectName(checkbox_name)
@@ -40,16 +40,18 @@ class Window(PyQt5.QtWidgets.QWidget):
         self.checkBox.setToolTip(self.checkBox.objectName())
         self.checkBox.clicked.connect(self.click_checkbox)
 
-        self.dict_obj[Window.checkbox_number] = self.checkBox
+        self.dict_obj[Window.checkbox_counter] = self.checkBox
         pp.pprint(self.dict_obj)
         print('*'*50)
 
         self.vlayout.addWidget(self.checkBox)
 
     def del_checkbox(self):
-        if Window.checkbox_number > 0:
-            Window.checkbox_number = Window.checkbox_number - 1
-            print(Window.checkbox_number)
+        if Window.checkbox_counter > 0:
+            print(self.dict_obj[Window.checkbox_counter])
+
+            Window.checkbox_counter = Window.checkbox_counter - 1
+            print(Window.checkbox_counter)
         pass
 
     def click_checkbox(self):
