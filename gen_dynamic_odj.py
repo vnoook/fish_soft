@@ -1,4 +1,3 @@
-import pprint
 import sys
 import PyQt5
 import PyQt5.QtWidgets
@@ -12,6 +11,8 @@ class Window(PyQt5.QtWidgets.QWidget):
 
     def __init__(self):
         super().__init__()
+
+        self.checkBox = None
 
         self.vlayout = PyQt5.QtWidgets.QVBoxLayout()
 
@@ -36,28 +37,41 @@ class Window(PyQt5.QtWidgets.QWidget):
 
         self.checkBox = PyQt5.QtWidgets.QCheckBox()
         self.checkBox.setObjectName(checkbox_name)
+        self.checkBox.setVisible(True)
         self.checkBox.setText(checkbox_name)
         self.checkBox.setToolTip(self.checkBox.objectName())
         self.checkBox.clicked.connect(self.click_checkbox)
+        self.vlayout.addWidget(self.checkBox)
 
         self.dict_obj[Window.checkbox_counter] = self.checkBox
+
         pp.pprint(self.dict_obj)
         print('*'*50)
 
-        self.vlayout.addWidget(self.checkBox)
-
     def del_checkbox(self):
         if Window.checkbox_counter > 0:
-            print(self.dict_obj[Window.checkbox_counter])
+            # self.dict_obj[Window.checkbox_counter].setVisible(False)
 
+            # removed = self.listWidget.takeItem(0)
+            # removed = self.dict_obj[Window.checkbox_counter].takeItem(0)
+
+            # Window.deleteLater()
+            # self.layout().deleteLater()
+            # self.vlayout.layout()
+            # removeItem
+
+            self.dict_obj[Window.checkbox_counter].deleteLater()
+
+            del self.dict_obj[Window.checkbox_counter]
             Window.checkbox_counter = Window.checkbox_counter - 1
-            print(Window.checkbox_counter)
+
+            pp.pprint(self.dict_obj)
+            print('*' * 50)
         pass
 
     def click_checkbox(self):
         print(self.sender().objectName())
         pass
-
 
 # создание основного окна
 def main_app():
