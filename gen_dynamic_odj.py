@@ -24,9 +24,6 @@ class Window(PyQt5.QtWidgets.QWidget):
 
         self.vlayout.addWidget(self.pushButton_add)
         self.vlayout.addWidget(self.pushButton_del)
-
-        # self.checkBox = PyQt5.QtWidgets.QCheckBox(self)
-        # self.vlayout.addWidget(self.checkBox)
         self.setLayout(self.vlayout)
 
         self.dict_obj = {}
@@ -50,16 +47,6 @@ class Window(PyQt5.QtWidgets.QWidget):
 
     def del_checkbox(self):
         if Window.checkbox_counter > 0:
-            # self.dict_obj[Window.checkbox_counter].setVisible(False)
-
-            # removed = self.listWidget.takeItem(0)
-            # removed = self.dict_obj[Window.checkbox_counter].takeItem(0)
-
-            # Window.deleteLater()
-            # self.layout().deleteLater()
-            # self.vlayout.layout()
-            # removeItem
-
             self.dict_obj[Window.checkbox_counter].deleteLater()
 
             del self.dict_obj[Window.checkbox_counter]
@@ -67,11 +54,25 @@ class Window(PyQt5.QtWidgets.QWidget):
 
             pp.pprint(self.dict_obj)
             print('*' * 50)
-        pass
 
     def click_checkbox(self):
-        print(self.sender().objectName())
-        pass
+        print(f'{self.sender() = }')
+        print(f'{self.sender().objectName() = }')
+        print()
+
+        obj1 = self.findChild(type(self.sender()), self.sender().objectName())
+        print(f'findChild   {obj1 = }')
+        print(f'{obj1.objectName() = }')
+        print()
+
+        obj2 = self.findChildren(type(self.sender()))
+        print(f'findChildren {obj2 = }')
+        print(*list(x.objectName() for x in obj2))
+        print()
+
+        pp.pprint(self.children())
+        print()
+
 
 # создание основного окна
 def main_app():
