@@ -1,0 +1,1055 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1259</width>
+    <height>518</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLineEdit" name="Sportik_number_">
+    <property name="geometry">
+     <rect>
+      <x>5</x>
+      <y>70</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="Sportik_fio_">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>70</y>
+      <width>180</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="Sportik_period1_">
+    <property name="geometry">
+     <rect>
+      <x>800</x>
+      <y>70</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="Sportik_period2_">
+    <property name="geometry">
+     <rect>
+      <x>860</x>
+      <y>70</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="Sportik_period3_">
+    <property name="geometry">
+     <rect>
+      <x>915</x>
+      <y>70</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="Sportik_period4_">
+    <property name="geometry">
+     <rect>
+      <x>980</x>
+      <y>70</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="Sportik_zona1_">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>70</y>
+      <width>70</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Zona A</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Zona B</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Zona C</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QComboBox" name="Sportik_zona2_">
+    <property name="geometry">
+     <rect>
+      <x>710</x>
+      <y>70</y>
+      <width>70</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Zona A</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Zona B</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Zona C</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_number_">
+    <property name="geometry">
+     <rect>
+      <x>5</x>
+      <y>20</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_fio_">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>20</y>
+      <width>180</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_zona1_">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>20</y>
+      <width>70</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_zona2_">
+    <property name="geometry">
+     <rect>
+      <x>710</x>
+      <y>20</y>
+      <width>70</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_period1_">
+    <property name="geometry">
+     <rect>
+      <x>800</x>
+      <y>20</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_period2_">
+    <property name="geometry">
+     <rect>
+      <x>860</x>
+      <y>20</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_period3_">
+    <property name="geometry">
+     <rect>
+      <x>915</x>
+      <y>20</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_period4_">
+    <property name="geometry">
+     <rect>
+      <x>980</x>
+      <y>20</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="Sportik_points_">
+    <property name="geometry">
+     <rect>
+      <x>1040</x>
+      <y>70</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="Sportik_team_place_">
+    <property name="geometry">
+     <rect>
+      <x>1160</x>
+      <y>70</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_points_">
+    <property name="geometry">
+     <rect>
+      <x>1040</x>
+      <y>20</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_team_place_">
+    <property name="geometry">
+     <rect>
+      <x>1160</x>
+      <y>20</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_team_">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>20</y>
+      <width>180</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="Sportik_team_">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>70</y>
+      <width>180</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_rank_">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>20</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="Sportik_rank_">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>70</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="Sportik_lottery_">
+    <property name="geometry">
+     <rect>
+      <x>65</x>
+      <y>70</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_lottery_">
+    <property name="geometry">
+     <rect>
+      <x>65</x>
+      <y>20</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_number_">
+    <property name="geometry">
+     <rect>
+      <x>5</x>
+      <y>40</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Номер</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_lottery_">
+    <property name="geometry">
+     <rect>
+      <x>65</x>
+      <y>40</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Жребий</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_fio_">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>40</y>
+      <width>180</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>ФИО спортика</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_team_">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>40</y>
+      <width>180</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Команда</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_rank_">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>40</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Разряд</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_zona1_">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>40</y>
+      <width>70</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Зона1</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_zona2_">
+    <property name="geometry">
+     <rect>
+      <x>710</x>
+      <y>40</y>
+      <width>70</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Зона2</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_period1_">
+    <property name="geometry">
+     <rect>
+      <x>800</x>
+      <y>40</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>П 1</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_period2_">
+    <property name="geometry">
+     <rect>
+      <x>860</x>
+      <y>40</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>П 2</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_period3_">
+    <property name="geometry">
+     <rect>
+      <x>915</x>
+      <y>40</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>П 3</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_period4_">
+    <property name="geometry">
+     <rect>
+      <x>980</x>
+      <y>40</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>П 4</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_points_">
+    <property name="geometry">
+     <rect>
+      <x>1040</x>
+      <y>40</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Очки</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_team_place_">
+    <property name="geometry">
+     <rect>
+      <x>1160</x>
+      <y>40</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Личка</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_self_place_">
+    <property name="geometry">
+     <rect>
+      <x>1100</x>
+      <y>40</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Команда</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="Sportik_self_place_">
+    <property name="geometry">
+     <rect>
+      <x>1100</x>
+      <y>70</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_self_place_">
+    <property name="geometry">
+     <rect>
+      <x>1100</x>
+      <y>20</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1259</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="MainMenuFile">
+    <property name="title">
+     <string>Файл</string>
+    </property>
+    <addaction name="MenuActionSettings"/>
+    <addaction name="separator"/>
+    <addaction name="MenuActionSave"/>
+    <addaction name="MenuActionOpen"/>
+    <addaction name="separator"/>
+    <addaction name="MenuActionSend"/>
+    <addaction name="separator"/>
+    <addaction name="MenuActionQuit"/>
+   </widget>
+   <widget class="QMenu" name="MainMenuAbout">
+    <property name="title">
+     <string>Справка</string>
+    </property>
+    <addaction name="MenuActionAbout"/>
+   </widget>
+   <addaction name="MainMenuFile"/>
+   <addaction name="MainMenuAbout"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="MenuActionSettings">
+   <property name="text">
+    <string>Настройки</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::PreferencesRole</enum>
+   </property>
+  </action>
+  <action name="MenuActionExit">
+   <property name="text">
+    <string>Выход</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::QuitRole</enum>
+   </property>
+  </action>
+  <action name="MenuActionAbout">
+   <property name="text">
+    <string>О программе</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::AboutRole</enum>
+   </property>
+  </action>
+  <action name="action_2">
+   <property name="text">
+    <string>Сохранить соревнования</string>
+   </property>
+  </action>
+  <action name="MenuActionSave">
+   <property name="text">
+    <string>Сохранить</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::ApplicationSpecificRole</enum>
+   </property>
+  </action>
+  <action name="MenuActionOpen">
+   <property name="text">
+    <string>Открыть</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::ApplicationSpecificRole</enum>
+   </property>
+  </action>
+  <action name="MenuActionSend">
+   <property name="text">
+    <string>Отправить</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::ApplicationSpecificRole</enum>
+   </property>
+  </action>
+  <action name="MenuActionQuit">
+   <property name="text">
+    <string>Выход</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::QuitRole</enum>
+   </property>
+  </action>
+ </widget>
+ <tabstops>
+  <tabstop>Sportik_number_</tabstop>
+  <tabstop>Sportik_fio_</tabstop>
+  <tabstop>Sportik_zona1_</tabstop>
+  <tabstop>Sportik_zona2_</tabstop>
+  <tabstop>Sportik_period1_</tabstop>
+  <tabstop>Sportik_period2_</tabstop>
+  <tabstop>Sportik_period3_</tabstop>
+  <tabstop>Sportik_period4_</tabstop>
+  <tabstop>Sportik_points_</tabstop>
+  <tabstop>Sportik_team_place_</tabstop>
+  <tabstop>checkBox_zona2_</tabstop>
+  <tabstop>checkBox_period1_</tabstop>
+  <tabstop>checkBox_period2_</tabstop>
+  <tabstop>checkBox_period3_</tabstop>
+  <tabstop>checkBox_period4_</tabstop>
+  <tabstop>checkBox_number_</tabstop>
+  <tabstop>checkBox_fio_</tabstop>
+  <tabstop>checkBox_zona1_</tabstop>
+  <tabstop>checkBox_points_</tabstop>
+  <tabstop>checkBox_team_place_</tabstop>
+ </tabstops>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>checkBox_team_</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>Sportik_team_</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>419</x>
+     <y>47</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>419</x>
+     <y>97</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_number_</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>Sportik_number_</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>24</x>
+     <y>47</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>24</x>
+     <y>97</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_lottery_</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>Sportik_lottery_</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>84</x>
+     <y>47</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>84</x>
+     <y>97</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_fio_</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>Sportik_fio_</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>219</x>
+     <y>47</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>219</x>
+     <y>97</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_rank_</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>Sportik_rank_</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>569</x>
+     <y>47</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>569</x>
+     <y>97</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_zona1_</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>Sportik_zona1_</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>654</x>
+     <y>47</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>654</x>
+     <y>97</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_zona2_</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>Sportik_zona2_</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>744</x>
+     <y>47</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>744</x>
+     <y>97</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_period1_</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>Sportik_period1_</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>819</x>
+     <y>47</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>819</x>
+     <y>97</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_period2_</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>Sportik_period2_</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>879</x>
+     <y>47</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>879</x>
+     <y>97</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_period3_</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>Sportik_period3_</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>934</x>
+     <y>47</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>934</x>
+     <y>97</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_period4_</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>Sportik_period4_</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>999</x>
+     <y>47</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>999</x>
+     <y>97</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_points_</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>Sportik_points_</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1059</x>
+     <y>47</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1059</x>
+     <y>97</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_self_place_</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>Sportik_self_place_</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1119</x>
+     <y>47</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1119</x>
+     <y>97</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_team_place_</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>Sportik_team_place_</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1179</x>
+     <y>47</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1179</x>
+     <y>97</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>MenuActionExit</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>Sportik_fio_</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>136</x>
+     <y>54</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>219</x>
+     <y>100</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>MenuActionAbout</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>Sportik_fio_</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>91</x>
+     <y>112</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>219</x>
+     <y>100</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>MenuActionOpen</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>Sportik_fio_</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>219</x>
+     <y>100</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>MenuActionQuit</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>Sportik_fio_</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>219</x>
+     <y>100</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>MenuActionSave</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>Sportik_fio_</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>219</x>
+     <y>100</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>MenuActionSend</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>Sportik_fio_</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>219</x>
+     <y>100</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>MenuActionSettings</sender>
+   <signal>triggered(bool)</signal>
+   <receiver>Sportik_fio_</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>219</x>
+     <y>100</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
