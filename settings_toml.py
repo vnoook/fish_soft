@@ -1,3 +1,8 @@
+# TODO
+# 1 - исправление ошибки когда задраивается строка в файле настроек
+# 2 - переделать в сторону порядка записи параметров в файл
+# 3 - переделать формирование файла настроек с добавлением разделов в скобках []
+
 import sys
 if sys.version_info < (3, 11):
     import os.path
@@ -37,7 +42,7 @@ SETTINGS_DATA_DEF = {
     "OTH_PER2": 3,
     "OTH_PER3": 40,
     "OTH_PER4": 999,
-    "OTH_PER5": "abcdefghij"
+    "OTH_PER5": "abcdef"
 }
 
 
@@ -79,13 +84,13 @@ def save_settings(data: dict, file: str):
 
 # функция чтения файла с настройками
 def read_settings(file_settings: str):
-    flag_set = os.path.exists(file_settings)
-    if flag_set:
+    # если файл существует, то прочитать содержимое
+    if os.path.exists(file_settings):
         with open(file_settings, "rb") as fl_set:
             data = tomllib.load(fl_set)
-        flag_set = True
         return data
     else:
+        # иначе содержимое считается значениями по-умолчанию
         save_settings(SETTINGS_DATA_DEF, SETTINGS_FILE_DEF)
         return SETTINGS_DATA_DEF
 
@@ -98,20 +103,10 @@ if __name__ == '__main__':
     print()
 
     settings_dict['SOFT_LAST_OPEN'] = str(datetime.datetime.now())
+    settings_dict['OTH_PER4'] = 1000
     print(settings_dict)
     print()
 
     save_settings(settings_dict, SETTINGS_FILE_DEF)
     print(settings_dict)
     print()
-
-
-# print(type(tomli_w.dumps(setting1)))
-# print(tomli_w.dumps(setting1))
-#
-# doc = {"one": 1, "two": 2, "pi": 3}
-# with open("conf1.toml", "wb") as f:
-#     tomli_w.dump(doc, f)
-#
-# with open("conf2.toml", "wb") as f:
-#     tomli_w.dump(dict_data1, f)
