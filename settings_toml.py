@@ -35,36 +35,32 @@ SETTINGS_DATA_DEF = {
 
 # функция валидности ключей и их количества в файле настроек
 def repair_settings(cur_dict: dict, def_dict: dict):
-    # print()
-    # print('... проверка валидности настроек ...')
-    # print(cur_dict)
     # проверяю на нехватку нужных ключей в словаре и если нет, то добавляю из дефолтных
     for key in def_dict:
         if key not in cur_dict:
             cur_dict[key] = def_dict[key]
-    # print(cur_dict)
     # проверяю на наличие лишних ключей в словаре и если есть лишние, то удаляю их
+    # временный список для лишних ключей
     list_keys = []
+    # собираю в список лишние ключи
     for key in cur_dict:
         if key not in def_dict:
             list_keys.append(key)
+    # по списку удаляю лишние ключи
     for key in list_keys:
         del cur_dict[key]
-        # cur_dict.pop(key, None)
+    # удаляю временный список
     del list_keys
-    # print(cur_dict)
-    # print('... проверка валидности настроек ... OK')
-    # print(cur_dict)
-    # print()
     return cur_dict
 
 
 # функция сохранения данных в файл, формат TOML
 def save_settings(data: dict, file: str):
-    # перед записью проверяется количество вхождений, их количество сохранено в одном из параметров
-    repair_settings(data, SETTINGS_DATA_DEF)
-
+    # проверка на правильность входных данных и запись
     if type(data) == dict:
+        # перед записью валидируется набор настроек
+        repair_settings(data, SETTINGS_DATA_DEF)
+        # запись настроек в файл
         with open(file, "wb") as fl_set:
             tomli_w.dump(data, fl_set)
         return True
@@ -75,9 +71,11 @@ def save_settings(data: dict, file: str):
 
 # функция чтения файла с настройками
 def read_settings(file_settings: str):
-    if os.path.exists(file_settings):
+    flag_set = os.path.exists(file_settings)
+    if flag_set:
         with open(file_settings, "rb") as fl_set:
             data = tomllib.load(fl_set)
+        flag_set = True
         return data
     else:
         print(f'Ожидается файл "{file_settings}"')
@@ -91,10 +89,10 @@ if __name__ == '__main__':
     settings_dict = read_settings(SETTINGS_FILE_DEF)
     print(settings_dict)
 
-    settings_dict['SOFT_LAST_OPEN'] = str(datetime.datetime.now())
-    print(settings_dict)
+    # settings_dict['SOFT_LAST_OPEN'] = str(datetime.datetime.now())
+    # print(settings_dict)
 
-    save_settings(settings_dict, SETTINGS_FILE_DEF)
+    # save_settings(settings_dict, SETTINGS_FILE_DEF)
 
 
 
