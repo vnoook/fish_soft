@@ -1,0 +1,15 @@
+SET_VER = 1
+SET_Q = 18
+CLUB_ID = "1A2B-3C4D-5E6F"
+SOFT_DB_FILE = "db_competition.db"
+SOFT_LAST_OPEN = "111"
+SOFT_MAIN_WINDOW_SIZE = "1300:500"
+COMP_DATA_COMPETITION = "2022-02-24"
+COMP_q_tur = 1
+COMP_q_period = 4
+COMP_q_zone = 1
+COMP_q_sector = 1
+COMP_d_period = 45
+COMP_q_anglers = 15
+COMP_q_anglers1 = 515
+COMP_q_anglers2 = 515

@@ -3,12 +3,12 @@ import tomllib
 import tomli_w
 
 # название файла настроек по-умолчанию
-SETTINGS_FILE_DEF = "conf_toml.toml"
+SETTINGS_FILE_DEF = "settings.toml"
 # список настроек по-умолчанию - ..., клуб, программы, соревнования, ...
 SETTINGS_DATA_DEF = {
     # файл настроек SET_
-    "SET_VER": "1",
-    "SET_Q": "18",
+    "SET_VER": 1,
+    "SET_Q": 18,
     # клуб CLUB_
     "CLUB_ID": "1A2B-3C4D-5E6F",
     # программа SOFT_
@@ -32,10 +32,32 @@ SETTINGS_DATA_DEF = {
 }
 
 
+def repair_settings(cur_dict: dict, def_dict: dict):
+    print()
+    print('... проверка валидности настроек ...')
+    print(cur_dict)
+    # проверяю на нехватку нужных ключей в словаре и если нет, то добавляю из дефолтных
+    for key in def_dict:
+        if key not in cur_dict:
+            cur_dict[key] = def_dict[key]
+    print(cur_dict)
+    # # проверяю на наличие лишних ключей в словаре и если есть лишние, то удаляю их
+    # for key in cur_dict:
+    #     print(key)
+    #     if key not in def_dict:
+    #         print(key)
+    #         del cur_dict[key]
+    # print(cur_dict)
+    print('... проверка валидности настроек ... OK')
+    print(cur_dict)
+    return cur_dict
+
+
 # функция сохранения данных в файл, формат TOML
 def save_settings(data: dict, file: str):
-    if data['SET_Q'] == len(data):
-        print(f'{data["SET_Q"] = } ... {len(data) = }')
+    # перед записью проверяется количество вхождений, их количество сохранено в одном из параметров
+    repair_settings(data, SETTINGS_DATA_DEF)
+
     if type(data) == dict:
         with open(file, "wb") as fl_set:
             tomli_w.dump(data, fl_set)
@@ -46,7 +68,7 @@ def save_settings(data: dict, file: str):
 
 
 # функция чтения файла с настройками
-def read_settings(file_settings):
+def read_settings(file_settings: str):
     if os.path.exists(file_settings):
         with open(file_settings, "rb") as fl_set:
             data = tomllib.load(fl_set)
@@ -59,13 +81,19 @@ def read_settings(file_settings):
         return None
 
 
-settings_dict = read_settings(SETTINGS_FILE_DEF)
-print(settings_dict)
+if __name__ == '__main__':
+    settings_dict = read_settings(SETTINGS_FILE_DEF)
+    print(settings_dict)
 
-settings_dict['SOFT_LAST_OPEN'] = "111"
-print(settings_dict)
+    repair_settings(settings_dict, SETTINGS_DATA_DEF)
 
-save_settings(settings_dict, SETTINGS_FILE_DEF)
+    # settings_dict['SOFT_LAST_OPEN'] = "111"
+    # print(settings_dict)
+    #
+    # save_settings(settings_dict, SETTINGS_FILE_DEF)
+
+
+
 
 # print(type(tomli_w.dumps(setting1)))
 # print(tomli_w.dumps(setting1))
