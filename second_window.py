@@ -15,9 +15,9 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.ui)
         self.setGeometry(300, 300, 700, 400)
         self.menu = self.menuBar()
-        self.file = self.menu.addMenu('&&File')
+        self.file = self.menu.addMenu('&File')
         self.settings = self.menu.addMenu('&settings')
-        self.exit = QAction('exit', self)
+        self.exit = QAction('&exit', self)
         self.button = QPushButton("Старт")
         self.button.move(10, 10)
         self.settings_win = QAction('settings', self)
@@ -29,8 +29,9 @@ class MainWindow(QMainWindow):
     def settings_show(self):
         w = QWidget(self, Qt.Window)
         w.setWindowModality(Qt.WindowModal)
-        w.resize(100, 100)
+        w.resize(300, 300)
         w.move(self.geometry().center() - w.rect().center() - QPoint(0, 30))
+        w.button = QPushButton("Старт")
         w.show()
 
 
