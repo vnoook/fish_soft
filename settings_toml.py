@@ -1,7 +1,15 @@
-import os.path
-import tomllib
-import tomli_w
-import datetime
+import sys
+if sys.version_info < (3, 11):
+    import os.path
+    import tomli as tomllib
+    import tomli_w
+    import datetime
+else:
+    import os.path
+    import tomllib
+    import tomli_w
+    import datetime
+
 
 # название файла настроек по-умолчанию
 SETTINGS_FILE_DEF = "settings.toml"
@@ -78,23 +86,24 @@ def read_settings(file_settings: str):
         flag_set = True
         return data
     else:
-        print(f'Ожидается файл "{file_settings}"')
-        print(f'Если его нет, то создаю новый со значениями по-умолчанию')
         save_settings(SETTINGS_DATA_DEF, SETTINGS_FILE_DEF)
-        print(f'Файл "{file_settings}" создан, поменяйте настройки в программе под Ваши условия')
-        return None
+        return SETTINGS_DATA_DEF
 
 
 if __name__ == '__main__':
+    print()
+
     settings_dict = read_settings(SETTINGS_FILE_DEF)
     print(settings_dict)
+    print()
 
-    # settings_dict['SOFT_LAST_OPEN'] = str(datetime.datetime.now())
-    # print(settings_dict)
+    settings_dict['SOFT_LAST_OPEN'] = str(datetime.datetime.now())
+    print(settings_dict)
+    print()
 
-    # save_settings(settings_dict, SETTINGS_FILE_DEF)
-
-
+    save_settings(settings_dict, SETTINGS_FILE_DEF)
+    print(settings_dict)
+    print()
 
 
 # print(type(tomli_w.dumps(setting1)))
