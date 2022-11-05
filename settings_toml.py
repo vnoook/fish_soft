@@ -1,6 +1,7 @@
 import os.path
 import tomllib
 import tomli_w
+import datetime
 
 # название файла настроек по-умолчанию
 SETTINGS_FILE_DEF = "settings.toml"
@@ -32,24 +33,29 @@ SETTINGS_DATA_DEF = {
 }
 
 
+# функция валидности ключей и их количества в файле настроек
 def repair_settings(cur_dict: dict, def_dict: dict):
-    print()
-    print('... проверка валидности настроек ...')
-    print(cur_dict)
+    # print()
+    # print('... проверка валидности настроек ...')
+    # print(cur_dict)
     # проверяю на нехватку нужных ключей в словаре и если нет, то добавляю из дефолтных
     for key in def_dict:
         if key not in cur_dict:
             cur_dict[key] = def_dict[key]
-    print(cur_dict)
-    # # проверяю на наличие лишних ключей в словаре и если есть лишние, то удаляю их
-    # for key in cur_dict:
-    #     print(key)
-    #     if key not in def_dict:
-    #         print(key)
-    #         del cur_dict[key]
     # print(cur_dict)
-    print('... проверка валидности настроек ... OK')
-    print(cur_dict)
+    # проверяю на наличие лишних ключей в словаре и если есть лишние, то удаляю их
+    list_keys = []
+    for key in cur_dict:
+        if key not in def_dict:
+            list_keys.append(key)
+    for key in list_keys:
+        del cur_dict[key]
+        # cur_dict.pop(key, None)
+    del list_keys
+    # print(cur_dict)
+    # print('... проверка валидности настроек ... OK')
+    # print(cur_dict)
+    # print()
     return cur_dict
 
 
@@ -85,12 +91,10 @@ if __name__ == '__main__':
     settings_dict = read_settings(SETTINGS_FILE_DEF)
     print(settings_dict)
 
-    repair_settings(settings_dict, SETTINGS_DATA_DEF)
+    settings_dict['SOFT_LAST_OPEN'] = str(datetime.datetime.now())
+    print(settings_dict)
 
-    # settings_dict['SOFT_LAST_OPEN'] = "111"
-    # print(settings_dict)
-    #
-    # save_settings(settings_dict, SETTINGS_FILE_DEF)
+    save_settings(settings_dict, SETTINGS_FILE_DEF)
 
 
 
