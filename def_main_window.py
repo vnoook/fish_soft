@@ -17,15 +17,57 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         pass
 
         # главное окно, надпись на нём и размеры
-        self.setWindowTitle('setWindowTitle')
+        self.setWindowTitle('Название главного окна')
         self.setGeometry(450, 100, 700, 490)
+
+
+
+
+
+        # ГЛАВНОЕ МЕНЮ
+        self.MainMenu = PyQt5.QtWidgets.QMenuBar(self)
+        self.MainMenu.setObjectName('MainMenu')
+        self.MainMenu.setGeometry(0, 0, 700, 18)
+        # раздел меню Файл
+        mm_file = self.MainMenu.addMenu('Файл')
+        # Создать
+        mm_file_create = mm_file.addMenu('Создать')
+        mm_file.addSeparator()
+        mm_file_open = mm_file.addMenu('Открыть')
+        mm_file.addSeparator()
+        mm_file_save = mm_file.addMenu('Сохранить')
+        mm_file.addSeparator()
+        mm_file_exit = mm_file.addMenu('Выход')
+
+        # раздел меню Настройка
+        mm_settings = self.MainMenu.addMenu('Настройка')
+        # раздел меню Справка
+        mm_about = self.MainMenu.addMenu('Справка')
+
+
+        # self.menubar.setObjectName("menubar")
+        # self.menupr1 = PyQt5.QtWidgets.QMenu(self.menubar)
+        # self.menupr1.setObjectName("menupr1")
+        # # self.menupr1.addAction(self.actionpr2)
+        # # self.menubar.addAction(self.menupr1.menuAction())
+        # self.menupr1.setTitle("pr1")
+
+        # MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        # self.menupr1.setTitle(_translate("MainWindow", "pr1"))
+        # self.actionpr2.setText(_translate("MainWindow", "pr2"))
+        # self.actionp3.setText(_translate("MainWindow", "p3"))
+        # self.actionfr2.setText(_translate("MainWindow", "fr2"))
+
+
+
+
 
         # ОБЪЕКТЫ НА ФОРМЕ
         # label_
         self.label_ = PyQt5.QtWidgets.QLabel(self)
         self.label_.setObjectName('label_')
         self.label_.setText('label_')
-        self.label_.setGeometry(PyQt5.QtCore.QRect(10, 10, 150, 40))
+        self.label_.setGeometry(PyQt5.QtCore.QRect(10, 30, 150, 40))
         font = PyQt5.QtGui.QFont()
         font.setPointSize(12)
         self.label_.setFont(font)
@@ -36,7 +78,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.toolButton_ = PyQt5.QtWidgets.QPushButton(self)
         self.toolButton_.setObjectName('toolButton_')
         self.toolButton_.setText('...')
-        self.toolButton_.setGeometry(PyQt5.QtCore.QRect(10, 40, 50, 20))
+        self.toolButton_.setGeometry(PyQt5.QtCore.QRect(10, 70, 50, 20))
         self.toolButton_.setFixedWidth(50)
         # self.toolButton_.clicked.connect(self.select_file)
         self.toolButton_.setToolTip(self.toolButton_.objectName())
@@ -68,12 +110,12 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.button_exit.setText('Выход')
         self.button_exit.setGeometry(PyQt5.QtCore.QRect(10, 450, 180, 25))
         self.button_exit.setFixedWidth(50)
-        self.button_exit.clicked.connect(self.click_on_btn_exit)
+        self.button_exit.clicked.connect(self.click_on_exit)
         self.button_exit.setToolTip(self.button_exit.objectName())
 
     # событие - нажатие на кнопку Выход
     @staticmethod
-    def click_on_btn_exit():
+    def click_on_exit():
         sys.exit()
 
 
