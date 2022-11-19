@@ -38,7 +38,6 @@ class Window2(QWidget):
         self.setWindowTitle('Window2')
 
 
-
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     w = MainWindow()

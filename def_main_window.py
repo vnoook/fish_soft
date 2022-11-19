@@ -20,10 +20,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.setWindowTitle('Название главного окна')
         self.setGeometry(450, 100, 700, 490)
 
-
-
-
-
         # ГЛАВНОЕ МЕНЮ
         self.MainMenu = PyQt5.QtWidgets.QMenuBar(self)
         self.MainMenu.setObjectName('MainMenu')
@@ -44,7 +40,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # раздел меню Справка
         mm_about = self.MainMenu.addMenu('Справка')
 
-
         # self.menubar.setObjectName("menubar")
         # self.menupr1 = PyQt5.QtWidgets.QMenu(self.menubar)
         # self.menupr1.setObjectName("menupr1")
@@ -57,10 +52,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # self.actionpr2.setText(_translate("MainWindow", "pr2"))
         # self.actionp3.setText(_translate("MainWindow", "p3"))
         # self.actionfr2.setText(_translate("MainWindow", "fr2"))
-
-
-
-
 
         # ОБЪЕКТЫ НА ФОРМЕ
         # label_
