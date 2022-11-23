@@ -2,12 +2,14 @@ import sys
 import PyQt5.QtWidgets
 import PyQt5.QtCore
 
+
 # класс главного окна
 class WindowMain(PyQt5.QtWidgets.QMainWindow):
     """Класс главного окна"""
 
     # описание главного окна
     def __init__(self):
+        """Метод инициализации класса главного окна"""
         super().__init__()
 
         # переменные
@@ -15,32 +17,38 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
         # главное окно, надпись на нём и размеры
         self.setWindowTitle('Название главного окна')
-        self.setGeometry(450, 100, 700, 490)
+        self.setGeometry(400, 250, 1300, 500)
 
         # ГЛАВНОЕ МЕНЮ
         self.menu = self.menuBar()
+
         # ФАЙЛ
         self.file = self.menu.addMenu('Файл')
         self.file_open = self.file.addAction('Открыть')
         self.file_save = self.file.addAction('Сохранить')
-        self.exit = PyQt5.QtWidgets.QAction('Выход', self)
+        self.file_exit = self.file.addAction('Выход')
+        # self.exit = PyQt5.QtWidgets.QAction('Выход', self)
+        # self.file.addAction(self.exit)
+        # self.exit.triggered.connect(PyQt5.QtWidgets.qApp.quit)
 
         # НАСТРОЙКИ
         self.settings = self.menu.addMenu('Настройки')
-        self.settings_win = PyQt5.QtWidgets.QAction('Настройка соревнования', self)
+        self.settings_soft = self.settings.addAction('Настройка программы')
+        self.settings_comp = self.settings.addAction('Настройка соревнования')
+        # self.settings_comp = PyQt5.QtWidgets.QAction('Настройка соревнования', self)
+        self.settings_comp.triggered.connect(self.window_show_settings_comp)
+        self.settings.addAction(self.settings_comp)
+
         # ПОМОЩЬ
         self.help = self.menu.addMenu('Помощь')
-        self.help.addMenu('Правила соревнований')
+        self.help_rules_comp = self.help.addAction('Правила соревнований')
+
         # О ПРОГРАММЕ
         self.about = self.menu.addMenu('О программе')
 
-        self.file.addAction(self.exit)
-        self.settings.addAction(self.settings_win)
-        self.exit.triggered.connect(PyQt5.QtWidgets.qApp.quit)
-        self.settings_win.triggered.connect(self.settings_show)
-
-    # окно настроек
-    def settings_show(self):
+    # окно настроек соревнования
+    def window_show_settings_comp(self):
+        """Функция окна настроек"""
         window_settings = PyQt5.QtWidgets.QWidget(self, PyQt5.QtCore.Qt.Window)
         window_settings.setWindowModality(PyQt5.QtCore.Qt.WindowModal)
         window_settings.resize(600, 600)
@@ -60,7 +68,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # print(f'{window_settings.rect().center() = }')
         # print(f'{PyQt5.QtCore.QPoint(30, 100) = }')
 
-
         # # клуб CLUB_
         # "CLUB_ID": "1A2B-3C4D-5E6F",
         # # программа SOFT_
@@ -78,9 +85,43 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
         window_settings.show()
 
+    # окно настроек соревнования
+    def window_show_settings_soft(self):
+        """Функция окна настроек"""
+        pass
 
-if __name__ == '__main__':
+    # функция переназначения на закрытие окна
+    def closeEvent(self, event):
+        """Функция переназначения на закрытие окна"""
+        print(f'    {self.closeEvent.__name__ = }')
+        print(f'        {self = }')
+        print(f'        {event = }')
+        save_settings()
+
+
+# функция чтения настроек, обычно для открытия программы
+def read_settings():
+    """Функция окна настроек"""
+    print(read_settings.__name__)
+    pass
+
+
+# функция сохранения настроек, обычно для закрытия программы
+def save_settings():
+    """Функция окна настроек"""
+    print(save_settings.__name__)
+    pass
+
+
+# основная функция запуска приложения
+def run():
+    print(run.__name__)
     app = PyQt5.QtWidgets.QApplication(sys.argv)
     myapp = WindowMain()
     myapp.show()
     sys.exit(app.exec_())
+
+
+if __name__ == '__main__':
+    read_settings()
+    run()
