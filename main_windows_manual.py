@@ -7,6 +7,9 @@ import PyQt5.QtCore
 class WindowMain(PyQt5.QtWidgets.QMainWindow):
     """Класс главного окна"""
 
+    # переменные класса
+    pass
+
     # описание главного окна
     def __init__(self):
         """Метод инициализации класса главного окна"""
@@ -117,8 +120,9 @@ def save_settings():
 def run():
     print(run.__name__)
     app = PyQt5.QtWidgets.QApplication(sys.argv)
-    myapp = WindowMain()
-    myapp.show()
+    app.setStyle('Fusion')
+    app_window_main = WindowMain()
+    app_window_main.show()
     sys.exit(app.exec_())
 
 
