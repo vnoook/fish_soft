@@ -19,7 +19,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         pass
 
         # главное окно, надпись на нём и размеры
-        self.setWindowTitle('Название главного окна')
+        self.setWindowTitle(CONST.SET_DEF['main_win_name'])
         self.setGeometry(CONST.SET_DEF['main_win_coord_x'],
                          CONST.SET_DEF['main_win_coord_y'],
                          CONST.SET_DEF['main_win_coord_height'],
@@ -52,23 +52,23 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # О ПРОГРАММЕ
         self.about = self.menu.addMenu('О программе')
 
-    # окно настроек соревнования
+    # окно настроек соревнований
     def window_show_settings_comp(self):
-        """Функция окна настроек"""
+        """Функция окна настроек соревнований"""
         window_settings = PyQt5.QtWidgets.QWidget(self, PyQt5.QtCore.Qt.Window)
         window_settings.setWindowModality(PyQt5.QtCore.Qt.WindowModal)
         window_settings.resize(600, 600)
         window_settings.move(self.geometry().center() - window_settings.rect().center() - PyQt5.QtCore.QPoint(0, 30))
 
-        # lineEdit_
-        window_settings.lineEdit_ = PyQt5.QtWidgets.QLineEdit(window_settings)
-        window_settings.lineEdit_.setObjectName('lineEdit_')
-        window_settings.lineEdit_.setPlaceholderText('lineEdit_')
-        window_settings.lineEdit_.setText('lineEdit_')
-        window_settings.lineEdit_.setGeometry(PyQt5.QtCore.QRect(10, 160, 110, 20))
-        window_settings.lineEdit_.setClearButtonEnabled(True)
-        window_settings.lineEdit_.setEnabled(False)
-        window_settings.lineEdit_.setToolTip(window_settings.lineEdit_.objectName())
+        # # lineEdit_
+        # window_settings.lineEdit_ = PyQt5.QtWidgets.QLineEdit(window_settings)
+        # window_settings.lineEdit_.setObjectName('lineEdit_')
+        # window_settings.lineEdit_.setPlaceholderText('lineEdit_')
+        # window_settings.lineEdit_.setText('lineEdit_')
+        # window_settings.lineEdit_.setGeometry(PyQt5.QtCore.QRect(10, 160, 110, 20))
+        # window_settings.lineEdit_.setClearButtonEnabled(True)
+        # window_settings.lineEdit_.setEnabled(False)
+        # window_settings.lineEdit_.setToolTip(window_settings.lineEdit_.objectName())
 
         # print(f'{self.geometry().center() = }')
         # print(f'{window_settings.rect().center() = }')
@@ -91,9 +91,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
         window_settings.show()
 
-    # окно настроек соревнования
+    # окно настроек программы
     def window_show_settings_soft(self):
-        """Функция окна настроек"""
+        """Функция окна настроек программы"""
         pass
 
     # функция переназначения на закрытие окна
