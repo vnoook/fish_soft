@@ -1,7 +1,7 @@
 import sys
 import PyQt5.QtWidgets
 import PyQt5.QtCore
-
+import fish_consts as CONST
 
 # класс главного окна
 class WindowMain(PyQt5.QtWidgets.QMainWindow):
@@ -20,7 +20,10 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
         # главное окно, надпись на нём и размеры
         self.setWindowTitle('Название главного окна')
-        self.setGeometry(400, 250, 1300, 500)
+        self.setGeometry(CONST.SET_DEF['main_win_coord_x'],
+                         CONST.SET_DEF['main_win_coord_y'],
+                         CONST.SET_DEF['main_win_coord_height'],
+                         CONST.SET_DEF['main_win_coord_width'])
 
         # ГЛАВНОЕ МЕНЮ
         self.menu = self.menuBar()
