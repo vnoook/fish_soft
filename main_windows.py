@@ -35,9 +35,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.file_open = self.file.addAction('Открыть')
         self.file_save = self.file.addAction('Сохранить')
         self.file_exit = self.file.addAction('Выход')
-        # self.exit = PyQt5.QtWidgets.QAction('Выход', self)
-        # self.file.addAction(self.exit)
-        # self.exit.triggered.connect(PyQt5.QtWidgets.qApp.quit)
         self.file_open.triggered.connect(self.window_file_open)
         self.file_save.triggered.connect(self.window_file_save)
         self.file_exit.triggered.connect(self.window_file_exit)
@@ -46,7 +43,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.settings = self.menu.addMenu('Настройки')
         self.settings_soft = self.settings.addAction('Настройка программы')
         self.settings_comp = self.settings.addAction('Настройка соревнования')
-        # self.settings_comp = PyQt5.QtWidgets.QAction('Настройка соревнования', self)
         self.settings_soft.triggered.connect(self.window_show_settings_soft)
         self.settings_comp.triggered.connect(self.window_show_settings_comp)
         self.settings.addAction(self.settings_comp)
@@ -76,8 +72,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
     def window_file_exit(self):
         """Функция меню Файл-Выход"""
         print(self.window_file_exit.__name__)
-        save_settings()
-        exit_app()
+        self.exit_common()
 
     # окно настроек соревнований
     def window_show_settings_comp(self):
@@ -139,24 +134,17 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         print(self.window_show_about.__name__)
         pass
 
-
-
-
-
-
-
-
-    # функция переназначения закрытия окна
+    # функция переназначения закрытия окна по X или Alt+F4
     def closeEvent(self, event):
         """Функция переназначения на закрытие окна"""
-        print(f'    {self.closeEvent.__name__ = }')
-        print(f'        {self = }')
-        print(f'        {event = }')
+        print(self.closeEvent.__name__)
+        self.exit_common()
+
+    # функция общего выхода из программы
+    def exit_common(self):
+        print(self.exit_common.__name__)
         save_settings()
-
-
-
-
+        exit_app()
 
 
 # функция чтения настроек, обычно при открытии программы
@@ -165,18 +153,20 @@ def read_settings():
     print(read_settings.__name__)
     pass
 
+
 # функция сохранения настроек, обычно при закрытии программы
 def save_settings():
     """Функция окна настроек"""
     print(save_settings.__name__)
     pass
 
-# функция выхода из программы
+
+# функция непосредственного выхода из программы
 def exit_app():
     """Функция окна настроек"""
     print(exit_app.__name__)
     sys.exit()
-    pass
+
 
 # основная функция запуска приложения
 def run():
