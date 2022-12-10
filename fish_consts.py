@@ -1,7 +1,7 @@
 # файл констант по-умолчанию
 
 SETT_DEF = {'settings_window_main': {'window_coords': {'h': 1200,
-                                                       'w': 500,
+                                                       'w': 400,
                                                        'x': 100,
                                                        'y': 100},
                                      'window_name': {'name': 'Название главного окна'}},
@@ -19,4 +19,9 @@ SETT_DEF = {'settings_window_main': {'window_coords': {'h': 1200,
                                                            'w': 400,
                                                            'x': 100,
                                                            'y': 100},
-                                         'window_name': {'name': 'Название окна настроек программы'}}}
+                                         'window_name': {'name': 'Название окна настроек программы'}},
+            'settings_soft': {'emergency_exit': True,
+                              'file_settings_soft': 'fish_settings.toml'
+
+                              }
+            }

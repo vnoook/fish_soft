@@ -1,7 +1,13 @@
 import sys
-import PyQt5.QtWidgets
+import os.path
 import PyQt5.QtCore
+import PyQt5.QtWidgets
 import fish_consts as const
+from pprint import pprint as pp
+
+DEBUG = False
+SETTINGS_DATA_DEF = None
+SETTINGS_FILE_DEF = 'fish_settings.toml'
 
 
 # класс главного окна
@@ -42,42 +48,42 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # НАСТРОЙКИ
         self.settings = self.menu.addMenu('Настройки')
         self.settings_soft = self.settings.addAction('Настройка программы')
-        self.settings_comp = self.settings.addAction('Настройка соревнования')
-        self.settings_soft.triggered.connect(self.window_show_settings_soft)
-        self.settings_comp.triggered.connect(self.window_show_settings_comp)
-        self.settings.addAction(self.settings_comp)
+        self.settings_competition = self.settings.addAction('Настройка соревнования')
+        self.settings_soft.triggered.connect(self.window_settings_soft)
+        self.settings_competition.triggered.connect(self.window_settings_competition)
+        self.settings.addAction(self.settings_competition)
 
         # ПОМОЩЬ
         self.help = self.menu.addMenu('Помощь')
-        self.help_rules_comp = self.help.addAction('Правила соревнований')
-        self.help_rules_comp.triggered.connect(self.window_show_rules_comp)
+        self.help_rules_competition = self.help.addAction('Правила соревнований')
+        self.help_rules_competition.triggered.connect(self.window_rules_competition)
 
         # О ПРОГРАММЕ
         self.about = self.menu.addAction('О программе')
-        self.about.triggered.connect(self.window_show_about)
+        self.about.triggered.connect(self.window_about)
 
     # функция по открытию меню Файл-Открыть
     def window_file_open(self):
         """Функция меню Файл-Открыть"""
-        print(self.window_file_open.__name__)
+        print(self.window_file_open.__name__) if DEBUG else ...
         pass
 
     # функция по открытию меню Файл-Сохранить
     def window_file_save(self):
         """Функция меню Файл-Сохранить"""
-        print(self.window_file_save.__name__)
+        print(self.window_file_save.__name__) if DEBUG else ...
         pass
 
     # функция по открытию меню Файл-Выход
     def window_file_exit(self):
         """Функция меню Файл-Выход"""
-        print(self.window_file_exit.__name__)
+        print(self.window_file_exit.__name__) if DEBUG else ...
         self.exit_common()
 
     # окно настроек соревнований
-    def window_show_settings_comp(self):
+    def window_settings_competition(self):
         """Функция окна настроек соревнований"""
-        print(self.window_show_settings_comp.__name__)
+        print(self.window_settings_competition.__name__) if DEBUG else ...
         pass
 
         # window_settings = PyQt5.QtWidgets.QWidget(self, PyQt5.QtCore.Qt.Window)
@@ -117,32 +123,33 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # window_settings.show()
 
     # окно настроек программы
-    def window_show_settings_soft(self):
+    def window_settings_soft(self):
         """Функция окна настроек программы"""
-        print(self.window_show_settings_soft.__name__)
+        print(self.window_settings_soft.__name__) if DEBUG else ...
         pass
 
     # окно правил соревнований
-    def window_show_rules_comp(self):
+    def window_rules_competition(self):
         """Функция окна правил соревнований"""
-        print(self.window_show_rules_comp.__name__)
+        print(self.window_rules_competition.__name__) if DEBUG else ...
         pass
 
     # окно О программе
-    def window_show_about(self):
+    def window_about(self):
         """Функция окна О программе"""
-        print(self.window_show_about.__name__)
+        print(self.window_about.__name__) if DEBUG else ...
         pass
 
     # функция переназначения закрытия окна по X или Alt+F4
     def closeEvent(self, event):
         """Функция переназначения на закрытие окна"""
-        print(self.closeEvent.__name__)
+        print(self.closeEvent.__name__) if DEBUG else ...
         self.exit_common()
 
     # функция общего выхода из программы
     def exit_common(self):
-        print(self.exit_common.__name__)
+        print('_'*25) if DEBUG else ...
+        print(self.exit_common.__name__) if DEBUG else ...
         save_settings()
         exit_app()
 
@@ -150,27 +157,41 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 # функция чтения настроек, обычно при открытии программы
 def read_settings():
     """Функция окна настроек"""
-    print(read_settings.__name__)
-    pass
+    print(read_settings.__name__) if DEBUG else ...
+
+    global SETTINGS_DATA_DEF
+    global SETTINGS_FILE_DEF
+
+    if os.path.exists(SETTINGS_FILE_DEF):
+        print(f'Файл {SETTINGS_FILE_DEF = } имеется читаю настройки из файла'
+              f' и кладу в глобальную переменную SETTINGS_DATA_DEF')
+        SETTINGS_DATA_DEF = const.SETT_DEF
+        return SETTINGS_DATA_DEF
+    else:
+        print(f'Файл {SETTINGS_FILE_DEF = } отсутствует')
+        return False
 
 
 # функция сохранения настроек, обычно при закрытии программы
 def save_settings():
     """Функция окна настроек"""
-    print(save_settings.__name__)
-    pass
+    print(save_settings.__name__) if DEBUG else ...
+
+    # print('*' * 50)
+
+    # print('*' * 50)
 
 
 # функция непосредственного выхода из программы
 def exit_app():
     """Функция окна настроек"""
-    print(exit_app.__name__)
+    print(exit_app.__name__) if DEBUG else ...
     sys.exit()
 
 
 # основная функция запуска приложения
 def run():
-    print(run.__name__)
+    print(run.__name__) if DEBUG else ...
     app = PyQt5.QtWidgets.QApplication(sys.argv)
     app.setStyle('Fusion')
     app_window_main = WindowMain()

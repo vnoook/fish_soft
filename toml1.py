@@ -1,6 +1,12 @@
-import tomli_w
-import tomllib
+import sys
 import pprint
+if sys.version_info < (3, 11):
+    import tomli as tomllib
+    import tomli_w
+else:
+    import tomllib
+    import tomli_w
+
 
 setts = {'settings_window_main': {'window_coords': {'h': 1100,
                                                     'w': 400,
