@@ -1,6 +1,7 @@
 import sys
 import os.path
-import PyQt5.QtCore
+# import PyQt5.QtGui
+# import PyQt5.QtCore
 import PyQt5.QtWidgets
 import fish_consts as const
 from pprint import pprint as pp
@@ -28,6 +29,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         main_window_y = const.SETT_DEF['settings_window_main']['window_coords']['y']
         main_window_h = const.SETT_DEF['settings_window_main']['window_coords']['h']
         main_window_w = const.SETT_DEF['settings_window_main']['window_coords']['w']
+
+        self.frame_geometry = None
 
         # главное окно, надпись на нём и размеры
         self.setWindowTitle(main_window_n)
@@ -146,6 +149,24 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         print(self.closeEvent.__name__) if DEBUG else ...
         self.exit_common()
 
+    # функция переназначения движение окна
+    def moveEvent(self, event):
+        """Функция переназначения движение окна"""
+        print(self.moveEvent.__name__) if DEBUG else ...
+        self.get_coords()
+
+    # функция переназначения изменения размеров окна
+    def resizeEvent(self, event):
+        """Функция переназначения изменения размеров окна"""
+        print(self.resizeEvent.__name__) if DEBUG else ...
+        self.get_coords()
+
+    # функция получения координат и запись их в переменную экземпляра класса
+    def get_coords(self):
+        """Функция получения координат и запись их в переменную экземпляра класса"""
+        print(self.get_coords.__name__) if DEBUG else ...
+        self.frame_geometry = self.frameGeometry()
+
     # функция общего выхода из программы
     def exit_common(self):
         print('_'*25) if DEBUG else ...
@@ -178,6 +199,8 @@ def save_settings():
     print(save_settings.__name__) if DEBUG else ...
 
     # print('*' * 50)
+
+    print(WindowMain.frame_geometry)
 
     # print('*' * 50)
 
