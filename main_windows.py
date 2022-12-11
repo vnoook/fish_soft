@@ -161,9 +161,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         print(self.resizeEvent.__name__) if DEBUG else ...
         self.get_coords()
 
-    # функция получения координат и запись их в переменную экземпляра класса
+    # функция получения координат и запись их в переменную экземпляр класса
     def get_coords(self):
-        """Функция получения координат и запись их в переменную экземпляра класса"""
+        """Функция получения координат и запись их в переменную экземпляр класса"""
         print(self.get_coords.__name__) if DEBUG else ...
         self.frame_geometry = self.frameGeometry()
 
@@ -198,11 +198,9 @@ def save_settings():
     """Функция окна настроек"""
     print(save_settings.__name__) if DEBUG else ...
 
-    # print('*' * 50)
+    print('*' * 50)
 
-    print(WindowMain.frame_geometry)
-
-    # print('*' * 50)
+    print('*' * 50)
 
 
 # функция непосредственного выхода из программы
