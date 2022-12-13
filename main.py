@@ -3,6 +3,12 @@ import os.path
 # import PyQt5.QtGui
 # import PyQt5.QtCore
 import PyQt5.QtWidgets
+if sys.version_info < (3, 11):
+    import tomli as tomllib
+    import tomli_w
+else:
+    import tomllib
+    import tomli_w
 import fish_consts as const
 from pprint import pprint as pp
 
@@ -186,20 +192,33 @@ def read_settings():
     if os.path.exists(SETTINGS_FILE_DEF):
         print(f'Файл {SETTINGS_FILE_DEF = } имеется читаю настройки из файла '
               f'и кладу в глобальную переменную SETTINGS_DATA_DEF')
+
+        with open(file_settings, "rb") as fl_set:
+            data = tomllib.load(fl_set)
+
         SETTINGS_DATA_DEF = const.SETT_DEF
         return SETTINGS_DATA_DEF
     else:
         print(f'Файл {SETTINGS_FILE_DEF = } отсутствует')
-        return False
+        # return False
 
+        # иначе содержимое считается значениями по-умолчанию
+        save_settings(SETTINGS_DATA_DEF, SETTINGS_FILE_DEF)
+        return SETTINGS_DATA_DEF
 
-# функция сохранения настроек, обычно при закрытии программы
+# функция сохранения настроек, обычно при закрытии программы, формат TOML
 def save_settings():
     """Функция окна настроек"""
     print(save_settings.__name__) if DEBUG else ...
-    # print('*' * 50)
+
     # print('*' * 50)
 
+    global SETTINGS_DATA_DEF
+    global SETTINGS_FILE_DEF
+
+    # запись настроек в файл
+    with open(SETTINGS_FILE_DEF, "wb") as file_set:
+        tomli_w.dump(SETTINGS_DATA_DEF, file_set)
 
 # функция непосредственного выхода из программы
 def exit_app():
