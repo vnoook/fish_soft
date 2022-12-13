@@ -167,9 +167,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         print(self.get_coords.__name__) if DEBUG else ...
         self.frame_geometry = self.geometry()
 
-        print(type(self.frame_geometry))
-
-
     # функция общего выхода из программы
     def exit_common(self):
         print('_'*25) if DEBUG else ...
@@ -200,10 +197,8 @@ def read_settings():
 def save_settings():
     """Функция окна настроек"""
     print(save_settings.__name__) if DEBUG else ...
-
-    print('*' * 50)
-
-    print('*' * 50)
+    # print('*' * 50)
+    # print('*' * 50)
 
 
 # функция непосредственного выхода из программы
