@@ -17,7 +17,7 @@ else:
 
 
 # название файла настроек по-умолчанию
-SETTINGS_FILE_DEF = "settings.toml"
+SETTINGS_FILE_DEF = "toml_settings.toml"
 # список настроек по-умолчанию - ..., клуб, программы, соревнования, ...
 SETTINGS_DATA_DEF = {
     # файл настроек SET_

@@ -163,9 +163,12 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
     # функция получения координат и запись их в переменную экземпляр класса
     def get_coords(self):
-        """Функция получения координат и запись их в переменную экземпляр класса"""
+        """Функция получения координат и запись их в переменную экземпляра класса"""
         print(self.get_coords.__name__) if DEBUG else ...
-        self.frame_geometry = self.frameGeometry()
+        self.frame_geometry = self.geometry()
+
+        print(type(self.frame_geometry))
+
 
     # функция общего выхода из программы
     def exit_common(self):
@@ -184,8 +187,8 @@ def read_settings():
     global SETTINGS_FILE_DEF
 
     if os.path.exists(SETTINGS_FILE_DEF):
-        print(f'Файл {SETTINGS_FILE_DEF = } имеется читаю настройки из файла'
-              f' и кладу в глобальную переменную SETTINGS_DATA_DEF')
+        print(f'Файл {SETTINGS_FILE_DEF = } имеется читаю настройки из файла '
+              f'и кладу в глобальную переменную SETTINGS_DATA_DEF')
         SETTINGS_DATA_DEF = const.SETT_DEF
         return SETTINGS_DATA_DEF
     else:
