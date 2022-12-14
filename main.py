@@ -189,29 +189,28 @@ def read_settings():
     global SETTINGS_FILE_DEF
     global SETTINGS_DATA_DEF
 
-    if os.path.exists(SETTINGS_FILE_DEF):
-        print(f'Файл {SETTINGS_FILE_DEF = } имеется читаю настройки из файла '
-              f'и кладу в глобальную переменную SETTINGS_DATA_DEF')
+    # SETTINGS_DATA_DEF = repair_settings(SETTINGS_DATA_DEF, const.SETT_DEF)
 
+    if os.path.exists(SETTINGS_FILE_DEF):
+        # print(f'Файл {SETTINGS_FILE_DEF = } имеется читаю настройки из файла '
+        #       f'и кладу в глобальную переменную SETTINGS_DATA_DEF')
         with open(SETTINGS_FILE_DEF, "rb") as fl_set:
             data = tomllib.load(fl_set)
-
         SETTINGS_DATA_DEF = data
     else:
-        print(f'Файл {SETTINGS_FILE_DEF = } отсутствует, '
-              f'значит SETTINGS_FILE_DEF надо заполнить данными из const.SETT_DEF')
+        # print(f'Файл {SETTINGS_FILE_DEF = } отсутствует, '
+        #       f'значит SETTINGS_FILE_DEF надо заполнить данными из const.SETT_DEF')
         SETTINGS_DATA_DEF = const.SETT_DEF
 
-    # pp(SETTINGS_DATA_DEF)
 
-
-# функция валидности ключей и их количества в файле настроек
+# функция валидности ключей и их количества в хранилище настроек
 def repair_settings(cur_dict: dict, def_dict: dict):
-    """Функция валидности ключей и их количества в файле настроек"""
+    """Функция валидности ключей и их количества в хранилище настроек"""
     print(repair_settings.__name__) if DEBUG else ...
 
     # проверяю на нехватку нужных ключей в словаре и если нет, то добавляю из дефолтных
     for key in def_dict:
+        print(key)
         if key not in cur_dict:
             cur_dict[key] = def_dict[key]
 
@@ -243,9 +242,11 @@ def save_settings():
     global SETTINGS_DATA_DEF
     global SETTINGS_FILE_DEF
 
+    data = repair_settings(SETTINGS_DATA_DEF, const.SETT_DEF)
+
     # запись настроек в файл
-    with open(SETTINGS_FILE_DEF, "wb") as file_set:
-        tomli_w.dump(SETTINGS_DATA_DEF, file_set)
+    with open(SETTINGS_FILE_DEF, "wb") as file_settings:
+        tomli_w.dump(data, file_settings)
 
 
 # функция непосредственного выхода из программы

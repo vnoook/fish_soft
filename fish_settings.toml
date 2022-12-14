@@ -4,35 +4,10 @@ w = 400
 x = 100
 y = 100
 
-[settings_window_main.window_name]
-name = "Название главного окна"
 
-[settings_window_set_comp.window_coords]
-h = 400
-w = 400
-x = 100
-y = 100
 
-[settings_window_set_comp.window_name]
-name = "Название окна настроек соревнований"
 
-[settings_window_about.window_coords]
-h = 200
-w = 200
-x = 200
-y = 200
 
-[settings_window_about.window_name]
-name = "Название окна о программе"
-
-[settings_window_set_soft.window_coords]
-h = 400
-w = 400
-x = 100
-y = 100
-
-[settings_window_set_soft.window_name]
-name = "Название окна настроек программы"
 
 [settings_soft]
 emergency_exit = true
