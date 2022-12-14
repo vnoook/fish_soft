@@ -1,6 +1,6 @@
 import sys
 import os.path
-# import PyQt5.QtGui
+import PyQt5.QtGui
 # import PyQt5.QtCore
 import PyQt5.QtWidgets
 if sys.version_info < (3, 11):
@@ -203,6 +203,7 @@ def read_settings():
         SETTINGS_DATA_DEF = const.SETT_DEF
 
     pp(SETTINGS_DATA_DEF)
+    # pp()
 
 
 # функция сохранения настроек в файл toml, обычно при закрытии программы
@@ -229,8 +230,14 @@ def exit_app():
 # основная функция запуска приложения
 def run():
     print(run.__name__) if DEBUG else ...
+
     app = PyQt5.QtWidgets.QApplication(sys.argv)
     app.setStyle('Fusion')
+
+    screen_geometry = app.desktop().screenGeometry()
+    screen_size = (screen_geometry.width(), screen_geometry.height())
+
+
     app_window_main = WindowMain()
     app_window_main.show()
     sys.exit(app.exec_())
