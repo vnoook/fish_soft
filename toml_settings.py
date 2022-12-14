@@ -4,16 +4,14 @@
 # 3 - переделать формирование файла настроек с добавлением разделов в скобках []
 
 import sys
+import os.path
+import datetime
 if sys.version_info < (3, 11):
-    import os.path
     import tomli as tomllib
     import tomli_w
-    import datetime
 else:
-    import os.path
     import tomllib
     import tomli_w
-    import datetime
 
 
 # название файла настроек по-умолчанию

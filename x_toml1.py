@@ -32,10 +32,10 @@ setts = {'settings_window_main': {'window_coords': {'h': 1100,
                                                       'name': 'settings window '
                                                               'software'}}}
 
-with open("toml_conf.toml", "wb") as fl_set:
+with open("x_toml_conf.toml", "wb") as fl_set:
     tomli_w.dump(setts, fl_set)
 
-with open("toml_conf.toml", "rb") as fl_set:
+with open("x_toml_conf.toml", "rb") as fl_set:
     data = tomllib.load(fl_set)
 
 dt = data["settings_window_set_comp"]["window_name"]["name"]
