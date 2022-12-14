@@ -10,7 +10,7 @@ else:
     import tomllib
     import tomli_w
 import fish_consts as const
-# from pprint import pprint as pp
+from pprint import pprint as pp
 
 DEBUG = False
 SETTINGS_FILE_DEF = 'fish_settings.toml'
@@ -198,8 +198,11 @@ def read_settings():
 
         SETTINGS_DATA_DEF = data
     else:
-        print(f'Файл {SETTINGS_FILE_DEF = } отсутствует')
+        print(f'Файл {SETTINGS_FILE_DEF = } отсутствует, '
+              f'значит SETTINGS_FILE_DEF надо заполнить данными из const.SETT_DEF')
         SETTINGS_DATA_DEF = const.SETT_DEF
+
+    pp(SETTINGS_DATA_DEF)
 
 
 # функция сохранения настроек в файл toml, обычно при закрытии программы
