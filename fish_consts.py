@@ -22,6 +22,6 @@ SETT_DEF = {'settings_window_main': {'window_coords': {'h': 1200,
                                          'window_name': {'name': 'Название окна настроек программы'}},
             'settings_soft': {'emergency_exit': True,
                               'file_settings_soft': 'fish_settings.toml',
-                              'screen_resolution': (1366, 768)
+                              'screen_resolution': (1400, 900)
                               }
             }

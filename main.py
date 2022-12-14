@@ -202,8 +202,7 @@ def read_settings():
               f'значит SETTINGS_FILE_DEF надо заполнить данными из const.SETT_DEF')
         SETTINGS_DATA_DEF = const.SETT_DEF
 
-    pp(SETTINGS_DATA_DEF)
-    # pp()
+    # pp(SETTINGS_DATA_DEF)
 
 
 # функция сохранения настроек в файл toml, обычно при закрытии программы
@@ -235,8 +234,8 @@ def run():
     app.setStyle('Fusion')
 
     screen_geometry = app.desktop().screenGeometry()
-    screen_size = (screen_geometry.width(), screen_geometry.height())
-
+    screen_size = [screen_geometry.width(), screen_geometry.height()]
+    SETTINGS_DATA_DEF['settings_soft']['screen_resolution'] = screen_size
 
     app_window_main = WindowMain()
     app_window_main.show()

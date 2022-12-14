@@ -1,5 +1,5 @@
 [settings_window_main.window_coords]
-h = 2222
+h = 1200
 w = 400
 x = 100
 y = 100
@@ -37,3 +37,7 @@ name = "Название окна настроек программы"
 [settings_soft]
 emergency_exit = true
 file_settings_soft = "fish_settings.toml"
+screen_resolution = [
+    1366,
+    768,
+]
