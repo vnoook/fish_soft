@@ -205,6 +205,35 @@ def read_settings():
     # pp(SETTINGS_DATA_DEF)
 
 
+# функция валидности ключей и их количества в файле настроек
+def repair_settings(cur_dict: dict, def_dict: dict):
+    """Функция валидности ключей и их количества в файле настроек"""
+    print(repair_settings.__name__) if DEBUG else ...
+
+    # проверяю на нехватку нужных ключей в словаре и если нет, то добавляю из дефолтных
+    for key in def_dict:
+        if key not in cur_dict:
+            cur_dict[key] = def_dict[key]
+
+    # проверяю на наличие лишних ключей в словаре и если есть лишние, то удаляю их
+    # временный список для лишних ключей
+    list_keys = []
+
+    # собираю в список лишние ключи
+    for key in cur_dict:
+        if key not in def_dict:
+            list_keys.append(key)
+
+    # по списку удаляю лишние ключи
+    for key in list_keys:
+        del cur_dict[key]
+
+    # удаляю временный список
+    del list_keys
+    # возвращаю поправленный словарь настроек
+    return cur_dict
+
+
 # функция сохранения настроек в файл toml, обычно при закрытии программы
 def save_settings():
     """Функция сохранения настроек в файл toml"""
