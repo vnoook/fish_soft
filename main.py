@@ -10,11 +10,11 @@ else:
     import tomllib
     import tomli_w
 import fish_consts as const
-from pprint import pprint as pp
+# from pprint import pprint as pp
 
 DEBUG = False
-SETTINGS_DATA_DEF = None
 SETTINGS_FILE_DEF = 'fish_settings.toml'
+SETTINGS_DATA_DEF = None
 
 
 # класс главного окна
@@ -181,36 +181,31 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         exit_app()
 
 
-# функция чтения настроек, обычно при открытии программы
+# функция чтения настроек из файла toml ИЛИ установка дефолтных значений, обычно при открытии программы
 def read_settings():
-    """Функция окна настроек"""
+    """Функция чтения настроек из файла toml ИЛИ установка дефолтных значений"""
     print(read_settings.__name__) if DEBUG else ...
 
-    global SETTINGS_DATA_DEF
     global SETTINGS_FILE_DEF
+    global SETTINGS_DATA_DEF
 
     if os.path.exists(SETTINGS_FILE_DEF):
         print(f'Файл {SETTINGS_FILE_DEF = } имеется читаю настройки из файла '
               f'и кладу в глобальную переменную SETTINGS_DATA_DEF')
 
-        with open(file_settings, "rb") as fl_set:
+        with open(SETTINGS_FILE_DEF, "rb") as fl_set:
             data = tomllib.load(fl_set)
 
-        SETTINGS_DATA_DEF = const.SETT_DEF
-        return SETTINGS_DATA_DEF
+        SETTINGS_DATA_DEF = data
     else:
         print(f'Файл {SETTINGS_FILE_DEF = } отсутствует')
-        # return False
+        SETTINGS_DATA_DEF = const.SETT_DEF
 
-        # иначе содержимое считается значениями по-умолчанию
-        save_settings(SETTINGS_DATA_DEF, SETTINGS_FILE_DEF)
-        return SETTINGS_DATA_DEF
 
-# функция сохранения настроек, обычно при закрытии программы, формат TOML
+# функция сохранения настроек в файл toml, обычно при закрытии программы
 def save_settings():
-    """Функция окна настроек"""
+    """Функция сохранения настроек в файл toml"""
     print(save_settings.__name__) if DEBUG else ...
-
     # print('*' * 50)
 
     global SETTINGS_DATA_DEF
@@ -219,6 +214,7 @@ def save_settings():
     # запись настроек в файл
     with open(SETTINGS_FILE_DEF, "wb") as file_set:
         tomli_w.dump(SETTINGS_DATA_DEF, file_set)
+
 
 # функция непосредственного выхода из программы
 def exit_app():
