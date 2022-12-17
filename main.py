@@ -189,25 +189,24 @@ def read_settings():
     global SETTINGS_FILE_DEF
     global SETTINGS_DATA_DEF
 
+    # если файла нет, то настройки берут по-умолчанию
     # если файл есть, то пробую прочитать
     #   если файл не TOML, то ставлю настройки по-умолчанию
     #   если файл TOML, то ставлю настройки из файла
-    if os.path.exists(SETTINGS_FILE_DEF):
-        try:
-            tomllib.load(SETTINGS_FILE_DEF)
-        except Exception:
-            # любая ошибка распознаётся как нечитаемый файл
-            SETTINGS_DATA_DEF = fcs.SETT_DEF
-        else:
-            # читаю из файла
-            with open(SETTINGS_FILE_DEF, "rb") as fl_set:
-                data = tomllib.load(fl_set)
-
-            # настройки взяты из data
-            SETTINGS_DATA_DEF = data
-    else:
+    if not os.path.exists(SETTINGS_FILE_DEF):
         # если файла нет, то настройки берутся по-умолчанию
         SETTINGS_DATA_DEF = fcs.SETT_DEF
+    else:
+        try:
+            # пробую открыть, прочитать и распознать данные в файле
+            with open(SETTINGS_FILE_DEF, "rb") as fl_set:
+                data = tomllib.load(fl_set)
+        except Exception:
+            # любая ошибка распознаётся как нечитаемый файл и значит настройки берутся по-умолчанию
+            SETTINGS_DATA_DEF = fcs.SETT_DEF
+        else:
+            # SETTINGS_DATA_DEF = data
+            SETTINGS_DATA_DEF = repair_settings(data, fcs.SETT_DEF)
 
 
 # функция валидности ключей и их количества в хранилище настроек
