@@ -189,22 +189,25 @@ def read_settings():
     global SETTINGS_FILE_DEF
     global SETTINGS_DATA_DEF
 
+    # если файл есть, то пробую прочитать
+    #   если файл не TOML, то ставлю настройки по-умолчанию
+    #   если файл TOML, то ставлю настройки из файла
     if os.path.exists(SETTINGS_FILE_DEF):
         try:
             tomllib.load(SETTINGS_FILE_DEF)
         except Exception:
-            # print('не могу прочитать файл TOML,', Exception)
+            # любая ошибка распознаётся как нечитаемый файл
             SETTINGS_DATA_DEF = fcs.SETT_DEF
         else:
-            pass
+            # читаю из файла
             with open(SETTINGS_FILE_DEF, "rb") as fl_set:
                 data = tomllib.load(fl_set)
-                print(data)
-                SETTINGS_DATA_DEF = data
-    else:
-        SETTINGS_DATA_DEF = fcs.SETT_DEF
 
-    # SETTINGS_DATA_DEF = repair_settings(SETTINGS_DATA_DEF, const.SETT_DEF)
+            # настройки взяты из data
+            SETTINGS_DATA_DEF = data
+    else:
+        # если файла нет, то настройки берутся по-умолчанию
+        SETTINGS_DATA_DEF = fcs.SETT_DEF
 
 
 # функция валидности ключей и их количества в хранилище настроек
@@ -214,10 +217,10 @@ def repair_settings(cur_dict: dict, def_dict: dict):
 
     # проверяю на нехватку нужных ключей в словаре и если нет, то добавляю из дефолтных
     for key in def_dict:
-        print(key)
+        # print(key)
         if key not in cur_dict:
             cur_dict[key] = def_dict[key]
-    print()
+    # print()
 
     # проверяю на наличие лишних ключей в словаре и если есть лишние, то удаляю их
     # временный список для лишних ключей
@@ -225,10 +228,10 @@ def repair_settings(cur_dict: dict, def_dict: dict):
 
     # собираю в список лишние ключи
     for key in cur_dict:
-        print(key)
+        # print(key)
         if key not in def_dict:
             list_keys.append(key)
-    print()
+    # print()
 
     # по списку удаляю лишние ключи
     for key in list_keys:
