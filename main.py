@@ -193,21 +193,14 @@ def read_settings():
         try:
             tomllib.load(SETTINGS_FILE_DEF)
         except Exception:
-            print('не могу прочитать файл TOML,', Exception)
-        # except ValueError as _err:
-        #     print('не могу прочитать файл ТОМЛ1,', _err)
-        # except AttributeError as _err:
-        #     print('не могу прочитать файл ТОМЛ2,', _err)
-        # except TypeError as _err:
-        #     print('не могу прочитать файл ТОМЛ3,', _err)
-        # except tomllib.TOMLDecodeError as _err:
-        #     print('не могу прочитать файл ТОМЛ4,', _err)
+            # print('не могу прочитать файл TOML,', Exception)
+            SETTINGS_DATA_DEF = fcs.SETT_DEF
         else:
             pass
-            # with open(SETTINGS_FILE_DEF, "rb") as fl_set:
-            #     data = tomllib.load(fl_set)
-            #     print(data)
-            #     SETTINGS_DATA_DEF = data
+            with open(SETTINGS_FILE_DEF, "rb") as fl_set:
+                data = tomllib.load(fl_set)
+                print(data)
+                SETTINGS_DATA_DEF = data
     else:
         SETTINGS_DATA_DEF = fcs.SETT_DEF
 
