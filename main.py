@@ -1,6 +1,6 @@
 import sys
 import os.path
-import PyQt5.QtGui
+# import PyQt5.QtGui
 # import PyQt5.QtCore
 import PyQt5.QtWidgets
 if sys.version_info < (3, 11):
@@ -9,7 +9,7 @@ if sys.version_info < (3, 11):
 else:
     import tomllib
     import tomli_w
-import fish_consts as const
+import fish_consts as fcs
 from pprint import pprint as pp
 
 DEBUG = False
@@ -30,11 +30,11 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         super().__init__()
 
         # переменные
-        main_window_n = const.SETT_DEF['settings_window_main']['window_name']['name']
-        main_window_x = const.SETT_DEF['settings_window_main']['window_coords']['x']
-        main_window_y = const.SETT_DEF['settings_window_main']['window_coords']['y']
-        main_window_h = const.SETT_DEF['settings_window_main']['window_coords']['h']
-        main_window_w = const.SETT_DEF['settings_window_main']['window_coords']['w']
+        main_window_n = fcs.SETT_DEF['settings_window_main']['window_name']
+        main_window_x = fcs.SETT_DEF['settings_window_main']['window_coords_x']
+        main_window_y = fcs.SETT_DEF['settings_window_main']['window_coords_y']
+        main_window_h = fcs.SETT_DEF['settings_window_main']['window_coords_h']
+        main_window_w = fcs.SETT_DEF['settings_window_main']['window_coords_w']
 
         self.frame_geometry = None
 
@@ -189,18 +189,29 @@ def read_settings():
     global SETTINGS_FILE_DEF
     global SETTINGS_DATA_DEF
 
-    # SETTINGS_DATA_DEF = repair_settings(SETTINGS_DATA_DEF, const.SETT_DEF)
-
     if os.path.exists(SETTINGS_FILE_DEF):
-        # print(f'Файл {SETTINGS_FILE_DEF = } имеется читаю настройки из файла '
-        #       f'и кладу в глобальную переменную SETTINGS_DATA_DEF')
-        with open(SETTINGS_FILE_DEF, "rb") as fl_set:
-            data = tomllib.load(fl_set)
-        SETTINGS_DATA_DEF = data
+        try:
+            tomllib.load(SETTINGS_FILE_DEF)
+        except Exception:
+            print('не могу прочитать файл TOML,', Exception)
+        # except ValueError as _err:
+        #     print('не могу прочитать файл ТОМЛ1,', _err)
+        # except AttributeError as _err:
+        #     print('не могу прочитать файл ТОМЛ2,', _err)
+        # except TypeError as _err:
+        #     print('не могу прочитать файл ТОМЛ3,', _err)
+        # except tomllib.TOMLDecodeError as _err:
+        #     print('не могу прочитать файл ТОМЛ4,', _err)
+        else:
+            pass
+            # with open(SETTINGS_FILE_DEF, "rb") as fl_set:
+            #     data = tomllib.load(fl_set)
+            #     print(data)
+            #     SETTINGS_DATA_DEF = data
     else:
-        # print(f'Файл {SETTINGS_FILE_DEF = } отсутствует, '
-        #       f'значит SETTINGS_FILE_DEF надо заполнить данными из const.SETT_DEF')
-        SETTINGS_DATA_DEF = const.SETT_DEF
+        SETTINGS_DATA_DEF = fcs.SETT_DEF
+
+    # SETTINGS_DATA_DEF = repair_settings(SETTINGS_DATA_DEF, const.SETT_DEF)
 
 
 # функция валидности ключей и их количества в хранилище настроек
@@ -213,6 +224,7 @@ def repair_settings(cur_dict: dict, def_dict: dict):
         print(key)
         if key not in cur_dict:
             cur_dict[key] = def_dict[key]
+    print()
 
     # проверяю на наличие лишних ключей в словаре и если есть лишние, то удаляю их
     # временный список для лишних ключей
@@ -220,8 +232,10 @@ def repair_settings(cur_dict: dict, def_dict: dict):
 
     # собираю в список лишние ключи
     for key in cur_dict:
+        print(key)
         if key not in def_dict:
             list_keys.append(key)
+    print()
 
     # по списку удаляю лишние ключи
     for key in list_keys:
@@ -242,7 +256,7 @@ def save_settings():
     global SETTINGS_DATA_DEF
     global SETTINGS_FILE_DEF
 
-    data = repair_settings(SETTINGS_DATA_DEF, const.SETT_DEF)
+    data = repair_settings(SETTINGS_DATA_DEF, fcs.SETT_DEF)
 
     # запись настроек в файл
     with open(SETTINGS_FILE_DEF, "wb") as file_settings:
