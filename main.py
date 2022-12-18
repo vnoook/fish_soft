@@ -36,6 +36,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         main_window_h = SETTINGS_DATA_DEF['settings_window_main']['window_coords_h']
         main_window_w = SETTINGS_DATA_DEF['settings_window_main']['window_coords_w']
 
+        # ???
         self.frame_geometry = None
 
         # главное окно, надпись на нём и размеры
@@ -75,24 +76,28 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
     def window_file_open(self):
         """Функция меню Файл-Открыть"""
         print(self.window_file_open.__name__) if DEBUG else ...
+
         pass
 
     # функция по открытию меню Файл-Сохранить
     def window_file_save(self):
         """Функция меню Файл-Сохранить"""
         print(self.window_file_save.__name__) if DEBUG else ...
+
         pass
 
     # функция по открытию меню Файл-Выход
     def window_file_exit(self):
         """Функция меню Файл-Выход"""
         print(self.window_file_exit.__name__) if DEBUG else ...
+
         self.exit_common()
 
     # окно настроек соревнований
     def window_settings_competition(self):
         """Функция окна настроек соревнований"""
         print(self.window_settings_competition.__name__) if DEBUG else ...
+
         pass
 
         # window_settings = PyQt5.QtWidgets.QWidget(self, PyQt5.QtCore.Qt.Window)
@@ -135,36 +140,42 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
     def window_settings_soft(self):
         """Функция окна настроек программы"""
         print(self.window_settings_soft.__name__) if DEBUG else ...
+
         pass
 
     # окно правил соревнований
     def window_rules_competition(self):
         """Функция окна правил соревнований"""
         print(self.window_rules_competition.__name__) if DEBUG else ...
+
         pass
 
     # окно О программе
     def window_about(self):
         """Функция окна О программе"""
         print(self.window_about.__name__) if DEBUG else ...
+
         pass
 
     # функция переназначения закрытия окна по X или Alt+F4
     def closeEvent(self, event):
         """Функция переназначения на закрытие окна"""
         print(self.closeEvent.__name__) if DEBUG else ...
+
         self.exit_common()
 
     # функция переназначения движение окна
     def moveEvent(self, event):
         """Функция переназначения движение окна"""
         print(self.moveEvent.__name__) if DEBUG else ...
+
         self.get_coords()
 
     # функция переназначения изменения размеров окна
     def resizeEvent(self, event):
         """Функция переназначения изменения размеров окна"""
         print(self.resizeEvent.__name__) if DEBUG else ...
+
         self.get_coords()
 
     # функция получения координат и запись их в переменную экземпляр класса
@@ -172,6 +183,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         """Функция получения координат и запись их в переменную экземпляра класса"""
         print(self.get_coords.__name__) if DEBUG else ...
 
+        # ???
         self.frame_geometry = self.geometry()
 
         SETTINGS_DATA_DEF['settings_window_main']['window_coords_x'] = self.frame_geometry.x()
@@ -181,8 +193,10 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
     # функция общего выхода из программы
     def exit_common(self):
+        """Функция общего выхода из программы"""
         print('_' * 25) if DEBUG else ...
         print(self.exit_common.__name__) if DEBUG else ...
+
         save_settings()
         exit_app()
 
@@ -207,11 +221,10 @@ def read_settings():
             # пробую открыть, прочитать и распознать данные в файле
             with open(SETTINGS_FILE_DEF, "rb") as file_settings:
                 data = tomllib.load(file_settings)
-        except Exception:
+        except Exception as _err:
             # любая ошибка распознаётся как нечитаемый файл и значит настройки берутся по-умолчанию
             SETTINGS_DATA_DEF = fcs.SETT_DEF
         else:
-            # SETTINGS_DATA_DEF = data
             SETTINGS_DATA_DEF = repair_settings(data, fcs.SETT_DEF)
 
 
@@ -220,26 +233,14 @@ def repair_settings(cur_dict: dict, def_dict: dict):
     """Функция валидности ключей и их количества в хранилище настроек"""
     print(repair_settings.__name__) if DEBUG else ...
 
-    # проверяю на нехватку нужных ключей в словаре и если нет, то добавляю из дефолтных
-    for key, val in def_dict.items():
-        if not cur_dict.get(key, False):
-            cur_dict[key] = def_dict[key]
-        else:
-            if type(val) != type(cur_dict[key]):
-                cur_dict[key] = val
-        if isinstance(val, dict):
-            repair_settings(cur_dict[key], val)
-
     # проверяю на наличие лишних ключей в словаре и если есть лишние, то удаляю их
     # временный список для лишних ключей
     list_keys = []
 
     # собираю в список лишние ключи
     for key in cur_dict:
-        # print(key)
         if key not in def_dict:
             list_keys.append(key)
-    # print()
 
     # по списку удаляю лишние ключи
     for key in list_keys:
@@ -247,6 +248,18 @@ def repair_settings(cur_dict: dict, def_dict: dict):
 
     # удаляю временный список
     del list_keys
+
+    # проверяю на нехватку нужных ключей в словаре и если нет, то добавляю из дефолтных
+    for key, val in def_dict.items():
+        if not cur_dict.get(key, False):
+            cur_dict[key] = def_dict[key]
+        else:
+            if type(val) != type(cur_dict[key]):
+                cur_dict[key] = val
+
+        if isinstance(val, dict):
+            repair_settings(cur_dict[key], val)
+
     # возвращаю поправленный словарь настроек
     return cur_dict
 
@@ -255,14 +268,11 @@ def repair_settings(cur_dict: dict, def_dict: dict):
 def save_settings():
     """Функция сохранения настроек в файл toml"""
     print(save_settings.__name__) if DEBUG else ...
-    # print('*' * 50)
 
     global SETTINGS_DATA_DEF
     global SETTINGS_FILE_DEF
 
-    # data = repair_settings(SETTINGS_DATA_DEF, fcs.SETT_DEF)
-    data = SETTINGS_DATA_DEF
-    pp(SETTINGS_DATA_DEF)
+    data = repair_settings(SETTINGS_DATA_DEF, fcs.SETT_DEF)
 
     # запись настроек в файл
     with open(SETTINGS_FILE_DEF, "wb") as file_settings:

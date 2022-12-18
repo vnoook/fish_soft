@@ -1,8 +1,8 @@
 [settings_window_main]
-window_coords_h = 553
-window_coords_w = 1314
-window_coords_x = 25
-window_coords_y = 119
+window_coords_h = 404
+window_coords_w = 936
+window_coords_x = 206
+window_coords_y = 121
 window_name = "Название главного окна"
 
 [settings_window_set_comp]
