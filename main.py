@@ -181,7 +181,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
     # функция общего выхода из программы
     def exit_common(self):
-        print('_'*25) if DEBUG else ...
+        print('_' * 25) if DEBUG else ...
         print(self.exit_common.__name__) if DEBUG else ...
         save_settings()
         exit_app()
@@ -219,15 +219,16 @@ def read_settings():
 def repair_settings(cur_dict: dict, def_dict: dict):
     """Функция валидности ключей и их количества в хранилище настроек"""
     print(repair_settings.__name__) if DEBUG else ...
-    # TODO
-    # сделать алгоритм проверки не только первой глубины, но и глубже
 
     # проверяю на нехватку нужных ключей в словаре и если нет, то добавляю из дефолтных
-    for key in def_dict:
-        # print(key)
-        if key not in cur_dict:
+    for key, val in def_dict.items():
+        if not cur_dict.get(key, False):
             cur_dict[key] = def_dict[key]
-    # print()
+        else:
+            if type(val) != type(cur_dict[key]):
+                cur_dict[key] = val
+        if isinstance(val, dict):
+            repair_settings(cur_dict[key], val)
 
     # проверяю на наличие лишних ключей в словаре и если есть лишние, то удаляю их
     # временный список для лишних ключей

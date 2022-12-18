@@ -2,8 +2,8 @@
 
 SETT_DEF = {
     'settings_window_main': {
-        'window_coords_h': 1200,
-        'window_coords_w': 400,
+        'window_coords_h': 400,
+        'window_coords_w': 1200,
         'window_coords_x': 100,
         'window_coords_y': 100,
         'window_name': 'Название главного окна'},
