@@ -1,8 +1,8 @@
 [settings_window_main]
-window_coords_h = 900
-window_coords_w = 400
-window_coords_x = 100
-window_coords_y = 100
+window_coords_h = 309
+window_coords_w = 506
+window_coords_x = 157
+window_coords_y = 163
 window_name = "Название главного окна"
 
 [settings_window_set_comp]
@@ -29,7 +29,5 @@ window_name = "Название окна о программе"
 [settings_soft]
 emergency_exit = true
 file_settings_soft = "fish_settings.toml"
-screen_resolution = [
-    1366,
-    768,
-]
+screen_resolution_x = 1366
+screen_resolution_y = 768

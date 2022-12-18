@@ -28,5 +28,6 @@ SETT_DEF = {
     'settings_soft': {
         'emergency_exit': True,
         'file_settings_soft': 'fish_settings.toml',
-        'screen_resolution': (1400, 900)}
+        'screen_resolution_x': 1400,
+        'screen_resolution_y': 900}
 }

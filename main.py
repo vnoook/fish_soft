@@ -30,17 +30,17 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         super().__init__()
 
         # переменные
-        main_window_n = fcs.SETT_DEF['settings_window_main']['window_name']
-        main_window_x = fcs.SETT_DEF['settings_window_main']['window_coords_x']
-        main_window_y = fcs.SETT_DEF['settings_window_main']['window_coords_y']
-        main_window_h = fcs.SETT_DEF['settings_window_main']['window_coords_h']
-        main_window_w = fcs.SETT_DEF['settings_window_main']['window_coords_w']
+        main_window_n = SETTINGS_DATA_DEF['settings_window_main']['window_name']
+        main_window_x = SETTINGS_DATA_DEF['settings_window_main']['window_coords_x']
+        main_window_y = SETTINGS_DATA_DEF['settings_window_main']['window_coords_y']
+        main_window_h = SETTINGS_DATA_DEF['settings_window_main']['window_coords_h']
+        main_window_w = SETTINGS_DATA_DEF['settings_window_main']['window_coords_w']
 
         self.frame_geometry = None
 
         # главное окно, надпись на нём и размеры
         self.setWindowTitle(main_window_n)
-        self.setGeometry(main_window_x, main_window_y, main_window_h, main_window_w)
+        self.setGeometry(main_window_x, main_window_y, main_window_w, main_window_h)
 
         # ГЛАВНОЕ МЕНЮ
         self.menu = self.menuBar()
@@ -171,7 +171,13 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
     def get_coords(self):
         """Функция получения координат и запись их в переменную экземпляра класса"""
         print(self.get_coords.__name__) if DEBUG else ...
+
         self.frame_geometry = self.geometry()
+
+        SETTINGS_DATA_DEF['settings_window_main']['window_coords_x'] = self.frame_geometry.x()
+        SETTINGS_DATA_DEF['settings_window_main']['window_coords_y'] = self.frame_geometry.y()
+        SETTINGS_DATA_DEF['settings_window_main']['window_coords_h'] = self.frame_geometry.height()
+        SETTINGS_DATA_DEF['settings_window_main']['window_coords_w'] = self.frame_geometry.width()
 
     # функция общего выхода из программы
     def exit_common(self):
@@ -199,8 +205,8 @@ def read_settings():
     else:
         try:
             # пробую открыть, прочитать и распознать данные в файле
-            with open(SETTINGS_FILE_DEF, "rb") as fl_set:
-                data = tomllib.load(fl_set)
+            with open(SETTINGS_FILE_DEF, "rb") as file_settings:
+                data = tomllib.load(file_settings)
         except Exception:
             # любая ошибка распознаётся как нечитаемый файл и значит настройки берутся по-умолчанию
             SETTINGS_DATA_DEF = fcs.SETT_DEF
@@ -213,6 +219,8 @@ def read_settings():
 def repair_settings(cur_dict: dict, def_dict: dict):
     """Функция валидности ключей и их количества в хранилище настроек"""
     print(repair_settings.__name__) if DEBUG else ...
+    # TODO
+    # сделать алгоритм проверки не только первой глубины, но и глубже
 
     # проверяю на нехватку нужных ключей в словаре и если нет, то добавляю из дефолтных
     for key in def_dict:
@@ -251,7 +259,9 @@ def save_settings():
     global SETTINGS_DATA_DEF
     global SETTINGS_FILE_DEF
 
-    data = repair_settings(SETTINGS_DATA_DEF, fcs.SETT_DEF)
+    # data = repair_settings(SETTINGS_DATA_DEF, fcs.SETT_DEF)
+    data = SETTINGS_DATA_DEF
+    pp(SETTINGS_DATA_DEF)
 
     # запись настроек в файл
     with open(SETTINGS_FILE_DEF, "wb") as file_settings:
@@ -273,8 +283,8 @@ def run():
     app.setStyle('Fusion')
 
     screen_geometry = app.desktop().screenGeometry()
-    screen_size = [screen_geometry.width(), screen_geometry.height()]
-    SETTINGS_DATA_DEF['settings_soft']['screen_resolution'] = screen_size
+    SETTINGS_DATA_DEF['settings_soft']['screen_resolution_x'] = screen_geometry.width()
+    SETTINGS_DATA_DEF['settings_soft']['screen_resolution_y'] = screen_geometry.height()
 
     app_window_main = WindowMain()
     app_window_main.show()
