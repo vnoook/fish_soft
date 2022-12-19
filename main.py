@@ -110,6 +110,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         window_settings.setWindowTitle(comp_window_n)
         window_settings.setWindowModality(PyQt5.QtCore.Qt.WindowModal)
         window_settings.setGeometry(comp_window_x+25, comp_window_y+25, comp_window_w, comp_window_h)
+        window_settings.show()
 
         # # lineEdit_
         # window_settings.lineEdit_ = PyQt5.QtWidgets.QLineEdit(window_settings)
@@ -120,10 +121,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # window_settings.lineEdit_.setClearButtonEnabled(True)
         # window_settings.lineEdit_.setEnabled(False)
         # window_settings.lineEdit_.setToolTip(window_settings.lineEdit_.objectName())
-
-        # print(f'{self.geometry().center() = }')
-        # print(f'{window_settings.rect().center() = }')
-        # print(f'{PyQt5.QtCore.QPoint(30, 100) = }')
 
         # # клуб CLUB_
         # "CLUB_ID": "1A2B-3C4D-5E6F",
@@ -140,14 +137,24 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # "COMP_d_period": 45,
         # "COMP_q_anglers": 15,
 
-        window_settings.show()
-
     # окно настроек программы
     def window_settings_soft(self):
         """Функция окна настроек программы"""
         print(self.window_settings_soft.__name__) if DEBUG else ...
 
-        pass
+        # переменные
+        soft_window_n = SETTINGS_DATA_DEF['settings_window_set_soft']['window_name']
+        soft_window_x = SETTINGS_DATA_DEF['settings_window_set_soft']['window_coords_x']
+        soft_window_y = SETTINGS_DATA_DEF['settings_window_set_soft']['window_coords_y']
+        soft_window_w = SETTINGS_DATA_DEF['settings_window_set_soft']['window_coords_w']
+        soft_window_h = SETTINGS_DATA_DEF['settings_window_set_soft']['window_coords_h']
+
+        # окно настроек, надпись на нём и размеры
+        window_settings = PyQt5.QtWidgets.QWidget(self, PyQt5.QtCore.Qt.Window)
+        window_settings.setWindowTitle(soft_window_n)
+        window_settings.setWindowModality(PyQt5.QtCore.Qt.WindowModal)
+        window_settings.setGeometry(soft_window_x+25, soft_window_y+25, soft_window_w, soft_window_h)
+        window_settings.show()
 
     # окно правил соревнований
     def window_rules_competition(self):
