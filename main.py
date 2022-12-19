@@ -1,7 +1,7 @@
 import sys
 import os.path
-# import PyQt5.QtGui
-# import PyQt5.QtCore
+import PyQt5.QtGui
+import PyQt5.QtCore
 import PyQt5.QtWidgets
 if sys.version_info < (3, 11):
     import tomli as tomllib
@@ -98,12 +98,25 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         """Функция окна настроек соревнований"""
         print(self.window_settings_competition.__name__) if DEBUG else ...
 
-        pass
+        # переменные
+        comp_window_n = SETTINGS_DATA_DEF['settings_window_set_comp']['window_name']
+        comp_window_x = SETTINGS_DATA_DEF['settings_window_set_comp']['window_coords_x']
+        comp_window_y = SETTINGS_DATA_DEF['settings_window_set_comp']['window_coords_y']
+        comp_window_w = SETTINGS_DATA_DEF['settings_window_set_comp']['window_coords_w']
+        comp_window_h = SETTINGS_DATA_DEF['settings_window_set_comp']['window_coords_h']
 
-        # window_settings = PyQt5.QtWidgets.QWidget(self, PyQt5.QtCore.Qt.Window)
-        # window_settings.setWindowModality(PyQt5.QtCore.Qt.WindowModal)
-        # window_settings.resize(600, 600)
-        # window_settings.move(self.geometry().center() - window_settings.rect().center() - PyQt5.QtCore.QPoint(0, 30))
+        # окно настроек, надпись на нём и размеры
+        window_settings = PyQt5.QtWidgets.QWidget(self, PyQt5.QtCore.Qt.Window)
+        window_settings.setWindowTitle(comp_window_n)
+        window_settings.setWindowModality(PyQt5.QtCore.Qt.WindowModal)
+        window_settings.setGeometry(comp_window_x, comp_window_y, comp_window_w, comp_window_h)
+
+        print(self.geometry().center())
+        print(window_settings.rect().center())
+        print(PyQt5.QtCore.QPoint(0, 30))
+        print()
+
+        # window_settings.move()
 
         # # lineEdit_
         # window_settings.lineEdit_ = PyQt5.QtWidgets.QLineEdit(window_settings)
@@ -134,7 +147,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # "COMP_d_period": 45,
         # "COMP_q_anglers": 15,
 
-        # window_settings.show()
+        window_settings.show()
 
     # окно настроек программы
     def window_settings_soft(self):
