@@ -109,14 +109,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         window_settings = PyQt5.QtWidgets.QWidget(self, PyQt5.QtCore.Qt.Window)
         window_settings.setWindowTitle(comp_window_n)
         window_settings.setWindowModality(PyQt5.QtCore.Qt.WindowModal)
-        window_settings.setGeometry(comp_window_x, comp_window_y, comp_window_w, comp_window_h)
-
-        print(self.geometry().center())
-        print(window_settings.rect().center())
-        print(PyQt5.QtCore.QPoint(0, 30))
-        print()
-
-        # window_settings.move()
+        window_settings.setGeometry(comp_window_x+25, comp_window_y+25, comp_window_w, comp_window_h)
 
         # # lineEdit_
         # window_settings.lineEdit_ = PyQt5.QtWidgets.QLineEdit(window_settings)
@@ -203,6 +196,10 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         SETTINGS_DATA_DEF['settings_window_main']['window_coords_y'] = self.frame_geometry.y()
         SETTINGS_DATA_DEF['settings_window_main']['window_coords_h'] = self.frame_geometry.height()
         SETTINGS_DATA_DEF['settings_window_main']['window_coords_w'] = self.frame_geometry.width()
+        SETTINGS_DATA_DEF['settings_window_set_comp']['window_coords_x'] = self.frame_geometry.x()
+        SETTINGS_DATA_DEF['settings_window_set_comp']['window_coords_y'] = self.frame_geometry.y()
+        SETTINGS_DATA_DEF['settings_window_set_soft']['window_coords_x'] = self.frame_geometry.x()
+        SETTINGS_DATA_DEF['settings_window_set_soft']['window_coords_y'] = self.frame_geometry.y()
 
     # функция общего выхода из программы
     def exit_common(self):

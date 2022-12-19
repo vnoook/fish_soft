@@ -1,22 +1,22 @@
 [settings_window_main]
 window_coords_h = 570
 window_coords_w = 674
-window_coords_x = 1091
-window_coords_y = 132
+window_coords_x = 735
+window_coords_y = 219
 window_name = "Название главного окна"
 
 [settings_window_set_comp]
 window_coords_h = 400
 window_coords_w = 400
-window_coords_x = 100
-window_coords_y = 100
+window_coords_x = 735
+window_coords_y = 219
 window_name = "Название окна настроек соревнований"
 
 [settings_window_set_soft]
 window_coords_h = 400
 window_coords_w = 400
-window_coords_x = 100
-window_coords_y = 100
+window_coords_x = 735
+window_coords_y = 219
 window_name = "Название окна настроек программы"
 
 [settings_window_about]
