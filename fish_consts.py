@@ -27,11 +27,14 @@ SETT_DEF_SOFT = {
         'window_name': 'Название окна о программе'},
     'settings_soft': {
         'emergency_exit': True,
+        'CLUB_ID': '1A2B-3C4D-5E6F',
+        'SOFT_DB_FILE': 'db_competition.db',
+        'SOFT_LAST_OPEN': '1980-06-30',         # fromisoformat('YYYY-MM-DD')
+        'COMP_DATA_COMPETITION': '2022-02-24',  # fromisoformat('YYYY-MM-DD')
         'file_settings_soft': 'fish_settings.toml',
         'screen_resolution_x': 1400,
         'screen_resolution_y': 900}
 }
-
 
 SETT_DEF_COMP = {
     'competition_action': {
@@ -41,11 +44,11 @@ SETT_DEF_COMP = {
         'COMP_q_sector': 1,
         'COMP_d_period': 45,
         'COMP_q_anglers': 15
-    },
-    'competition_soft': {
-        'CLUB_ID': '1A2B-3C4D-5E6F',
-        'SOFT_DB_FILE': 'db_competition.db',
-        'SOFT_LAST_OPEN': '1980-06-30',  # fromisoformat('YYYY-MM-DD')
-        'COMP_DATA_COMPETITION': '2022-02-24'  # fromisoformat('YYYY-MM-DD')
+    }
+}
+
+SETT_DEF_additional = {
+    'misc': {
+        'name_of_zone': ["Зона А", "Зона Б", "Зона В", "Зона Г", "Зона Д", "Зона Е"]
     }
 }

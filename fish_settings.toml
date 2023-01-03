@@ -10,6 +10,10 @@ emergency_exit = true
 file_settings_soft = "fish_settings.toml"
 screen_resolution_x = 1366
 screen_resolution_y = 768
+CLUB_ID = "1A2B-3C4D-5E6F"
+SOFT_DB_FILE = "db_competition.db"
+SOFT_LAST_OPEN = "1980-06-30"
+COMP_DATA_COMPETITION = "2022-02-24"
 
 [settings_window_set_comp]
 window_name = "Название окна настроек соревнований"
