@@ -1,6 +1,6 @@
 # файл констант по-умолчанию
 
-SETT_DEF = {
+SETT_DEF_SOFT = {
     'settings_window_main': {
         'window_coords_h': 400,
         'window_coords_w': 1200,
@@ -30,4 +30,22 @@ SETT_DEF = {
         'file_settings_soft': 'fish_settings.toml',
         'screen_resolution_x': 1400,
         'screen_resolution_y': 900}
+}
+
+
+SETT_DEF_COMP = {
+    'competition_action': {
+        'COMP_q_tur': 1,
+        'COMP_q_period': 4,
+        'COMP_q_zone': 1,
+        'COMP_q_sector': 1,
+        'COMP_d_period': 45,
+        'COMP_q_anglers': 15
+    },
+    'competition_soft': {
+        'CLUB_ID': '1A2B-3C4D-5E6F',
+        'SOFT_DB_FILE': 'db_competition.db',
+        'SOFT_LAST_OPEN': '1980-06-30',  # fromisoformat('YYYY-MM-DD')
+        'COMP_DATA_COMPETITION': '2022-02-24'  # fromisoformat('YYYY-MM-DD')
+    }
 }

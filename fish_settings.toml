@@ -1,33 +1,33 @@
 [settings_window_main]
-window_coords_h = 570
-window_coords_w = 674
-window_coords_x = 735
-window_coords_y = 219
+window_coords_h = 379
+window_coords_w = 640
+window_coords_x = 106
+window_coords_y = 119
 window_name = "Название главного окна"
-
-[settings_window_set_comp]
-window_coords_h = 400
-window_coords_w = 400
-window_coords_x = 735
-window_coords_y = 219
-window_name = "Название окна настроек соревнований"
-
-[settings_window_set_soft]
-window_coords_h = 400
-window_coords_w = 400
-window_coords_x = 735
-window_coords_y = 219
-window_name = "Название окна настроек программы"
-
-[settings_window_about]
-window_coords_h = 400
-window_coords_w = 400
-window_coords_x = 100
-window_coords_y = 100
-window_name = "Название окна о программе"
 
 [settings_soft]
 emergency_exit = true
 file_settings_soft = "fish_settings.toml"
-screen_resolution_x = 1920
-screen_resolution_y = 1080
+screen_resolution_x = 1366
+screen_resolution_y = 768
+
+[settings_window_set_comp]
+window_name = "Название окна настроек соревнований"
+window_coords_h = 400
+window_coords_w = 400
+window_coords_x = 106
+window_coords_y = 119
+
+[settings_window_about]
+window_name = "Название окна о программе"
+window_coords_h = 400
+window_coords_w = 400
+window_coords_x = 100
+window_coords_y = 100
+
+[settings_window_set_soft]
+window_name = "Название окна настроек программы"
+window_coords_h = 400
+window_coords_w = 400
+window_coords_x = 106
+window_coords_y = 119

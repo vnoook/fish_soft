@@ -122,21 +122,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # window_settings.lineEdit_.setEnabled(False)
         # window_settings.lineEdit_.setToolTip(window_settings.lineEdit_.objectName())
 
-        # # клуб CLUB_
-        # "CLUB_ID": "1A2B-3C4D-5E6F",
-        # # программа SOFT_
-        # "SOFT_DB_FILE": "db_competition.db",
-        # "SOFT_LAST_OPEN": "1980-06-30",  # fromisoformat('YYYY-MM-DD')
-        # "SOFT_MAIN_WINDOW_SIZE": "1300:500",
-        # # соревнование COMP_
-        # "COMP_DATA_COMPETITION": "2022-02-24",  # fromisoformat('YYYY-MM-DD')
-        # "COMP_q_tur": 1,
-        # "COMP_q_period": 4,
-        # "COMP_q_zone": 1,
-        # "COMP_q_sector": 1,
-        # "COMP_d_period": 45,
-        # "COMP_q_anglers": 15,
-
     # окно настроек программы
     def window_settings_soft(self):
         """Функция окна настроек программы"""
@@ -232,7 +217,7 @@ def read_settings():
     #   если файл TOML, то ставлю настройки из файла
     if not os.path.exists(SETTINGS_FILE_DEF):
         # если файла нет, то настройки берутся по-умолчанию
-        SETTINGS_DATA_DEF = fcs.SETT_DEF
+        SETTINGS_DATA_DEF = fcs.SETT_DEF_SOFT
     else:
         try:
             # пробую открыть, прочитать и распознать данные в файле
@@ -240,9 +225,9 @@ def read_settings():
                 data = tomllib.load(file_settings)
         except Exception as _err:
             # любая ошибка распознаётся как нечитаемый файл и значит настройки берутся по-умолчанию
-            SETTINGS_DATA_DEF = fcs.SETT_DEF
+            SETTINGS_DATA_DEF = fcs.SETT_DEF_SOFT
         else:
-            SETTINGS_DATA_DEF = repair_settings(data, fcs.SETT_DEF)
+            SETTINGS_DATA_DEF = repair_settings(data, fcs.SETT_DEF_SOFT)
 
 
 # функция валидности ключей и их количества в хранилище настроек
@@ -289,7 +274,7 @@ def save_settings():
     global SETTINGS_DATA_DEF
     global SETTINGS_FILE_DEF
 
-    data = repair_settings(SETTINGS_DATA_DEF, fcs.SETT_DEF)
+    data = repair_settings(SETTINGS_DATA_DEF, fcs.SETT_DEF_SOFT)
 
     # запись настроек в файл
     with open(SETTINGS_FILE_DEF, "wb") as file_settings:
