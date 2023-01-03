@@ -36,7 +36,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         main_window_h = SETTINGS_DATA_DEF['settings_window_main']['window_coords_h']
         main_window_w = SETTINGS_DATA_DEF['settings_window_main']['window_coords_w']
 
-        # ???
+        # переменная для доступа к координатам окна
         self.frame_geometry = None
 
         # главное окно, надпись на нём и размеры
@@ -181,7 +181,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         """Функция получения координат и запись их в переменную экземпляра класса"""
         print(self.get_coords.__name__) if DEBUG else ...
 
-        # ???
+        # переопределение встроенной класса в локальную для доступа к координатам
         self.frame_geometry = self.geometry()
 
         SETTINGS_DATA_DEF['settings_window_main']['window_coords_x'] = self.frame_geometry.x()
