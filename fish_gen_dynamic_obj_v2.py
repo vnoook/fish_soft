@@ -12,23 +12,25 @@ class Window(PyQt5.QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
 
-        self.checkBox = None
+        # self.checkBox = None
 
-        self.vlayout = PyQt5.QtWidgets.QVBoxLayout()
+        # self.vlayout = PyQt5.QtWidgets.QVBoxLayout()
 
         self.pushButton_add = PyQt5.QtWidgets.QPushButton('+', self)
-        self.pushButton_add.clicked.connect(self.add_checkbox)
+        self.pushButton_add.setGeometry(10, 10, 40, 40)
+        self.pushButton_add.clicked.connect(self.add_obj)
 
         self.pushButton_del = PyQt5.QtWidgets.QPushButton('-', self)
-        self.pushButton_del.clicked.connect(self.del_checkbox)
+        self.pushButton_del.setGeometry(60, 10, 40, 40)
+        self.pushButton_del.clicked.connect(self.del_obj)
 
-        self.vlayout.addWidget(self.pushButton_add)
-        self.vlayout.addWidget(self.pushButton_del)
-        self.setLayout(self.vlayout)
+        # self.vlayout.addWidget(self.pushButton_add)
+        # self.vlayout.addWidget(self.pushButton_del)
+        # self.setLayout(self.vlayout)
 
         self.dict_obj = {}
 
-    def add_checkbox(self):
+    def add_obj(self):
         Window.checkbox_counter = Window.checkbox_counter + 1
         checkbox_name = 'checkbox_' + str(Window.checkbox_counter)
 
@@ -38,14 +40,14 @@ class Window(PyQt5.QtWidgets.QWidget):
         self.checkBox.setText(checkbox_name)
         self.checkBox.setToolTip(self.checkBox.objectName())
         self.checkBox.clicked.connect(self.click_checkbox)
-        self.vlayout.addWidget(self.checkBox)
+        # self.vlayout.addWidget(self.checkBox)
 
         self.dict_obj[Window.checkbox_counter] = self.checkBox
 
         pp.pprint(self.dict_obj)
         print('*'*50)
 
-    def del_checkbox(self):
+    def del_obj(self):
         if Window.checkbox_counter > 0:
             self.dict_obj[Window.checkbox_counter].deleteLater()
 
