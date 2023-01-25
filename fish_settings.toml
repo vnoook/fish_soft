@@ -1,8 +1,8 @@
 [settings_window_main]
-window_coords_h = 379
-window_coords_w = 640
-window_coords_x = 538
-window_coords_y = 249
+window_coords_h = 439
+window_coords_w = 885
+window_coords_x = 255
+window_coords_y = 199
 window_name = "Название главного окна"
 
 [settings_soft]
@@ -19,8 +19,8 @@ COMP_DATA_COMPETITION = "2022-02-24"
 window_name = "Название окна настроек соревнований"
 window_coords_h = 400
 window_coords_w = 400
-window_coords_x = 538
-window_coords_y = 249
+window_coords_x = 255
+window_coords_y = 199
 
 [settings_window_about]
 window_name = "Название окна о программе"
@@ -33,5 +33,5 @@ window_coords_y = 100
 window_name = "Название окна настроек программы"
 window_coords_h = 400
 window_coords_w = 400
-window_coords_x = 538
-window_coords_y = 249
+window_coords_x = 255
+window_coords_y = 199
