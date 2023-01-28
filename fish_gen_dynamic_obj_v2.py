@@ -60,15 +60,16 @@ class Window(PyQt5.QtWidgets.QWidget):
         print()
 
         obj1 = self.findChild(type(self.sender()), self.sender().objectName())
-        print(f'findChild   {obj1 = }')
+        print(f'findChild ... {obj1 = }')
         print(f'{obj1.objectName() = }')
         print()
 
         obj2 = self.findChildren(type(self.sender()))
-        print(f'findChildren {obj2 = }')
-        print(*list(x.objectName() for x in obj2))
+        print(f'findChildren ... {obj2 = }')
+        print(list(x.objectName() for x in obj2))
         print()
 
+        print(f'список всех объектов в главном ообъекте')
         pp.pprint(self.children())
         print()
 
