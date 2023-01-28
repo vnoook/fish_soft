@@ -12,7 +12,7 @@ class Window(PyQt5.QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
 
-        self.checkBox = None
+        # self.checkBox = None
         self.dict_obj = {}
 
         self.pushButton_add = PyQt5.QtWidgets.QPushButton('+', self)
@@ -27,18 +27,19 @@ class Window(PyQt5.QtWidgets.QWidget):
         Window.checkbox_counter = Window.checkbox_counter + 1
         checkbox_name = 'checkbox_' + str(Window.checkbox_counter)
 
-        self.checkBox = PyQt5.QtWidgets.QCheckBox(self)
-        self.checkBox.setObjectName(checkbox_name)
-        self.checkBox.setVisible(True)
-        self.checkBox.setText(checkbox_name)
-        self.checkBox.setToolTip(self.checkBox.objectName())
-        self.checkBox.clicked.connect(self.click_checkbox)
-        self.checkBox.setGeometry(10, 50, 40, 40)
-        # self.checkBox.resize(size)
-        self.checkBox.move(10, 40+(40*(Window.checkbox_counter-1)))
-        self.checkBox.show()
+        checkBox = PyQt5.QtWidgets.QCheckBox(self)
+        checkBox.setObjectName(checkbox_name)
+        checkBox.setVisible(True)
+        checkBox.setText(checkbox_name)
+        checkBox.setToolTip(checkBox.objectName())
+        checkBox.clicked.connect(self.click_checkbox)
+        # self.checkBox.setGeometry(10, 50, 40, 40)
+        checkBox.resize(20, 20)
+        checkBox.adjustSize()
+        checkBox.move(10, 50+(30*(Window.checkbox_counter-1)))
+        checkBox.show()
 
-        self.dict_obj[Window.checkbox_counter] = self.checkBox
+        self.dict_obj[Window.checkbox_counter] = checkBox
 
         pp.pprint(self.dict_obj)
         print('*'*50)
