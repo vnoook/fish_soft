@@ -10,27 +10,27 @@ else:
     import tomllib
     import tomli_w
 import fish_consts as fcs
-from pprint import pprint as pp
+# from pprint import pprint as pp
 
 DEBUG = False
-SETTINGS_FILE_DEF = 'fish_settings.toml'
+SETTINGS_FILE = 'fish_settings.toml'
 SETTINGS_DATA_DEF = None
+SETTINGS_COMMON_DEF = None
 
 
 # класс главного окна
 class WindowMain(PyQt5.QtWidgets.QMainWindow):
     """Класс главного окна"""
 
-    # переменные класса
-    pass
-
     # описание главного окна
     def __init__(self):
         """Метод инициализации класса главного окна"""
+
         super().__init__()
 
         # переменные
-        main_window_n = SETTINGS_DATA_DEF['settings_window_main']['window_name']
+        soft_version = SETTINGS_COMMON_DEF['version']
+        main_window_n = SETTINGS_COMMON_DEF['window_name_main']
         main_window_x = SETTINGS_DATA_DEF['settings_window_main']['window_coords_x']
         main_window_y = SETTINGS_DATA_DEF['settings_window_main']['window_coords_y']
         main_window_h = SETTINGS_DATA_DEF['settings_window_main']['window_coords_h']
@@ -40,7 +40,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.frame_geometry = None
 
         # главное окно, надпись на нём и размеры
-        self.setWindowTitle(main_window_n)
+        self.setWindowTitle(main_window_n + ' - ' + soft_version)
         self.setGeometry(main_window_x, main_window_y, main_window_w, main_window_h)
 
         # ГЛАВНОЕ МЕНЮ
@@ -57,8 +57,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
         # НАСТРОЙКИ
         self.settings = self.menu.addMenu('Настройки')
-        self.settings_soft = self.settings.addAction('Настройка программы')
-        self.settings_competition = self.settings.addAction('Настройка соревнования')
+        self.settings_soft = self.settings.addAction('Настройки программы')
+        self.settings_competition = self.settings.addAction('Настройки соревнования')
         self.settings_soft.triggered.connect(self.window_settings_soft)
         self.settings_competition.triggered.connect(self.window_settings_competition)
         self.settings.addAction(self.settings_competition)
@@ -99,7 +99,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         print(self.window_settings_competition.__name__) if DEBUG else ...
 
         # переменные
-        comp_window_n = SETTINGS_DATA_DEF['settings_window_set_comp']['window_name']
+        comp_window_n = SETTINGS_COMMON_DEF['window_name_set_comp']
         comp_window_x = SETTINGS_DATA_DEF['settings_window_set_comp']['window_coords_x']
         comp_window_y = SETTINGS_DATA_DEF['settings_window_set_comp']['window_coords_y']
         comp_window_w = SETTINGS_DATA_DEF['settings_window_set_comp']['window_coords_w']
@@ -112,23 +112,13 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         window_settings.setGeometry(comp_window_x+25, comp_window_y+25, comp_window_w, comp_window_h)
         window_settings.show()
 
-        # # lineEdit_
-        # window_settings.lineEdit_ = PyQt5.QtWidgets.QLineEdit(window_settings)
-        # window_settings.lineEdit_.setObjectName('lineEdit_')
-        # window_settings.lineEdit_.setPlaceholderText('lineEdit_')
-        # window_settings.lineEdit_.setText('lineEdit_')
-        # window_settings.lineEdit_.setGeometry(PyQt5.QtCore.QRect(10, 160, 110, 20))
-        # window_settings.lineEdit_.setClearButtonEnabled(True)
-        # window_settings.lineEdit_.setEnabled(False)
-        # window_settings.lineEdit_.setToolTip(window_settings.lineEdit_.objectName())
-
     # окно настроек программы
     def window_settings_soft(self):
         """Функция окна настроек программы"""
         print(self.window_settings_soft.__name__) if DEBUG else ...
 
         # переменные
-        soft_window_n = SETTINGS_DATA_DEF['settings_window_set_soft']['window_name']
+        soft_window_n = SETTINGS_COMMON_DEF['window_name_set_soft']
         soft_window_x = SETTINGS_DATA_DEF['settings_window_set_soft']['window_coords_x']
         soft_window_y = SETTINGS_DATA_DEF['settings_window_set_soft']['window_coords_y']
         soft_window_w = SETTINGS_DATA_DEF['settings_window_set_soft']['window_coords_w']
@@ -153,7 +143,33 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         """Функция окна О программе"""
         print(self.window_about.__name__) if DEBUG else ...
 
-        pass
+        # переменные
+        about_window_n = SETTINGS_COMMON_DEF['window_name_about']
+        about_window_x = SETTINGS_DATA_DEF['settings_window_about']['window_coords_x']
+        about_window_y = SETTINGS_DATA_DEF['settings_window_about']['window_coords_y']
+        about_window_w = SETTINGS_DATA_DEF['settings_window_about']['window_coords_w']
+        about_window_h = SETTINGS_DATA_DEF['settings_window_about']['window_coords_h']
+        about_window_text = SETTINGS_COMMON_DEF['about_text']
+
+        # окно настроек, надпись на нём и размеры
+        window_settings = PyQt5.QtWidgets.QWidget(self, PyQt5.QtCore.Qt.Window)
+        window_settings.setWindowTitle(about_window_n)
+        window_settings.setWindowModality(PyQt5.QtCore.Qt.WindowModal)
+        window_settings.setGeometry(about_window_x+25, about_window_y+25, about_window_w, about_window_h)
+        window_settings.setFixedSize()
+        # root.setFixedSize(500, 700)
+        window_settings.show()
+
+        # label_about
+        window_settings.label_about = PyQt5.QtWidgets.QLabel()
+        # window_settings.label_about.setObjectName('label_about')
+        window_settings.label_about.setText(about_window_text)
+        # window_settings.label_about.setGeometry(PyQt5.QtCore.QRect(10, 10, 150, 40))
+        # font = PyQt5.QtGui.QFont()
+        # font.setPointSize(12)
+        # window_settings.label_about.setFont(font)
+        # window_settings.label_about.adjustSize()
+        # window_settings.label_about.setToolTip(window_settings.label_about.objectName())
 
     # функция переназначения закрытия окна по X или Alt+F4
     def closeEvent(self, event):
@@ -192,6 +208,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         SETTINGS_DATA_DEF['settings_window_set_comp']['window_coords_y'] = self.frame_geometry.y()
         SETTINGS_DATA_DEF['settings_window_set_soft']['window_coords_x'] = self.frame_geometry.x()
         SETTINGS_DATA_DEF['settings_window_set_soft']['window_coords_y'] = self.frame_geometry.y()
+        SETTINGS_DATA_DEF['settings_window_about']['window_coords_x'] = self.frame_geometry.x()
+        SETTINGS_DATA_DEF['settings_window_about']['window_coords_y'] = self.frame_geometry.y()
 
     # функция общего выхода из программы
     def exit_common(self):
@@ -208,20 +226,27 @@ def read_settings():
     """Функция чтения настроек из файла toml ИЛИ установка дефолтных значений"""
     print(read_settings.__name__) if DEBUG else ...
 
-    global SETTINGS_FILE_DEF
+    # добавление глобальных констант
+    # которые не требуется сохранять в файл, но для работы они нужны
+    global SETTINGS_COMMON_DEF
+    SETTINGS_COMMON_DEF = fcs.SETT_DEF_COMMON
+
+    # добавление глобальных констант
+    # которые требуется сохранять в файл
+    global SETTINGS_FILE
     global SETTINGS_DATA_DEF
 
     # если файла нет, то настройки берут по-умолчанию
     # если файл есть, то пробую прочитать
     #   если файл не TOML, то ставлю настройки по-умолчанию
     #   если файл TOML, то ставлю настройки из файла
-    if not os.path.exists(SETTINGS_FILE_DEF):
+    if not os.path.exists(SETTINGS_FILE):
         # если файла нет, то настройки берутся по-умолчанию
         SETTINGS_DATA_DEF = fcs.SETT_DEF_SOFT
     else:
         try:
             # пробую открыть, прочитать и распознать данные в файле
-            with open(SETTINGS_FILE_DEF, "rb") as file_settings:
+            with open(SETTINGS_FILE, "rb") as file_settings:
                 data = tomllib.load(file_settings)
         except Exception as _err:
             # любая ошибка распознаётся как нечитаемый файл и значит настройки берутся по-умолчанию
@@ -272,12 +297,12 @@ def save_settings():
     print(save_settings.__name__) if DEBUG else ...
 
     global SETTINGS_DATA_DEF
-    global SETTINGS_FILE_DEF
+    global SETTINGS_FILE
 
     data = repair_settings(SETTINGS_DATA_DEF, fcs.SETT_DEF_SOFT)
 
     # запись настроек в файл
-    with open(SETTINGS_FILE_DEF, "wb") as file_settings:
+    with open(SETTINGS_FILE, "wb") as file_settings:
         tomli_w.dump(data, file_settings)
 
 
@@ -285,6 +310,7 @@ def save_settings():
 def exit_app():
     """Функция окна настроек"""
     print(exit_app.__name__) if DEBUG else ...
+
     sys.exit()
 
 
@@ -307,3 +333,24 @@ def run():
 if __name__ == '__main__':
     read_settings()
     run()
+
+# # lineEdit_
+# window_settings.lineEdit_ = PyQt5.QtWidgets.QLineEdit(window_settings)
+# window_settings.lineEdit_.setObjectName('lineEdit_')
+# window_settings.lineEdit_.setPlaceholderText('lineEdit_')
+# window_settings.lineEdit_.setText('lineEdit_')
+# window_settings.lineEdit_.setGeometry(PyQt5.QtCore.QRect(10, 160, 110, 20))
+# window_settings.lineEdit_.setClearButtonEnabled(True)
+# window_settings.lineEdit_.setEnabled(False)
+# window_settings.lineEdit_.setToolTip(window_settings.lineEdit_.objectName())
+
+# # label_select_file
+# self.label_select_file = PyQt5.QtWidgets.QLabel(self)
+# self.label_select_file.setObjectName('label_select_file')
+# self.label_select_file.setText('Выберите файл CSV')
+# self.label_select_file.setGeometry(PyQt5.QtCore.QRect(10, 10, 150, 40))
+# font = PyQt5.QtGui.QFont()
+# font.setPointSize(12)
+# self.label_select_file.setFont(font)
+# self.label_select_file.adjustSize()
+# self.label_select_file.setToolTip(self.label_select_file.objectName())

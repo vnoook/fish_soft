@@ -36,7 +36,7 @@ class Window(PyQt5.QtWidgets.QWidget):
         # self.checkBox.setGeometry(10, 50, 40, 40)
         checkBox.resize(20, 20)
         checkBox.adjustSize()
-        checkBox.move(10, 50+(30*(Window.checkbox_counter-1)))
+        checkBox.move(10, 60+(30*(Window.checkbox_counter-1)))
         checkBox.show()
 
         self.dict_obj[Window.checkbox_counter] = checkBox
