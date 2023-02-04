@@ -1,34 +1,16 @@
 [settings_window_main]
-window_coords_h = 393
-window_coords_w = 553
-window_coords_x = 530
-window_coords_y = 374
-
-[settings_window_set_comp]
-window_coords_h = 400
-window_coords_w = 400
-window_coords_x = 530
-window_coords_y = 374
-
-[settings_window_set_soft]
-window_coords_h = 400
-window_coords_w = 400
-window_coords_x = 530
-window_coords_y = 374
-
-[settings_window_about]
-window_coords_h = 200
-window_coords_w = 400
-window_coords_x = 530
-window_coords_y = 374
+window_coords_h = 409
+window_coords_w = 585
+window_coords_x = 395
+window_coords_y = 238
 
 [settings_soft]
 emergency_exit = false
 CLUB_ID = "1A2B-3C4D-5E6F"
 SOFT_LAST_OPEN = "1980-06-30"
 COMP_DATA_COMPETITION = "2022-02-24"
-screen_resolution_x = 1920
-screen_resolution_y = 1080
+screen_resolution_x = 1366
+screen_resolution_y = 768
 
 [competition_action]
 COMP_q_tur = 1

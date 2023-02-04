@@ -72,6 +72,13 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.about = self.menu.addAction('О программе')
         self.about.triggered.connect(self.window_about_soft)
 
+    # функция создания главного меню
+    def create_menu(self):
+        """Функция создания главного меню"""
+        # О ПРОГРАММЕ
+        self.about = self.menu.addAction('О программе')
+        self.about.triggered.connect(self.window_about_soft)
+
     # функция по открытию меню Файл-Открыть
     def window_file_open(self):
         """Функция меню Файл-Открыть"""
@@ -100,10 +107,10 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
         # переменные
         comp_window_n = SETTINGS_COMMON_DEF['window_name_set_comp']
-        comp_window_x = SETTINGS_DATA_DEF['settings_window_set_comp']['window_coords_x']
-        comp_window_y = SETTINGS_DATA_DEF['settings_window_set_comp']['window_coords_y']
-        comp_window_w = SETTINGS_DATA_DEF['settings_window_set_comp']['window_coords_w']
-        comp_window_h = SETTINGS_DATA_DEF['settings_window_set_comp']['window_coords_h']
+        comp_window_x = SETTINGS_COMMON_DEF['settings_window_set_comp']['window_coords_x']
+        comp_window_y = SETTINGS_COMMON_DEF['settings_window_set_comp']['window_coords_y']
+        comp_window_w = SETTINGS_COMMON_DEF['settings_window_set_comp']['window_coords_w']
+        comp_window_h = SETTINGS_COMMON_DEF['settings_window_set_comp']['window_coords_h']
 
         # окно настроек, надпись на нём и размеры
         window_settings = PyQt5.QtWidgets.QWidget(self, PyQt5.QtCore.Qt.Window)
@@ -119,10 +126,10 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
         # переменные
         soft_window_n = SETTINGS_COMMON_DEF['window_name_set_soft']
-        soft_window_x = SETTINGS_DATA_DEF['settings_window_set_soft']['window_coords_x']
-        soft_window_y = SETTINGS_DATA_DEF['settings_window_set_soft']['window_coords_y']
-        soft_window_w = SETTINGS_DATA_DEF['settings_window_set_soft']['window_coords_w']
-        soft_window_h = SETTINGS_DATA_DEF['settings_window_set_soft']['window_coords_h']
+        soft_window_x = SETTINGS_COMMON_DEF['settings_window_set_soft']['window_coords_x']
+        soft_window_y = SETTINGS_COMMON_DEF['settings_window_set_soft']['window_coords_y']
+        soft_window_w = SETTINGS_COMMON_DEF['settings_window_set_soft']['window_coords_w']
+        soft_window_h = SETTINGS_COMMON_DEF['settings_window_set_soft']['window_coords_h']
 
         # окно настроек, надпись на нём и размеры
         window_settings = PyQt5.QtWidgets.QWidget(self, PyQt5.QtCore.Qt.Window)
@@ -144,32 +151,14 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         print(self.window_about_soft.__name__) if DEBUG else ...
 
         # переменные
+        soft_version = SETTINGS_COMMON_DEF['version']
         about_window_n = SETTINGS_COMMON_DEF['window_name_about']
-        about_window_x = SETTINGS_DATA_DEF['settings_window_about']['window_coords_x']
-        about_window_y = SETTINGS_DATA_DEF['settings_window_about']['window_coords_y']
-        about_window_w = SETTINGS_DATA_DEF['settings_window_about']['window_coords_w']
-        about_window_h = SETTINGS_DATA_DEF['settings_window_about']['window_coords_h']
         about_window_text = SETTINGS_COMMON_DEF['about_text']
 
-        # окно настроек, надпись на нём и размеры
-        window_about = PyQt5.QtWidgets.QWidget(self, PyQt5.QtCore.Qt.Window)
+        window_about = PyQt5.QtWidgets.QMessageBox(self)
         window_about.setWindowTitle(about_window_n)
-        window_about.setWindowModality(PyQt5.QtCore.Qt.WindowModal)
-        window_about.setGeometry(about_window_x+25, about_window_y+25, about_window_w, about_window_h)
-        window_about.setFixedSize()
-        # root.setFixedSize(500, 700)
+        window_about.setText(about_window_text + ', версия ' + soft_version)
         window_about.show()
-
-        # label_about
-        window_about.label_about = PyQt5.QtWidgets.QLabel()
-        # window_about.label_about.setObjectName('label_about')
-        # window_about.label_about.setText(about_window_text)
-        # window_about.label_about.setGeometry(PyQt5.QtCore.QRect(10, 10, 150, 40))
-        # font = PyQt5.QtGui.QFont()
-        # font.setPointSize(12)
-        # window_about.label_about.setFont(font)
-        # window_about.label_about.adjustSize()
-        # window_about.label_about.setToolTip(window_about.label_about.objectName())
 
     # функция переназначения закрытия окна по X или Alt+F4
     def closeEvent(self, event):
@@ -204,12 +193,12 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         SETTINGS_DATA_DEF['settings_window_main']['window_coords_y'] = self.frame_geometry.y()
         SETTINGS_DATA_DEF['settings_window_main']['window_coords_h'] = self.frame_geometry.height()
         SETTINGS_DATA_DEF['settings_window_main']['window_coords_w'] = self.frame_geometry.width()
-        SETTINGS_DATA_DEF['settings_window_set_comp']['window_coords_x'] = self.frame_geometry.x()
-        SETTINGS_DATA_DEF['settings_window_set_comp']['window_coords_y'] = self.frame_geometry.y()
-        SETTINGS_DATA_DEF['settings_window_set_soft']['window_coords_x'] = self.frame_geometry.x()
-        SETTINGS_DATA_DEF['settings_window_set_soft']['window_coords_y'] = self.frame_geometry.y()
-        SETTINGS_DATA_DEF['settings_window_about']['window_coords_x'] = self.frame_geometry.x()
-        SETTINGS_DATA_DEF['settings_window_about']['window_coords_y'] = self.frame_geometry.y()
+        SETTINGS_COMMON_DEF['settings_window_set_comp']['window_coords_x'] = self.frame_geometry.x()
+        SETTINGS_COMMON_DEF['settings_window_set_comp']['window_coords_y'] = self.frame_geometry.y()
+        SETTINGS_COMMON_DEF['settings_window_set_soft']['window_coords_x'] = self.frame_geometry.x()
+        SETTINGS_COMMON_DEF['settings_window_set_soft']['window_coords_y'] = self.frame_geometry.y()
+        SETTINGS_COMMON_DEF['settings_window_about']['window_coords_x'] = self.frame_geometry.x()
+        SETTINGS_COMMON_DEF['settings_window_about']['window_coords_y'] = self.frame_geometry.y()
 
     # функция общего выхода из программы
     def exit_common(self):
