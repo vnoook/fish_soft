@@ -1,8 +1,8 @@
 [settings_window_main]
-window_coords_h = 409
-window_coords_w = 585
-window_coords_x = 395
-window_coords_y = 238
+window_coords_h = 382
+window_coords_w = 502
+window_coords_x = 406
+window_coords_y = 198
 
 [settings_soft]
 emergency_exit = false

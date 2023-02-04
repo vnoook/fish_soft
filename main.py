@@ -5,15 +5,18 @@ import PyQt5.QtCore
 import PyQt5.QtWidgets
 if sys.version_info < (3, 11):
     import tomli as tomllib
-    import tomli_w
 else:
     import tomllib
-    import tomli_w
+import tomli_w
 import fish_consts as fcs
 # from pprint import pprint as pp
 
+# определение констант
+# выводит информацию по входу в каждую функцию
 DEBUG = False
+# название файла с настройками
 SETTINGS_FILE = 'fish_settings.toml'
+# набор констант для открытого и закрытого хранения
 SETTINGS_DATA_DEF = None
 SETTINGS_COMMON_DEF = None
 
@@ -43,6 +46,17 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.setWindowTitle(main_window_n + ' - ' + soft_version)
         self.setGeometry(main_window_x, main_window_y, main_window_w, main_window_h)
 
+        # создание главного меню
+        self.create_menu()
+
+        # генерация объектов для ввода данных по соревнованиям
+        self.gen_main_objects()
+
+    # функция создания главного меню
+    def create_menu(self):
+        """Функция создания главного меню"""
+        print(self.create_menu.__name__) if DEBUG else ...
+
         # ГЛАВНОЕ МЕНЮ
         self.menu = self.menuBar()
 
@@ -68,13 +82,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.help_rules_competition = self.help.addAction('Правила соревнований')
         self.help_rules_competition.triggered.connect(self.window_rules_competition)
 
-        # О ПРОГРАММЕ
-        self.about = self.menu.addAction('О программе')
-        self.about.triggered.connect(self.window_about_soft)
-
-    # функция создания главного меню
-    def create_menu(self):
-        """Функция создания главного меню"""
         # О ПРОГРАММЕ
         self.about = self.menu.addAction('О программе')
         self.about.triggered.connect(self.window_about_soft)
@@ -159,6 +166,13 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         window_about.setWindowTitle(about_window_n)
         window_about.setText(about_window_text + ', версия ' + soft_version)
         window_about.show()
+
+    # генерация объектов для ввода данных по соревнованиям
+    def gen_main_objects(self):
+        """Генерация объектов для ввода данных"""
+        print(self.gen_main_objects.__name__) if DEBUG else ...
+
+        pass
 
     # функция переназначения закрытия окна по X или Alt+F4
     def closeEvent(self, event):
