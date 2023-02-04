@@ -3,12 +3,14 @@ import os.path
 import PyQt5.QtGui
 import PyQt5.QtCore
 import PyQt5.QtWidgets
+
 if sys.version_info < (3, 11):
     import tomli as tomllib
 else:
     import tomllib
 import tomli_w
 import fish_consts as fcs
+
 # from pprint import pprint as pp
 
 # определение констант
@@ -47,6 +49,17 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.setGeometry(main_window_x, main_window_y, main_window_w, main_window_h)
 
         # создание главного меню
+        self.menu = None
+        self.file = None
+        self.file_open = None
+        self.file_save = None
+        self.file_exit = None
+        self.settings = None
+        self.settings_soft = None
+        self.settings_competition = None
+        self.help = None
+        self.help_rules_competition = None
+        self.about = None
         self.create_menu()
 
         # генерация объектов для ввода данных по соревнованиям
@@ -123,7 +136,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         window_settings = PyQt5.QtWidgets.QWidget(self, PyQt5.QtCore.Qt.Window)
         window_settings.setWindowTitle(comp_window_n)
         window_settings.setWindowModality(PyQt5.QtCore.Qt.WindowModal)
-        window_settings.setGeometry(comp_window_x+25, comp_window_y+25, comp_window_w, comp_window_h)
+        window_settings.setGeometry(comp_window_x + 25, comp_window_y + 25, comp_window_w, comp_window_h)
         window_settings.show()
 
     # окно настроек программы
@@ -142,7 +155,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         window_settings = PyQt5.QtWidgets.QWidget(self, PyQt5.QtCore.Qt.Window)
         window_settings.setWindowTitle(soft_window_n)
         window_settings.setWindowModality(PyQt5.QtCore.Qt.WindowModal)
-        window_settings.setGeometry(soft_window_x+25, soft_window_y+25, soft_window_w, soft_window_h)
+        window_settings.setGeometry(soft_window_x + 25, soft_window_y + 25, soft_window_w, soft_window_h)
         window_settings.show()
 
     # окно правил соревнований
@@ -252,6 +265,8 @@ def read_settings():
             with open(SETTINGS_FILE, "rb") as file_settings:
                 data = tomllib.load(file_settings)
         except Exception as _err:
+            print('какая-то ошибка', _err)
+
             # любая ошибка распознаётся как нечитаемый файл и значит настройки берутся по-умолчанию
             SETTINGS_DATA_DEF = fcs.SETT_DEF_SOFT
         else:
