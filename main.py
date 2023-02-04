@@ -70,7 +70,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
         # О ПРОГРАММЕ
         self.about = self.menu.addAction('О программе')
-        self.about.triggered.connect(self.window_about)
+        self.about.triggered.connect(self.window_about_soft)
 
     # функция по открытию меню Файл-Открыть
     def window_file_open(self):
@@ -139,9 +139,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         pass
 
     # окно О программе
-    def window_about(self):
+    def window_about_soft(self):
         """Функция окна О программе"""
-        print(self.window_about.__name__) if DEBUG else ...
+        print(self.window_about_soft.__name__) if DEBUG else ...
 
         # переменные
         about_window_n = SETTINGS_COMMON_DEF['window_name_about']
@@ -152,24 +152,24 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         about_window_text = SETTINGS_COMMON_DEF['about_text']
 
         # окно настроек, надпись на нём и размеры
-        window_settings = PyQt5.QtWidgets.QWidget(self, PyQt5.QtCore.Qt.Window)
-        window_settings.setWindowTitle(about_window_n)
-        window_settings.setWindowModality(PyQt5.QtCore.Qt.WindowModal)
-        window_settings.setGeometry(about_window_x+25, about_window_y+25, about_window_w, about_window_h)
-        window_settings.setFixedSize()
+        window_about = PyQt5.QtWidgets.QWidget(self, PyQt5.QtCore.Qt.Window)
+        window_about.setWindowTitle(about_window_n)
+        window_about.setWindowModality(PyQt5.QtCore.Qt.WindowModal)
+        window_about.setGeometry(about_window_x+25, about_window_y+25, about_window_w, about_window_h)
+        window_about.setFixedSize()
         # root.setFixedSize(500, 700)
-        window_settings.show()
+        window_about.show()
 
         # label_about
-        window_settings.label_about = PyQt5.QtWidgets.QLabel()
-        # window_settings.label_about.setObjectName('label_about')
-        window_settings.label_about.setText(about_window_text)
-        # window_settings.label_about.setGeometry(PyQt5.QtCore.QRect(10, 10, 150, 40))
+        window_about.label_about = PyQt5.QtWidgets.QLabel()
+        # window_about.label_about.setObjectName('label_about')
+        # window_about.label_about.setText(about_window_text)
+        # window_about.label_about.setGeometry(PyQt5.QtCore.QRect(10, 10, 150, 40))
         # font = PyQt5.QtGui.QFont()
         # font.setPointSize(12)
-        # window_settings.label_about.setFont(font)
-        # window_settings.label_about.adjustSize()
-        # window_settings.label_about.setToolTip(window_settings.label_about.objectName())
+        # window_about.label_about.setFont(font)
+        # window_about.label_about.adjustSize()
+        # window_about.label_about.setToolTip(window_about.label_about.objectName())
 
     # функция переназначения закрытия окна по X или Alt+F4
     def closeEvent(self, event):
@@ -221,9 +221,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         exit_app()
 
 
-# функция чтения настроек из файла toml ИЛИ установка дефолтных значений, обычно при открытии программы
+# функция чтения констант из файла toml ИЛИ установка дефолтных значений, обычно при открытии программы
 def read_settings():
-    """Функция чтения настроек из файла toml ИЛИ установка дефолтных значений"""
+    """Функция чтения констант из файла toml ИЛИ установка дефолтных значений"""
     print(read_settings.__name__) if DEBUG else ...
 
     # добавление глобальных констант
