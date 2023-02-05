@@ -63,7 +63,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.create_menu()
 
         # генерация объектов для ввода данных по соревнованиям
-        self.gen_main_objects()
+        self.render_objects_main_window()
 
     # функция создания главного меню
     def create_menu(self):
@@ -181,9 +181,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         window_about.show()
 
     # генерация объектов для ввода данных по соревнованиям
-    def gen_main_objects(self):
+    def render_objects_main_window(self):
         """Генерация объектов для ввода данных"""
-        print(self.gen_main_objects.__name__) if DEBUG else ...
+        print(self.render_objects_main_window.__name__) if DEBUG else ...
 
         pass
 
