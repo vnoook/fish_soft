@@ -1,21 +1,22 @@
-def get_list_fields_and_coords(start_x, start_y, shift_x, shift_y, field_h, q_sportmen):
+def get_list_fields_and_coords(start_x, start_y, shift_x, shift_y, field_h, q_sportsmen):
     """Универсальная функция для описания полей и расчёта их координат на форме"""
     # список всех полей и их координаты
-    list_coodr_of_fields = []
+    list_coord_of_fields = []
 
     # точка начала отчёта
     start_dot_x = start_x
     start_dot_y = start_y
-
     # расстояние между объектами на форме
     gap_x = shift_x
     gap_y = shift_y
-
     # высота для всех полей
     field_height = field_h
+    # количество спортиков
+    q_sportiks = q_sportsmen
 
     # кортеж из полей на форме "Название поля", длина
-    fields = (('Sportik01_number_', 40),
+    fields = (
+              ('Sportik01_number_', 40),
               ('Sportik02_lottery_', 40),
               ('Sportik03_fio_', 180),
               ('Sportik04_team_', 180),
@@ -31,9 +32,6 @@ def get_list_fields_and_coords(start_x, start_y, shift_x, shift_y, field_h, q_sp
               ('Sportik14_self_place_', 40)
               )
 
-    # количество спортиков
-    q_sportiks = q_sportmen
-
     # шаг по вертикали
     field_step_y = start_dot_y
 
@@ -42,7 +40,7 @@ def get_list_fields_and_coords(start_x, start_y, shift_x, shift_y, field_h, q_sp
         # шаг вправо начинается с первой точки и идёт вправо
         field_step_x = start_dot_x
         # список координат в строке
-        list_coodr_of_field = []
+        list_coord_of_field = []
 
         # проход по строке полей
         for field in fields:
@@ -52,9 +50,9 @@ def get_list_fields_and_coords(start_x, start_y, shift_x, shift_y, field_h, q_sp
             field_width = field[1]
 
             # добавление в список координат
-            list_coodr_of_field.append(field_name)
-            list_coodr_of_field.append(field_step_x)
-            list_coodr_of_field.append(field_step_y)
+            list_coord_of_field.append(field_name)
+            list_coord_of_field.append(field_step_x)
+            list_coord_of_field.append(field_step_y)
 
             # увеличение шага вправо на ширину поля
             field_step_x = field_step_x + field_width
@@ -66,12 +64,12 @@ def get_list_fields_and_coords(start_x, start_y, shift_x, shift_y, field_h, q_sp
         field_step_y = field_step_y + field_height + gap_y
 
         # добавление в главный список списка строки полей
-        list_coodr_of_fields.append(list_coodr_of_field)
+        list_coord_of_fields.append(list_coord_of_field)
 
-    return list_coodr_of_fields
+    return list_coord_of_fields
 
 
 if __name__ == '__main__':
     print()
-    lst1 = get_list_fields_and_coords(start_x=5, start_y=100, shift_x=20, shift_y=10, field_h=20, q_sportmen=3)
+    lst1 = get_list_fields_and_coords(start_x=5, start_y=100, shift_x=20, shift_y=10, field_h=20, q_sportsmen=3)
     print(*lst1, sep='\n')
