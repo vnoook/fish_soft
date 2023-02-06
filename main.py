@@ -10,7 +10,6 @@ else:
     import tomllib
 import tomli_w
 import fish_consts as fcs
-
 # from pprint import pprint as pp
 
 # определение констант
@@ -184,6 +183,32 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
     def render_objects_main_window(self):
         """Генерация объектов для ввода данных"""
         print(self.render_objects_main_window.__name__) if DEBUG else ...
+
+        # сбор переменных для формирования объектов на форме
+        q_tur = SETTINGS_DATA_DEF['competition_action']['COMP_q_tur']
+        q_period = SETTINGS_DATA_DEF['competition_action']['COMP_q_period']
+        q_zone = SETTINGS_DATA_DEF['competition_action']['COMP_q_zone']
+        q_anglers = SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers']
+        q_fio = 1
+        q_chechbox_in_line = 1
+        q_desc_in_line = 1
+
+        # TODO
+        # по описанию требуется:
+        # две верхних строки объектов технических (чекбоксы и подписи колонок)
+        # и количество строк объектов для спортсменов
+        # всего колонок = фио + зоны + периуды тура + результат тура
+        q_all_obj_in_column = q_fio + q_zone + (q_period+1)*q_tur
+        q_all_obj_in_line = q_anglers + q_chechbox_in_line + q_desc_in_line
+        
+        print(f'{q_all_obj_in_column = }')
+        print(f'{q_all_obj_in_line = }')
+
+        # создание строки чекбоксов
+
+        # создание строки описаний
+
+        # создание строк спортиков
 
         pass
 
