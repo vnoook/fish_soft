@@ -34,6 +34,10 @@ SETT_DEF_COMMON = {
     'file_settings_soft': 'fish_settings.toml',
     'name_of_zone': "Зона XXX",                  # Зона А, Зона Б, Зона В, Зона Г ...
     'name_of_sector': "Сектор XXX",              # Сектор 1, Сектор 2, Сектор 3 ...
+    'competition_stat': {
+        'COMP_q_fio': 1,
+        'COMP_q_chechbox_in_line': 1,
+        'COMP_q_desc_in_line': 1},
     'settings_window_set_comp': {
         'window_coords_h': 200,
         'window_coords_w': 400,

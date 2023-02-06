@@ -189,9 +189,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         q_period = SETTINGS_DATA_DEF['competition_action']['COMP_q_period']
         q_zone = SETTINGS_DATA_DEF['competition_action']['COMP_q_zone']
         q_anglers = SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers']
-        q_fio = 1
-        q_chechbox_in_line = 1
-        q_desc_in_line = 1
+        q_fio = SETTINGS_COMMON_DEF['competition_stat']['COMP_q_fio']
+        q_chechbox_in_line = SETTINGS_COMMON_DEF['competition_stat']['COMP_q_chechbox_in_line']
+        q_desc_in_line = SETTINGS_COMMON_DEF['competition_stat']['COMP_q_desc_in_line']
 
         # TODO
         # по описанию требуется:
