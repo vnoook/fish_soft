@@ -8,9 +8,11 @@ if sys.version_info < (3, 11):
     import tomli as tomllib
 else:
     import tomllib
+
 import tomli_w
 import fish_consts as fcs
 # from pprint import pprint as pp
+
 
 # определение констант
 # выводит информацию по входу в каждую функцию
@@ -62,7 +64,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.create_menu()
 
         # генерация объектов для ввода данных по соревнованиям
-        self.render_objects_main_window()
+        self.render_main_window()
 
     # функция создания главного меню
     def create_menu(self):
@@ -179,10 +181,26 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         window_about.setText(about_window_text + ', версия ' + soft_version)
         window_about.show()
 
+    # генерация чекбоксов
+    def render_checkbox_main_window(self):
+        """Генерация чекбоксов"""
+        print(self.render_checkbox_main_window.__name__) if DEBUG else ...
+
+        print('генерация чекбоксов')
+
+    # генерация описаний
+    def render_desc_main_window(self):
+        """Генерация описаний"""
+        print(self.render_desc_main_window.__name__) if DEBUG else ...
+
+        print('генерация описаний')
+
     # генерация объектов для ввода данных по соревнованиям
     def render_objects_main_window(self):
         """Генерация объектов для ввода данных"""
         print(self.render_objects_main_window.__name__) if DEBUG else ...
+
+        print('генерация объектов для ввода данных по соревнованиям')
 
         # сбор переменных для формирования объектов на форме
         q_tur = SETTINGS_DATA_DEF['competition_action']['COMP_q_tur']
@@ -190,7 +208,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         q_zone = SETTINGS_DATA_DEF['competition_action']['COMP_q_zone']
         q_anglers = SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers']
         q_fio = SETTINGS_COMMON_DEF['competition_stat']['COMP_q_fio']
-        q_chechbox_in_line = SETTINGS_COMMON_DEF['competition_stat']['COMP_q_chechbox_in_line']
+        q_checkbox_in_line = SETTINGS_COMMON_DEF['competition_stat']['COMP_q_checkbox_in_line']
         q_desc_in_line = SETTINGS_COMMON_DEF['competition_stat']['COMP_q_desc_in_line']
 
         # TODO
@@ -199,18 +217,19 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # и количество строк объектов для спортсменов
         # всего колонок = фио + зоны + периуды тура + результат тура
         q_all_obj_in_column = q_fio + q_zone + (q_period+1)*q_tur
-        q_all_obj_in_line = q_anglers + q_chechbox_in_line + q_desc_in_line
-        
-        print(f'{q_all_obj_in_column = }')
-        print(f'{q_all_obj_in_line = }')
+        q_all_obj_in_line = q_anglers + q_checkbox_in_line + q_desc_in_line
+
+    # генерация всех объектов на главной странице
+    def render_main_window(self):
+        """Генерация всех объектов на главной странице"""
+        print(self.render_main_window.__name__) if DEBUG else ...
 
         # создание строки чекбоксов
-
+        self.render_checkbox_main_window()
         # создание строки описаний
-
+        self.render_desc_main_window()
         # создание строк спортиков
-
-        pass
+        self.render_objects_main_window()
 
     # функция переназначения закрытия окна по X или Alt+F4
     def closeEvent(self, event):
@@ -349,6 +368,77 @@ def save_settings():
         tomli_w.dump(data, file_settings)
 
 
+def get_list_fields_and_coords(start_x, start_y, shift_x, shift_y, field_h, q_sportsmen):
+    """Универсальная функция для описания полей и расчёта их координат на форме"""
+    # список всех полей и их координаты
+    list_coord_of_fields = []
+
+    # точка начала отчёта
+    start_dot_x = start_x
+    start_dot_y = start_y
+    # расстояние между объектами на форме
+    gap_x = shift_x
+    gap_y = shift_y
+    # высота для всех полей
+    field_height = field_h
+    # количество спортиков
+    q_sportiks = q_sportsmen
+
+    # кортеж из полей на форме "Название поля", длина
+    fields = (
+              ('Sportik01_number_', 40),
+              ('Sportik02_lottery_', 40),
+              ('Sportik03_fio_', 180),
+              ('Sportik04_team_', 180),
+              ('Sportik05_rank_', 40),
+              ('Sportik06_zona1_', 70),
+              ('Sportik07_zona2_', 70),
+              ('Sportik08_period1_', 40),
+              ('Sportik09_period2_', 40),
+              ('Sportik10_period3_', 40),
+              ('Sportik11_period4_', 40),
+              ('Sportik12_points_', 40),
+              ('Sportik13_team_place_', 40),
+              ('Sportik14_self_place_', 40)
+              )
+
+    # шаг по вертикали
+    field_step_y = start_dot_y
+
+    # цикл расчёта координат каждого поля
+    for sportik in range(1, q_sportiks + 1):
+        # шаг вправо начинается с первой точки и идёт вправо
+        field_step_x = start_dot_x
+        # список координат в строке
+        list_coord_of_field = []
+
+        # проход по строке полей
+        for field in fields:
+            # формирование имени спортика
+            field_name = field[0] + str(sportik)
+            # выбор ширины поля
+            field_width = field[1]
+
+            # добавление в список координат
+            list_coord_of_field.append(field_name)
+            list_coord_of_field.append(field_step_x)
+            list_coord_of_field.append(field_step_y)
+
+            # увеличение шага вправо на ширину поля
+            field_step_x = field_step_x + field_width
+
+            # увеличение шага вправо на ширину промежутка между полями
+            field_step_x = field_step_x + gap_x
+
+        # добавление шага вниз на промежуток между строками полей
+        field_step_y = field_step_y + field_height + gap_y
+
+        # добавление в главный список списка строки полей
+        list_coord_of_fields.append(list_coord_of_field)
+
+    return list_coord_of_fields
+
+
 # функция непосредственного выхода из программы
 def exit_app():
     """Функция окна настроек"""
@@ -376,6 +466,9 @@ def run():
 if __name__ == '__main__':
     read_settings()
     run()
+
+# lst1 = get_list_fields_and_coords(start_x=5, start_y=100, shift_x=20, shift_y=10, field_h=20, q_sportsmen=3)
+# print(*lst1, sep='\n')
 
 # # lineEdit_
 # window_settings.lineEdit_ = PyQt5.QtWidgets.QLineEdit(window_settings)

@@ -36,7 +36,7 @@ SETT_DEF_COMMON = {
     'name_of_sector': "Сектор XXX",              # Сектор 1, Сектор 2, Сектор 3 ...
     'competition_stat': {
         'COMP_q_fio': 1,
-        'COMP_q_chechbox_in_line': 1,
+        'COMP_q_checkbox_in_line': 1,
         'COMP_q_desc_in_line': 1},
     'settings_window_set_comp': {
         'window_coords_h': 200,
