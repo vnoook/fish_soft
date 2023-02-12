@@ -31,6 +31,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
     # описание главного окна
     def __init__(self):
         """Метод инициализации класса главного окна"""
+        print(self.__init__.__name__) if DEBUG else ...
 
         super().__init__()
 
@@ -215,9 +216,18 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # по описанию требуется:
         # две верхних строки объектов технических (чекбоксы и подписи колонок)
         # и количество строк объектов для спортсменов
-        # всего колонок = фио + зоны + периуды тура + результат тура
+        # всего колонок = фио + зоны + периоды тура + результат тура
         q_all_obj_in_column = q_fio + q_zone + (q_period+1)*q_tur
         q_all_obj_in_line = q_anglers + q_checkbox_in_line + q_desc_in_line
+
+        lst1 = get_list_fields_and_coords(start_x=100, start_y=100,
+                                          shift_x=20, shift_y=10,
+                                          field_h=20,
+                                          q_sportsmen=3)
+        print(*lst1, sep='\n')
+
+        # TODO
+        # тут нужно вставить функцию изменения размера окна после рендеринга всех объектов
 
     # генерация всех объектов на главной странице
     def render_main_window(self):
@@ -368,11 +378,14 @@ def save_settings():
         tomli_w.dump(data, file_settings)
 
 
-def get_list_fields_and_coords(start_x, start_y, shift_x, shift_y, field_h, q_sportsmen):
+def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int, shift_y: int, field_h: int, q_sportsmen: int):
     """Универсальная функция для описания полей и расчёта их координат на форме"""
+    print(get_list_fields_and_coords.__name__) if DEBUG else ...
+
     # список всех полей и их координаты
     list_coord_of_fields = []
 
+    # распределение входных переменных
     # точка начала отчёта
     start_dot_x = start_x
     start_dot_y = start_y
@@ -386,20 +399,20 @@ def get_list_fields_and_coords(start_x, start_y, shift_x, shift_y, field_h, q_sp
 
     # кортеж из полей на форме "Название поля", длина
     fields = (
-              ('Sportik01_number_', 40),
-              ('Sportik02_lottery_', 40),
-              ('Sportik03_fio_', 180),
-              ('Sportik04_team_', 180),
-              ('Sportik05_rank_', 40),
-              ('Sportik06_zona1_', 70),
-              ('Sportik07_zona2_', 70),
-              ('Sportik08_period1_', 40),
-              ('Sportik09_period2_', 40),
-              ('Sportik10_period3_', 40),
-              ('Sportik11_period4_', 40),
-              ('Sportik12_points_', 40),
-              ('Sportik13_team_place_', 40),
-              ('Sportik14_self_place_', 40)
+              # ('Sportik01_number_', 40, 'label_off'),
+              # ('Sportik02_lottery_', 40, 'edit_off'),
+              ('Sportik03_fio_', 180, 'edit_on'),
+              # ('Sportik04_team_', 180, 'edit_on'),
+              # ('Sportik05_rank_', 40, 'edit_on'),
+              ('Sportik06_zona1_', 70, 'checkbox_on'),
+              ('Sportik07_zona2_', 70, 'checkbox_on'),
+              ('Sportik08_period1_', 40, 'edit_on'),
+              ('Sportik09_period2_', 40, 'edit_on'),
+              ('Sportik10_period3_', 40, 'edit_on'),
+              ('Sportik11_period4_', 40, 'edit_on'),
+              ('Sportik12_points_', 40, 'edit_off'),
+              # ('Sportik13_team_place_', 40, 'edit_off'),
+              ('Sportik14_self_place_', 40, 'edit_off')
               )
 
     # шаг по вертикали
