@@ -203,6 +203,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
         print('генерация объектов для ввода данных по соревнованиям')
 
+        # TODO
+        # все ли переменные нужны?
         # сбор переменных для формирования объектов на форме
         q_tur = SETTINGS_DATA_DEF['competition_action']['COMP_q_tur']
         q_period = SETTINGS_DATA_DEF['competition_action']['COMP_q_period']
@@ -223,7 +225,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         lst1 = get_list_fields_and_coords(start_x=100, start_y=100,
                                           shift_x=20, shift_y=10,
                                           field_h=20,
-                                          q_sportsmen=3)
+                                          q_sportsmen=q_anglers)
         print(*lst1, sep='\n')
 
         # TODO
@@ -399,26 +401,29 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int, shift_y
     # шаг по вертикали
     field_step_y = start_dot_y
 
-    # кортеж из полей на форме "Название поля", длина
+    # TODO
+    # правильно назвать спортика
+    # кортеж из полей на форме "Название поля", длина, вид объекта на форме
     fields = (
-              # ('Sportik01_number_', 40, 'label_off'),
-              # ('Sportik02_lottery_', 40, 'edit_off'),
-              ('Sportik03_fio_', 180, 'edit_on'),
-              # ('Sportik04_team_', 180, 'edit_on'),
-              # ('Sportik05_rank_', 40, 'edit_on'),
-              ('Sportik06_zona1_', 70, 'checkbox_on'),
-              # ('Sportik07_zona2_', 70, 'checkbox_on'),
-              ('Sportik08_period1_', 40, 'edit_on'),
-              # ('Sportik09_period2_', 40, 'edit_on'),
-              # ('Sportik10_period3_', 40, 'edit_on'),
-              # ('Sportik11_period4_', 40, 'edit_on'),
-              ('Sportik12_points_', 40, 'edit_off'),
-              # ('Sportik13_team_place_', 40, 'edit_off'),
-              ('Sportik14_self_place_', 40, 'edit_off')
+              ('Sportik_1_number_', 40, 'edit_off'),
+              ('Sportik_2_lottery_', 40, 'edit_off'),
+              ('Sportik_3_fio_', 180, 'edit_on'),
+              ('Sportik_4_team_', 180, 'edit_on'),
+              ('Sportik_5_rank_', 40, 'edit_on'),
+              ('Sportik_6_zona1_', 70, 'combobox_on'),
+              ('Sportik_7_zona2_', 70, 'combobox_on'),
+              ('Sportik_8_period1_', 40, 'edit_on'),
+              ('Sportik_9_period2_', 40, 'edit_on'),
+              ('Sportik_10_period3_', 40, 'edit_on'),
+              ('Sportik_11_period4_', 40, 'edit_on'),
+              ('Sportik_12_points_', 40, 'edit_off'),
+              ('Sportik_13_team_place_', 40, 'edit_off'),
+              ('Sportik_14_self_place_', 40, 'edit_off')
               )
 
     # цикл расчёта координат каждого поля
     for sportik in range(1, q_sportiks + 1):
+        print(sportik)
         # шаг вправо начинается с первой точки и идёт вправо
         field_step_x = start_dot_x
         # список координат в строке
@@ -449,6 +454,20 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int, shift_y
         list_coord_of_fields.append(list_coord_of_field)
 
     return list_coord_of_fields
+
+# TODO
+# нужна ли эта функция
+# функция подготовки числа к двухразрядному символьному виду '1 -> 01'
+def get_bin_num(var: int) -> str:
+    """Функция подготовки числа к двухразрядному символьному виду 1 -> 01'"""
+    print(get_bin_num.__name__) if DEBUG else ...
+
+    if 0 < var < 10:
+        return ''.join(('0', str(var)))
+    elif var > 99:
+        return None
+    else:
+        return str(var)
 
 
 # функция непосредственного выхода из программы
