@@ -396,6 +396,8 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int, shift_y
     field_height = field_h
     # количество спортиков
     q_sportiks = q_sportsmen
+    # шаг по вертикали
+    field_step_y = start_dot_y
 
     # кортеж из полей на форме "Название поля", длина
     fields = (
@@ -405,18 +407,15 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int, shift_y
               # ('Sportik04_team_', 180, 'edit_on'),
               # ('Sportik05_rank_', 40, 'edit_on'),
               ('Sportik06_zona1_', 70, 'checkbox_on'),
-              ('Sportik07_zona2_', 70, 'checkbox_on'),
+              # ('Sportik07_zona2_', 70, 'checkbox_on'),
               ('Sportik08_period1_', 40, 'edit_on'),
-              ('Sportik09_period2_', 40, 'edit_on'),
-              ('Sportik10_period3_', 40, 'edit_on'),
-              ('Sportik11_period4_', 40, 'edit_on'),
+              # ('Sportik09_period2_', 40, 'edit_on'),
+              # ('Sportik10_period3_', 40, 'edit_on'),
+              # ('Sportik11_period4_', 40, 'edit_on'),
               ('Sportik12_points_', 40, 'edit_off'),
               # ('Sportik13_team_place_', 40, 'edit_off'),
               ('Sportik14_self_place_', 40, 'edit_off')
               )
-
-    # шаг по вертикали
-    field_step_y = start_dot_y
 
     # цикл расчёта координат каждого поля
     for sportik in range(1, q_sportiks + 1):
