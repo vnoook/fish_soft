@@ -24,7 +24,7 @@ SETT_DEF_SOFT = {
 }
 
 SETT_DEF_COMMON = {
-    'version': '0.0.1',
+    'version': '0.0.2',
     'window_name_main': 'ЧСВ - НХНЧ',
     'about_text': 'Чтобы Соревнования Выиграть - "Ни хвоста, Ни чешуи"',
     'window_name_set_comp': 'Настройки соревнования',
@@ -34,6 +34,15 @@ SETT_DEF_COMMON = {
     'file_settings_soft': 'fish_settings.toml',
     'name_of_zone': "Зона XXX",                  # Зона А, Зона Б, Зона В, Зона Г ...
     'name_of_sector': "Сектор XXX",              # Сектор 1, Сектор 2, Сектор 3 ...
+    'form_sizes': {
+        'min_width': 300,
+        'min_height': 300,
+        'start_x': 10,
+        'start_y': 100,
+        'obj_h': 20},
+    'form_gaps': {
+        'gap_x': 20,
+        'gap_y': 10},
     'competition_stat': {
         'COMP_q_fio': 1,
         'COMP_q_checkbox_in_line': 1,

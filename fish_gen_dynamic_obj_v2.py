@@ -69,7 +69,7 @@ class Window(PyQt5.QtWidgets.QWidget):
         print(list(x.objectName() for x in obj2))
         print()
 
-        print(f'список всех объектов в главном ообъекте')
+        print(f'список всех объектов в главном объекте')
         pp.pprint(self.children())
         print()
 

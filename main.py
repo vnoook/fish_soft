@@ -35,22 +35,25 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
         super().__init__()
 
-        # переменные
-        soft_version = SETTINGS_COMMON_DEF['version']
-        main_window_n = SETTINGS_COMMON_DEF['window_name_main']
-        main_window_x = SETTINGS_DATA_DEF['settings_window_main']['window_coords_x']
-        main_window_y = SETTINGS_DATA_DEF['settings_window_main']['window_coords_y']
-        main_window_h = SETTINGS_DATA_DEF['settings_window_main']['window_coords_h']
-        main_window_w = SETTINGS_DATA_DEF['settings_window_main']['window_coords_w']
+        # версия программы
+        self.soft_version = SETTINGS_COMMON_DEF['version']
+        # название главного окна
+        self.main_window_n = SETTINGS_COMMON_DEF['window_name_main']
+
+        # координаты и длины сторон главного окна
+        self.main_window_x = SETTINGS_DATA_DEF['settings_window_main']['window_coords_x']
+        self.main_window_y = SETTINGS_DATA_DEF['settings_window_main']['window_coords_y']
+        self.main_window_w = SETTINGS_DATA_DEF['settings_window_main']['window_coords_w']
+        self.main_window_h = SETTINGS_DATA_DEF['settings_window_main']['window_coords_h']
 
         # переменная для доступа к координатам окна
         self.frame_geometry = None
 
         # главное окно, надпись на нём и размеры
-        self.setWindowTitle(main_window_n + ' - ' + soft_version)
-        self.setGeometry(main_window_x, main_window_y, main_window_w, main_window_h)
+        self.setWindowTitle(self.main_window_n + ' - ' + self.soft_version)
+        self.setGeometry(self.main_window_x, self.main_window_y, self.main_window_w, self.main_window_h)
 
-        # создание главного меню
+        # переменные для создания главного меню
         self.menu = None
         self.file = None
         self.file_open = None
@@ -90,7 +93,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.settings_competition = self.settings.addAction('Настройки соревнования')
         self.settings_soft.triggered.connect(self.window_settings_soft)
         self.settings_competition.triggered.connect(self.window_settings_competition)
-        self.settings.addAction(self.settings_competition)
+        # self.settings.addAction(self.settings_competition)
 
         # ПОМОЩЬ
         self.help = self.menu.addMenu('Помощь')
@@ -106,14 +109,10 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         """Функция меню Файл-Открыть"""
         print(self.window_file_open.__name__) if DEBUG else ...
 
-        pass
-
     # функция по открытию меню Файл-Сохранить
     def window_file_save(self):
         """Функция меню Файл-Сохранить"""
         print(self.window_file_save.__name__) if DEBUG else ...
-
-        pass
 
     # функция по открытию меню Файл-Выход
     def window_file_exit(self):
@@ -187,21 +186,21 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         """Генерация чекбоксов"""
         print(self.render_checkbox_main_window.__name__) if DEBUG else ...
 
-        print('генерация чекбоксов')
+        # print('генерация чекбоксов')
 
     # генерация описаний
     def render_desc_main_window(self):
         """Генерация описаний"""
         print(self.render_desc_main_window.__name__) if DEBUG else ...
 
-        print('генерация описаний')
+        # print('генерация описаний')
 
     # генерация объектов для ввода данных по соревнованиям
     def render_objects_main_window(self):
         """Генерация объектов для ввода данных"""
         print(self.render_objects_main_window.__name__) if DEBUG else ...
 
-        print('генерация объектов для ввода данных по соревнованиям')
+        # print('генерация объектов для ввода данных по соревнованиям')
 
         # TODO
         # все ли переменные нужны?
@@ -213,6 +212,13 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         q_fio = SETTINGS_COMMON_DEF['competition_stat']['COMP_q_fio']
         q_checkbox_in_line = SETTINGS_COMMON_DEF['competition_stat']['COMP_q_checkbox_in_line']
         q_desc_in_line = SETTINGS_COMMON_DEF['competition_stat']['COMP_q_desc_in_line']
+        min_width = SETTINGS_COMMON_DEF['form_sizes']['min_width']
+        min_height = SETTINGS_COMMON_DEF['form_sizes']['min_height']
+        start_x = SETTINGS_COMMON_DEF['form_sizes']['start_x']
+        start_y = SETTINGS_COMMON_DEF['form_sizes']['start_y']
+        obj_h = SETTINGS_COMMON_DEF['form_sizes']['obj_h']
+        gap_x = SETTINGS_COMMON_DEF['form_gaps']['gap_x']
+        gap_y = SETTINGS_COMMON_DEF['form_gaps']['gap_y']
 
         # TODO
         # по описанию требуется:
@@ -221,15 +227,29 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # всего колонок = фио + зоны + периоды тура + результат тура
         q_all_obj_in_column = q_fio + q_zone + (q_period+1)*q_tur
         q_all_obj_in_line = q_anglers + q_checkbox_in_line + q_desc_in_line
+        print(f'{q_all_obj_in_column = }')
+        print(f'{q_all_obj_in_line = }')
 
-        lst1 = get_list_fields_and_coords(start_x=100, start_y=100,
-                                          shift_x=20, shift_y=10,
-                                          field_h=20,
+        lst1 = get_list_fields_and_coords(start_x=start_x, start_y=start_y,
+                                          shift_x=gap_x, shift_y=gap_y,
+                                          field_h=obj_h,
                                           q_sportsmen=q_anglers)
         print(*lst1, sep='\n')
 
-        # TODO
-        # тут нужно вставить функцию изменения размера окна после рендеринга всех объектов
+        # изменение размера окна после рендеринга всех объектов устанавливается фиксированный размер,
+        # чтобы все объекты входили в окно
+        # находится последний правый объект, берутся координаты и суммируются с длиной объекта и отступом справа и вниз,
+        # но не менее чем минимальный размер по стороне
+        new_width = lst1[-1][-5] + lst1[-1][-3] + gap_x
+        if new_width < min_width:
+            new_width = min_width
+
+        new_height = lst1[-1][-4] + lst1[-1][-2] + gap_y
+        if new_height < min_height:
+            new_height = min_height
+
+        self.setFixedSize(new_width, new_height)
+        self.show()
 
     # генерация всех объектов на главной странице
     def render_main_window(self):
@@ -330,7 +350,7 @@ def read_settings():
 
 
 # функция валидности ключей и их количества в хранилище настроек
-def repair_settings(cur_dict: dict, def_dict: dict):
+def repair_settings(cur_dict: dict, def_dict: dict) -> dict:
     """Функция валидности ключей и их количества в хранилище настроек"""
     print(repair_settings.__name__) if DEBUG else ...
 
@@ -422,8 +442,7 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int, shift_y
               )
 
     # цикл расчёта координат каждого поля
-    for sportik in range(1, q_sportiks + 1):
-        print(sportik)
+    for n_sportik in range(1, q_sportiks + 1):
         # шаг вправо начинается с первой точки и идёт вправо
         field_step_x = start_dot_x
         # список координат в строке
@@ -432,14 +451,19 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int, shift_y
         # проход по строке полей
         for field in fields:
             # формирование имени спортика
-            field_name = field[0] + str(sportik)
+            field_name = field[0] + str(n_sportik)
             # выбор ширины поля
             field_width = field[1]
+            # вид объекта для вывода
+            field_obj = field[2]
 
             # добавление в список координат
             list_coord_of_field.append(field_name)
             list_coord_of_field.append(field_step_x)
             list_coord_of_field.append(field_step_y)
+            list_coord_of_field.append(field_width)
+            list_coord_of_field.append(field_height)
+            list_coord_of_field.append(field_obj)
 
             # увеличение шага вправо на ширину поля
             field_step_x = field_step_x + field_width
@@ -454,20 +478,6 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int, shift_y
         list_coord_of_fields.append(list_coord_of_field)
 
     return list_coord_of_fields
-
-# TODO
-# нужна ли эта функция
-# функция подготовки числа к двухразрядному символьному виду '1 -> 01'
-def get_bin_num(var: int) -> str:
-    """Функция подготовки числа к двухразрядному символьному виду 1 -> 01'"""
-    print(get_bin_num.__name__) if DEBUG else ...
-
-    if 0 < var < 10:
-        return ''.join(('0', str(var)))
-    elif var > 99:
-        return None
-    else:
-        return str(var)
 
 
 # функция непосредственного выхода из программы
@@ -521,3 +531,15 @@ if __name__ == '__main__':
 # self.label_select_file.setFont(font)
 # self.label_select_file.adjustSize()
 # self.label_select_file.setToolTip(self.label_select_file.objectName())
+
+# # функция подготовки числа к двух разрядному символьному виду '1 -> 01'
+# def get_bin_num(var: int) -> str:
+#     """Функция подготовки числа к двух разрядному символьному виду 1 -> 01'"""
+#     print(get_bin_num.__name__) if DEBUG else ...
+#
+#     if 0 < var < 10:
+#         return ''.join(('0', str(var)))
+#     elif var > 99:
+#         return None
+#     else:
+#         return str(var)
