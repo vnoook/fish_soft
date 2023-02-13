@@ -164,8 +164,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         """Функция окна правил соревнований"""
         print(self.window_rules_competition.__name__) if DEBUG else ...
 
-        pass
-
     # окно О программе
     def window_about_soft(self):
         """Функция окна О программе"""
@@ -289,7 +287,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         """Функция получения координат и запись их в переменную экземпляра класса"""
         print(self.get_coords.__name__) if DEBUG else ...
 
-        # переопределение встроенной класса в локальную для доступа к координатам
+        # переопределение встроенной переменной в локальную для доступа к координатам
         self.frame_geometry = self.geometry()
 
         SETTINGS_DATA_DEF['settings_window_main']['window_coords_x'] = self.frame_geometry.x()
@@ -309,7 +307,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         print('_' * 25) if DEBUG else ...
         print(self.exit_common.__name__) if DEBUG else ...
 
+        # сохранение настроек перед выходом
         save_settings()
+        # выход из приложения
         exit_app()
 
 
@@ -457,7 +457,7 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int, shift_y
             # вид объекта для вывода
             field_obj = field[2]
 
-            # добавление в список координат
+            # добавление в список параметров объекта
             list_coord_of_field.append(field_name)
             list_coord_of_field.append(field_step_x)
             list_coord_of_field.append(field_step_y)
@@ -507,9 +507,6 @@ def run():
 if __name__ == '__main__':
     read_settings()
     run()
-
-# lst1 = get_list_fields_and_coords(start_x=5, start_y=100, shift_x=20, shift_y=10, field_h=20, q_sportsmen=3)
-# print(*lst1, sep='\n')
 
 # # lineEdit_
 # window_settings.lineEdit_ = PyQt5.QtWidgets.QLineEdit(window_settings)
