@@ -179,6 +179,18 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         window_about.setText(about_window_text + ', версия ' + soft_version)
         window_about.show()
 
+    # генерация всех объектов на главной форме
+    def render_main_window(self):
+        """Генерация всех объектов на главной форме"""
+        print(self.render_main_window.__name__) if DEBUG else ...
+
+        # создание строки чекбоксов
+        self.render_checkbox_main_window()
+        # создание строки описаний
+        self.render_desc_main_window()
+        # создание строк спортиков
+        self.render_objects_main_window()
+
     # генерация чекбоксов
     def render_checkbox_main_window(self):
         """Генерация чекбоксов"""
@@ -198,11 +210,16 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         """Генерация объектов для ввода данных"""
         print(self.render_objects_main_window.__name__) if DEBUG else ...
 
-        # print('генерация объектов для ввода данных по соревнованиям')
+        print('генерация объектов для ввода данных по соревнованиям')
 
         # TODO
         # все ли переменные нужны?
         # сбор переменных для формирования объектов на форме
+        rez_x = SETTINGS_DATA_DEF['settings_soft']['screen_resolution_x']
+        rez_y = SETTINGS_DATA_DEF['settings_soft']['screen_resolution_y']
+        win_x = SETTINGS_DATA_DEF['settings_window_main']['window_coords_x']
+        win_y = SETTINGS_DATA_DEF['settings_window_main']['window_coords_y']
+
         q_tur = SETTINGS_DATA_DEF['competition_action']['COMP_q_tur']
         q_period = SETTINGS_DATA_DEF['competition_action']['COMP_q_period']
         q_zone = SETTINGS_DATA_DEF['competition_action']['COMP_q_zone']
@@ -244,25 +261,21 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         new_width = lst1[-1][-5] + lst1[-1][-3] + gap_x
         if new_width < min_width:
             new_width = min_width
+        if new_width > rez_x:
+            new_width = rez_x - win_x
 
         new_height = lst1[-1][-4] + lst1[-1][-2] + gap_y
         if new_height < min_height:
             new_height = min_height
+        if new_height > rez_y:
+            new_height = rez_y - win_y
+
+        print(f'{win_x = } ... {win_y = }')
+        print(f'{rez_x = } ... {rez_y = }')
+        print(f'{new_width = } ... {new_height = }')
 
         self.setFixedSize(new_width, new_height)
         self.show()
-
-    # генерация всех объектов на главной странице
-    def render_main_window(self):
-        """Генерация всех объектов на главной странице"""
-        print(self.render_main_window.__name__) if DEBUG else ...
-
-        # создание строки чекбоксов
-        self.render_checkbox_main_window()
-        # создание строки описаний
-        self.render_desc_main_window()
-        # создание строк спортиков
-        self.render_objects_main_window()
 
     # функция переназначения закрытия окна по X или Alt+F4
     def closeEvent(self, event):
@@ -403,7 +416,8 @@ def save_settings():
         tomli_w.dump(data, file_settings)
 
 
-def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int, shift_y: int, field_h: int, q_sportsmen: int):
+def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
+                               shift_y: int, field_h: int, q_sportsmen: int) -> list:
     """Универсальная функция для описания полей и расчёта их координат на форме"""
     print(get_list_fields_and_coords.__name__) if DEBUG else ...
 
