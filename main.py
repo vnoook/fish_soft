@@ -29,7 +29,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
     """Класс главного окна"""
 
     # описание главного окна
-    def __init__(self):
+    def __init__(self) -> None:
         """Метод инициализации класса главного окна"""
         print(self.__init__.__name__) if DEBUG else ...
 
@@ -71,7 +71,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.render_main_window()
 
     # функция создания главного меню
-    def create_menu(self):
+    def create_menu(self) -> None:
         """Функция создания главного меню"""
         print(self.create_menu.__name__) if DEBUG else ...
 
@@ -105,24 +105,24 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.about.triggered.connect(self.window_about_soft)
 
     # функция по открытию меню Файл-Открыть
-    def window_file_open(self):
+    def window_file_open(self) -> None:
         """Функция меню Файл-Открыть"""
         print(self.window_file_open.__name__) if DEBUG else ...
 
     # функция по открытию меню Файл-Сохранить
-    def window_file_save(self):
+    def window_file_save(self) -> None:
         """Функция меню Файл-Сохранить"""
         print(self.window_file_save.__name__) if DEBUG else ...
 
     # функция по открытию меню Файл-Выход
-    def window_file_exit(self):
+    def window_file_exit(self) -> None:
         """Функция меню Файл-Выход"""
         print(self.window_file_exit.__name__) if DEBUG else ...
 
         self.exit_common()
 
     # окно настроек соревнований
-    def window_settings_competition(self):
+    def window_settings_competition(self) -> None:
         """Функция окна настроек соревнований"""
         print(self.window_settings_competition.__name__) if DEBUG else ...
 
@@ -141,7 +141,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         window_settings.show()
 
     # окно настроек программы
-    def window_settings_soft(self):
+    def window_settings_soft(self) -> None:
         """Функция окна настроек программы"""
         print(self.window_settings_soft.__name__) if DEBUG else ...
 
@@ -160,12 +160,12 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         window_settings.show()
 
     # окно правил соревнований
-    def window_rules_competition(self):
+    def window_rules_competition(self) -> None:
         """Функция окна правил соревнований"""
         print(self.window_rules_competition.__name__) if DEBUG else ...
 
     # окно О программе
-    def window_about_soft(self):
+    def window_about_soft(self) -> None:
         """Функция окна О программе"""
         print(self.window_about_soft.__name__) if DEBUG else ...
 
@@ -180,7 +180,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         window_about.show()
 
     # генерация всех объектов на главной форме
-    def render_main_window(self):
+    def render_main_window(self) -> None:
         """Генерация всех объектов на главной форме"""
         print(self.render_main_window.__name__) if DEBUG else ...
 
@@ -192,13 +192,13 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.render_objects_main_window()
 
     # генерация чекбоксов
-    def render_checkbox_main_window(self):
+    def render_checkbox_main_window(self) -> None:
         """Генерация чекбоксов"""
         print(self.render_checkbox_main_window.__name__) if DEBUG else ...
         # print('генерация чекбоксов')
 
     # генерация описаний
-    def render_desc_main_window(self):
+    def render_desc_main_window(self) -> None:
         """Генерация описаний"""
         print(self.render_desc_main_window.__name__) if DEBUG else ...
         # print('генерация описаний')
@@ -211,7 +211,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # q_desc_in_line = SETTINGS_COMMON_DEF['competition_stat']['COMP_q_desc_in_line']
 
     # генерация объектов для ввода данных по соревнованиям
-    def render_objects_main_window(self):
+    def render_objects_main_window(self) -> None:
         """Генерация объектов для ввода данных"""
         print(self.render_objects_main_window.__name__) if DEBUG else ...
         # print('генерация объектов для ввода данных по соревнованиям')
@@ -234,7 +234,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.resize_main_windows(lst1)
 
     # изменения размера окна
-    def resize_main_windows(self, list_objects: list):
+    def resize_main_windows(self, list_objects: list) -> None:
         """Изменения размера окна"""
         print(self.render_objects_main_window.__name__) if DEBUG else ...
 
@@ -272,28 +272,28 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.show()
 
     # функция переназначения закрытия окна по X или Alt+F4
-    def closeEvent(self, event):
+    def closeEvent(self, event) -> None:
         """Функция переназначения на закрытие окна"""
         print(self.closeEvent.__name__) if DEBUG else ...
 
         self.exit_common()
 
     # функция переназначения движение окна
-    def moveEvent(self, event):
+    def moveEvent(self, event) -> None:
         """Функция переназначения движение окна"""
         print(self.moveEvent.__name__) if DEBUG else ...
 
         self.get_coords()
 
     # функция переназначения изменения размеров окна
-    def resizeEvent(self, event):
+    def resizeEvent(self, event) -> None:
         """Функция переназначения изменения размеров окна"""
         print(self.resizeEvent.__name__) if DEBUG else ...
 
         self.get_coords()
 
     # функция получения координат и запись их в переменную экземпляр класса
-    def get_coords(self):
+    def get_coords(self) -> None:
         """Функция получения координат и запись их в переменную экземпляра класса"""
         print(self.get_coords.__name__) if DEBUG else ...
 
@@ -312,7 +312,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         SETTINGS_COMMON_DEF['settings_window_about']['window_coords_y'] = self.frame_geometry.y()
 
     # функция общего выхода из программы
-    def exit_common(self):
+    def exit_common(self) -> None:
         """Функция общего выхода из программы"""
         print('_' * 25) if DEBUG else ...
         print(self.exit_common.__name__) if DEBUG else ...
@@ -324,7 +324,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
 
 # функция чтения констант из файла toml ИЛИ установка дефолтных значений, обычно при открытии программы
-def read_settings():
+def read_settings() -> None:
     """Функция чтения констант из файла toml ИЛИ установка дефолтных значений"""
     print(read_settings.__name__) if DEBUG else ...
 
@@ -396,7 +396,7 @@ def repair_settings(cur_dict: dict, def_dict: dict) -> dict:
 
 
 # функция сохранения настроек в файл toml, обычно при закрытии программы
-def save_settings():
+def save_settings() -> None:
     """Функция сохранения настроек в файл toml"""
     print(save_settings.__name__) if DEBUG else ...
 
@@ -492,7 +492,7 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
 
 
 # функция непосредственного выхода из программы
-def exit_app():
+def exit_app() -> None:
     """Функция окна настроек"""
     print(exit_app.__name__) if DEBUG else ...
 
@@ -500,7 +500,7 @@ def exit_app():
 
 
 # основная функция запуска приложения
-def run():
+def run() -> None:
     print(run.__name__) if DEBUG else ...
 
     app = PyQt5.QtWidgets.QApplication(sys.argv)
