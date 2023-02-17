@@ -195,76 +195,69 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
     def render_checkbox_main_window(self):
         """Генерация чекбоксов"""
         print(self.render_checkbox_main_window.__name__) if DEBUG else ...
-
         # print('генерация чекбоксов')
 
     # генерация описаний
     def render_desc_main_window(self):
         """Генерация описаний"""
         print(self.render_desc_main_window.__name__) if DEBUG else ...
-
         # print('генерация описаний')
+
+        # q_tur = SETTINGS_DATA_DEF['competition_action']['COMP_q_tur']
+        # q_period = SETTINGS_DATA_DEF['competition_action']['COMP_q_period']
+        # q_zone = SETTINGS_DATA_DEF['competition_action']['COMP_q_zone']
+        # q_fio = SETTINGS_COMMON_DEF['competition_stat']['COMP_q_fio']
+        # q_checkbox_in_line = SETTINGS_COMMON_DEF['competition_stat']['COMP_q_checkbox_in_line']
+        # q_desc_in_line = SETTINGS_COMMON_DEF['competition_stat']['COMP_q_desc_in_line']
 
     # генерация объектов для ввода данных по соревнованиям
     def render_objects_main_window(self):
         """Генерация объектов для ввода данных"""
         print(self.render_objects_main_window.__name__) if DEBUG else ...
+        # print('генерация объектов для ввода данных по соревнованиям')
 
-        print('генерация объектов для ввода данных по соревнованиям')
-
-        # TODO
-        # все ли переменные нужны?
         # сбор переменных для формирования объектов на форме
-        rez_x = SETTINGS_DATA_DEF['settings_soft']['screen_resolution_x']
-        rez_y = SETTINGS_DATA_DEF['settings_soft']['screen_resolution_y']
-        win_x = SETTINGS_DATA_DEF['settings_window_main']['window_coords_x']
-        win_y = SETTINGS_DATA_DEF['settings_window_main']['window_coords_y']
-
-        q_tur = SETTINGS_DATA_DEF['competition_action']['COMP_q_tur']
-        q_period = SETTINGS_DATA_DEF['competition_action']['COMP_q_period']
-        q_zone = SETTINGS_DATA_DEF['competition_action']['COMP_q_zone']
         q_anglers = SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers']
-        q_fio = SETTINGS_COMMON_DEF['competition_stat']['COMP_q_fio']
-        q_checkbox_in_line = SETTINGS_COMMON_DEF['competition_stat']['COMP_q_checkbox_in_line']
-        q_desc_in_line = SETTINGS_COMMON_DEF['competition_stat']['COMP_q_desc_in_line']
-        min_width = SETTINGS_COMMON_DEF['form_sizes']['min_width']
-        min_height = SETTINGS_COMMON_DEF['form_sizes']['min_height']
         start_x = SETTINGS_COMMON_DEF['form_sizes']['start_x']
         start_y = SETTINGS_COMMON_DEF['form_sizes']['start_y']
         obj_h = SETTINGS_COMMON_DEF['form_sizes']['obj_h']
         gap_x = SETTINGS_COMMON_DEF['form_gaps']['gap_x']
         gap_y = SETTINGS_COMMON_DEF['form_gaps']['gap_y']
 
-        # TODO
-        # по описанию требуется:
-        # две верхних строки объектов технических (чекбоксы и подписи колонок)
-        # и количество строк объектов для спортсменов
-        # всего колонок = фио + зоны + периоды тура + результат тура
-        q_all_obj_in_column = q_fio + q_zone + (q_period+1)*q_tur
-        q_all_obj_in_line = q_anglers + q_checkbox_in_line + q_desc_in_line
-        print(f'{q_all_obj_in_column = }')
-        print(f'{q_all_obj_in_line = }')
-
         lst1 = get_list_fields_and_coords(start_x=start_x, start_y=start_y,
                                           shift_x=gap_x, shift_y=gap_y,
                                           field_h=obj_h,
                                           q_sportsmen=q_anglers)
-        print(*lst1, sep='\n')
+        # print(*lst1, sep='\n')
 
-        # TODO
-        # сделать проверку и на большое окно, сделать его меньше чем разрешение экрана
+        # изменения размера окна
+        self.resize_main_windows(lst1)
+
+    # изменения размера окна
+    def resize_main_windows(self, list_objects: list):
+        """Изменения размера окна"""
+        print(self.render_objects_main_window.__name__) if DEBUG else ...
+
+        rez_x = SETTINGS_DATA_DEF['settings_soft']['screen_resolution_x']
+        rez_y = SETTINGS_DATA_DEF['settings_soft']['screen_resolution_y']
+        win_x = SETTINGS_DATA_DEF['settings_window_main']['window_coords_x']
+        win_y = SETTINGS_DATA_DEF['settings_window_main']['window_coords_y']
+        gap_x = SETTINGS_COMMON_DEF['form_gaps']['gap_x']
+        gap_y = SETTINGS_COMMON_DEF['form_gaps']['gap_y']
+        min_width = SETTINGS_COMMON_DEF['form_sizes']['min_width']
+        min_height = SETTINGS_COMMON_DEF['form_sizes']['min_height']
 
         # изменение размера окна после рендеринга всех объектов устанавливается фиксированный размер,
         # чтобы все объекты входили в окно
         # находится последний правый объект, берутся координаты и суммируются с длиной объекта и отступом справа и вниз,
         # но не менее чем минимальный размер по стороне
-        new_width = lst1[-1][-5] + lst1[-1][-3] + gap_x
+        new_width = list_objects[-1][-5] + list_objects[-1][-3] + gap_x
         if new_width < min_width:
             new_width = min_width
         if new_width > rez_x:
             new_width = rez_x - win_x
 
-        new_height = lst1[-1][-4] + lst1[-1][-2] + gap_y
+        new_height = list_objects[-1][-4] + list_objects[-1][-2] + gap_y
         if new_height < min_height:
             new_height = min_height
         if new_height > rez_y:
@@ -275,6 +268,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         print(f'{new_width = } ... {new_height = }')
 
         self.setFixedSize(new_width, new_height)
+        # self.resize(new_width, new_height)
         self.show()
 
     # функция переназначения закрытия окна по X или Alt+F4
