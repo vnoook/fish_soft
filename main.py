@@ -266,35 +266,33 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                 elif unit_type == 'edit_off':
                     print(unit_type)
 
-                    # checkbox_name = unit_name
-                    # checkBox = PyQt5.QtWidgets.QCheckBox(self)
-                    # checkBox.setObjectName(checkbox_name)
-                    # checkBox.setVisible(True)
-                    # checkBox.setText(checkbox_name)
-                    # checkBox.setToolTip(checkBox.objectName())
-                    # checkBox.clicked.connect(self.click_checkbox)
-                    # checkBox.setGeometry(unit_x, unit_y, unit_w, unit_h)
-                    # checkBox.resize(20, 20)
-                    # checkBox.adjustSize()
-                    # checkBox.move(10, 60 + (30 * (Window.checkbox_counter - 1)))
-                    # checkBox.show()
+                    # lineEdit
+                    lineEdit_name = unit_name
+                    lineEdit = PyQt5.QtWidgets.QLineEdit(self)
+                    lineEdit.setObjectName(lineEdit_name)
+                    lineEdit.setPlaceholderText(unit_name)
+                    lineEdit.setText(unit_name)
+                    lineEdit.setGeometry(unit_x, unit_y, unit_w, unit_h)
+                    lineEdit.setClearButtonEnabled(False)
+                    lineEdit.setEnabled(False)
+                    lineEdit.setToolTip(lineEdit.objectName())
+                    lineEdit.show()
 
                 elif unit_type == 'combobox_on':
                     print(unit_type)
 
-                    # checkbox_name = unit_name
-                    # checkBox = PyQt5.QtWidgets.QCheckBox(self)
-                    # checkBox.setObjectName(checkbox_name)
-                    # checkBox.setVisible(True)
-                    # checkBox.setText(checkbox_name)
-                    # checkBox.setToolTip(checkBox.objectName())
-                    # checkBox.clicked.connect(self.click_checkbox)
-                    # checkBox.setGeometry(unit_x, unit_y, unit_w, unit_h)
-                    # checkBox.resize(20, 20)
-                    # checkBox.adjustSize()
-                    # checkBox.move(10, 60 + (30 * (Window.checkbox_counter - 1)))
-                    # checkBox.show()
-
+                    # comboBox
+                    comboBox_name = unit_name
+                    comboBox = PyQt5.QtWidgets.QComboBox(self)
+                    comboBox.setObjectName(comboBox_name)
+                    comboBox.setPlaceholderText(unit_name)
+                    comboBox.setToolTip(comboBox.objectName())
+                    comboBox.addItem('-')
+                    comboBox.addItem('--')
+                    comboBox.addItem('---')
+                    comboBox.setGeometry(unit_x, unit_y, unit_w, unit_h)
+                    comboBox.setEnabled(True)
+                    comboBox.show()
             print()
 
     # изменения размера окна
