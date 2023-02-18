@@ -217,24 +217,31 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # print('генерация объектов для ввода данных по соревнованиям')
 
         # сбор переменных для формирования объектов на форме
-        q_anglers = SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers']
         start_x = SETTINGS_COMMON_DEF['form_sizes']['start_x']
         start_y = SETTINGS_COMMON_DEF['form_sizes']['start_y']
-        obj_h = SETTINGS_COMMON_DEF['form_sizes']['obj_h']
         gap_x = SETTINGS_COMMON_DEF['form_gaps']['gap_x']
         gap_y = SETTINGS_COMMON_DEF['form_gaps']['gap_y']
+        obj_h = SETTINGS_COMMON_DEF['form_sizes']['obj_h']
+        q_anglers = SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers']
 
-        lst1 = get_list_fields_and_coords(start_x=start_x, start_y=start_y,
-                                          shift_x=gap_x, shift_y=gap_y,
-                                          field_h=obj_h,
-                                          q_sportsmen=q_anglers)
-        # print(*lst1, sep='\n')
+        list_of_units = get_list_fields_and_coords(start_x=start_x, start_y=start_y,
+                                                   shift_x=gap_x, shift_y=gap_y,
+                                                   field_h=obj_h,
+                                                   q_sportsmen=q_anglers)
+        # print(*list_of_units, sep='\n')
 
         # изменения размера окна
-        self.resize_main_windows(lst1)
+        self.resize_main_windows_for_render(list_of_units)
+
+        # вставка на форму объектов
+        q_steps = 6       # количество шагов считавания для списка
+        for unit in list_of_units:
+            for i in range(0, len(unit), q_steps):
+                print(i, type(unit[i:(i+q_steps)]), unit[i:(i+q_steps)])
+            print()
 
     # изменения размера окна
-    def resize_main_windows(self, list_objects: list) -> None:
+    def resize_main_windows_for_render(self, list_objects: list) -> None:
         """Изменения размера окна"""
         print(self.render_objects_main_window.__name__) if DEBUG else ...
 
@@ -263,9 +270,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         if new_height > rez_y:
             new_height = rez_y - win_y
 
-        print(f'{win_x = } ... {win_y = }')
-        print(f'{rez_x = } ... {rez_y = }')
-        print(f'{new_width = } ... {new_height = }')
+        # print(f'{win_x = } ... {win_y = }')
+        # print(f'{rez_x = } ... {rez_y = }')
+        # print(f'{new_width = } ... {new_height = }')
 
         self.setFixedSize(new_width, new_height)
         # self.resize(new_width, new_height)
@@ -436,20 +443,20 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
     # правильно назвать спортика
     # кортеж из полей на форме "Название поля", длина, вид объекта на форме
     fields = (
-              ('Sportik_1_number_', 40, 'edit_off'),
-              ('Sportik_2_lottery_', 40, 'edit_off'),
-              ('Sportik_3_fio_', 180, 'edit_on'),
-              ('Sportik_4_team_', 180, 'edit_on'),
-              ('Sportik_5_rank_', 40, 'edit_on'),
-              ('Sportik_6_zona1_', 70, 'combobox_on'),
-              ('Sportik_7_zona2_', 70, 'combobox_on'),
-              ('Sportik_8_period1_', 40, 'edit_on'),
-              ('Sportik_9_period2_', 40, 'edit_on'),
-              ('Sportik_10_period3_', 40, 'edit_on'),
-              ('Sportik_11_period4_', 40, 'edit_on'),
-              ('Sportik_12_points_', 40, 'edit_off'),
-              ('Sportik_13_team_place_', 40, 'edit_off'),
-              ('Sportik_14_self_place_', 40, 'edit_off')
+              # ('Sportik_number_', 40, 'edit_off'),
+              # ('Sportik_lottery_', 40, 'edit_off'),
+              ('Sportik_fio_', 180, 'edit_on'),
+              # ('Sportik_team_', 180, 'edit_on'),
+              # ('Sportik_rank_', 40, 'edit_on'),
+              ('Sportik_zona1_', 70, 'combobox_on'),
+              # ('Sportik_zona2_', 70, 'combobox_on'),
+              ('Sportik_period1_', 40, 'edit_on'),
+              # ('Sportik_period2_', 40, 'edit_on'),
+              # ('Sportik_period3_', 40, 'edit_on'),
+              # ('Sportik_period4_', 40, 'edit_on'),
+              ('Sportik_points_', 40, 'edit_off'),
+              # ('Sportik_team_place_', 40, 'edit_off'),
+              ('Sportik_self_place_', 40, 'edit_off')
               )
 
     # цикл расчёта координат каждого поля
