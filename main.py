@@ -234,10 +234,67 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.resize_main_windows_for_render(list_of_units)
 
         # вставка на форму объектов
-        q_steps = 6       # количество шагов считавания для списка
-        for unit in list_of_units:
-            for i in range(0, len(unit), q_steps):
-                print(i, type(unit[i:(i+q_steps)]), unit[i:(i+q_steps)])
+        q_steps = 6       # количество шагов считывания для списка
+        for unit_sting in list_of_units:
+            for i in range(0, len(unit_sting), q_steps):
+                unit = unit_sting[i:(i+q_steps)]
+                print(i, type(unit), unit)
+
+                # переменные из разделения списка на составляющие
+                unit_name = unit[0]
+                unit_x = unit[1]
+                unit_y = unit[2]
+                unit_w = unit[3]
+                unit_h = unit[4]
+                unit_type = unit[5]
+
+                if unit_type == 'edit_on':
+                    print(unit_type)
+
+                    # lineEdit
+                    lineEdit_name = unit_name
+                    lineEdit = PyQt5.QtWidgets.QLineEdit(self)
+                    lineEdit.setObjectName(lineEdit_name)
+                    lineEdit.setPlaceholderText(unit_name)
+                    lineEdit.setText(unit_name)
+                    lineEdit.setGeometry(unit_x, unit_y, unit_w, unit_h)
+                    lineEdit.setClearButtonEnabled(False)
+                    lineEdit.setEnabled(True)
+                    lineEdit.setToolTip(lineEdit.objectName())
+                    lineEdit.show()
+
+                elif unit_type == 'edit_off':
+                    print(unit_type)
+
+                    # checkbox_name = unit_name
+                    # checkBox = PyQt5.QtWidgets.QCheckBox(self)
+                    # checkBox.setObjectName(checkbox_name)
+                    # checkBox.setVisible(True)
+                    # checkBox.setText(checkbox_name)
+                    # checkBox.setToolTip(checkBox.objectName())
+                    # checkBox.clicked.connect(self.click_checkbox)
+                    # checkBox.setGeometry(unit_x, unit_y, unit_w, unit_h)
+                    # checkBox.resize(20, 20)
+                    # checkBox.adjustSize()
+                    # checkBox.move(10, 60 + (30 * (Window.checkbox_counter - 1)))
+                    # checkBox.show()
+
+                elif unit_type == 'combobox_on':
+                    print(unit_type)
+
+                    # checkbox_name = unit_name
+                    # checkBox = PyQt5.QtWidgets.QCheckBox(self)
+                    # checkBox.setObjectName(checkbox_name)
+                    # checkBox.setVisible(True)
+                    # checkBox.setText(checkbox_name)
+                    # checkBox.setToolTip(checkBox.objectName())
+                    # checkBox.clicked.connect(self.click_checkbox)
+                    # checkBox.setGeometry(unit_x, unit_y, unit_w, unit_h)
+                    # checkBox.resize(20, 20)
+                    # checkBox.adjustSize()
+                    # checkBox.move(10, 60 + (30 * (Window.checkbox_counter - 1)))
+                    # checkBox.show()
+
             print()
 
     # изменения размера окна
@@ -443,19 +500,19 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
     # правильно назвать спортика
     # кортеж из полей на форме "Название поля", длина, вид объекта на форме
     fields = (
-              # ('Sportik_number_', 40, 'edit_off'),
-              # ('Sportik_lottery_', 40, 'edit_off'),
+              ('Sportik_number_', 40, 'edit_off'),
+              ('Sportik_lottery_', 40, 'edit_off'),
               ('Sportik_fio_', 180, 'edit_on'),
-              # ('Sportik_team_', 180, 'edit_on'),
-              # ('Sportik_rank_', 40, 'edit_on'),
+              ('Sportik_team_', 180, 'edit_on'),
+              ('Sportik_rank_', 40, 'edit_on'),
               ('Sportik_zona1_', 70, 'combobox_on'),
-              # ('Sportik_zona2_', 70, 'combobox_on'),
+              ('Sportik_zona2_', 70, 'combobox_on'),
               ('Sportik_period1_', 40, 'edit_on'),
-              # ('Sportik_period2_', 40, 'edit_on'),
-              # ('Sportik_period3_', 40, 'edit_on'),
-              # ('Sportik_period4_', 40, 'edit_on'),
+              ('Sportik_period2_', 40, 'edit_on'),
+              ('Sportik_period3_', 40, 'edit_on'),
+              ('Sportik_period4_', 40, 'edit_on'),
               ('Sportik_points_', 40, 'edit_off'),
-              # ('Sportik_team_place_', 40, 'edit_off'),
+              ('Sportik_team_place_', 40, 'edit_off'),
               ('Sportik_self_place_', 40, 'edit_off')
               )
 
