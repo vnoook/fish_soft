@@ -238,7 +238,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         for unit_sting in list_of_units:
             for i in range(0, len(unit_sting), q_steps):
                 unit = unit_sting[i:(i+q_steps)]
-                print(i, type(unit), unit)
+                # print(i, type(unit), unit)
 
                 # переменные из разделения списка на составляющие
                 unit_name = unit[0]
@@ -249,8 +249,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                 unit_type = unit[5]
 
                 if unit_type == 'edit_on':
-                    print(unit_type)
-
                     # lineEdit
                     lineEdit_name = unit_name
                     lineEdit = PyQt5.QtWidgets.QLineEdit(self)
@@ -264,8 +262,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     lineEdit.show()
 
                 elif unit_type == 'edit_off':
-                    print(unit_type)
-
                     # lineEdit
                     lineEdit_name = unit_name
                     lineEdit = PyQt5.QtWidgets.QLineEdit(self)
@@ -279,21 +275,18 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     lineEdit.show()
 
                 elif unit_type == 'combobox_on':
-                    print(unit_type)
-
                     # comboBox
                     comboBox_name = unit_name
                     comboBox = PyQt5.QtWidgets.QComboBox(self)
                     comboBox.setObjectName(comboBox_name)
                     comboBox.setPlaceholderText(unit_name)
                     comboBox.setToolTip(comboBox.objectName())
-                    comboBox.addItem('-')
-                    comboBox.addItem('--')
-                    comboBox.addItem('---')
+                    comboBox.addItem('-1-')
+                    comboBox.addItem('-2-')
+                    comboBox.addItem('-3-')
                     comboBox.setGeometry(unit_x, unit_y, unit_w, unit_h)
                     comboBox.setEnabled(True)
                     comboBox.show()
-            print()
 
     # изменения размера окна
     def resize_main_windows_for_render(self, list_objects: list) -> None:
