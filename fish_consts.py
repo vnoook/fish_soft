@@ -24,7 +24,7 @@ SETT_DEF_SOFT = {
 }
 
 SETT_DEF_COMMON = {
-    'version': '0.0.3',
+    'version': '0.0.4',
     'window_name_main': 'ЧСВ - НХНЧ',
     'about_text': 'Чтобы Соревнования Выиграть - "Ни хвоста, Ни чешуи"',
     'window_name_set_comp': 'Настройки соревнования',

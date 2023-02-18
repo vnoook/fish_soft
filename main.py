@@ -197,6 +197,19 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         print(self.render_checkbox_main_window.__name__) if DEBUG else ...
         # print('генерация чекбоксов')
 
+        # checkbox_name = 'checkbox_' + str(Window.checkbox_counter)
+        # checkBox = PyQt5.QtWidgets.QCheckBox(self)
+        # checkBox.setObjectName(checkbox_name)
+        # checkBox.setVisible(True)
+        # checkBox.setText(checkbox_name)
+        # checkBox.setToolTip(checkBox.objectName())
+        # checkBox.clicked.connect(self.click_checkbox)
+        # # self.checkBox.setGeometry(10, 50, 40, 40)
+        # checkBox.resize(20, 20)
+        # checkBox.adjustSize()
+        # checkBox.move(10, 60+(30*(Window.checkbox_counter-1)))
+        # checkBox.show()
+
     # генерация описаний
     def render_desc_main_window(self) -> None:
         """Генерация описаний"""
@@ -209,6 +222,17 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # q_fio = SETTINGS_COMMON_DEF['competition_stat']['COMP_q_fio']
         # q_checkbox_in_line = SETTINGS_COMMON_DEF['competition_stat']['COMP_q_checkbox_in_line']
         # q_desc_in_line = SETTINGS_COMMON_DEF['competition_stat']['COMP_q_desc_in_line']
+
+        # # label_select_file
+        # self.label_select_file = PyQt5.QtWidgets.QLabel(self)
+        # self.label_select_file.setObjectName('label_select_file')
+        # self.label_select_file.setText('Выберите файл CSV')
+        # self.label_select_file.setGeometry(PyQt5.QtCore.QRect(10, 10, 150, 40))
+        # font = PyQt5.QtGui.QFont()
+        # font.setPointSize(12)
+        # self.label_select_file.setFont(font)
+        # self.label_select_file.adjustSize()
+        # self.label_select_file.setToolTip(self.label_select_file.objectName())
 
     # генерация объектов для ввода данных по соревнованиям
     def render_objects_main_window(self) -> None:
@@ -250,43 +274,41 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
                 if unit_type == 'edit_on':
                     # lineEdit
-                    lineEdit_name = unit_name
-                    lineEdit = PyQt5.QtWidgets.QLineEdit(self)
-                    lineEdit.setObjectName(lineEdit_name)
-                    lineEdit.setPlaceholderText(unit_name)
-                    lineEdit.setText(unit_name)
-                    lineEdit.setGeometry(unit_x, unit_y, unit_w, unit_h)
-                    lineEdit.setClearButtonEnabled(False)
-                    lineEdit.setEnabled(True)
-                    lineEdit.setToolTip(lineEdit.objectName())
-                    lineEdit.show()
+                    line_edit_name = unit_name
+                    line_edit = PyQt5.QtWidgets.QLineEdit(self)
+                    line_edit.setObjectName(line_edit_name)
+                    line_edit.setPlaceholderText(unit_name)
+                    line_edit.setText(unit_name)
+                    line_edit.setGeometry(unit_x, unit_y, unit_w, unit_h)
+                    line_edit.setClearButtonEnabled(False)
+                    line_edit.setEnabled(True)
+                    line_edit.setToolTip(line_edit.objectName())
+                    line_edit.show()
 
                 elif unit_type == 'edit_off':
                     # lineEdit
-                    lineEdit_name = unit_name
-                    lineEdit = PyQt5.QtWidgets.QLineEdit(self)
-                    lineEdit.setObjectName(lineEdit_name)
-                    lineEdit.setPlaceholderText(unit_name)
-                    lineEdit.setText(unit_name)
-                    lineEdit.setGeometry(unit_x, unit_y, unit_w, unit_h)
-                    lineEdit.setClearButtonEnabled(False)
-                    lineEdit.setEnabled(False)
-                    lineEdit.setToolTip(lineEdit.objectName())
-                    lineEdit.show()
+                    line_edit_name = unit_name
+                    line_edit = PyQt5.QtWidgets.QLineEdit(self)
+                    line_edit.setObjectName(line_edit_name)
+                    line_edit.setPlaceholderText(unit_name)
+                    line_edit.setText(unit_name)
+                    line_edit.setGeometry(unit_x, unit_y, unit_w, unit_h)
+                    line_edit.setClearButtonEnabled(False)
+                    line_edit.setEnabled(False)
+                    line_edit.setToolTip(line_edit.objectName())
+                    line_edit.show()
 
                 elif unit_type == 'combobox_on':
-                    # comboBox
-                    comboBox_name = unit_name
-                    comboBox = PyQt5.QtWidgets.QComboBox(self)
-                    comboBox.setObjectName(comboBox_name)
-                    comboBox.setPlaceholderText(unit_name)
-                    comboBox.setToolTip(comboBox.objectName())
-                    comboBox.addItem('-1-')
-                    comboBox.addItem('-2-')
-                    comboBox.addItem('-3-')
-                    comboBox.setGeometry(unit_x, unit_y, unit_w, unit_h)
-                    comboBox.setEnabled(True)
-                    comboBox.show()
+                    # combobox_on
+                    combo_box_name = unit_name
+                    combo_box = PyQt5.QtWidgets.QComboBox(self)
+                    combo_box.setObjectName(combo_box_name)
+                    combo_box.setPlaceholderText(unit_name)
+                    combo_box.setToolTip(combo_box.objectName())
+                    combo_box.addItem(combo_box_name)
+                    combo_box.setGeometry(unit_x, unit_y, unit_w, unit_h)
+                    combo_box.setEnabled(True)
+                    combo_box.show()
 
     # изменения размера окна
     def resize_main_windows_for_render(self, list_objects: list) -> None:
@@ -487,8 +509,6 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
     # шаг по вертикали
     field_step_y = start_dot_y
 
-    # TODO
-    # правильно назвать спортика
     # кортеж из полей на форме "Название поля", длина, вид объекта на форме
     fields = (
               ('Sportik_number_', 40, 'edit_off'),
@@ -573,27 +593,6 @@ def run() -> None:
 if __name__ == '__main__':
     read_settings()
     run()
-
-# # lineEdit_
-# window_settings.lineEdit_ = PyQt5.QtWidgets.QLineEdit(window_settings)
-# window_settings.lineEdit_.setObjectName('lineEdit_')
-# window_settings.lineEdit_.setPlaceholderText('lineEdit_')
-# window_settings.lineEdit_.setText('lineEdit_')
-# window_settings.lineEdit_.setGeometry(PyQt5.QtCore.QRect(10, 160, 110, 20))
-# window_settings.lineEdit_.setClearButtonEnabled(True)
-# window_settings.lineEdit_.setEnabled(False)
-# window_settings.lineEdit_.setToolTip(window_settings.lineEdit_.objectName())
-
-# # label_select_file
-# self.label_select_file = PyQt5.QtWidgets.QLabel(self)
-# self.label_select_file.setObjectName('label_select_file')
-# self.label_select_file.setText('Выберите файл CSV')
-# self.label_select_file.setGeometry(PyQt5.QtCore.QRect(10, 10, 150, 40))
-# font = PyQt5.QtGui.QFont()
-# font.setPointSize(12)
-# self.label_select_file.setFont(font)
-# self.label_select_file.adjustSize()
-# self.label_select_file.setToolTip(self.label_select_file.objectName())
 
 # # функция подготовки числа к двух разрядному символьному виду '1 -> 01'
 # def get_bin_num(var: int) -> str:
