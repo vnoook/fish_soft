@@ -32,8 +32,8 @@ SETT_DEF_COMMON = {
     'window_name_about': 'О программе',
     'soft_db_file': 'db_competition.db',
     'file_settings_soft': 'fish_settings.toml',
-    'name_of_zone': "Зона XXX",                  # Зона А, Зона Б, Зона В, Зона Г ...
-    'name_of_sector': "Сектор XXX",              # Сектор 1, Сектор 2, Сектор 3 ...
+    'name_of_zone': ['Зона А', 'Зона Б', 'Зона В', 'Зона Г', 'Зона Д'],
+    'name_of_sector': 'Сектор XXX',    # Сектор 1, Сектор 2, Сектор 3 ...
     'form_sizes': {
         'min_width': 300,
         'min_height': 300,
@@ -41,8 +41,8 @@ SETT_DEF_COMMON = {
         'start_y': 100,
         'obj_h': 20},
     'form_gaps': {
-        'gap_x': 20,
-        'gap_y': 10},
+        'gap_x': 5,
+        'gap_y': 5},
     'competition_stat': {
         'COMP_q_fio': 1,
         'COMP_q_checkbox_in_line': 1,

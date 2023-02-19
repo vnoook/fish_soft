@@ -197,6 +197,14 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         print(self.render_checkbox_main_window.__name__) if DEBUG else ...
         # print('генерация чекбоксов')
 
+        # сбор переменных для формирования объектов на форме
+        start_x = SETTINGS_COMMON_DEF['form_sizes']['start_x']
+        start_y = SETTINGS_COMMON_DEF['form_sizes']['start_y']
+        gap_x = SETTINGS_COMMON_DEF['form_gaps']['gap_x']
+        gap_y = SETTINGS_COMMON_DEF['form_gaps']['gap_y']
+        obj_h = SETTINGS_COMMON_DEF['form_sizes']['obj_h']
+        q_anglers = SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers']
+
         # checkbox_name = 'checkbox_' + str(Window.checkbox_counter)
         # checkBox = PyQt5.QtWidgets.QCheckBox(self)
         # checkBox.setObjectName(checkbox_name)
@@ -252,7 +260,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                                                    shift_x=gap_x, shift_y=gap_y,
                                                    field_h=obj_h,
                                                    q_sportsmen=q_anglers)
-        # print(*list_of_units, sep='\n')
+        print(*list_of_units, sep='\n')
 
         # изменения размера окна
         self.resize_main_windows_for_render(list_of_units)
@@ -277,12 +285,14 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     line_edit_name = unit_name
                     line_edit = PyQt5.QtWidgets.QLineEdit(self)
                     line_edit.setObjectName(line_edit_name)
-                    line_edit.setPlaceholderText(unit_name)
-                    line_edit.setText(unit_name)
+                    # line_edit.setPlaceholderText(unit_name)
+                    # line_edit.setText(unit_name)
+                    # line_edit.setText(str(unit_x)+'-'+str(unit_y)+'-'+str(unit_w)+'-'+str(unit_h))
                     line_edit.setGeometry(unit_x, unit_y, unit_w, unit_h)
                     line_edit.setClearButtonEnabled(False)
                     line_edit.setEnabled(True)
-                    line_edit.setToolTip(line_edit.objectName())
+                    line_edit.setToolTip(line_edit.objectName()+'\n'+str(unit_x)+'-'+
+                                         str(unit_y)+'-'+str(unit_w)+'-'+str(unit_h))
                     line_edit.show()
 
                 elif unit_type == 'edit_off':
@@ -290,12 +300,14 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     line_edit_name = unit_name
                     line_edit = PyQt5.QtWidgets.QLineEdit(self)
                     line_edit.setObjectName(line_edit_name)
-                    line_edit.setPlaceholderText(unit_name)
-                    line_edit.setText(unit_name)
+                    # line_edit.setPlaceholderText(unit_name)
+                    # line_edit.setText(unit_name)
+                    # line_edit.setText(str(unit_x) + '-' + str(unit_y) + '-' + str(unit_w) + '-' + str(unit_h))
                     line_edit.setGeometry(unit_x, unit_y, unit_w, unit_h)
                     line_edit.setClearButtonEnabled(False)
                     line_edit.setEnabled(False)
-                    line_edit.setToolTip(line_edit.objectName())
+                    line_edit.setToolTip(line_edit.objectName()+'\n'+str(unit_x)+'-'+
+                                         str(unit_y)+'-'+str(unit_w)+'-'+str(unit_h))
                     line_edit.show()
 
                 elif unit_type == 'combobox_on':
@@ -304,8 +316,10 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     combo_box = PyQt5.QtWidgets.QComboBox(self)
                     combo_box.setObjectName(combo_box_name)
                     combo_box.setPlaceholderText(unit_name)
-                    combo_box.setToolTip(combo_box.objectName())
+                    combo_box.setToolTip(combo_box.objectName()+'\n'+str(unit_x)+'-'+
+                                         str(unit_y)+'-'+str(unit_w)+'-'+str(unit_h))
                     combo_box.addItem(combo_box_name)
+                    combo_box.addItem(str(unit_x)+'-'+str(unit_y)+'-'+str(unit_w)+'-'+str(unit_h))
                     combo_box.setGeometry(unit_x, unit_y, unit_w, unit_h)
                     combo_box.setEnabled(True)
                     combo_box.show()
@@ -509,22 +523,23 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
     # шаг по вертикали
     field_step_y = start_dot_y
 
-    # кортеж из полей на форме "Название поля", длина, вид объекта на форме
+    # переменные которые могут принимать значение больше "1"
+    q_tur = SETTINGS_DATA_DEF['competition_action']['COMP_q_tur']
+    q_period = SETTINGS_DATA_DEF['competition_action']['COMP_q_period']
+    q_zone = SETTINGS_DATA_DEF['competition_action']['COMP_q_zone']
+
+    # кортеж из полей на форме имя поля, длина, вид, описание поля объекта на форме
     fields = (
-              ('Sportik_number_', 40, 'edit_off'),
-              ('Sportik_lottery_', 40, 'edit_off'),
-              ('Sportik_fio_', 180, 'edit_on'),
-              ('Sportik_team_', 180, 'edit_on'),
-              ('Sportik_rank_', 40, 'edit_on'),
-              ('Sportik_zona1_', 70, 'combobox_on'),
-              ('Sportik_zona2_', 70, 'combobox_on'),
-              ('Sportik_period1_', 40, 'edit_on'),
-              ('Sportik_period2_', 40, 'edit_on'),
-              ('Sportik_period3_', 40, 'edit_on'),
-              ('Sportik_period4_', 40, 'edit_on'),
-              ('Sportik_points_', 40, 'edit_off'),
-              ('Sportik_team_place_', 40, 'edit_off'),
-              ('Sportik_self_place_', 40, 'edit_off')
+              # ('Sportik_number_', 40, 'edit_off','Номер'),
+              # ('Sportik_lottery_', 40, 'edit_off','Жереб'),
+              ('Sportik_fio_', 180, 'edit_on','ФИО'),
+              # ('Sportik_team_', 180, 'edit_on','Команда'),
+              # ('Sportik_rank_', 40, 'edit_on','Разряд'),
+              ('Sportik_zona_', 70, 'combobox_on','Зона'),
+              ('Sportik_period_', 40, 'edit_on','П'),
+              ('Sportik_points_', 40, 'edit_off','Очки'),
+              # ('Sportik_team_place_', 40, 'edit_off','МК'),
+              ('Sportik_self_place_', 40, 'edit_off','МЛ')
               )
 
     # цикл расчёта координат каждого поля
