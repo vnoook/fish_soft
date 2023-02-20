@@ -68,7 +68,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.create_menu()
 
         # генерация объектов для ввода данных по соревнованиям
-        self.render_main_window()
+        self.render_objects_main_window()
 
     # функция создания главного меню
     def create_menu(self) -> None:
@@ -179,18 +179,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         window_about.setText(about_window_text + ', версия ' + soft_version)
         window_about.show()
 
-    # генерация всех объектов на главной форме
-    def render_main_window(self) -> None:
-        """Генерация всех объектов на главной форме"""
-        print(self.render_main_window.__name__) if DEBUG else ...
-
-        # создание строки чекбоксов
-        # self.render_checkbox_main_window()
-        # создание строки описаний
-        # self.render_desc_main_window()
-        # создание строк спортиков
-        self.render_objects_main_window()
-
     # генерация объектов для ввода данных по соревнованиям
     def render_objects_main_window(self) -> None:
         """Генерация объектов для ввода данных"""
@@ -236,7 +224,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     line_edit.setObjectName(line_edit_name)
                     # line_edit.setPlaceholderText(unit_name)
                     # line_edit.setText(unit_name)
-                    # line_edit.setText(str(unit_x)+'-'+str(unit_y)+'-'+str(unit_w)+'-'+str(unit_h))
+                    # line_edit.setText(str(unit_x) + '-' + str(unit_y) + '-' + str(unit_w) + '-' + str(unit_h))
                     line_edit.setGeometry(unit_x, unit_y, unit_w, unit_h)
                     line_edit.setClearButtonEnabled(False)
                     line_edit.setEnabled(True)
@@ -265,10 +253,10 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     combo_box = PyQt5.QtWidgets.QComboBox(self)
                     combo_box.setObjectName(combo_box_name)
                     combo_box.setPlaceholderText(unit_name)
-                    combo_box.setToolTip(combo_box.objectName()+'\n'+str(unit_x) + '-' +
+                    combo_box.setToolTip(combo_box.objectName() + '\n' + str(unit_x) + '-' +
                                          str(unit_y) + '-' + str(unit_w) + '-' + str(unit_h))
                     combo_box.addItem(combo_box_name)
-                    combo_box.addItem(str(unit_x)+'-'+str(unit_y)+'-'+str(unit_w)+'-'+str(unit_h))
+                    combo_box.addItem(str(unit_x) + '-' + str(unit_y) + '-' + str(unit_w) + '-' + str(unit_h))
                     combo_box.setGeometry(unit_x, unit_y, unit_w, unit_h)
                     combo_box.setEnabled(True)
                     combo_box.show()
@@ -479,7 +467,7 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
 
     # кортеж из полей (колонок) на форме - имя поля, длина, вид, описание поля для подписи
     fields = (
-              # ('Sportik_number_', 40, 'edit_off', 'Номер'),
+              ('Sportik_number_', 40, 'edit_off', 'Номер'),
               # ('Sportik_lottery_', 40, 'edit_off', 'Жереб'),
               ('Sportik_fio_', 180, 'edit_on', 'ФИО'),
               # ('Sportik_team_', 180, 'edit_on', 'Команда'),
@@ -571,55 +559,67 @@ if __name__ == '__main__':
 #         return str(var)
 
 
-    # # генерация чекбоксов
-    # def render_checkbox_main_window(self) -> None:
-    #     """Генерация чекбоксов"""
-    #     print(self.render_checkbox_main_window.__name__) if DEBUG else ...
-    #     # print('генерация чекбоксов')
-    #
-    #     # сбор переменных для формирования объектов на форме
-    #     start_x = SETTINGS_COMMON_DEF['form_sizes']['start_x']
-    #     start_y = SETTINGS_COMMON_DEF['form_sizes']['start_y']
-    #     gap_x = SETTINGS_COMMON_DEF['form_gaps']['gap_x']
-    #     gap_y = SETTINGS_COMMON_DEF['form_gaps']['gap_y']
-    #     obj_h = SETTINGS_COMMON_DEF['form_sizes']['obj_h']
-    #     q_anglers = SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers']
-    #
-    #     # checkbox_name = 'checkbox_' + str(Window.checkbox_counter)
-    #     # checkBox = PyQt5.QtWidgets.QCheckBox(self)
-    #     # checkBox.setObjectName(checkbox_name)
-    #     # checkBox.setVisible(True)
-    #     # checkBox.setText(checkbox_name)
-    #     # checkBox.setToolTip(checkBox.objectName())
-    #     # checkBox.clicked.connect(self.click_checkbox)
-    #     # # self.checkBox.setGeometry(10, 50, 40, 40)
-    #     # checkBox.resize(20, 20)
-    #     # checkBox.adjustSize()
-    #     # checkBox.move(10, 60+(30*(Window.checkbox_counter-1)))
-    #     # checkBox.show()
-    #
-    # # генерация описаний
-    # def render_desc_main_window(self) -> None:
-    #     """Генерация описаний"""
-    #     print(self.render_desc_main_window.__name__) if DEBUG else ...
-    #     # print('генерация описаний')
-    #
-    #     # q_tur = SETTINGS_DATA_DEF['competition_action']['COMP_q_tur']
-    #     # q_period = SETTINGS_DATA_DEF['competition_action']['COMP_q_period']
-    #     # q_zone = SETTINGS_DATA_DEF['competition_action']['COMP_q_zone']
-    #     # q_fio = SETTINGS_COMMON_DEF['competition_stat']['COMP_q_fio']
-    #     # q_checkbox_in_line = SETTINGS_COMMON_DEF['competition_stat']['COMP_q_checkbox_in_line']
-    #     # q_desc_in_line = SETTINGS_COMMON_DEF['competition_stat']['COMP_q_desc_in_line']
-    #
-    #     # # label_select_file
-    #     # self.label_select_file = PyQt5.QtWidgets.QLabel(self)
-    #     # self.label_select_file.setObjectName('label_select_file')
-    #     # self.label_select_file.setText('Выберите файл CSV')
-    #     # self.label_select_file.setGeometry(PyQt5.QtCore.QRect(10, 10, 150, 40))
-    #     # font = PyQt5.QtGui.QFont()
-    #     # font.setPointSize(12)
-    #     # self.label_select_file.setFont(font)
-    #     # self.label_select_file.adjustSize()
-    #     # self.label_select_file.setToolTip(self.label_select_file.objectName())
+# # генерация чекбоксов
+# def render_checkbox_main_window(self) -> None:
+#     """Генерация чекбоксов"""
+#     print(self.render_checkbox_main_window.__name__) if DEBUG else ...
+#     # print('генерация чекбоксов')
+#
+#     # сбор переменных для формирования объектов на форме
+#     start_x = SETTINGS_COMMON_DEF['form_sizes']['start_x']
+#     start_y = SETTINGS_COMMON_DEF['form_sizes']['start_y']
+#     gap_x = SETTINGS_COMMON_DEF['form_gaps']['gap_x']
+#     gap_y = SETTINGS_COMMON_DEF['form_gaps']['gap_y']
+#     obj_h = SETTINGS_COMMON_DEF['form_sizes']['obj_h']
+#     q_anglers = SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers']
+#
+#     # checkbox_name = 'checkbox_' + str(Window.checkbox_counter)
+#     # checkBox = PyQt5.QtWidgets.QCheckBox(self)
+#     # checkBox.setObjectName(checkbox_name)
+#     # checkBox.setVisible(True)
+#     # checkBox.setText(checkbox_name)
+#     # checkBox.setToolTip(checkBox.objectName())
+#     # checkBox.clicked.connect(self.click_checkbox)
+#     # # self.checkBox.setGeometry(10, 50, 40, 40)
+#     # checkBox.resize(20, 20)
+#     # checkBox.adjustSize()
+#     # checkBox.move(10, 60+(30*(Window.checkbox_counter-1)))
+#     # checkBox.show()
 
 
+# # генерация описаний
+# def render_desc_main_window(self) -> None:
+#     """Генерация описаний"""
+#     print(self.render_desc_main_window.__name__) if DEBUG else ...
+#     # print('генерация описаний')
+#
+#     # q_tur = SETTINGS_DATA_DEF['competition_action']['COMP_q_tur']
+#     # q_period = SETTINGS_DATA_DEF['competition_action']['COMP_q_period']
+#     # q_zone = SETTINGS_DATA_DEF['competition_action']['COMP_q_zone']
+#     # q_fio = SETTINGS_COMMON_DEF['competition_stat']['COMP_q_fio']
+#     # q_checkbox_in_line = SETTINGS_COMMON_DEF['competition_stat']['COMP_q_checkbox_in_line']
+#     # q_desc_in_line = SETTINGS_COMMON_DEF['competition_stat']['COMP_q_desc_in_line']
+#
+#     # # label_select_file
+#     # self.label_select_file = PyQt5.QtWidgets.QLabel(self)
+#     # self.label_select_file.setObjectName('label_select_file')
+#     # self.label_select_file.setText('Выберите файл CSV')
+#     # self.label_select_file.setGeometry(PyQt5.QtCore.QRect(10, 10, 150, 40))
+#     # font = PyQt5.QtGui.QFont()
+#     # font.setPointSize(12)
+#     # self.label_select_file.setFont(font)
+#     # self.label_select_file.adjustSize()
+#     # self.label_select_file.setToolTip(self.label_select_file.objectName())
+
+
+# # генерация всех объектов на главной форме
+# def render_main_window(self) -> None:
+#     """Генерация всех объектов на главной форме"""
+#     print(self.render_main_window.__name__) if DEBUG else ...
+#
+#     # создание строки чекбоксов
+#     # self.render_checkbox_main_window()
+#     # создание строки описаний
+#     # self.render_desc_main_window()
+#     # создание строк спортиков
+#     self.render_objects_main_window()
