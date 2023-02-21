@@ -517,10 +517,13 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
         # список координат в строке
         list_coord_of_field = []
 
+        # переменная счётчик колонок
+        field_count = 1
+
         # проход по строке полей
         for field in total_model:
             # формирование имени спортика
-            field_name = 'sportik_' + field[0] + '_' + str(n_sportik)
+            field_name = 'sportik_' + field[0] + '_' + str(n_sportik) + '_' + str(field_count)
             # выбор ширины поля
             field_width = field[1]
             # вид объекта для вывода
@@ -539,6 +542,9 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
 
             # увеличение шага вправо на ширину промежутка между полями
             field_step_x = field_step_x + gap_x
+
+            # переход на следующую колонку
+            field_count += 1
 
         # добавление шага вниз на промежуток между строками полей
         field_step_y = field_step_y + field_height + gap_y
