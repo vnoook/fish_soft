@@ -1,8 +1,8 @@
 [settings_window_main]
 window_coords_h = 300
 window_coords_w = 1205
-window_coords_x = 53
-window_coords_y = 103
+window_coords_x = 64
+window_coords_y = 140
 
 [settings_soft]
 emergency_exit = false
