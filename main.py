@@ -197,7 +197,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                                                    shift_x=gap_x, shift_y=gap_y,
                                                    field_h=obj_h,
                                                    q_sportsmen=q_anglers)
-        print(*list_of_units, sep='\n')
+        # print(*list_of_units, sep='\n')
 
         # изменения размера окна
         self.resize_main_windows_for_render(list_of_units)
@@ -461,23 +461,48 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
     field_step_y = start_dot_y
 
     # переменные которые могут принимать значение больше "1"
+    q_zone = SETTINGS_DATA_DEF['competition_action']['COMP_q_zone']
     q_tur = SETTINGS_DATA_DEF['competition_action']['COMP_q_tur']
     q_period = SETTINGS_DATA_DEF['competition_action']['COMP_q_period']
-    q_zone = SETTINGS_DATA_DEF['competition_action']['COMP_q_zone']
 
     # кортеж из полей (колонок) на форме - имя поля, длина, вид, описание поля для подписи
-    fields = (
-              ('Sportik_number_', 40, 'edit_off', 'Номер'),
-              # ('Sportik_lottery_', 40, 'edit_off', 'Жереб'),
-              ('Sportik_fio_', 180, 'edit_on', 'ФИО'),
-              # ('Sportik_team_', 180, 'edit_on', 'Команда'),
-              # ('Sportik_rank_', 40, 'edit_on', 'Разряд'),
-              ('Sportik_zona_', 70, 'combobox_on', 'Зона'),
-              ('Sportik_period_', 40, 'edit_on', 'П'),
-              ('Sportik_points_', 40, 'edit_off', 'Очки'),
-              # ('Sportik_team_place_', 40, 'edit_off', 'МК'),
-              ('Sportik_self_place_', 40, 'edit_off', 'МЛ')
-              )
+    model = (
+             ['number', 40, 'edit_off', 'Номер'],
+             ['lottery', 40, 'edit_off', 'Жереб'],
+             ['fio', 180, 'edit_on', 'ФИО'],
+             ['team', 180, 'edit_on', 'Команда'],
+             ['rank', 40, 'edit_on', 'Разряд'],
+             ['zona', 70, 'combobox_on', 'Зона'],
+             ['period', 40, 'edit_on', 'П'],
+             ['points', 40, 'edit_off', 'Очки'],
+             ['team', 40, 'edit_off', 'МК'],
+             ['self', 40, 'edit_off', 'МЛ']
+            )
+
+    # пустой список для собирания конечного списка объектов для рендеринга
+    fields = []
+    # цикл для генерации объектов конечного списка на основе общей модели
+    i, j = 0, 0
+    for block in model:
+        if block[0] =='zona':
+            for i in range(1, q_zone + 1):
+
+                print(block[0], i)
+                block[0] = block[0] + '_' + str(i) + '_'
+                print(block[0], i)
+                print()
+
+                fields.append(block)
+        elif block[0] == 'period':
+            for i in range(1, q_tur + 1):
+                for j in range(1, q_period + 1):
+                    fields.append(block)
+        else:
+            fields.append(block)
+
+    # print(*fields, sep='\n')
+
+    # fields = model[:]
 
     # цикл расчёта координат каждого поля
     for n_sportik in range(1, q_sportiks + 1):
@@ -489,11 +514,16 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
         # проход по строке полей
         for field in fields:
             # формирование имени спортика
-            field_name = field[0] + str(n_sportik)
+            field_name = 'sportik_' + field[0] + '_' + str(n_sportik)
             # выбор ширины поля
             field_width = field[1]
             # вид объекта для вывода
             field_obj = field[2]
+
+            # print()
+            # print(f'{field_name = }')
+            # print(f'{field_width = }')
+            # print(f'{field_obj = }')
 
             # добавление в список параметров объекта
             list_coord_of_field.append(field_name)
