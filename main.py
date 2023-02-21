@@ -486,12 +486,6 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
     for block in model:
         if block[0] =='zona':
             for i in range(1, q_zone + 1):
-
-                print(block[0], i)
-                block[0] = block[0] + '_' + str(i) + '_'
-                print(block[0], i)
-                print()
-
                 fields.append(block)
         elif block[0] == 'period':
             for i in range(1, q_tur + 1):
@@ -500,7 +494,7 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
         else:
             fields.append(block)
 
-    # print(*fields, sep='\n')
+    print(*fields, sep='\n')
 
     # fields = model[:]
 

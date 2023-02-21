@@ -1,8 +1,8 @@
 [settings_window_main]
-window_coords_h = 475
+window_coords_h = 300
 window_coords_w = 1160
-window_coords_x = 100
-window_coords_y = 100
+window_coords_x = 261
+window_coords_y = 381
 
 [settings_soft]
 emergency_exit = false
@@ -18,6 +18,6 @@ COMP_q_period = 4
 COMP_q_zone = 2
 COMP_q_sector = 1
 COMP_d_period = 45
-COMP_q_anglers = 15
+COMP_q_anglers = 8
 
 [misc]
