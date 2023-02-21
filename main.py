@@ -223,7 +223,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     line_edit = PyQt5.QtWidgets.QLineEdit(self)
                     line_edit.setObjectName(line_edit_name)
                     # line_edit.setPlaceholderText(unit_name)
-                    # line_edit.setText(unit_name)
+                    line_edit.setText(unit_name)
                     # line_edit.setText(str(unit_x) + '-' + str(unit_y) + '-' + str(unit_w) + '-' + str(unit_h))
                     line_edit.setGeometry(unit_x, unit_y, unit_w, unit_h)
                     line_edit.setClearButtonEnabled(False)
@@ -238,7 +238,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     line_edit = PyQt5.QtWidgets.QLineEdit(self)
                     line_edit.setObjectName(line_edit_name)
                     # line_edit.setPlaceholderText(unit_name)
-                    # line_edit.setText(unit_name)
+                    line_edit.setText(unit_name)
                     # line_edit.setText(str(unit_x) + '-' + str(unit_y) + '-' + str(unit_w) + '-' + str(unit_h))
                     line_edit.setGeometry(unit_x, unit_y, unit_w, unit_h)
                     line_edit.setClearButtonEnabled(False)
@@ -465,8 +465,8 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
     q_tur = SETTINGS_DATA_DEF['competition_action']['COMP_q_tur']
     q_period = SETTINGS_DATA_DEF['competition_action']['COMP_q_period']
 
-    # кортеж из полей (колонок) на форме - имя поля, длина, вид, описание поля для подписи
-    model = (
+    # модель - список из полей (колонок) на форме - имя поля, длина, вид, описание поля для подписи
+    model = [
              ['number', 40, 'edit_off', 'Номер'],
              ['lottery', 40, 'edit_off', 'Жереб'],
              ['fio', 180, 'edit_on', 'ФИО'],
@@ -477,21 +477,36 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
              ['points', 40, 'edit_off', 'Очки'],
              ['team', 40, 'edit_off', 'МК'],
              ['self', 40, 'edit_off', 'МЛ']
-            )
+            ]
 
     # пустой список для собирания конечного списка объектов для рендеринга
     fields = []
+
     # цикл для генерации объектов конечного списка на основе общей модели
     i, j = 0, 0
+
     for block in model:
+        # есть колонки, которые могут повторяться, их и ведётся проверка
+        # если это та колонка, то добавляется она столько, сколько в настройках соревнования
         if block[0] =='zona':
             for i in range(1, q_zone + 1):
                 fields.append(block)
+
         elif block[0] == 'period':
+            # разбивка периодов по турам
             for i in range(1, q_tur + 1):
                 for j in range(1, q_period + 1):
                     fields.append(block)
+
+                # добавление после каждого тура колонки points как итога за тур
+                fields.append(model[7])
+
+        elif block[0] == 'points':
+            # пропускаю потому, что эта строка нужна после каждого тура, а не по-очереди в модели
+            pass
+
         else:
+            # простое добавление колонки из модели
             fields.append(block)
 
     print(*fields, sep='\n')
