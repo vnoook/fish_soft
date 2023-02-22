@@ -22,6 +22,7 @@ SETTINGS_FILE = 'fish_settings.toml'
 # набор констант для открытого и закрытого хранения
 SETTINGS_DATA_DEF = None
 SETTINGS_COMMON_DEF = None
+SETT_MODEL = None
 
 
 # класс главного окна
@@ -124,19 +125,16 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.about = self.menu.addAction('О программе')
         self.about.triggered.connect(self.window_about_soft)
 
-    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
+    # функция очистки главного окна от объектов
     def clean_form(self) -> None:
-        pass
+        """Функция очистки главного окна от объектов"""
+        print(self.clean_form.__name__) if DEBUG else ...
 
-        print(self.dict_all_units)
-        for unit in self.dict_all_units:
-            # print(f'{unit = }')
-            self.dict_all_units[unit].deleteLater()
-        self.dict_all_units = {}
-        print(self.dict_all_units)
-
-    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        # если словарь с объектами не пуст, то удалить все объекты в нём и очистить его
+        if self.dict_all_units:
+            for unit in self.dict_all_units:
+                self.dict_all_units[unit].deleteLater()
+            self.dict_all_units = {}
 
     # функция по открытию меню Файл-Открыть
     def window_file_open(self) -> None:
@@ -270,9 +268,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     line_edit.setGeometry(unit_x, unit_y, unit_w, unit_h)
                     # line_edit.setClearButtonEnabled(False)
                     # line_edit.setEnabled(True)
-                    line_edit.setToolTip(line_edit.objectName() + '\n' +
-                                         str(unit_x) + '-' + str(unit_y) + '-' +
-                                         str(unit_w) + '-' + str(unit_h))
+                    # line_edit.setToolTip(line_edit.objectName() + '\n' +
+                    #                      str(unit_x) + '-' + str(unit_y) + '-' +
+                    #                      str(unit_w) + '-' + str(unit_h))
                     line_edit.show()
 
                 elif unit_type == 'edit_off':
@@ -287,9 +285,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     line_edit.setGeometry(unit_x, unit_y, unit_w, unit_h)
                     # line_edit.setClearButtonEnabled(False)
                     line_edit.setEnabled(False)
-                    line_edit.setToolTip(line_edit.objectName() + '\n' +
-                                         str(unit_x) + '-' + str(unit_y) + '-' +
-                                         str(unit_w) + '-' + str(unit_h))
+                    # line_edit.setToolTip(line_edit.objectName() + '\n' +
+                    #                      str(unit_x) + '-' + str(unit_y) + '-' +
+                    #                      str(unit_w) + '-' + str(unit_h))
                     line_edit.show()
 
                 elif unit_type == 'combobox_on':
@@ -299,8 +297,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     combo_box.setObjectName(combo_box_name)
                     self.dict_all_units[combo_box_name] = combo_box
                     # combo_box.setPlaceholderText(unit_name)
-                    combo_box.setToolTip(combo_box.objectName() + '\n' + str(unit_x) + '-' +
-                                         str(unit_y) + '-' + str(unit_w) + '-' + str(unit_h))
+                    # combo_box.setToolTip(combo_box.objectName() + '\n' + str(unit_x) + '-' +
+                    #                      str(unit_y) + '-' + str(unit_w) + '-' + str(unit_h))
                     combo_box.addItem('')
                     for zone in range(q_zone):
                         combo_box.addItem(zones[zone])
@@ -363,6 +361,15 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
         self.get_coords()
 
+    # функция переназначения нажатия клавиш в главном окне
+    def keyPressEvent(self, event):
+        """Функция переназначения нажатия клавиш в главном окне"""
+        print(self.keyPressEvent.__name__) if DEBUG else ...
+
+        print('pressed key: ' + str(event.key()))
+        # if event.key() == PyQt5.QtCore.Qt.Key_Escape:
+        #     print('esc')
+
     # функция получения координат и запись их в переменную экземпляр класса
     def get_coords(self) -> None:
         """Функция получения координат и запись их в переменную экземпляра класса"""
@@ -403,6 +410,10 @@ def read_settings() -> None:
     # которые не требуется сохранять в файл, но для работы они нужны
     global SETTINGS_COMMON_DEF
     SETTINGS_COMMON_DEF = fcs.SETT_DEF_COMMON
+
+    # модель объектов в главном окне
+    global SETT_MODEL
+    SETT_MODEL = fcs.SETT_MODEL
 
     # добавление глобальных констант
     # которые требуется сохранять в файл
@@ -509,18 +520,7 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
     q_zone = SETTINGS_DATA_DEF['competition_action']['COMP_q_zone']
     q_tur = SETTINGS_DATA_DEF['competition_action']['COMP_q_tur']
     q_period = SETTINGS_DATA_DEF['competition_action']['COMP_q_period']
-
-    # модель - список из полей (колонок) на форме - имя поля, длина, вид, описание поля для подписи
-    model = (('number', 30, 'edit_off', 'Номер'),
-             ('lottery', 25, 'edit_off', 'Жереб'),
-             ('fio', 120, 'edit_on', 'ФИО'),
-             ('team', 120, 'edit_on', 'Команда'),
-             ('rank', 30, 'edit_on', 'Разряд'),
-             ('zona', 70, 'combobox_on', 'Зона'),
-             ('period', 40, 'edit_on', 'П'),
-             ('points', 30, 'edit_off', 'Очки'),
-             ('team', 40, 'edit_off', 'МК'),
-             ('self', 40, 'edit_off', 'МЛ'))
+    model = SETT_MODEL
 
     # пустой список для собирания конечного списка объектов для рендеринга
     total_model = []
