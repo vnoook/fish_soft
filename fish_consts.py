@@ -17,23 +17,23 @@ SETT_DEF_SOFT = {
         'COMP_q_tur': 2,
         'COMP_q_period': 4,
         'COMP_q_zone': 2,
-        'COMP_q_sector': 1,
-        'COMP_d_period': 45,
-        'COMP_q_anglers': 8},
+        # 'COMP_q_sector': 1,
+        # 'COMP_d_period': 45,
+        'COMP_q_anglers': 15},
     'misc': {}
 }
 
 SETT_DEF_COMMON = {
-    'version': '0.0.5',
+    'version': '0.1.0',
     'window_name_main': 'ЧСВ - НХНЧ',
     'about_text': 'Чтобы Соревнования Выиграть - "Ни хвоста, Ни чешуи"',
     'window_name_set_comp': 'Настройки соревнования',
     'window_name_set_soft': 'Настройки программы',
     'window_name_about': 'О программе',
-    'soft_db_file': 'db_competition.db',
+    # 'soft_db_file': 'db_competition.db',
     'file_settings_soft': 'fish_settings.toml',
     'name_of_zone': ['Зона А', 'Зона Б', 'Зона В', 'Зона Г', 'Зона Д'],
-    'name_of_sector': 'Сектор XXX',    # Сектор 1, Сектор 2, Сектор 3 ...
+    # 'name_of_sector': 'Сектор XXX',    # Сектор 1, Сектор 2, Сектор 3 ...
     'form_sizes': {
         'min_width': 300,
         'min_height': 300,
@@ -44,7 +44,7 @@ SETT_DEF_COMMON = {
         'gap_x': 5,
         'gap_y': 5},
     'competition_stat': {
-        'COMP_q_fio': 1,
+        # 'COMP_q_fio': 1,
         'COMP_q_checkbox_in_line': 1,
         'COMP_q_desc_in_line': 1},
     'settings_window_set_comp': {
@@ -57,10 +57,10 @@ SETT_DEF_COMMON = {
         'window_coords_w': 400,
         'window_coords_x': 100,
         'window_coords_y': 100},
-    'settings_window_about': {
-        'window_coords_h': 100,
-        'window_coords_w': 400,
-        'window_coords_x': 100,
-        'window_coords_y': 100},
-
+    # 'settings_window_about': {
+    #     'window_coords_h': 100,
+    #     'window_coords_w': 400,
+    #     'window_coords_x': 100,
+    #     'window_coords_y': 100},
+    'misc': {}
 }

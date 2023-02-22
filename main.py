@@ -11,7 +11,7 @@ else:
 
 import tomli_w
 import fish_consts as fcs
-from pprint import pprint as pp
+# from pprint import pprint as pp
 
 
 # определение констант
@@ -137,10 +137,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         print(self.dict_all_units)
 
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
-
-
 
     # функция по открытию меню Файл-Открыть
     def window_file_open(self) -> None:
@@ -383,8 +379,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         SETTINGS_COMMON_DEF['settings_window_set_comp']['window_coords_y'] = self.frame_geometry.y()
         SETTINGS_COMMON_DEF['settings_window_set_soft']['window_coords_x'] = self.frame_geometry.x()
         SETTINGS_COMMON_DEF['settings_window_set_soft']['window_coords_y'] = self.frame_geometry.y()
-        SETTINGS_COMMON_DEF['settings_window_about']['window_coords_x'] = self.frame_geometry.x()
-        SETTINGS_COMMON_DEF['settings_window_about']['window_coords_y'] = self.frame_geometry.y()
+        # SETTINGS_COMMON_DEF['settings_window_about']['window_coords_x'] = self.frame_geometry.x()
+        # SETTINGS_COMMON_DEF['settings_window_about']['window_coords_y'] = self.frame_geometry.y()
 
     # функция общего выхода из программы
     def exit_common(self) -> None:
@@ -665,7 +661,6 @@ if __name__ == '__main__':
 #     # q_tur = SETTINGS_DATA_DEF['competition_action']['COMP_q_tur']
 #     # q_period = SETTINGS_DATA_DEF['competition_action']['COMP_q_period']
 #     # q_zone = SETTINGS_DATA_DEF['competition_action']['COMP_q_zone']
-#     # q_fio = SETTINGS_COMMON_DEF['competition_stat']['COMP_q_fio']
 #     # q_checkbox_in_line = SETTINGS_COMMON_DEF['competition_stat']['COMP_q_checkbox_in_line']
 #     # q_desc_in_line = SETTINGS_COMMON_DEF['competition_stat']['COMP_q_desc_in_line']
 #
