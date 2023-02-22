@@ -11,7 +11,7 @@ else:
 
 import tomli_w
 import fish_consts as fcs
-# from pprint import pprint as pp
+from pprint import pprint as pp
 
 
 # определение констант
@@ -34,6 +34,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         print(self.__init__.__name__) if DEBUG else ...
 
         super().__init__()
+
+        # словарь всех объектов рендеринга, нужен для хранения, поиска и чистки на форме
+        self.dict_all_units = {}
 
         # версия программы
         self.soft_version = SETTINGS_COMMON_DEF['version']
@@ -58,6 +61,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.file = None
         self.file_open = None
         self.file_save = None
+        self.file_sep = None
+        self.file_send = None
         self.file_exit = None
         self.settings = None
         self.settings_soft = None
@@ -65,6 +70,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.help = None
         self.help_rules_competition = None
         self.about = None
+
+        # создание главного меню
         self.create_menu()
 
         # генерация объектов для ввода данных по соревнованиям
@@ -82,10 +89,24 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.file = self.menu.addMenu('Файл')
         self.file_open = self.file.addAction('Открыть')
         self.file_save = self.file.addAction('Сохранить')
+        self.file_sep = self.file.addSeparator()
+        self.file_send = self.file.addAction('Отправить')
+        self.file_sep = self.file.addSeparator()
+
+        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        self.cleaner = self.file.addAction('cleaner')
+        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+        self.file_sep = self.file.addSeparator()
         self.file_exit = self.file.addAction('Выход')
         self.file_open.triggered.connect(self.window_file_open)
         self.file_save.triggered.connect(self.window_file_save)
+        self.file_send.triggered.connect(self.window_file_send)
         self.file_exit.triggered.connect(self.window_file_exit)
+
+        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        self.cleaner.triggered.connect(self.clean_form)
+        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         # НАСТРОЙКИ
         self.settings = self.menu.addMenu('Настройки')
@@ -93,7 +114,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.settings_competition = self.settings.addAction('Настройки соревнования')
         self.settings_soft.triggered.connect(self.window_settings_soft)
         self.settings_competition.triggered.connect(self.window_settings_competition)
-        # self.settings.addAction(self.settings_competition)
 
         # ПОМОЩЬ
         self.help = self.menu.addMenu('Помощь')
@@ -103,6 +123,24 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # О ПРОГРАММЕ
         self.about = self.menu.addAction('О программе')
         self.about.triggered.connect(self.window_about_soft)
+
+    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+    def clean_form(self) -> None:
+        pass
+
+        print(self.dict_all_units)
+        for unit in self.dict_all_units:
+            # print(f'{unit = }')
+            self.dict_all_units[unit].deleteLater()
+        self.dict_all_units = {}
+        print(self.dict_all_units)
+
+    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+
 
     # функция по открытию меню Файл-Открыть
     def window_file_open(self) -> None:
@@ -114,31 +152,18 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         """Функция меню Файл-Сохранить"""
         print(self.window_file_save.__name__) if DEBUG else ...
 
+    # функция по открытию меню Файл-Отправить
+    def window_file_send(self) -> None:
+        """Функция меню Файл-Отправить"""
+        print(self.window_file_send.__name__) if DEBUG else ...
+
     # функция по открытию меню Файл-Выход
     def window_file_exit(self) -> None:
         """Функция меню Файл-Выход"""
         print(self.window_file_exit.__name__) if DEBUG else ...
 
+        # процесс выхода из программы
         self.exit_common()
-
-    # окно настроек соревнований
-    def window_settings_competition(self) -> None:
-        """Функция окна настроек соревнований"""
-        print(self.window_settings_competition.__name__) if DEBUG else ...
-
-        # переменные
-        comp_window_n = SETTINGS_COMMON_DEF['window_name_set_comp']
-        comp_window_x = SETTINGS_COMMON_DEF['settings_window_set_comp']['window_coords_x']
-        comp_window_y = SETTINGS_COMMON_DEF['settings_window_set_comp']['window_coords_y']
-        comp_window_w = SETTINGS_COMMON_DEF['settings_window_set_comp']['window_coords_w']
-        comp_window_h = SETTINGS_COMMON_DEF['settings_window_set_comp']['window_coords_h']
-
-        # окно настроек, надпись на нём и размеры
-        window_settings = PyQt5.QtWidgets.QWidget(self, PyQt5.QtCore.Qt.Window)
-        window_settings.setWindowTitle(comp_window_n)
-        window_settings.setWindowModality(PyQt5.QtCore.Qt.WindowModal)
-        window_settings.setGeometry(comp_window_x + 25, comp_window_y + 25, comp_window_w, comp_window_h)
-        window_settings.show()
 
     # окно настроек программы
     def window_settings_soft(self) -> None:
@@ -157,6 +182,25 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         window_settings.setWindowTitle(soft_window_n)
         window_settings.setWindowModality(PyQt5.QtCore.Qt.WindowModal)
         window_settings.setGeometry(soft_window_x + 25, soft_window_y + 25, soft_window_w, soft_window_h)
+        window_settings.show()
+
+    # окно настроек соревнований
+    def window_settings_competition(self) -> None:
+        """Функция окна настроек соревнований"""
+        print(self.window_settings_competition.__name__) if DEBUG else ...
+
+        # переменные
+        comp_window_n = SETTINGS_COMMON_DEF['window_name_set_comp']
+        comp_window_x = SETTINGS_COMMON_DEF['settings_window_set_comp']['window_coords_x']
+        comp_window_y = SETTINGS_COMMON_DEF['settings_window_set_comp']['window_coords_y']
+        comp_window_w = SETTINGS_COMMON_DEF['settings_window_set_comp']['window_coords_w']
+        comp_window_h = SETTINGS_COMMON_DEF['settings_window_set_comp']['window_coords_h']
+
+        # окно настроек, надпись на нём и размеры
+        window_settings = PyQt5.QtWidgets.QWidget(self, PyQt5.QtCore.Qt.Window)
+        window_settings.setWindowTitle(comp_window_n)
+        window_settings.setWindowModality(PyQt5.QtCore.Qt.WindowModal)
+        window_settings.setGeometry(comp_window_x + 25, comp_window_y + 25, comp_window_w, comp_window_h)
         window_settings.show()
 
     # окно правил соревнований
@@ -183,7 +227,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
     def render_objects_main_window(self) -> None:
         """Генерация объектов для ввода данных"""
         print(self.render_objects_main_window.__name__) if DEBUG else ...
-        # print('генерация объектов для ввода данных по соревнованиям')
 
         # сбор переменных для формирования объектов на форме
         start_x = SETTINGS_COMMON_DEF['form_sizes']['start_x']
@@ -192,22 +235,23 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         gap_y = SETTINGS_COMMON_DEF['form_gaps']['gap_y']
         obj_h = SETTINGS_COMMON_DEF['form_sizes']['obj_h']
         q_anglers = SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers']
+        q_zone = SETTINGS_DATA_DEF['competition_action']['COMP_q_zone']
+        zones = SETTINGS_COMMON_DEF['name_of_zone']
 
+        # получение списка объектов для вывода их в главном окне
         list_of_units = get_list_fields_and_coords(start_x=start_x, start_y=start_y,
                                                    shift_x=gap_x, shift_y=gap_y,
                                                    field_h=obj_h,
                                                    q_sportsmen=q_anglers)
-        # print(*list_of_units, sep='\n')
 
-        # изменения размера окна
+        # изменения размера окна под объекты из списка объектов
         self.resize_main_windows_for_render(list_of_units)
 
         # вставка на форму объектов
-        q_steps = 6       # количество шагов считывания для списка
+        q_steps = 6                                # количество шагов считывания из списка
         for unit_sting in list_of_units:
             for i in range(0, len(unit_sting), q_steps):
                 unit = unit_sting[i:(i+q_steps)]
-                # print(i, type(unit), unit)
 
                 # переменные из разделения списка на составляющие
                 unit_name = unit[0]
@@ -217,48 +261,55 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                 unit_h = unit[4]
                 unit_type = unit[5]
 
+                # выбор какой объект выводится на форму
                 if unit_type == 'edit_on':
-                    # lineEdit
+                    # LineEdit
                     line_edit_name = unit_name
                     line_edit = PyQt5.QtWidgets.QLineEdit(self)
                     line_edit.setObjectName(line_edit_name)
+                    self.dict_all_units[line_edit_name] = line_edit
                     # line_edit.setPlaceholderText(unit_name)
-                    line_edit.setText(unit_name)
+                    # line_edit.setText(unit_name)
                     # line_edit.setText(str(unit_x) + '-' + str(unit_y) + '-' + str(unit_w) + '-' + str(unit_h))
                     line_edit.setGeometry(unit_x, unit_y, unit_w, unit_h)
-                    line_edit.setClearButtonEnabled(False)
-                    line_edit.setEnabled(True)
-                    line_edit.setToolTip(line_edit.objectName() + '\n' + str(unit_x) + '-' +
-                                         str(unit_y) + '-' + str(unit_w) + '-' + str(unit_h))
+                    # line_edit.setClearButtonEnabled(False)
+                    # line_edit.setEnabled(True)
+                    line_edit.setToolTip(line_edit.objectName() + '\n' +
+                                         str(unit_x) + '-' + str(unit_y) + '-' +
+                                         str(unit_w) + '-' + str(unit_h))
                     line_edit.show()
 
                 elif unit_type == 'edit_off':
-                    # lineEdit
+                    # LineEdit
                     line_edit_name = unit_name
                     line_edit = PyQt5.QtWidgets.QLineEdit(self)
                     line_edit.setObjectName(line_edit_name)
+                    self.dict_all_units[line_edit_name] = line_edit
                     # line_edit.setPlaceholderText(unit_name)
-                    line_edit.setText(unit_name)
+                    # line_edit.setText(unit_name)
                     # line_edit.setText(str(unit_x) + '-' + str(unit_y) + '-' + str(unit_w) + '-' + str(unit_h))
                     line_edit.setGeometry(unit_x, unit_y, unit_w, unit_h)
-                    line_edit.setClearButtonEnabled(False)
+                    # line_edit.setClearButtonEnabled(False)
                     line_edit.setEnabled(False)
-                    line_edit.setToolTip(line_edit.objectName() + '\n' + str(unit_x) + '-' +
-                                         str(unit_y) + '-' + str(unit_w) + '-' + str(unit_h))
+                    line_edit.setToolTip(line_edit.objectName() + '\n' +
+                                         str(unit_x) + '-' + str(unit_y) + '-' +
+                                         str(unit_w) + '-' + str(unit_h))
                     line_edit.show()
 
                 elif unit_type == 'combobox_on':
-                    # combobox_on
+                    # ComboBox
                     combo_box_name = unit_name
                     combo_box = PyQt5.QtWidgets.QComboBox(self)
                     combo_box.setObjectName(combo_box_name)
-                    combo_box.setPlaceholderText(unit_name)
+                    self.dict_all_units[combo_box_name] = combo_box
+                    # combo_box.setPlaceholderText(unit_name)
                     combo_box.setToolTip(combo_box.objectName() + '\n' + str(unit_x) + '-' +
                                          str(unit_y) + '-' + str(unit_w) + '-' + str(unit_h))
-                    combo_box.addItem(combo_box_name)
-                    combo_box.addItem(str(unit_x) + '-' + str(unit_y) + '-' + str(unit_w) + '-' + str(unit_h))
+                    combo_box.addItem('')
+                    for zone in range(q_zone):
+                        combo_box.addItem(zones[zone])
                     combo_box.setGeometry(unit_x, unit_y, unit_w, unit_h)
-                    combo_box.setEnabled(True)
+                    # combo_box.setEnabled(True)
                     combo_box.show()
 
     # изменения размера окна
@@ -290,10 +341,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             new_height = min_height
         if new_height > rez_y:
             new_height = rez_y - win_y
-
-        # print(f'{win_x = } ... {win_y = }')
-        # print(f'{rez_x = } ... {rez_y = }')
-        # print(f'{new_width = } ... {new_height = }')
 
         self.setFixedSize(new_width, new_height)
         # self.resize(new_width, new_height)
@@ -431,6 +478,7 @@ def save_settings() -> None:
     global SETTINGS_DATA_DEF
     global SETTINGS_FILE
 
+    # проверка на корректность и наличие ключей настроек
     data = repair_settings(SETTINGS_DATA_DEF, fcs.SETT_DEF_SOFT)
 
     # запись настроек в файл
@@ -438,6 +486,7 @@ def save_settings() -> None:
         tomli_w.dump(data, file_settings)
 
 
+# универсальная функция для описания полей и расчёта их координат на форме
 def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
                                shift_y: int, field_h: int, q_sportsmen: int) -> list:
     """Универсальная функция для описания полей и расчёта их координат на форме"""
@@ -466,28 +515,26 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
     q_period = SETTINGS_DATA_DEF['competition_action']['COMP_q_period']
 
     # модель - список из полей (колонок) на форме - имя поля, длина, вид, описание поля для подписи
-    model = [
-             ['number', 40, 'edit_off', 'Номер'],
-             ['lottery', 40, 'edit_off', 'Жереб'],
-             ['fio', 180, 'edit_on', 'ФИО'],
-             ['team', 180, 'edit_on', 'Команда'],
-             ['rank', 40, 'edit_on', 'Разряд'],
-             ['zona', 70, 'combobox_on', 'Зона'],
-             ['period', 40, 'edit_on', 'П'],
-             ['points', 40, 'edit_off', 'Очки'],
-             ['team', 40, 'edit_off', 'МК'],
-             ['self', 40, 'edit_off', 'МЛ']
-            ]
+    model = (('number', 30, 'edit_off', 'Номер'),
+             ('lottery', 25, 'edit_off', 'Жереб'),
+             ('fio', 120, 'edit_on', 'ФИО'),
+             ('team', 120, 'edit_on', 'Команда'),
+             ('rank', 30, 'edit_on', 'Разряд'),
+             ('zona', 70, 'combobox_on', 'Зона'),
+             ('period', 40, 'edit_on', 'П'),
+             ('points', 30, 'edit_off', 'Очки'),
+             ('team', 40, 'edit_off', 'МК'),
+             ('self', 40, 'edit_off', 'МЛ'))
 
     # пустой список для собирания конечного списка объектов для рендеринга
     total_model = []
 
     # цикл для генерации объектов конечного списка на основе общей модели
-    i, j = 0, 0
+    # i, j = 0, 0
     for block in model:
-        # есть колонки, которые могут повторяться, их и ведётся проверка
+        # есть колонки, которые могут повторяться
         # если это та колонка, то добавляется она столько, сколько в настройках соревнования
-        if block[0] =='zona':
+        if block[0] == 'zona':
             for i in range(1, q_zone + 1):
                 total_model.append(block)
 
@@ -508,8 +555,6 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
             # простое добавление колонки из модели
             total_model.append(block)
 
-    # print(*total_model, sep='\n')
-
     # цикл расчёта координат каждого поля
     for n_sportik in range(1, q_sportiks + 1):
         # шаг вправо начинается с первой точки и идёт вправо
@@ -523,7 +568,7 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
         # проход по строке полей
         for field in total_model:
             # формирование имени спортика
-            field_name = 'sportik_' + field[0] + '_' + str(n_sportik) + '_' + str(field_count)
+            field_name = 'sportik' + '_' + field[0] + '_' + str(n_sportik) + '_' + str(field_count)
             # выбор ширины поля
             field_width = field[1]
             # вид объекта для вывода
@@ -557,7 +602,7 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
 
 # функция непосредственного выхода из программы
 def exit_app() -> None:
-    """Функция окна настроек"""
+    """Функция непосредственного выхода из программы"""
     print(exit_app.__name__) if DEBUG else ...
 
     sys.exit()
@@ -565,6 +610,7 @@ def exit_app() -> None:
 
 # основная функция запуска приложения
 def run() -> None:
+    """Основная функция запуска приложения"""
     print(run.__name__) if DEBUG else ...
 
     app = PyQt5.QtWidgets.QApplication(sys.argv)
@@ -582,19 +628,6 @@ def run() -> None:
 if __name__ == '__main__':
     read_settings()
     run()
-
-# # функция подготовки числа к двух разрядному символьному виду '1 -> 01'
-# def get_bin_num(var: int) -> str:
-#     """Функция подготовки числа к двух разрядному символьному виду 1 -> 01'"""
-#     print(get_bin_num.__name__) if DEBUG else ...
-#
-#     if 0 < var < 10:
-#         return ''.join(('0', str(var)))
-#     elif var > 99:
-#         return None
-#     else:
-#         return str(var)
-
 
 # # генерация чекбоксов
 # def render_checkbox_main_window(self) -> None:
@@ -623,7 +656,6 @@ if __name__ == '__main__':
 #     # checkBox.move(10, 60+(30*(Window.checkbox_counter-1)))
 #     # checkBox.show()
 
-
 # # генерация описаний
 # def render_desc_main_window(self) -> None:
 #     """Генерация описаний"""
@@ -647,7 +679,6 @@ if __name__ == '__main__':
 #     # self.label_select_file.setFont(font)
 #     # self.label_select_file.adjustSize()
 #     # self.label_select_file.setToolTip(self.label_select_file.objectName())
-
 
 # # генерация всех объектов на главной форме
 # def render_main_window(self) -> None:
