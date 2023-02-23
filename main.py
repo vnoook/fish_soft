@@ -369,6 +369,17 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         print('pressed key: ' + str(event.key()))
         # if event.key() == PyQt5.QtCore.Qt.Key_Escape:
         #     print('esc')
+        super().keyPressEvent(event)
+
+    # функция переназначения нажатия мыши в главном окне
+    def mousePressEvent(self, event):
+        """Функция переназначения нажатия мыши в главном окне"""
+        print(self.mousePressEvent.__name__) if DEBUG else ...
+
+        print('pressed key: ' + str(event.button()))
+        # if event.button() == PyQt5.QtCore.Qt.LeftButton:
+        #     print('pressed key: ' + str(event.button()))
+        super().mousePressEvent(event)
 
     # функция получения координат и запись их в переменную экземпляр класса
     def get_coords(self) -> None:
