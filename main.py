@@ -366,20 +366,20 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         """Функция переназначения нажатия клавиш в главном окне"""
         print(self.keyPressEvent.__name__) if DEBUG else ...
 
-        print('pressed key: ' + str(event.key()))
+        # print('pressed key: ' + str(event.key()))
         # if event.key() == PyQt5.QtCore.Qt.Key_Escape:
         #     print('esc')
-        super().keyPressEvent(event)
+        # super().keyPressEvent(event)
 
     # функция переназначения нажатия мыши в главном окне
     def mousePressEvent(self, event):
         """Функция переназначения нажатия мыши в главном окне"""
         print(self.mousePressEvent.__name__) if DEBUG else ...
 
-        print('pressed key: ' + str(event.button()))
+        # print('pressed key: ' + str(event.button()))
         # if event.button() == PyQt5.QtCore.Qt.LeftButton:
         #     print('pressed key: ' + str(event.button()))
-        super().mousePressEvent(event)
+        # super().mousePressEvent(event)
 
     # функция получения координат и запись их в переменную экземпляр класса
     def get_coords(self) -> None:
@@ -537,7 +537,6 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
     total_model = []
 
     # цикл для генерации объектов конечного списка на основе общей модели
-    # i, j = 0, 0
     for block in model:
         # есть колонки, которые могут повторяться
         # если это та колонка, то добавляется она столько, сколько в настройках соревнования
@@ -603,6 +602,9 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
 
         # добавление в главный список списка строки полей
         list_coord_of_fields.append(list_coord_of_field)
+
+    print(list_coord_of_fields[0])
+    
 
     return list_coord_of_fields
 

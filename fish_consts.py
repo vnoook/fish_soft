@@ -8,10 +8,10 @@ SETT_DEF_SOFT = {
         'window_coords_x': 100,
         'window_coords_y': 100},
     'settings_soft': {
-        'emergency_exit': False,
-        'CLUB_ID': '1A2B-3C4D-5E6F',
-        'SOFT_LAST_OPEN': '1980-06-30',          # fromisoformat('YYYY-MM-DD')
-        'COMP_DATA_COMPETITION': '2022-02-24',   # fromisoformat('YYYY-MM-DD')
+        # 'emergency_exit': False,
+        # 'CLUB_ID': '1A2B-3C4D-5E6F',
+        # 'SOFT_LAST_OPEN': '1980-06-30',          # fromisoformat('YYYY-MM-DD')
+        # 'COMP_DATA_COMPETITION': '2022-02-24',   # fromisoformat('YYYY-MM-DD')
         'screen_resolution_x': 1400,
         'screen_resolution_y': 900},
     'competition_action': {
@@ -20,13 +20,13 @@ SETT_DEF_SOFT = {
         'COMP_q_zone': 2,
         # 'COMP_q_sector': 1,
         # 'COMP_d_period': 45,
-        'COMP_q_anglers': 15},
+        'COMP_q_anglers': 8},
     'misc': {}
 }
 
 # константы для работы программе, остаются в памяти
 SETT_DEF_COMMON = {
-    'version': '0.1.1',
+    'version': '0.1.2',
     'window_name_main': 'ЧСВ - НХНЧ',
     'about_text': 'Чтобы Соревнования Выиграть - "Ни хвоста, Ни чешуи"',
     'window_name_set_comp': 'Настройки соревнования',
