@@ -625,8 +625,6 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
     gap_y = shift_y
     # высота для всех полей
     field_height = field_h
-    # количество спортиков
-    q_sportiks = q_sportsmen
     # шаг по вертикали, далее по коду будет изменяться
     field_step_y = start_dot_y
 
@@ -640,21 +638,20 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
         # переменная счётчик колонок
         field_count = 1
 
+        # выбор добавляемой строки
         if unit_line == 1:
             u_name = 'checkbox'
         else:
             u_name = 'label'
-        print(unit_line, u_name)
 
         # проход по строке полей
         for field in total_model:
-            # формирование имени спортика
-            # field_name = u_name + '_' + field[0] + '_' + str(unit_line) + '_' + str(field_count)
-            field_name = u_name + '_' + field[0] + '_' + '_' + str(field_count)
+            # формирование имени выводимого поля
+            field_name = u_name + '_' + field[0] + '_' + str(field_count)
             # выбор ширины поля
             field_width = field[1]
             # вид объекта для вывода
-            field_obj = field[2]
+            field_obj = u_name
 
             # добавление в список параметров объекта
             list_desc_of_field.append(field_name)
