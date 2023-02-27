@@ -673,18 +673,14 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
         # добавление шага вниз на промежуток между строками полей
         field_step_y = field_step_y + field_height + gap_y
 
-    # # добавление в главный список списка строки полей
-    # list_desc_of_field.append(list_desc_of_field)
-
     print(list_desc_of_field)
 
+    # объединение списков описаний и полей
+    list_of_fields = list_desc_of_field + list_coord_of_fields
 
+    print(list_of_fields)
 
-    # # объединение списков описаний и полей
-    # list_of_fields = list_desc_of_field + list_coord_of_fields
-
-    # return list_of_fields
-    return list_coord_of_fields
+    return list_of_fields
 
 
 # функция непосредственного выхода из программы
