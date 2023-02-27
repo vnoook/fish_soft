@@ -268,9 +268,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     line_edit.setGeometry(unit_x, unit_y, unit_w, unit_h)
                     # line_edit.setClearButtonEnabled(False)
                     # line_edit.setEnabled(True)
-                    # line_edit.setToolTip(line_edit.objectName() + '\n' +
-                    #                      str(unit_x) + '-' + str(unit_y) + '-' +
-                    #                      str(unit_w) + '-' + str(unit_h))
+                    line_edit.setToolTip(line_edit.objectName() + '\n' +
+                                         str(unit_x) + '-' + str(unit_y) + '-' +
+                                         str(unit_w) + '-' + str(unit_h))
                     line_edit.show()
 
                 elif unit_type == 'edit_off':
@@ -285,9 +285,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     line_edit.setGeometry(unit_x, unit_y, unit_w, unit_h)
                     # line_edit.setClearButtonEnabled(False)
                     line_edit.setEnabled(False)
-                    # line_edit.setToolTip(line_edit.objectName() + '\n' +
-                    #                      str(unit_x) + '-' + str(unit_y) + '-' +
-                    #                      str(unit_w) + '-' + str(unit_h))
+                    line_edit.setToolTip(line_edit.objectName() + '\n' +
+                                         str(unit_x) + '-' + str(unit_y) + '-' +
+                                         str(unit_w) + '-' + str(unit_h))
                     line_edit.show()
 
                 elif unit_type == 'combobox_on':
@@ -297,8 +297,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     combo_box.setObjectName(combo_box_name)
                     self.dict_all_units[combo_box_name] = combo_box
                     # combo_box.setPlaceholderText(unit_name)
-                    # combo_box.setToolTip(combo_box.objectName() + '\n' + str(unit_x) + '-' +
-                    #                      str(unit_y) + '-' + str(unit_w) + '-' + str(unit_h))
+                    combo_box.setToolTip(combo_box.objectName() + '\n' + str(unit_x) + '-' +
+                                         str(unit_y) + '-' + str(unit_w) + '-' + str(unit_h))
                     combo_box.addItem('')
                     for zone in range(q_zone):
                         combo_box.addItem(zones[zone])
@@ -514,14 +514,14 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
     list_coord_of_fields = []
 
     # распределение входных переменных
-    # точка начала отчёта
-    start_dot_x = start_x
-    start_dot_y = start_y
     # расстояние между объектами на форме
     gap_x = shift_x
     gap_y = shift_y
     # высота для всех полей
     field_height = field_h
+    # точка начала отчёта
+    start_dot_x = start_x
+    start_dot_y = start_y + 2*gap_y + 2*field_height    # сдвиг для добавления вверх описаний и чекбокосов
     # количество спортиков
     q_sportiks = q_sportsmen
     # шаг по вертикали, далее по коду будет изменяться
@@ -603,9 +603,90 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
         # добавление в главный список списка строки полей
         list_coord_of_fields.append(list_coord_of_field)
 
-    print(list_coord_of_fields[0])
-    
 
+
+
+
+
+
+
+
+
+
+    print(list_coord_of_fields[0])
+    print()
+
+    # распределение входных переменных
+    # точка начала отчёта
+    start_dot_x = start_x
+    start_dot_y = start_y
+    # расстояние между объектами на форме
+    gap_x = shift_x
+    gap_y = shift_y
+    # высота для всех полей
+    field_height = field_h
+    # количество спортиков
+    q_sportiks = q_sportsmen
+    # шаг по вертикали, далее по коду будет изменяться
+    field_step_y = start_dot_y
+
+    # список координат в строке
+    list_desc_of_field = []
+
+    # цикл расчёта координат каждого поля
+    for unit_line in range(1, 2 + 1):
+        # шаг вправо начинается с первой точки и идёт вправо
+        field_step_x = start_dot_x
+        # переменная счётчик колонок
+        field_count = 1
+
+        if unit_line == 1:
+            u_name = 'checkbox'
+        else:
+            u_name = 'label'
+        print(unit_line, u_name)
+
+        # проход по строке полей
+        for field in total_model:
+            # формирование имени спортика
+            # field_name = u_name + '_' + field[0] + '_' + str(unit_line) + '_' + str(field_count)
+            field_name = u_name + '_' + field[0] + '_' + '_' + str(field_count)
+            # выбор ширины поля
+            field_width = field[1]
+            # вид объекта для вывода
+            field_obj = field[2]
+
+            # добавление в список параметров объекта
+            list_desc_of_field.append(field_name)
+            list_desc_of_field.append(field_step_x)
+            list_desc_of_field.append(field_step_y)
+            list_desc_of_field.append(field_width)
+            list_desc_of_field.append(field_height)
+            list_desc_of_field.append(field_obj)
+
+            # увеличение шага вправо на ширину поля
+            field_step_x = field_step_x + field_width
+
+            # увеличение шага вправо на ширину промежутка между полями
+            field_step_x = field_step_x + gap_x
+
+            # переход на следующую колонку
+            field_count += 1
+
+        # добавление шага вниз на промежуток между строками полей
+        field_step_y = field_step_y + field_height + gap_y
+
+    # # добавление в главный список списка строки полей
+    # list_desc_of_field.append(list_desc_of_field)
+
+    print(list_desc_of_field)
+
+
+
+    # # объединение списков описаний и полей
+    # list_of_fields = list_desc_of_field + list_coord_of_fields
+
+    # return list_of_fields
     return list_coord_of_fields
 
 
