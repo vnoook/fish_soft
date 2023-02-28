@@ -11,7 +11,7 @@ else:
 
 import tomli_w
 import fish_consts as fcs
-# from pprint import pprint as pp
+from pprint import pprint as pp
 
 
 # определение констант
@@ -130,6 +130,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         """Функция очистки главного окна от объектов"""
         print(self.clean_form.__name__) if DEBUG else ...
 
+        pp(self.dict_all_units)
+
         # если словарь с объектами не пуст, то удалить все объекты в нём и очистить его
         if self.dict_all_units:
             for unit in self.dict_all_units:
@@ -231,6 +233,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         q_anglers = SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers']
         q_zone = SETTINGS_DATA_DEF['competition_action']['COMP_q_zone']
         zones = SETTINGS_COMMON_DEF['name_of_zone']
+        model = SETT_MODEL
 
         # получение списка объектов для вывода их в главном окне
         list_of_units = get_list_fields_and_coords(start_x=start_x, start_y=start_y,
@@ -306,6 +309,34 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     # combo_box.setEnabled(True)
                     combo_box.show()
 
+                elif unit_type == 'checkbox':
+                    check_box_name = unit_name
+                    check_box = PyQt5.QtWidgets.QCheckBox(self)
+                    check_box.setObjectName(check_box_name)
+                    self.dict_all_units[check_box_name] = check_box
+                    # check_box.setVisible(True)
+                    check_box.setText(check_box_name)
+                    check_box.setToolTip(check_box.objectName() + '\n' +
+                                         str(unit_x) + '-' + str(unit_y) + '-' +
+                                         str(unit_w) + '-' + str(unit_h))
+                    check_box.clicked.connect(self.change_status_checkbox)
+                    check_box.setGeometry(unit_x, unit_y, unit_w, unit_h)
+                    check_box.show()
+
+                elif unit_type == 'label':
+                    # print(model)
+                    label_name = unit_name
+                    label = PyQt5.QtWidgets.QLabel(self)
+                    label.setObjectName(label_name)
+                    self.dict_all_units[label_name] = label
+                    label.setText(label_name)
+                    label.adjustSize()
+                    label.setToolTip(label.objectName() + '\n' +
+                                     str(unit_x) + '-' + str(unit_y) + '-' +
+                                     str(unit_w) + '-' + str(unit_h))
+                    label.setGeometry(unit_x, unit_y, unit_w, unit_h)
+                    label.show()
+
     # изменения размера окна
     def resize_main_windows_for_render(self, list_objects: list) -> None:
         """Изменения размера окна"""
@@ -339,6 +370,19 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.setFixedSize(new_width, new_height)
         # self.resize(new_width, new_height)
         self.show()
+
+    # функция нажатия на чекбокс в описании
+    def change_status_checkbox(self) -> None:
+        """Функция нажатия на чекбокс в описании"""
+        print(self.change_status_checkbox.__name__) if DEBUG else ...
+
+        # узнать на какой колонке нажато, заблочено или нет, и заблочить или разблочить колонку
+        obj = self.sender()
+        print(obj.objectName())
+        print(obj.isChecked())
+
+        # cbox = PyQt5.QtWidgets.QCheckBox(self)
+        # cbox.isChecked()
 
     # функция переназначения закрытия окна по X или Alt+F4
     def closeEvent(self, event) -> None:
@@ -510,6 +554,7 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
     """Универсальная функция для описания полей и расчёта их координат на форме"""
     print(get_list_fields_and_coords.__name__) if DEBUG else ...
 
+    # --- СОЗДАНИЕ СПИСКА ОБЪЕКТОВ
     # итоговый список всех полей и их координаты
     list_coord_of_fields = []
 
@@ -521,7 +566,7 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
     field_height = field_h
     # точка начала отчёта
     start_dot_x = start_x
-    start_dot_y = start_y + 2*gap_y + 2*field_height    # сдвиг для добавления вверх описаний и чекбокосов
+    start_dot_y = start_y + 2*gap_y + 2*field_height    # сдвиг для добавления вверх описаний и чекбоксов
     # количество спортиков
     q_sportiks = q_sportsmen
     # шаг по вертикали, далее по коду будет изменяться
@@ -561,7 +606,7 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
             # простое добавление колонки из модели
             total_model.append(block)
 
-    # цикл расчёта координат каждого поля
+    # цикл расчёта координат полей для соревнования
     for n_sportik in range(1, q_sportiks + 1):
         # шаг вправо начинается с первой точки и идёт вправо
         field_step_x = start_dot_x
@@ -603,40 +648,31 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
         # добавление в главный список списка строки полей
         list_coord_of_fields.append(list_coord_of_field)
 
-
-
-
-
-
-
-
-
-
-
-    print(list_coord_of_fields[0])
-    print()
-
+    # --- СОЗДАНИЕ СПИСКА ОПИСАНИЙ
     # распределение входных переменных
-    # точка начала отчёта
-    start_dot_x = start_x
-    start_dot_y = start_y
     # расстояние между объектами на форме
     gap_x = shift_x
     gap_y = shift_y
     # высота для всех полей
     field_height = field_h
+    # точка начала отчёта
+    start_dot_x = start_x
+    start_dot_y = start_y
     # шаг по вертикали, далее по коду будет изменяться
     field_step_y = start_dot_y
 
     # список координат в строке
-    list_desc_of_field = []
+    list_desc_of_fields = []
 
-    # цикл расчёта координат каждого поля
+    # цикл расчёта координат полей для описания
     for unit_line in range(1, 2 + 1):
         # шаг вправо начинается с первой точки и идёт вправо
         field_step_x = start_dot_x
         # переменная счётчик колонок
         field_count = 1
+
+        # временный цикл для хранения одной строки выводимых объектов
+        list_desc_of_field = []
 
         # выбор добавляемой строки
         if unit_line == 1:
@@ -648,6 +684,7 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
         for field in total_model:
             # формирование имени выводимого поля
             field_name = u_name + '_' + field[0] + '_' + str(field_count)
+            # field_name = field[0] + '_' + str(field_count)
             # выбор ширины поля
             field_width = field[1]
             # вид объекта для вывода
@@ -673,12 +710,13 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
         # добавление шага вниз на промежуток между строками полей
         field_step_y = field_step_y + field_height + gap_y
 
-    print(list_desc_of_field)
+        # добавление в главный список списка строки полей
+        list_desc_of_fields.append(list_desc_of_field)
 
     # объединение списков описаний и полей
-    list_of_fields = list_desc_of_field + list_coord_of_fields
+    list_of_fields = list_desc_of_fields + list_coord_of_fields
 
-    print(list_of_fields)
+    # print(*list_of_fields, sep='\n')
 
     return list_of_fields
 
@@ -711,65 +749,3 @@ def run() -> None:
 if __name__ == '__main__':
     read_settings()
     run()
-
-# # генерация чекбоксов
-# def render_checkbox_main_window(self) -> None:
-#     """Генерация чекбоксов"""
-#     print(self.render_checkbox_main_window.__name__) if DEBUG else ...
-#     # print('генерация чекбоксов')
-#
-#     # сбор переменных для формирования объектов на форме
-#     start_x = SETTINGS_COMMON_DEF['form_sizes']['start_x']
-#     start_y = SETTINGS_COMMON_DEF['form_sizes']['start_y']
-#     gap_x = SETTINGS_COMMON_DEF['form_gaps']['gap_x']
-#     gap_y = SETTINGS_COMMON_DEF['form_gaps']['gap_y']
-#     obj_h = SETTINGS_COMMON_DEF['form_sizes']['obj_h']
-#     q_anglers = SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers']
-#
-#     # checkbox_name = 'checkbox_' + str(Window.checkbox_counter)
-#     # checkBox = PyQt5.QtWidgets.QCheckBox(self)
-#     # checkBox.setObjectName(checkbox_name)
-#     # checkBox.setVisible(True)
-#     # checkBox.setText(checkbox_name)
-#     # checkBox.setToolTip(checkBox.objectName())
-#     # checkBox.clicked.connect(self.click_checkbox)
-#     # # self.checkBox.setGeometry(10, 50, 40, 40)
-#     # checkBox.resize(20, 20)
-#     # checkBox.adjustSize()
-#     # checkBox.move(10, 60+(30*(Window.checkbox_counter-1)))
-#     # checkBox.show()
-
-# # генерация описаний
-# def render_desc_main_window(self) -> None:
-#     """Генерация описаний"""
-#     print(self.render_desc_main_window.__name__) if DEBUG else ...
-#     # print('генерация описаний')
-#
-#     # q_tur = SETTINGS_DATA_DEF['competition_action']['COMP_q_tur']
-#     # q_period = SETTINGS_DATA_DEF['competition_action']['COMP_q_period']
-#     # q_zone = SETTINGS_DATA_DEF['competition_action']['COMP_q_zone']
-#     # q_checkbox_in_line = SETTINGS_COMMON_DEF['competition_stat']['COMP_q_checkbox_in_line']
-#     # q_desc_in_line = SETTINGS_COMMON_DEF['competition_stat']['COMP_q_desc_in_line']
-#
-#     # # label_select_file
-#     # self.label_select_file = PyQt5.QtWidgets.QLabel(self)
-#     # self.label_select_file.setObjectName('label_select_file')
-#     # self.label_select_file.setText('Выберите файл CSV')
-#     # self.label_select_file.setGeometry(PyQt5.QtCore.QRect(10, 10, 150, 40))
-#     # font = PyQt5.QtGui.QFont()
-#     # font.setPointSize(12)
-#     # self.label_select_file.setFont(font)
-#     # self.label_select_file.adjustSize()
-#     # self.label_select_file.setToolTip(self.label_select_file.objectName())
-
-# # генерация всех объектов на главной форме
-# def render_main_window(self) -> None:
-#     """Генерация всех объектов на главной форме"""
-#     print(self.render_main_window.__name__) if DEBUG else ...
-#
-#     # создание строки чекбоксов
-#     # self.render_checkbox_main_window()
-#     # создание строки описаний
-#     # self.render_desc_main_window()
-#     # создание строк спортиков
-#     self.render_objects_main_window()
