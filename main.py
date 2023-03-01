@@ -319,7 +319,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     check_box.setObjectName(check_box_name)
                     self.dict_all_units[check_box_name] = check_box
                     # check_box.setVisible(True)
-                    check_box.setText(check_box_name)
+                    # check_box.setText(check_box_name)
                     check_box.setToolTip(check_box.objectName() + '\n' +
                                          str(unit_x) + '-' + str(unit_y) + '-' +
                                          str(unit_w) + '-' + str(unit_h))
