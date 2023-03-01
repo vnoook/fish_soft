@@ -26,7 +26,7 @@ SETT_DEF_SOFT = {
 
 # константы для работы программе, остаются в памяти
 SETT_DEF_COMMON = {
-    'version': '0.1.2',
+    'version': '0.1.3',
     'window_name_main': 'ЧСВ - НХНЧ',
     'about_text': 'Чтобы Соревнования Выиграть - "Ни хвоста, Ни чешуи"',
     'window_name_set_comp': 'Настройки соревнования',
@@ -69,14 +69,14 @@ SETT_DEF_COMMON = {
 
 # модель - список из полей (колонок) на форме - имя поля, длина, вид, описание поля для подписи
 SETT_MODEL = (
-              ('number', 30, 'edit_off', 'Номер'),
-              ('lottery', 30, 'edit_off', 'Жер'),
+              ('number', 35, 'edit_off', 'Номер'),
+              ('lottery', 35, 'edit_off', 'Выход'),
               ('fio', 120, 'edit_on', 'ФИО спортсмена'),
               ('team', 120, 'edit_on', 'Команда спортсмена'),
               ('rank', 35, 'edit_on', 'Разряд'),
               ('zona', 70, 'combobox_on', 'Зона'),
               ('period', 40, 'edit_on', 'Период'),
-              ('points', 30, 'edit_off', 'Очки'),
-              ('teams', 40, 'edit_off', 'М ком'),
-              ('self', 40, 'edit_off', 'М лич')
+              ('points', 30, 'edit_off', 'ОЧКИ'),
+              ('teams', 40, 'edit_off', 'М КОМ'),
+              ('self', 40, 'edit_off', 'М ЛИЧ')
 )

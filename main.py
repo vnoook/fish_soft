@@ -11,7 +11,7 @@ else:
 
 import tomli_w
 import fish_consts as fcs
-from pprint import pprint as pp
+# from pprint import pprint as pp
 
 
 # определение констант
@@ -130,7 +130,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         """Функция очистки главного окна от объектов"""
         print(self.clean_form.__name__) if DEBUG else ...
 
-        pp(self.dict_all_units)
+        # pp(self.dict_all_units)
 
         # если словарь с объектами не пуст, то удалить все объекты в нём и очистить его
         if self.dict_all_units:
