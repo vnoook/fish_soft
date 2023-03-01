@@ -233,7 +233,11 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         q_anglers = SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers']
         q_zone = SETTINGS_DATA_DEF['competition_action']['COMP_q_zone']
         zones = SETTINGS_COMMON_DEF['name_of_zone']
-        model = SETT_MODEL
+
+        # !!!!!!!!!!!!!!!!!!
+        desc_dict = {}
+        for val in SETT_MODEL:
+            desc_dict[val[0]] = val[3]
 
         # получение списка объектов для вывода их в главном окне
         list_of_units = get_list_fields_and_coords(start_x=start_x, start_y=start_y,
@@ -324,12 +328,13 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     check_box.show()
 
                 elif unit_type == 'label':
-                    # print(model)
                     label_name = unit_name
                     label = PyQt5.QtWidgets.QLabel(self)
                     label.setObjectName(label_name)
                     self.dict_all_units[label_name] = label
-                    label.setText(label_name)
+                    # хитрое вычисление строки label
+                    # делается сначала словарь, потом из unit_name берётся второе слово и ищется в словаре
+                    label.setText(desc_dict[unit_name.split('_')[1]])
                     label.adjustSize()
                     label.setToolTip(label.objectName() + '\n' +
                                      str(unit_x) + '-' + str(unit_y) + '-' +
