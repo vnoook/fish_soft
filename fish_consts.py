@@ -70,12 +70,12 @@ SETT_DEF_COMMON = {
 # модель - список из полей (колонок) на форме - имя поля, длина, вид, описание поля для подписи
 SETT_MODEL = (
               ('number', 35, 'edit_off', 'Номер'),
-              ('lottery', 35, 'edit_off', 'Выход'),
+              ('lottery', 35, 'edit_off', 'Жереб'),
               ('fio', 120, 'edit_on', 'ФИО спортсмена'),
               ('team', 120, 'edit_on', 'Команда спортсмена'),
-              ('rank', 35, 'edit_on', 'Разряд'),
-              ('zona', 70, 'combobox_on', 'Зона'),
-              ('period', 40, 'edit_on', 'Период'),
+              ('rank', 40, 'edit_on', 'Разряд'),
+              ('zona', 60, 'combobox_on', 'Зона '),
+              ('period', 40, 'edit_on', 'П '),
               ('points', 30, 'edit_off', 'ОЧКИ'),
               ('teams', 40, 'edit_off', 'М КОМ'),
               ('self', 40, 'edit_off', 'М ЛИЧ')

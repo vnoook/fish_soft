@@ -247,10 +247,14 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
         # изменения размера окна под объекты из списка объектов
         self.resize_main_windows_for_render(list_of_units)
+        # print(*list_of_units, sep='\n')
 
         # вставка на форму объектов
         q_steps = 6                                # количество шагов считывания из списка
         for unit_sting in list_of_units:
+            # временный счётчик для добавления к описанию - порядковый номер описания
+            counter_zona = 0
+            counter_period = 0
             for i in range(0, len(unit_sting), q_steps):
                 unit = unit_sting[i:(i+q_steps)]
 
@@ -328,17 +332,33 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     check_box.show()
 
                 elif unit_type == 'label':
+                    if 'zona' in unit_name:
+                        counter_zona += 1
+                        counter = counter_zona
+                        # print('zona =', counter)
+                    elif 'period' in unit_name:
+                        counter_period += 1
+                        counter = counter_period
+                        # print('period =', counter)
+                    else:
+                        counter = ''
+                    label_text = desc_dict[unit_name.split('_')[1]] + str(counter)
+
                     label_name = unit_name
                     label = PyQt5.QtWidgets.QLabel(self)
                     label.setObjectName(label_name)
                     self.dict_all_units[label_name] = label
+                    # font = PyQt5.QtGui.QFont()
+                    # font.setPointSize(8)
+                    # label.setFont(font)
                     # хитрое вычисление строки label
                     # делается сначала словарь, потом из unit_name берётся второе слово и ищется в словаре
-                    label.setText(desc_dict[unit_name.split('_')[1]])
+                    label.setText(label_text)
                     label.adjustSize()
+                    # label.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
                     label.setToolTip(label.objectName() + '\n' +
                                      str(unit_x) + '-' + str(unit_y) + '-' +
-                                     str(unit_w) + '-' + str(unit_h))
+                                     str(unit_w) + '-' + str(unit_h) + '\n' + label_text)
                     label.setGeometry(unit_x, unit_y, unit_w, unit_h)
                     label.show()
 
@@ -385,9 +405,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         obj = self.sender()
         print(obj.objectName())
         print(obj.isChecked())
-
-        # cbox = PyQt5.QtWidgets.QCheckBox(self)
-        # cbox.isChecked()
 
     # функция переназначения закрытия окна по X или Alt+F4
     def closeEvent(self, event) -> None:
@@ -721,8 +738,6 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
     # объединение списков описаний и полей
     list_of_fields = list_desc_of_fields + list_coord_of_fields
 
-    # print(*list_of_fields, sep='\n')
-
     return list_of_fields
 
 
@@ -754,3 +769,5 @@ def run() -> None:
 if __name__ == '__main__':
     read_settings()
     run()
+
+# print(*list_of_fields, sep='\n')
