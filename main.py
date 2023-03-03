@@ -1,5 +1,5 @@
 # TODO
-# прикрутить валидаторы к полям, убрать лишние чекбоксы, ограничить ввод в поля редактирования
+# убрать лишние чекбоксы
 import sys
 import os.path
 import PyQt5.QtGui
@@ -343,19 +343,21 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
                 elif unit_type == 'checkbox':
                     # QCheckBox
-                    # общее описание полей
-                    check_box_name = unit_name
-                    check_box = PyQt5.QtWidgets.QCheckBox(self)
-                    check_box.setObjectName(check_box_name)
-                    check_box.setText(' '*unit_w)
-                    check_box.setToolTip(check_box.objectName() + '\n' +
-                                         str(unit_x) + '-' + str(unit_y) + '-' +
-                                         str(unit_w) + '-' + str(unit_h))
-                    check_box.setGeometry(unit_x, unit_y, unit_w, unit_h)
-                    check_box.clicked.connect(self.change_status_checkbox)
-                    self.dict_all_units[check_box_name] = check_box
-                    # check_box.setVisible(True)
-                    check_box.show()
+                    # некоторые чекбоксы не нужны, поэтому не вывожу их на форму
+                    if unit_name.split('_')[1] not in ('number', 'points', 'teams', 'self'):
+                        # общее описание полей
+                        check_box_name = unit_name
+                        check_box = PyQt5.QtWidgets.QCheckBox(self)
+                        check_box.setObjectName(check_box_name)
+                        check_box.setText(' '*unit_w)
+                        check_box.setToolTip(check_box.objectName() + '\n' +
+                                             str(unit_x) + '-' + str(unit_y) + '-' +
+                                             str(unit_w) + '-' + str(unit_h))
+                        check_box.setGeometry(unit_x, unit_y, unit_w, unit_h)
+                        check_box.clicked.connect(self.change_status_checkbox)
+                        self.dict_all_units[check_box_name] = check_box
+                        # check_box.setVisible(True)
+                        check_box.show()
 
                 elif unit_type == 'label':
                     # QLabel
