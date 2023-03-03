@@ -1,3 +1,5 @@
+# TODO
+# прикрутить валидаторы к полям, убрать лишние чекбоксы, ограничить ввод в поля редактирования
 import sys
 import os.path
 import PyQt5.QtGui
@@ -323,7 +325,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     check_box.setObjectName(check_box_name)
                     self.dict_all_units[check_box_name] = check_box
                     # check_box.setVisible(True)
-                    # check_box.setText(check_box_name)
+                    check_box.setText(' '*unit_w)
                     check_box.setToolTip(check_box.objectName() + '\n' +
                                          str(unit_x) + '-' + str(unit_y) + '-' +
                                          str(unit_w) + '-' + str(unit_h))
@@ -402,9 +404,24 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         print(self.change_status_checkbox.__name__) if DEBUG else ...
 
         # узнать на какой колонке нажато, заблочено или нет, и заблочить или разблочить колонку
-        obj = self.sender()
-        print(obj.objectName())
-        print(obj.isChecked())
+        obj_cur = self.sender()
+        obj_cur_col = obj_cur.objectName().split('_')[-1]
+        obj_cur_name = obj_cur.objectName().split('_')[1]
+        # print(f'{obj_cur.objectName() = } ... {obj_cur.isEnabled() = } ... {obj_cur_col = }')
+        # print()
+
+        # !!!!!!!!!!!!!!!!!!
+        for unit in self.dict_all_units:
+            obj_unit = self.dict_all_units[unit]
+            obj_unit_col = unit.split('_')[-1]
+
+            if (obj_cur_col == obj_unit_col) and (obj_unit.__class__ != PyQt5.QtWidgets.QCheckBox):
+                # print(f'{unit = } ... {obj_unit.isEnabled() = } ... {obj_unit_col = }')
+                if obj_cur_name not in ('number', 'lottery', 'points', 'teams', 'self'):
+                    if obj_cur.isChecked():
+                        obj_unit.setEnabled(False)
+                    else:
+                        obj_unit.setEnabled(True)
 
     # функция переназначения закрытия окна по X или Alt+F4
     def closeEvent(self, event) -> None:

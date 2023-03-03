@@ -1,8 +1,8 @@
 [settings_window_main]
 window_coords_h = 350
-window_coords_w = 1035
-window_coords_x = 425
-window_coords_y = 435
+window_coords_w = 1045
+window_coords_x = 479
+window_coords_y = 302
 
 [settings_soft]
 screen_resolution_x = 1920
