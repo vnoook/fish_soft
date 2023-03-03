@@ -237,7 +237,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         q_zone = SETTINGS_DATA_DEF['competition_action']['COMP_q_zone']
         zones = SETTINGS_COMMON_DEF['name_of_zone']
 
-        # !!!!!!!!!!!!!!!!!!
+        # хитрое вычисление текста строки label
+        # делается сначала словарь, потом из unit_name берётся второе слово и ищется в словаре
         desc_dict = {}
         for val in SETT_MODEL:
             desc_dict[val[0]] = val[3]
@@ -253,7 +254,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # print(*list_of_units, sep='\n')
 
         # вставка на форму объектов
-        q_steps = 6                                # количество шагов считывания из списка
+        q_steps = 6                                              # количество шагов считывания из списка
         for unit_sting in list_of_units:
             # временный счётчик для добавления к описанию - порядковый номер описания
             counter_zona = 0
@@ -276,18 +277,18 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     line_edit_name = unit_name
                     line_edit = PyQt5.QtWidgets.QLineEdit(self)
                     line_edit.setObjectName(line_edit_name)
-                    # line_edit.setPlaceholderText(unit_name)
-                    # line_edit.setText(unit_name)
-                    # line_edit.setText(str(unit_x) + '-' + str(unit_y) + '-' + str(unit_w) + '-' + str(unit_h))
                     line_edit.setGeometry(unit_x, unit_y, unit_w, unit_h)
-                    # line_edit.setClearButtonEnabled(False)
-                    # line_edit.setEnabled(True)
                     line_edit.setToolTip(line_edit.objectName() + '\n' +
                                          str(unit_x) + '-' + str(unit_y) + '-' +
                                          str(unit_w) + '-' + str(unit_h))
                     self.dict_all_units[line_edit_name] = line_edit
+                    # line_edit.setPlaceholderText(unit_name)
+                    # line_edit.setText(unit_name)
+                    # line_edit.setText(str(unit_x) + '-' + str(unit_y) + '-' + str(unit_w) + '-' + str(unit_h))
+                    # line_edit.setClearButtonEnabled(False)
+                    # line_edit.setEnabled(True)
 
-                    # дополнительное описание каждого поля
+                    # дополнительное описание полей
                     unit_model = unit_name.split('_')[1]
                     if unit_model == 'rank':
                         line_edit.setMaxLength(4)
@@ -308,78 +309,83 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     line_edit_name = unit_name
                     line_edit = PyQt5.QtWidgets.QLineEdit(self)
                     line_edit.setObjectName(line_edit_name)
-                    # line_edit.setPlaceholderText(unit_name)
-                    # line_edit.setText(unit_name)
-                    # line_edit.setText(str(unit_x) + '-' + str(unit_y) + '-' + str(unit_w) + '-' + str(unit_h))
                     line_edit.setGeometry(unit_x, unit_y, unit_w, unit_h)
-                    # line_edit.setClearButtonEnabled(False)
                     line_edit.setEnabled(False)
                     line_edit.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
                     line_edit.setToolTip(line_edit.objectName() + '\n' +
                                          str(unit_x) + '-' + str(unit_y) + '-' +
                                          str(unit_w) + '-' + str(unit_h))
                     self.dict_all_units[line_edit_name] = line_edit
+                    # line_edit.setPlaceholderText(unit_name)
+                    # line_edit.setText(unit_name)
+                    # line_edit.setText(str(unit_x) + '-' + str(unit_y) + '-' + str(unit_w) + '-' + str(unit_h))
+                    # line_edit.setClearButtonEnabled(False)
                     line_edit.show()
 
                 elif unit_type == 'combobox_on':
-                    # ComboBox
+                    # QComboBox
+                    # общее описание полей
                     combo_box_name = unit_name
                     combo_box = PyQt5.QtWidgets.QComboBox(self)
                     combo_box.setObjectName(combo_box_name)
-                    self.dict_all_units[combo_box_name] = combo_box
-                    # combo_box.setPlaceholderText(unit_name)
                     combo_box.setToolTip(combo_box.objectName() + '\n' + str(unit_x) + '-' +
                                          str(unit_y) + '-' + str(unit_w) + '-' + str(unit_h))
                     combo_box.addItem('')
+                    combo_box.setGeometry(unit_x, unit_y, unit_w, unit_h)
+                    self.dict_all_units[combo_box_name] = combo_box
+                    # combo_box.setPlaceholderText(unit_name)
+                    # combo_box.setEnabled(True)
+
+                    # дополнительное описание полей
                     for zone in range(q_zone):
                         combo_box.addItem(zones[zone])
-                    combo_box.setGeometry(unit_x, unit_y, unit_w, unit_h)
-                    # combo_box.setEnabled(True)
                     combo_box.show()
 
                 elif unit_type == 'checkbox':
+                    # QCheckBox
+                    # общее описание полей
                     check_box_name = unit_name
                     check_box = PyQt5.QtWidgets.QCheckBox(self)
                     check_box.setObjectName(check_box_name)
-                    self.dict_all_units[check_box_name] = check_box
-                    # check_box.setVisible(True)
                     check_box.setText(' '*unit_w)
                     check_box.setToolTip(check_box.objectName() + '\n' +
                                          str(unit_x) + '-' + str(unit_y) + '-' +
                                          str(unit_w) + '-' + str(unit_h))
-                    check_box.clicked.connect(self.change_status_checkbox)
                     check_box.setGeometry(unit_x, unit_y, unit_w, unit_h)
+                    check_box.clicked.connect(self.change_status_checkbox)
+                    self.dict_all_units[check_box_name] = check_box
+                    # check_box.setVisible(True)
                     check_box.show()
 
                 elif unit_type == 'label':
+                    # QLabel
+                    # хитрое вычисление текста строки label
+                    # делается сначала словарь, потом из unit_name берётся второе слово и ищется в словаре
                     if 'zona' in unit_name:
                         counter_zona += 1
                         counter = counter_zona
-                        # print('zona =', counter)
                     elif 'period' in unit_name:
                         counter_period += 1
                         counter = counter_period
-                        # print('period =', counter)
                     else:
                         counter = ''
-                    label_text = desc_dict[unit_name.split('_')[1]] + str(counter)
 
+                    # общее описание полей
                     label_name = unit_name
                     label = PyQt5.QtWidgets.QLabel(self)
                     label.setObjectName(label_name)
-                    self.dict_all_units[label_name] = label
-                    # font = PyQt5.QtGui.QFont()
-                    # font.setPointSize(8)
-                    # label.setFont(font)
-                    # хитрое вычисление строки label
-                    # делается сначала словарь, потом из unit_name берётся второе слово и ищется в словаре
+                    label_text = desc_dict[unit_name.split('_')[1]] + str(counter)
                     label.setText(label_text)
                     label.adjustSize()
-                    # label.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
                     label.setToolTip(label.objectName() + '\n' +
                                      str(unit_x) + '-' + str(unit_y) + '-' +
                                      str(unit_w) + '-' + str(unit_h) + '\n' + label_text)
                     label.setGeometry(unit_x, unit_y, unit_w, unit_h)
+                    self.dict_all_units[label_name] = label
+                    # font = PyQt5.QtGui.QFont()
+                    # font.setPointSize(8)
+                    # label.setFont(font)
+                    # label.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
                     label.show()
 
     # изменения размера окна
