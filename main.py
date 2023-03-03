@@ -5,6 +5,7 @@ import os.path
 import PyQt5.QtGui
 import PyQt5.QtCore
 import PyQt5.QtWidgets
+# from PyQt5.QtGui import QIntValidator
 
 if sys.version_info < (3, 11):
     import tomli as tomllib
@@ -281,6 +282,22 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     line_edit.setGeometry(unit_x, unit_y, unit_w, unit_h)
                     # line_edit.setClearButtonEnabled(False)
                     # line_edit.setEnabled(True)
+
+                    # дополнительное описание каждого поля
+                    if unit_name.split('_')[1] == 'rank':
+                        line_edit.setMaxLength(4)
+                        line_edit.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
+                    elif unit_name.split('_')[1] == 'fio':
+                        line_edit.setMaxLength(20)
+                    elif unit_name.split('_')[1] == 'team':
+                        line_edit.setMaxLength(20)
+                    elif unit_name.split('_')[1] == 'period':
+                        line_edit.setMaxLength(4)
+                        line_edit.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
+                        line_edit.setValidator(PyQt5.QtGui.QIntValidator(line_edit))
+                    elif unit_name.split('_')[1] in ('points','teams','self'):
+                        line_edit.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
+
                     line_edit.setToolTip(line_edit.objectName() + '\n' +
                                          str(unit_x) + '-' + str(unit_y) + '-' +
                                          str(unit_w) + '-' + str(unit_h))
