@@ -269,55 +269,56 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                 unit_h = unit[4]
                 unit_type = unit[5]
 
-                # выбор какой объект выводится на форму
+                # выбор объекта для вывода на форму
                 if unit_type == 'edit_on':
-                    # LineEdit
+                    # QLineEdit
+                    # общее описание полей
                     line_edit_name = unit_name
                     line_edit = PyQt5.QtWidgets.QLineEdit(self)
                     line_edit.setObjectName(line_edit_name)
-                    self.dict_all_units[line_edit_name] = line_edit
                     # line_edit.setPlaceholderText(unit_name)
                     # line_edit.setText(unit_name)
                     # line_edit.setText(str(unit_x) + '-' + str(unit_y) + '-' + str(unit_w) + '-' + str(unit_h))
                     line_edit.setGeometry(unit_x, unit_y, unit_w, unit_h)
                     # line_edit.setClearButtonEnabled(False)
                     # line_edit.setEnabled(True)
-
-                    # дополнительное описание каждого поля
-                    if unit_name.split('_')[1] == 'rank':
-                        line_edit.setMaxLength(4)
-                        line_edit.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
-                    elif unit_name.split('_')[1] == 'fio':
-                        line_edit.setMaxLength(20)
-                    elif unit_name.split('_')[1] == 'team':
-                        line_edit.setMaxLength(20)
-                    elif unit_name.split('_')[1] == 'period':
-                        line_edit.setMaxLength(4)
-                        line_edit.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
-                        line_edit.setValidator(PyQt5.QtGui.QIntValidator(line_edit))
-                    elif unit_name.split('_')[1] in ('points','teams','self'):
-                        line_edit.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
-
                     line_edit.setToolTip(line_edit.objectName() + '\n' +
                                          str(unit_x) + '-' + str(unit_y) + '-' +
                                          str(unit_w) + '-' + str(unit_h))
+                    self.dict_all_units[line_edit_name] = line_edit
+
+                    # дополнительное описание каждого поля
+                    unit_model = unit_name.split('_')[1]
+                    if unit_model == 'rank':
+                        line_edit.setMaxLength(4)
+                        line_edit.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
+                    elif unit_model in ('fio', 'team'):
+                        line_edit.setMaxLength(20)
+                    elif unit_model == 'period':
+                        line_edit.setMaxLength(4)
+                        line_edit.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
+                        line_edit.setValidator(PyQt5.QtGui.QIntValidator(line_edit))
+                    elif unit_model in ('points','teams','self'):
+                        line_edit.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
                     line_edit.show()
 
                 elif unit_type == 'edit_off':
-                    # LineEdit
+                    # QLineEdit
+                    # общее описание полей
                     line_edit_name = unit_name
                     line_edit = PyQt5.QtWidgets.QLineEdit(self)
                     line_edit.setObjectName(line_edit_name)
-                    self.dict_all_units[line_edit_name] = line_edit
                     # line_edit.setPlaceholderText(unit_name)
                     # line_edit.setText(unit_name)
                     # line_edit.setText(str(unit_x) + '-' + str(unit_y) + '-' + str(unit_w) + '-' + str(unit_h))
                     line_edit.setGeometry(unit_x, unit_y, unit_w, unit_h)
                     # line_edit.setClearButtonEnabled(False)
                     line_edit.setEnabled(False)
+                    line_edit.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
                     line_edit.setToolTip(line_edit.objectName() + '\n' +
                                          str(unit_x) + '-' + str(unit_y) + '-' +
                                          str(unit_w) + '-' + str(unit_h))
+                    self.dict_all_units[line_edit_name] = line_edit
                     line_edit.show()
 
                 elif unit_type == 'combobox_on':
