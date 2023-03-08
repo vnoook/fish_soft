@@ -511,8 +511,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             print('RIGHT')
         else:
             print('pressed key: ' + str(event.key()))
-            print(f'{event.key().as_integer_ratio = } ... {event.key().bit_length = }')
-            print(f'{event.key().conjugate = } ... {event.key().denominator = }')
+            print(f'{event.key().as_integer_ratio() = } ... {event.key().bit_length() = }')
+            print(f'{event.key().conjugate() = } ... {event.key().denominator = }')
             print(f'{event.key().from_bytes = } ... {event.key().imag = }')
             print(f'{event.key().numerator = } ... {event.key().real = }')
             print(f'{event.key().to_bytes = }')
