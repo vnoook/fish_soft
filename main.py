@@ -1,11 +1,8 @@
-# TODO
-# убрать лишние чекбоксы
 import sys
 import os.path
 import PyQt5.QtGui
 import PyQt5.QtCore
 import PyQt5.QtWidgets
-# from PyQt5.QtGui import QIntValidator
 
 if sys.version_info < (3, 11):
     import tomli as tomllib
@@ -110,7 +107,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.file_exit.triggered.connect(self.window_file_exit)
 
         # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        self.cleaner.triggered.connect(self.clean_form_units)
+        self.cleaner.triggered.connect(self.del_form_units)
         self.adder.triggered.connect(self.add_form_units)
         # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -132,7 +129,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     # функция очистки главного окна от объектов
-    def clean_form_units(self) -> None:
+    def del_form_units(self) -> None:
         """Функция очистки главного окна от объектов"""
         print(self.clean_form.__name__) if DEBUG else ...
 
@@ -497,10 +494,33 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         """Функция переназначения нажатия клавиш в главном окне"""
         print(self.keyPressEvent.__name__) if DEBUG else ...
 
-        # print('pressed key: ' + str(event.key()))
-        # if event.key() == PyQt5.QtCore.Qt.Key_Escape:
-        #     print('esc')
-        # super().keyPressEvent(event)
+        # !!!
+        if event.key() == PyQt5.QtCore.Qt.Key_Escape:
+            print('esc')
+            # TODO
+            # написать выбор выхода из программы ДА-НЕТ
+            # процесс выхода из программы
+            self.exit_common()
+        elif event.key() == PyQt5.QtCore.Qt.Key_Up:
+            print('UP')
+        elif event.key() == PyQt5.QtCore.Qt.Key_Down:
+            print('DOWN')
+        elif event.key() == PyQt5.QtCore.Qt.Key_Left:
+            print('LEFT')
+        elif event.key() == PyQt5.QtCore.Qt.Key_Right:
+            print('RIGHT')
+        else:
+            print('pressed key: ' + str(event.key()))
+            print(f'{event.key().as_integer_ratio = } ... {event.key().bit_length = }')
+            print(f'{event.key().conjugate = } ... {event.key().denominator = }')
+            print(f'{event.key().from_bytes = } ... {event.key().imag = }')
+            print(f'{event.key().numerator = } ... {event.key().real = }')
+            print(f'{event.key().to_bytes = }')
+
+        super().keyPressEvent(event)
+
+        # 'as_integer_ratio', 'bit_length', 'conjugate', 'denominator', 'from_bytes',
+        # 'imag', 'numerator', 'real', 'to_bytes'
 
     # функция переназначения нажатия мыши в главном окне
     def mousePressEvent(self, event):
