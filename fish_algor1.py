@@ -136,12 +136,6 @@ def create_anglers():
         print(f'{globals()["Angler" + str(angler_id)].get_all_info()}')
 
 
-# функция для проверки входных данных на наличие только цифр
-def only_numbers():
-    # TODO
-    pass
-
-
 # функция подсчёта очков с известными - начальное место одинаковых уловов, количество одинаковых уловов
 def calc_scores(index_start, index_quantity):
     scores = 0

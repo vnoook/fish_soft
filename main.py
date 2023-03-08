@@ -99,6 +99,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
         # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         self.cleaner = self.file.addAction('cleaner')
+        self.adder = self.file.addAction('adder')
         # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         self.file_sep = self.file.addSeparator()
@@ -109,7 +110,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.file_exit.triggered.connect(self.window_file_exit)
 
         # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        self.cleaner.triggered.connect(self.clean_form)
+        self.cleaner.triggered.connect(self.clean_form_units)
+        self.adder.triggered.connect(self.add_form_units)
         # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         # НАСТРОЙКИ
@@ -128,18 +130,25 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.about = self.menu.addAction('О программе')
         self.about.triggered.connect(self.window_about_soft)
 
+    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     # функция очистки главного окна от объектов
-    def clean_form(self) -> None:
+    def clean_form_units(self) -> None:
         """Функция очистки главного окна от объектов"""
         print(self.clean_form.__name__) if DEBUG else ...
-
-        # pp(self.dict_all_units)
 
         # если словарь с объектами не пуст, то удалить все объекты в нём и очистить его
         if self.dict_all_units:
             for unit in self.dict_all_units:
                 self.dict_all_units[unit].deleteLater()
             self.dict_all_units = {}
+
+    # функция добавления объектов на главное окно
+    def add_form_units(self) -> None:
+        """Функция добавления объектов на главное окно"""
+        print(self.add_form_units.__name__) if DEBUG else ...
+
+        pass
+    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     # функция по открытию меню Файл-Открыть
     def window_file_open(self) -> None:
@@ -294,8 +303,10 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                         line_edit.setMaxLength(4)
                         line_edit.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
                     elif unit_model == 'fio':
+                        # TODO
+                        # перенести в константы
                         # количество символом на ФИО
-                        length_fio = 25
+                        length_fio = 30
                         # длина ввода для ФИО
                         line_edit.setMaxLength(length_fio)
                         # регулярное выражение для ввода только букв
