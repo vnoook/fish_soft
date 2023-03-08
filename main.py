@@ -293,13 +293,21 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     if unit_model == 'rank':
                         line_edit.setMaxLength(4)
                         line_edit.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
-                    elif unit_model in ('fio', 'team'):
+                    elif unit_model == 'fio':
+                        # количество символом на ФИО
+                        length_fio = 25
+                        # длина ввода для ФИО
+                        line_edit.setMaxLength(length_fio)
+                        # регулярное выражение для ввода только букв
+                        reqexp_alph = PyQt5.QtCore.QRegExp("[a-zA-Zа-яА-Я .,]{" + str(length_fio) + "}")
+                        line_edit.setValidator(PyQt5.QtGui.QRegExpValidator(reqexp_alph))
+                    elif unit_model == 'team':
                         line_edit.setMaxLength(20)
                     elif unit_model == 'period':
                         line_edit.setMaxLength(4)
                         line_edit.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
                         line_edit.setValidator(PyQt5.QtGui.QIntValidator(line_edit))
-                    elif unit_model in ('points','teams','self'):
+                    elif unit_model in ('points', 'teams', 'self'):
                         line_edit.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
                     line_edit.show()
 
