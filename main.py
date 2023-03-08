@@ -147,12 +147,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         """Функция добавления объектов на главное окно"""
         print(self.add_form_units.__name__) if DEBUG else ...
 
-        # если словарь с объектами не пуст, то удалить все объекты в нём и очистить его
+        # если словарь с объектами пуст, то добавить все объекты на форму
         if not self.dict_all_units:
-            # for unit in self.dict_all_units:
-            #     self.dict_all_units[unit].deleteLater()
-            # self.dict_all_units = {}
-
             # генерация объектов для ввода данных по соревнованиям
             self.render_objects_main_window()
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
