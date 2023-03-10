@@ -310,8 +310,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                         # длина ввода для ФИО
                         line_edit.setMaxLength(length_fio)
                         # регулярное выражение для ввода только букв
-                        reqexp_alph = PyQt5.QtCore.QRegExp("[a-zA-Zа-яА-Я .,]{" + str(length_fio) + "}")
-                        line_edit.setValidator(PyQt5.QtGui.QRegExpValidator(reqexp_alph))
+                        regexp_alph = PyQt5.QtCore.QRegExp("[a-zA-Zа-яА-Я .,]{" + str(length_fio) + "}")
+                        line_edit.setValidator(PyQt5.QtGui.QRegExpValidator(regexp_alph))
                     elif unit_model == 'team':
                         line_edit.setMaxLength(20)
                     elif unit_model == 'period':
@@ -509,18 +509,21 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             print('LEFT')
         elif event.key() == PyQt5.QtCore.Qt.Key_Right:
             print('RIGHT')
+        elif event.key() == PyQt5.QtCore.Qt.Key_Enter:
+            # EnterKeyDefault
+            # 16777220
+            # 16777221
+            print('ENTER 16777220')
         else:
             print('pressed key: ' + str(event.key()))
             print(f'{event.key().as_integer_ratio() = } ... {event.key().bit_length() = }')
             print(f'{event.key().conjugate() = } ... {event.key().denominator = }')
-            print(f'{event.key().from_bytes = } ... {event.key().imag = }')
             print(f'{event.key().numerator = } ... {event.key().real = }')
-            print(f'{event.key().to_bytes = }')
+            print(f'{event.key().imag = }')
+
+        print('pressed key: ' + str(event.key()))
 
         super().keyPressEvent(event)
-
-        # 'as_integer_ratio', 'bit_length', 'conjugate', 'denominator', 'from_bytes',
-        # 'imag', 'numerator', 'real', 'to_bytes'
 
     # функция переназначения нажатия мыши в главном окне
     def mousePressEvent(self, event):

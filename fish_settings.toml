@@ -1,12 +1,12 @@
 [settings_window_main]
 window_coords_h = 350
 window_coords_w = 765
-window_coords_x = 100
-window_coords_y = 100
+window_coords_x = 1056
+window_coords_y = 585
 
 [settings_soft]
-screen_resolution_x = 1366
-screen_resolution_y = 768
+screen_resolution_x = 1920
+screen_resolution_y = 1080
 
 [competition_action]
 COMP_q_tur = 1
