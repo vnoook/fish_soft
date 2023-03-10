@@ -127,6 +127,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.about = self.menu.addAction('О программе')
         self.about.triggered.connect(self.window_about_soft)
 
+
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     # функция очистки главного окна от объектов
     def del_form_units(self) -> None:
@@ -149,6 +150,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             # генерация объектов для ввода данных по соревнованиям
             self.render_objects_main_window()
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 
     # функция по открытию меню Файл-Открыть
     def window_file_open(self) -> None:
@@ -452,16 +454,14 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         obj_cur = self.sender()
         obj_cur_col = obj_cur.objectName().split('_')[-1]
         obj_cur_name = obj_cur.objectName().split('_')[1]
-        # print(f'{obj_cur.objectName() = } ... {obj_cur.isEnabled() = } ... {obj_cur_col = }')
-        # print()
 
-        # !!!!!!!!!!!!!!!!!!
+        # определение - какой чек бокс в какой колонке нажат
+        # пробегает по всем объектам, ищет по совпаданию в имени название колонки и реагирует
         for unit in self.dict_all_units:
             obj_unit = self.dict_all_units[unit]
             obj_unit_col = unit.split('_')[-1]
 
             if (obj_cur_col == obj_unit_col) and (obj_unit.__class__ != PyQt5.QtWidgets.QCheckBox):
-                # print(f'{unit = } ... {obj_unit.isEnabled() = } ... {obj_unit_col = }')
                 if obj_cur_name not in ('number', 'lottery', 'points', 'teams', 'self'):
                     if obj_cur.isChecked():
                         obj_unit.setEnabled(False)
@@ -494,11 +494,15 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         """Функция переназначения нажатия клавиш в главном окне"""
         print(self.keyPressEvent.__name__) if DEBUG else ...
 
-        # !!!
+        print(dir(event))
+
+        # выбор нажатой кнопки
         if event.key() == PyQt5.QtCore.Qt.Key_Escape:
             print('esc')
             # TODO
             # написать выбор выхода из программы ДА-НЕТ
+            # написать обработку нажатия ENTER - переход на строку ниже в одной колонке
+
             # процесс выхода из программы
             self.exit_common()
         elif event.key() == PyQt5.QtCore.Qt.Key_Up:
@@ -859,3 +863,28 @@ if __name__ == '__main__':
     run()
 
 # print(*list_of_fields, sep='\n')
+
+# ['ActionAdded', 'ActionChanged', 'ActionRemoved', 'ActivationChange', 'ApplicationActivate', 'ApplicationActivated',
+# 'ApplicationDeactivate', 'ApplicationDeactivated', 'ApplicationFontChange', 'ApplicationLayoutDirectionChange',
+# 'ApplicationPaletteChange', 'ApplicationStateChange', 'ApplicationWindowIconChange', 'ChildAdded', 'ChildPolished',
+# 'ChildRemoved', 'Clipboard', 'Close', 'CloseSoftwareInputPanel', 'ContentsRectChange', 'ContextMenu', 'CursorChange',
+# 'DeferredDelete', 'DragEnter', 'DragLeave', 'DragMove', 'Drop', 'DynamicPropertyChange', 'EnabledChange', 'Enter',
+# 'EnterWhatsThisMode', 'Expose', 'FileOpen', 'FocusAboutToChange', 'FocusIn', 'FocusOut', 'FontChange', 'Gesture',
+# 'GestureOverride', 'GrabKeyboard', 'GrabMouse', 'GraphicsSceneContextMenu', 'GraphicsSceneDragEnter',
+# 'GraphicsSceneDragLeave', 'GraphicsSceneDragMove', 'GraphicsSceneDrop', 'GraphicsSceneHelp', 'GraphicsSceneHoverEnter',
+# 'GraphicsSceneHoverLeave', 'GraphicsSceneHoverMove', 'GraphicsSceneMouseDoubleClick', 'GraphicsSceneMouseMove',
+# 'GraphicsSceneMousePress', 'GraphicsSceneMouseRelease', 'GraphicsSceneMove', 'GraphicsSceneResize', 'GraphicsSceneWheel',
+# 'Hide', 'HideToParent', 'HoverEnter', 'HoverLeave', 'HoverMove', 'IconDrag', 'IconTextChange', 'InputMethod', 'InputMethodQuery',
+# 'KeyPress', 'KeyRelease', 'KeyboardLayoutChange', 'LanguageChange', 'LayoutDirectionChange', 'LayoutRequest',
+# 'Leave', 'LeaveWhatsThisMode', 'LocaleChange', 'MacSizeChange', 'MaxUser', 'MetaCall', 'ModifiedChange', 'MouseButtonDblClick',
+# 'MouseButtonPress', 'MouseButtonRelease', 'MouseMove', 'MouseTrackingChange', 'Move', 'NonClientAreaMouseButtonDblClick',
+# 'NonClientAreaMouseButtonPress', 'NonClientAreaMouseButtonRelease', 'NonClientAreaMouseMove', 'None_', 'OkRequest',
+# 'OrientationChange', 'Paint', 'PaletteChange', 'ParentAboutToChange', 'ParentChange', 'PlatformPanel', 'PlatformSurface',
+# 'Polish', 'PolishRequest', 'QueryWhatsThis', 'ReadOnlyChange', 'RequestSoftwareInputPanel', 'Resize', 'Scroll', 'ScrollPrepare',
+# 'Shortcut', 'ShortcutOverride', 'Show', 'ShowToParent', 'SockAct', 'StateMachineSignal', 'StateMachineWrapped', 'StatusTip',
+# 'StyleChange', 'TabletEnterProximity', 'TabletLeaveProximity', 'TabletMove', 'TabletPress', 'TabletRelease', 'TabletTrackingChange',
+# 'ThreadChange', 'Timer', 'ToolBarChange', 'ToolTip', 'ToolTipChange', 'TouchBegin', 'TouchCancel', 'TouchEnd', 'TouchUpdate', 'Type', 'UngrabKeyboard', 'UngrabMouse',
+# 'UpdateLater', 'UpdateRequest', 'User', 'WhatsThis', 'WhatsThisClicked', 'Wheel', 'WinEventAct', 'WinIdChange', 'WindowActivate', 'WindowBlocked', 'WindowDeactivate',
+# 'WindowIconChange', 'WindowStateChange', 'WindowTitleChange', 'WindowUnblocked', 'ZOrderChange',
+# 'accept', 'count', 'ignore', 'isAccepted', 'isAutoRepeat', 'key', 'matches', 'modifiers', 'nativeModifiers',
+# 'nativeScanCode', 'nativeVirtualKey', 'registerEventType', 'setAccepted', 'setTimestamp', 'spontaneous', 'text', 'timestamp', 'type']
