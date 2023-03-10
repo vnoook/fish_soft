@@ -494,13 +494,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         """Функция переназначения нажатия клавиш в главном окне"""
         print(self.keyPressEvent.__name__) if DEBUG else ...
 
-        print()
-        print()
-        # for val in dir(event):
-        #     print(event.val, end=' ... ')
-        print()
-        print()
-
         # выбор нажатой кнопки
         if event.key() == PyQt5.QtCore.Qt.Key_Escape:
             print('ESC')
@@ -870,27 +863,9 @@ if __name__ == '__main__':
 
 # print(*list_of_fields, sep='\n')
 
-# ['ActionAdded', 'ActionChanged', 'ActionRemoved', 'ActivationChange', 'ApplicationActivate', 'ApplicationActivated',
-# 'ApplicationDeactivate', 'ApplicationDeactivated', 'ApplicationFontChange', 'ApplicationLayoutDirectionChange',
-# 'ApplicationPaletteChange', 'ApplicationStateChange', 'ApplicationWindowIconChange', 'ChildAdded', 'ChildPolished',
-# 'ChildRemoved', 'Clipboard', 'Close', 'CloseSoftwareInputPanel', 'ContentsRectChange', 'ContextMenu', 'CursorChange',
-# 'DeferredDelete', 'DragEnter', 'DragLeave', 'DragMove', 'Drop', 'DynamicPropertyChange', 'EnabledChange', 'Enter',
-# 'EnterWhatsThisMode', 'Expose', 'FileOpen', 'FocusAboutToChange', 'FocusIn', 'FocusOut', 'FontChange', 'Gesture',
-# 'GestureOverride', 'GrabKeyboard', 'GrabMouse', 'GraphicsSceneContextMenu', 'GraphicsSceneDragEnter',
-# 'GraphicsSceneDragLeave', 'GraphicsSceneDragMove', 'GraphicsSceneDrop', 'GraphicsSceneHelp', 'GraphicsSceneHoverEnter',
-# 'GraphicsSceneHoverLeave', 'GraphicsSceneHoverMove', 'GraphicsSceneMouseDoubleClick', 'GraphicsSceneMouseMove',
-# 'GraphicsSceneMousePress', 'GraphicsSceneMouseRelease', 'GraphicsSceneMove', 'GraphicsSceneResize', 'GraphicsSceneWheel',
-# 'Hide', 'HideToParent', 'HoverEnter', 'HoverLeave', 'HoverMove', 'IconDrag', 'IconTextChange', 'InputMethod', 'InputMethodQuery',
-# 'KeyPress', 'KeyRelease', 'KeyboardLayoutChange', 'LanguageChange', 'LayoutDirectionChange', 'LayoutRequest',
-# 'Leave', 'LeaveWhatsThisMode', 'LocaleChange', 'MacSizeChange', 'MaxUser', 'MetaCall', 'ModifiedChange', 'MouseButtonDblClick',
-# 'MouseButtonPress', 'MouseButtonRelease', 'MouseMove', 'MouseTrackingChange', 'Move', 'NonClientAreaMouseButtonDblClick',
-# 'NonClientAreaMouseButtonPress', 'NonClientAreaMouseButtonRelease', 'NonClientAreaMouseMove', 'None_', 'OkRequest',
-# 'OrientationChange', 'Paint', 'PaletteChange', 'ParentAboutToChange', 'ParentChange', 'PlatformPanel', 'PlatformSurface',
-# 'Polish', 'PolishRequest', 'QueryWhatsThis', 'ReadOnlyChange', 'RequestSoftwareInputPanel', 'Resize', 'Scroll', 'ScrollPrepare',
-# 'Shortcut', 'ShortcutOverride', 'Show', 'ShowToParent', 'SockAct', 'StateMachineSignal', 'StateMachineWrapped', 'StatusTip',
-# 'StyleChange', 'TabletEnterProximity', 'TabletLeaveProximity', 'TabletMove', 'TabletPress', 'TabletRelease', 'TabletTrackingChange',
-# 'ThreadChange', 'Timer', 'ToolBarChange', 'ToolTip', 'ToolTipChange', 'TouchBegin', 'TouchCancel', 'TouchEnd', 'TouchUpdate', 'Type', 'UngrabKeyboard', 'UngrabMouse',
-# 'UpdateLater', 'UpdateRequest', 'User', 'WhatsThis', 'WhatsThisClicked', 'Wheel', 'WinEventAct', 'WinIdChange', 'WindowActivate', 'WindowBlocked', 'WindowDeactivate',
-# 'WindowIconChange', 'WindowStateChange', 'WindowTitleChange', 'WindowUnblocked', 'ZOrderChange',
-# 'accept', 'count', 'ignore', 'isAccepted', 'isAutoRepeat', 'key', 'matches', 'modifiers', 'nativeModifiers',
-# 'nativeScanCode', 'nativeVirtualKey', 'registerEventType', 'setAccepted', 'setTimestamp', 'spontaneous', 'text', 'timestamp', 'type']
+# print()
+# for i in dir(event):
+#     if '_' not in i:
+#         print(f'... {i} ... {getattr(event, i, None)}')
+#         print('_' * 45)
+# print()
