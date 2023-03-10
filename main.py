@@ -494,11 +494,17 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         """Функция переназначения нажатия клавиш в главном окне"""
         print(self.keyPressEvent.__name__) if DEBUG else ...
 
-        print(dir(event))
+        print()
+        print()
+        # for val in dir(event):
+        #     print(event.val, end=' ... ')
+        print()
+        print()
 
         # выбор нажатой кнопки
         if event.key() == PyQt5.QtCore.Qt.Key_Escape:
-            print('esc')
+            print('ESC')
+
             # TODO
             # написать выбор выхода из программы ДА-НЕТ
             # написать обработку нажатия ENTER - переход на строку ниже в одной колонке
@@ -520,12 +526,12 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             print('ENTER 16777220')
         else:
             print('pressed key: ' + str(event.key()))
-            print(f'{event.key().as_integer_ratio() = } ... {event.key().bit_length() = }')
-            print(f'{event.key().conjugate() = } ... {event.key().denominator = }')
-            print(f'{event.key().numerator = } ... {event.key().real = }')
-            print(f'{event.key().imag = }')
+            # print(f'{event.key().as_integer_ratio() = } ... {event.key().bit_length() = }')
+            # print(f'{event.key().conjugate() = } ... {event.key().denominator = }')
+            # print(f'{event.key().numerator = } ... {event.key().real = }')
+            # print(f'{event.key().imag = }')
 
-        print('pressed key: ' + str(event.key()))
+        # print('pressed key: ' + str(event.key()))
 
         super().keyPressEvent(event)
 
