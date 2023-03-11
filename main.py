@@ -297,7 +297,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     # line_edit.setClearButtonEnabled(False)
                     # line_edit.setEnabled(True)
 
-                    # дополнительное описание полей
+                    # дополнительная обработка полей
                     unit_model = unit_name.split('_')[1]
                     if unit_model == 'rank':
                         line_edit.setMaxLength(4)
@@ -342,7 +342,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     # line_edit.setText(str(unit_x) + '-' + str(unit_y) + '-' + str(unit_w) + '-' + str(unit_h))
                     # line_edit.setClearButtonEnabled(False)
 
-                    # дополнительное описание полей
+                    # дополнительная обработка полей
                     unit_model = unit_name.split('_')[1]
                     if unit_model == 'number':
                         line_edit.setText(unit_name.split('_')[2])
@@ -364,7 +364,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     # combo_box.setPlaceholderText(unit_name)
                     # combo_box.setEnabled(True)
 
-                    # дополнительное описание полей
+                    # дополнительная обработка полей
                     for zone in range(q_zone):
                         combo_box.addItem(zones[zone])
 
@@ -388,7 +388,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                         self.dict_all_units[check_box_name] = check_box
                         # check_box.setVisible(True)
 
-                        # дополнительное описание полей
+                        # дополнительная обработка полей
                         ...
 
                         # рендеринг объектов
@@ -425,7 +425,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     # label.setFont(font)
                     # label.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
 
-                    # дополнительное описание полей
+                    # дополнительная обработка полей
                     ...
 
                     # показывание объектов
@@ -487,6 +487,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                         obj_unit.setEnabled(False)
                     else:
                         obj_unit.setEnabled(True)
+
+            if obj_cur_name == 'lottery':
+                print(obj_unit)
 
     # функция переназначения закрытия окна по X или Alt+F4
     def closeEvent(self, event) -> None:
