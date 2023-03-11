@@ -343,7 +343,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     # line_edit.setClearButtonEnabled(False)
 
                     # дополнительное описание полей
-                    ...
+                    unit_model = unit_name.split('_')[1]
+                    if unit_model == 'number':
+                        line_edit.setText(unit_name.split('_')[2])
 
                     # рендеринг объектов
                     line_edit.show()
