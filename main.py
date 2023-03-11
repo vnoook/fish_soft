@@ -127,7 +127,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.about = self.menu.addAction('О программе')
         self.about.triggered.connect(self.window_about_soft)
 
-
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     # функция очистки главного окна от объектов
     def del_form_units(self) -> None:
@@ -150,7 +149,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             # генерация объектов для ввода данных по соревнованиям
             self.render_objects_main_window()
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 
     # функция по открытию меню Файл-Открыть
     def window_file_open(self) -> None:
@@ -283,8 +281,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
                 # выбор объекта для вывода на форму
                 if unit_type == 'edit_on':
-                    # QLineEdit
                     # общее описание полей
+                    # QLineEdit
                     line_edit_name = unit_name
                     line_edit = PyQt5.QtWidgets.QLineEdit(self)
                     line_edit.setObjectName(line_edit_name)
@@ -322,11 +320,13 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                         line_edit.setValidator(PyQt5.QtGui.QIntValidator(line_edit))
                     elif unit_model in ('points', 'teams', 'self'):
                         line_edit.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
+
+                    # рендеринг объектов
                     line_edit.show()
 
                 elif unit_type == 'edit_off':
-                    # QLineEdit
                     # общее описание полей
+                    # QLineEdit
                     line_edit_name = unit_name
                     line_edit = PyQt5.QtWidgets.QLineEdit(self)
                     line_edit.setObjectName(line_edit_name)
@@ -341,11 +341,16 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     # line_edit.setText(unit_name)
                     # line_edit.setText(str(unit_x) + '-' + str(unit_y) + '-' + str(unit_w) + '-' + str(unit_h))
                     # line_edit.setClearButtonEnabled(False)
+
+                    # дополнительное описание полей
+                    ...
+
+                    # рендеринг объектов
                     line_edit.show()
 
                 elif unit_type == 'combobox_on':
-                    # QComboBox
                     # общее описание полей
+                    # QComboBox
                     combo_box_name = unit_name
                     combo_box = PyQt5.QtWidgets.QComboBox(self)
                     combo_box.setObjectName(combo_box_name)
@@ -360,13 +365,15 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     # дополнительное описание полей
                     for zone in range(q_zone):
                         combo_box.addItem(zones[zone])
+
+                    # рендеринг объектов
                     combo_box.show()
 
                 elif unit_type == 'checkbox':
-                    # QCheckBox
                     # некоторые чекбоксы не нужны, поэтому не вывожу их на форму
                     if unit_name.split('_')[1] not in ('number', 'points', 'teams', 'self'):
                         # общее описание полей
+                        # QCheckBox
                         check_box_name = unit_name
                         check_box = PyQt5.QtWidgets.QCheckBox(self)
                         check_box.setObjectName(check_box_name)
@@ -378,10 +385,14 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                         check_box.clicked.connect(self.change_status_checkbox)
                         self.dict_all_units[check_box_name] = check_box
                         # check_box.setVisible(True)
+
+                        # дополнительное описание полей
+                        ...
+
+                        # рендеринг объектов
                         check_box.show()
 
                 elif unit_type == 'label':
-                    # QLabel
                     # хитрое вычисление текста строки label
                     # делается сначала словарь, потом из unit_name берётся второе слово и ищется в словаре
                     if 'zona' in unit_name:
@@ -394,6 +405,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                         counter = ''
 
                     # общее описание полей
+                    # QLabel
                     label_name = unit_name
                     label = PyQt5.QtWidgets.QLabel(self)
                     label.setObjectName(label_name)
@@ -405,10 +417,16 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                                      str(unit_w) + '-' + str(unit_h) + '\n' + label_text)
                     label.setGeometry(unit_x, unit_y, unit_w, unit_h)
                     self.dict_all_units[label_name] = label
+
                     # font = PyQt5.QtGui.QFont()
                     # font.setPointSize(8)
                     # label.setFont(font)
                     # label.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
+
+                    # дополнительное описание полей
+                    ...
+
+                    # показывание объектов
                     label.show()
 
     # изменения размера окна
@@ -456,7 +474,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         obj_cur_name = obj_cur.objectName().split('_')[1]
 
         # определение - какой чек бокс в какой колонке нажат
-        # пробегает по всем объектам, ищет по совпаданию в имени название колонки и реагирует
+        # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
         for unit in self.dict_all_units:
             obj_unit = self.dict_all_units[unit]
             obj_unit_col = unit.split('_')[-1]
