@@ -450,7 +450,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
         # изменение размера окна после рендеринга всех объектов устанавливается фиксированный размер,
         # чтобы все объекты входили в окно
-        # находится последний правый объект, берутся координаты и суммируются с длиной объекта и отступом справа и вниз,
+        #
+        # находится последний правый объект, берутся координаты
+        # и суммируются с длиной объекта и отступом справа и вниз,
         # но не менее чем минимальный размер по стороне
         new_width = list_objects[-1][-5] + list_objects[-1][-3] + gap_x
         if new_width < min_width:
@@ -480,24 +482,31 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
         # определение - какой чек бокс в какой колонке нажат
         if obj_cur_name == 'lottery':
-            # узнаю сколько строк(спортсменов), делаю список из номеров,
-            # перемешиваю, раскладываю по строкам
+            # количество спорсменов
+            q_anglers = SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers']
+            lottery_list = [x for x in range(1, q_anglers+1)]
+            random.shuffle(lottery_list)
 
-            # TODO
-            # сделать жеребьёвку
-            # random.shuffle()
+            # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
+            for unit, obj_unit in self.dict_all_units.items():
+                if 'sportik_lottery' in unit:
+                    # номер строки спортсмена
+                    obj_unit_row = int(unit.split('_')[2])
+                    # заполнение поля жеребьёвки соответствующим значением из списка жеребьёвок
+                    obj_unit.setText(str(lottery_list[obj_unit_row-1]))
 
-            # блокирую чекбокс потому, что жеребьёвка проводится один раз за соревнования
+            # блокирую и скрываю чекбокс потому, что жеребьёвка проводится один раз за соревнования
             if obj_cur.isChecked():
                 obj_cur.setEnabled(False)
+                obj_cur.setVisible(False)
 
         elif obj_cur_name in ('fio', 'team', 'rank', 'zona', 'period'):
             # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
-            # переписать через self.dict_all_units.items()
-            for unit in self.dict_all_units:
-                obj_unit = self.dict_all_units[unit]
+            for unit, obj_unit in self.dict_all_units.items():
+                # номер колонки
                 obj_unit_col = unit.split('_')[-1]
 
+                # поиск объектов из конкретной колонки
                 if (obj_cur_col == obj_unit_col) and (obj_unit.__class__ != PyQt5.QtWidgets.QCheckBox):
                     if obj_cur.isChecked():
                         obj_unit.setEnabled(False)
