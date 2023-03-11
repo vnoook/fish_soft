@@ -343,6 +343,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     # line_edit.setClearButtonEnabled(False)
 
                     # дополнительная обработка полей
+                    # !!!
+                    # заполнение номеров спортсменов, можно заменить на заполнение через количество спортиков q_anglers
                     unit_model = unit_name.split('_')[1]
                     if unit_model == 'number':
                         line_edit.setText(unit_name.split('_')[2])
@@ -488,8 +490,16 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     else:
                         obj_unit.setEnabled(True)
 
-            if obj_cur_name == 'lottery':
-                print(obj_unit)
+        if obj_cur_name == 'lottery':
+            if obj_cur.isChecked():
+                obj_unit.setEnabled(False)
+            # else:
+            #     obj_unit.setEnabled(True)
+
+            # узнаю сколько строк(спортсменов), делаю список из номеров,
+            # перемешиваю, раскладываю по строкам
+            print('проводим жеребьёвку')
+            # sample & shuffle
 
     # функция переназначения закрытия окна по X или Alt+F4
     def closeEvent(self, event) -> None:
