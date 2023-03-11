@@ -482,7 +482,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
         # определение - какой чек бокс в какой колонке нажат
         if obj_cur_name == 'lottery':
-            # количество спорсменов
+            # количество спортсменов
             q_anglers = SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers']
             lottery_list = [x for x in range(1, q_anglers+1)]
             random.shuffle(lottery_list)
