@@ -1,5 +1,6 @@
 import sys
 import os.path
+import random
 import PyQt5.QtGui
 import PyQt5.QtCore
 import PyQt5.QtWidgets
@@ -478,28 +479,33 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         obj_cur_name = obj_cur.objectName().split('_')[1]
 
         # определение - какой чек бокс в какой колонке нажат
-        # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
-        for unit in self.dict_all_units:
-            obj_unit = self.dict_all_units[unit]
-            obj_unit_col = unit.split('_')[-1]
+        if obj_cur_name == 'lottery':
+            # узнаю сколько строк(спортсменов), делаю список из номеров,
+            # перемешиваю, раскладываю по строкам
 
-            if (obj_cur_col == obj_unit_col) and (obj_unit.__class__ != PyQt5.QtWidgets.QCheckBox):
-                if obj_cur_name not in ('number', 'lottery', 'points', 'teams', 'self'):
+            # TODO
+            # сделать жеребьёвку
+            # random.shuffle()
+
+            # блокирую чекбокс потому, что жеребьёвка проводится один раз за соревнования
+            if obj_cur.isChecked():
+                obj_cur.setEnabled(False)
+
+        elif obj_cur_name in ('fio', 'team', 'rank', 'zona', 'period'):
+            # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
+            # переписать через self.dict_all_units.items()
+            for unit in self.dict_all_units:
+                obj_unit = self.dict_all_units[unit]
+                obj_unit_col = unit.split('_')[-1]
+
+                if (obj_cur_col == obj_unit_col) and (obj_unit.__class__ != PyQt5.QtWidgets.QCheckBox):
                     if obj_cur.isChecked():
                         obj_unit.setEnabled(False)
                     else:
                         obj_unit.setEnabled(True)
-
-        if obj_cur_name == 'lottery':
-            if obj_cur.isChecked():
-                obj_unit.setEnabled(False)
-            # else:
-            #     obj_unit.setEnabled(True)
-
-            # узнаю сколько строк(спортсменов), делаю список из номеров,
-            # перемешиваю, раскладываю по строкам
-            print('проводим жеребьёвку')
-            # sample & shuffle
+        else:
+            print(obj_cur_name)
+            pass
 
     # функция переназначения закрытия окна по X или Alt+F4
     def closeEvent(self, event) -> None:
