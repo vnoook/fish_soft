@@ -497,8 +497,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
             # блокирую и скрываю чекбокс потому, что жеребьёвка проводится один раз за соревнования
             if obj_cur.isChecked():
+                # возможно тут надо ещё и прятать чекбокс, но не уверен
                 obj_cur.setEnabled(False)
-                obj_cur.setVisible(False)
+                # obj_cur.setVisible(False)
 
         elif obj_cur_name in ('fio', 'team', 'rank', 'zona', 'period'):
             # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
@@ -508,6 +509,12 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
                 # поиск объектов из конкретной колонки
                 if (obj_cur_col == obj_unit_col) and (obj_unit.__class__ != PyQt5.QtWidgets.QCheckBox):
+
+                    if hasattr(obj_unit, 'text'):
+                        if obj_unit.text():
+                            print(unit, ' ... ', obj_unit.text())
+                            print()
+
                     if obj_cur.isChecked():
                         obj_unit.setEnabled(False)
                     else:
