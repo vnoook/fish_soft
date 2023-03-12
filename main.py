@@ -497,14 +497,13 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
             # блокирую и скрываю чекбокс потому, что жеребьёвка проводится один раз за соревнования
             if obj_cur.isChecked():
-                # возможно тут надо ещё и прятать чекбокс, но не уверен
+                # нужно ли прятать чекбокс или нет? пока буду прятать
                 obj_cur.setEnabled(False)
-                # obj_cur.setVisible(False)
+                obj_cur.setVisible(False)
 
         elif obj_cur_name in ('fio', 'team', 'rank', 'zona', 'period'):
             # получение флага заполненности колонки
             flag_fill = self.get_flag_fill_column(obj_cur_col)
-            print(flag_fill)
 
             # если все поля в колонке заполнены, то можно блокировать объекты
             if flag_fill:
@@ -513,19 +512,24 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     # номер колонки
                     obj_unit_col = unit.split('_')[-1]
 
-                    # поиск объектов из конкретной колонки
+                    # поиск конкретных объектов из конкретной колонки
                     if (obj_cur_col == obj_unit_col) and \
-                            ((obj_unit.__class__ != PyQt5.QtWidgets.QComboBox) or
-                             (obj_unit.__class__ != PyQt5.QtWidgets.QLineEdit)):
+                        ((obj_unit.__class__ == PyQt5.QtWidgets.QComboBox) or
+                        (obj_unit.__class__ == PyQt5.QtWidgets.QLineEdit)):
 
                         # блокировка или разблокировка объекта на форме
                         if obj_cur.isChecked():
                             obj_unit.setEnabled(False)
                         else:
                             obj_unit.setEnabled(True)
+
             else:
                 # если не всё заполнено, то возвращаю исходное состояние чекбокса
                 obj_cur.setChecked(False)
+                # информационное окно про полное заполнение колонки
+                PyQt5.QtWidgets.QMessageBox.information(self, 'Блокировка не получилась',
+                                                             f'Заполните все поля в колонке')
+
         else:
             print(obj_cur_name)
             pass
@@ -962,3 +966,6 @@ if __name__ == '__main__':
 #         print(f'... {i} ... {getattr(event, i, None)}')
 #         print('_' * 45)
 # print()
+
+# # информационное окно про полное заполнение колонки
+# PyQt5.QtWidgets.QMessageBox.information(self, 'ошибка', f'инфо текст')
