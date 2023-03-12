@@ -480,7 +480,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         obj_cur_col = obj_cur.objectName().split('_')[-1]
         obj_cur_name = obj_cur.objectName().split('_')[1]
 
-        # определение - какой чек бокс в какой колонке нажат
+        # определение - какой чекбокс в какой колонке нажат
         if obj_cur_name == 'lottery':
             # количество спортсменов
             q_anglers = SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers']
@@ -502,26 +502,60 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                 # obj_cur.setVisible(False)
 
         elif obj_cur_name in ('fio', 'team', 'rank', 'zona', 'period'):
-            # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
-            for unit, obj_unit in self.dict_all_units.items():
-                # номер колонки
-                obj_unit_col = unit.split('_')[-1]
+            # получение флага заполненности колонки
+            flag_fill = self.get_flag_fill_column(obj_cur_col)
 
-                # поиск объектов из конкретной колонки
-                if (obj_cur_col == obj_unit_col) and (obj_unit.__class__ != PyQt5.QtWidgets.QCheckBox):
+            # если все поля в колонке заполнены, то можно блокировать объекты
+            if flag_fill:
+                # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
+                for unit, obj_unit in self.dict_all_units.items():
+                    # номер колонки
+                    obj_unit_col = unit.split('_')[-1]
 
-                    if hasattr(obj_unit, 'text'):
-                        if obj_unit.text():
-                            print(unit, ' ... ', obj_unit.text())
-                            print()
+                    # поиск объектов из конкретной колонки
+                    if (obj_cur_col == obj_unit_col) and (obj_unit.__class__ == PyQt5.QtWidgets.QLineEdit):
 
-                    if obj_cur.isChecked():
-                        obj_unit.setEnabled(False)
-                    else:
-                        obj_unit.setEnabled(True)
+                        # блокировка или разблокировка объекта на форме
+                        if obj_cur.isChecked():
+                            obj_unit.setEnabled(False)
+                        else:
+                            obj_unit.setEnabled(True)
+            else:
+                obj_cur.setChecked(False)
         else:
             print(obj_cur_name)
             pass
+
+    # функция определения заполнены ли все объекты в колонке
+    def get_flag_fill_column(self, cur_column) -> bool:
+        """Функция определения заполнены ли все объекты в колонке"""
+        print(self.get_flag_fill_column.__name__) if DEBUG else ...
+
+        # список для хранения заполненности объекта в колонке
+        list_of_fill_col = []
+
+        for unit, obj_unit in self.dict_all_units.items():
+            # номер колонки
+            obj_unit_col = unit.split('_')[-1]
+
+            # поиск объектов из конкретной колонки
+            if (cur_column == obj_unit_col) and \
+                    (obj_unit.__class__ != PyQt5.QtWidgets.QCheckBox) and \
+                    (obj_unit.__class__ != PyQt5.QtWidgets.QLabel):
+
+                # проверка на пустоту значения объекта
+                # если у объекта есть параметр который содержит визуальное значение (text или item)
+                # то - если не пустое пишется True, иначе False
+                if hasattr(obj_unit, 'text'):
+                    list_of_fill_col.append(True if obj_unit.text() else False)
+                elif hasattr(obj_unit, 'itemText'):
+                    list_of_fill_col.append(True if obj_unit.currentText() else False)
+
+        # print(list_of_fill_col)
+        # установка флага заполненности колонки
+        flag_fill_col = True if all(list_of_fill_col) else False
+
+        return flag_fill_col
 
     # функция переназначения закрытия окна по X или Alt+F4
     def closeEvent(self, event) -> None:
