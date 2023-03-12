@@ -504,6 +504,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         elif obj_cur_name in ('fio', 'team', 'rank', 'zona', 'period'):
             # получение флага заполненности колонки
             flag_fill = self.get_flag_fill_column(obj_cur_col)
+            print(flag_fill)
 
             # если все поля в колонке заполнены, то можно блокировать объекты
             if flag_fill:
@@ -513,7 +514,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     obj_unit_col = unit.split('_')[-1]
 
                     # поиск объектов из конкретной колонки
-                    if (obj_cur_col == obj_unit_col) and (obj_unit.__class__ == PyQt5.QtWidgets.QLineEdit):
+                    if (obj_cur_col == obj_unit_col) and \
+                            ((obj_unit.__class__ != PyQt5.QtWidgets.QComboBox) or
+                             (obj_unit.__class__ != PyQt5.QtWidgets.QLineEdit)):
 
                         # блокировка или разблокировка объекта на форме
                         if obj_cur.isChecked():
@@ -521,6 +524,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                         else:
                             obj_unit.setEnabled(True)
             else:
+                # если не всё заполнено, то возвращаю исходное состояние чекбокса
                 obj_cur.setChecked(False)
         else:
             print(obj_cur_name)
@@ -540,8 +544,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
             # поиск объектов из конкретной колонки
             if (cur_column == obj_unit_col) and \
-                    (obj_unit.__class__ != PyQt5.QtWidgets.QCheckBox) and \
-                    (obj_unit.__class__ != PyQt5.QtWidgets.QLabel):
+                    ((obj_unit.__class__ == PyQt5.QtWidgets.QComboBox) or
+                     (obj_unit.__class__ == PyQt5.QtWidgets.QLineEdit)):
 
                 # проверка на пустоту значения объекта
                 # если у объекта есть параметр который содержит визуальное значение (text или item)
