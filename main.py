@@ -601,27 +601,31 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
             # процесс выхода из программы
             self.exit_common()
-        elif event.key() == PyQt5.QtCore.Qt.Key_Up:
-            print('UP')
-        elif event.key() == PyQt5.QtCore.Qt.Key_Down:
-            print('DOWN')
-        elif event.key() == PyQt5.QtCore.Qt.Key_Left:
-            print('LEFT')
-        elif event.key() == PyQt5.QtCore.Qt.Key_Right:
-            print('RIGHT')
-        elif event.key() == PyQt5.QtCore.Qt.Key_Enter:
-            # EnterKeyDefault
-            # 16777220
-            # 16777221
-            print('ENTER 16777220')
-        else:
-            print('pressed key: ' + str(event.key()))
-            # print(f'{event.key().as_integer_ratio() = } ... {event.key().bit_length() = }')
-            # print(f'{event.key().conjugate() = } ... {event.key().denominator = }')
-            # print(f'{event.key().numerator = } ... {event.key().real = }')
-            # print(f'{event.key().imag = }')
 
-        # print('pressed key: ' + str(event.key()))
+        elif event.key() == PyQt5.QtCore.Qt.Key_Up:
+            print('Key_Up ... ', event.key().numerator)
+        elif event.key() == PyQt5.QtCore.Qt.Key_Down:
+            print('Key_Down ... ', event.key().numerator)
+        elif event.key() == PyQt5.QtCore.Qt.Key_Left:
+            print('Key_Left ... ', event.key().numerator)
+        elif event.key() == PyQt5.QtCore.Qt.Key_Right:
+            print('Key_Right ... ', event.key().numerator)
+
+        elif event.key() == PyQt5.QtCore.Qt.Key_Enter:   # 16777221 right
+            print('Key_Enter ... ', event.key().numerator)
+        elif event.key() == 16777220:    # 16777220 left
+            print('Key 16777220 ... ', event.key().numerator)
+
+        else:
+            print('another key ... ', event.key().numerator)
+
+        # print(self.focusInEvent())
+        # print(self.focusOutEvent())
+        # print(self.focusPolicy())
+        print(self.focusWidget().objectName(), self.focusWidget())
+        # print(self.clearFocus())
+        print(self.hasFocus())
+        # print(self.setFocus())
 
         super().keyPressEvent(event)
 
@@ -969,3 +973,9 @@ if __name__ == '__main__':
 
 # # информационное окно про полное заполнение колонки
 # PyQt5.QtWidgets.QMessageBox.information(self, 'ошибка', f'инфо текст')
+
+# print(f'{event.key().as_integer_ratio() = } ... {event.key().bit_length() = }')
+# print(f'{event.key().conjugate() = } ... {event.key().denominator = }')
+# print(f'{event.key().numerator = } ... {event.key().real = }')
+# print(f'{event.key().imag = }')
+
