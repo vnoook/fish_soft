@@ -614,16 +614,20 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
         elif event.key() == PyQt5.QtCore.Qt.Key_Up:
             print('Key_Up ... ', event.key().numerator)
+            self.shift_focus_on_key(unit_name)
         elif event.key() == PyQt5.QtCore.Qt.Key_Down:
             print('Key_Down ... ', event.key().numerator)
+            self.shift_focus_on_key(unit_name)
         elif event.key() == PyQt5.QtCore.Qt.Key_Left:
             print('Key_Left ... ', event.key().numerator)
         elif event.key() == PyQt5.QtCore.Qt.Key_Right:
             print('Key_Right ... ', event.key().numerator)
         elif event.key() == PyQt5.QtCore.Qt.Key_Enter:
             print('Key_Enter (rightEnter) ... ', event.key().numerator)
+            self.shift_focus_on_key(unit_name)
         elif event.key() == PyQt5.QtCore.Qt.Key_Return:
             print('Key_Return (leftEnter) ... ', event.key().numerator)
+            self.shift_focus_on_key(unit_name)
         else:
             print('unknown ... ', event.key().numerator)
 
@@ -660,12 +664,13 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             return obj.split('_')[3]
 
     # функция смещения фокуса на форме по рекции клавиш клавиатуры
-    def shift_on_key(self, obj) -> None:
+    def shift_focus_on_key(self, obj) -> None:
         """Функция смещения фокуса на форме по рекции клавиш клавиатуры"""
         print(self.shift_on_key.__name__) if DEBUG else ...
 
-
-
+        print('смещаю фокус')
+        print(obj)
+        self.dict_all_units['sportik_fio_3_3'].setFocus()
 
     # функция получения координат и запись их в переменную экземпляр класса
     def get_coords(self) -> None:
