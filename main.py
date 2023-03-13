@@ -12,6 +12,7 @@ else:
 
 import tomli_w
 import fish_consts as fcs
+
 # from pprint import pprint as pp
 
 
@@ -149,6 +150,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         if not self.dict_all_units:
             # генерация объектов для ввода данных по соревнованиям
             self.render_objects_main_window()
+
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     # функция по открытию меню Файл-Открыть
@@ -264,13 +266,13 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # print(*list_of_units, sep='\n')
 
         # вставка на форму объектов
-        q_steps = 6                                              # количество шагов считывания из списка
+        q_steps = 6  # количество шагов считывания из списка
         for unit_sting in list_of_units:
             # временный счётчик для добавления к описанию - порядковый номер описания
             counter_zona = 0
             counter_period = 0
             for i in range(0, len(unit_sting), q_steps):
-                unit = unit_sting[i:(i+q_steps)]
+                unit = unit_sting[i:(i + q_steps)]
 
                 # переменные из разделения списка на составляющие
                 unit_name = unit[0]
@@ -382,7 +384,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                         check_box_name = unit_name
                         check_box = PyQt5.QtWidgets.QCheckBox(self)
                         check_box.setObjectName(check_box_name)
-                        check_box.setText(' '*unit_w)
+                        check_box.setText(' ' * unit_w)
                         check_box.setToolTip(check_box.objectName() + '\n' +
                                              str(unit_x) + '-' + str(unit_y) + '-' +
                                              str(unit_w) + '-' + str(unit_h))
@@ -485,7 +487,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         if obj_cur_name == 'lottery':
             # количество спортсменов
             q_anglers = SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers']
-            lottery_list = [x for x in range(1, q_anglers+1)]
+            lottery_list = [x for x in range(1, q_anglers + 1)]
             random.shuffle(lottery_list)
 
             # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
@@ -494,7 +496,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     # номер строки спортсмена
                     obj_unit_row = int(unit.split('_')[2])
                     # заполнение поля жеребьёвки соответствующим значением из списка жеребьёвок
-                    obj_unit.setText(str(lottery_list[obj_unit_row-1]))
+                    obj_unit.setText(str(lottery_list[obj_unit_row - 1]))
 
             # блокирую и скрываю чекбокс потому, что жеребьёвка проводится один раз за соревнования
             if obj_cur.isChecked():
@@ -515,8 +517,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
                     # поиск конкретных объектов из конкретной колонки
                     if (obj_cur_col == obj_unit_col) and \
-                        ((obj_unit.__class__ == PyQt5.QtWidgets.QComboBox) or
-                        (obj_unit.__class__ == PyQt5.QtWidgets.QLineEdit)):
+                            ((obj_unit.__class__ == PyQt5.QtWidgets.QComboBox) or
+                             (obj_unit.__class__ == PyQt5.QtWidgets.QLineEdit)):
 
                         # блокировка или разблокировка объекта на форме
                         if obj_cur.isChecked():
@@ -529,7 +531,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                 obj_cur.setChecked(False)
                 # информационное окно про полное заполнение колонки
                 PyQt5.QtWidgets.QMessageBox.information(self, 'Блокировка не получилась',
-                                                             f'Заполните все поля в колонке')
+                                                        f'Заполните все поля в колонке')
 
         else:
             print(obj_cur_name)
@@ -588,7 +590,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.get_coords()
 
     # функция переназначения нажатия клавиш в главном окне
-    def keyPressEvent(self, event):
+    def keyPressEvent(self, event) -> None:
         """Функция переназначения нажатия клавиш в главном окне"""
         print(self.keyPressEvent.__name__) if DEBUG else ...
 
@@ -612,9 +614,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         elif event.key() == PyQt5.QtCore.Qt.Key_Right:
             print('Key_Right ... ', event.key().numerator)
 
-        elif event.key() == PyQt5.QtCore.Qt.Key_Enter:        # 16777221 rightEnter
+        elif event.key() == PyQt5.QtCore.Qt.Key_Enter:  # 16777221 rightEnter
             print('Key_Enter (rightEnter) ... ', event.key().numerator)
-        elif event.key() == PyQt5.QtCore.Qt.Key_Return:       # 16777220 leftEnter
+        elif event.key() == PyQt5.QtCore.Qt.Key_Return:  # 16777220 leftEnter
             print('Key_Return (leftEnter) ... ', event.key().numerator)
             print(event.modifiers())
 
@@ -627,6 +629,16 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # print(self.setFocus())
 
         super().keyPressEvent(event)
+
+    # функция переназначения нажатия мыши в главном окне
+    def mousePressEvent(self, event) -> None:
+        """Функция переназначения нажатия мыши в главном окне"""
+        print(self.mousePressEvent.__name__) if DEBUG else ...
+
+        # print('pressed key: ' + str(event.button()))
+        # if event.button() == PyQt5.QtCore.Qt.LeftButton:
+        #     print('pressed key: ' + str(event.button()))
+        # super().mousePressEvent(event)
 
     # функция получения номера колонки из названия объекта на форме
     def get_num_col_of_unit(self, obj) -> str:
@@ -641,16 +653,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             return obj.split('_')[2]
         elif obj_name_col == 'sportik':
             return obj.split('_')[3]
-
-    # функция переназначения нажатия мыши в главном окне
-    def mousePressEvent(self, event):
-        """Функция переназначения нажатия мыши в главном окне"""
-        print(self.mousePressEvent.__name__) if DEBUG else ...
-
-        # print('pressed key: ' + str(event.button()))
-        # if event.button() == PyQt5.QtCore.Qt.LeftButton:
-        #     print('pressed key: ' + str(event.button()))
-        # super().mousePressEvent(event)
 
     # функция получения координат и запись их в переменную экземпляр класса
     def get_coords(self) -> None:
@@ -793,7 +795,7 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
     field_height = field_h
     # точка начала отчёта
     start_dot_x = start_x
-    start_dot_y = start_y + 2*gap_y + 2*field_height    # сдвиг для добавления вверх описаний и чекбоксов
+    start_dot_y = start_y + 2 * gap_y + 2 * field_height  # сдвиг для добавления вверх описаний и чекбоксов
     # количество спортиков
     q_sportiks = q_sportsmen
     # шаг по вертикали, далее по коду будет изменяться
@@ -985,10 +987,9 @@ if __name__ == '__main__':
 # print()
 
 # # информационное окно про полное заполнение колонки
-# PyQt5.QtWidgets.QMessageBox.information(self, 'ошибка', f'инфо текст')
+# PyQt5.QtWidgets.QMessageBox.information(self, "ошибка", f"инфо текст")
 
 # print(f'{event.key().as_integer_ratio() = } ... {event.key().bit_length() = }')
 # print(f'{event.key().conjugate() = } ... {event.key().denominator = }')
 # print(f'{event.key().numerator = } ... {event.key().real = }')
 # print(f'{event.key().imag = }')
-
