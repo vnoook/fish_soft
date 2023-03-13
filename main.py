@@ -612,17 +612,16 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         elif event.key() == PyQt5.QtCore.Qt.Key_Right:
             print('Key_Right ... ', event.key().numerator)
 
-        elif event.key() == PyQt5.QtCore.Qt.Key_Enter:        # 16777221 right
-            print('Key_Enter right ... ', event.key().numerator)
-        elif event.key() == 16777220:                         # 16777220 left
-            print('Key_Enter left ... ', event.key().numerator)
+        elif event.key() == PyQt5.QtCore.Qt.Key_Enter:        # 16777221 rightEnter
+            print('Key_Enter (rightEnter) ... ', event.key().numerator)
+        elif event.key() == PyQt5.QtCore.Qt.Key_Return:       # 16777220 leftEnter
+            print('Key_Return (leftEnter) ... ', event.key().numerator)
+            print(event.modifiers())
 
         else:
             print('another key ... ', event.key().numerator)
 
-        print(True if self.focusWidget().objectName() in self.dict_all_units else False)
-        print(self.focusWidget().objectName(), self.focusWidget())
-        print(self.get_num_col_of_unit(self.focusWidget().objectName()))
+        # print(self.focusWidget().objectName(), self.focusWidget())
         # print(self.clearFocus())
         # print(self.hasFocus())
         # print(self.setFocus())
