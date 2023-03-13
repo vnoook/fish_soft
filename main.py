@@ -594,9 +594,16 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         """Функция переназначения нажатия клавиш в главном окне"""
         print(self.keyPressEvent.__name__) if DEBUG else ...
 
+        # имя объекта, который послал событие
+        unit_name = self.focusWidget().objectName()
+        # колонка объекта, который послал событие
+        unit_col = self.get_num_col_of_unit(unit_name)
+        # количество спортсменов, нужно для определения движения фокуса по строкам
+        q_anglers = SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers']
+
         # выбор нажатой кнопки
         if event.key() == PyQt5.QtCore.Qt.Key_Escape:
-            print('ESC')
+            print('Key_Escape ... ', event.key().numerator)
 
             # TODO
             # написать выбор выхода из программы ДА-НЕТ
@@ -613,20 +620,18 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             print('Key_Left ... ', event.key().numerator)
         elif event.key() == PyQt5.QtCore.Qt.Key_Right:
             print('Key_Right ... ', event.key().numerator)
-
-        elif event.key() == PyQt5.QtCore.Qt.Key_Enter:  # 16777221 rightEnter
+        elif event.key() == PyQt5.QtCore.Qt.Key_Enter:
             print('Key_Enter (rightEnter) ... ', event.key().numerator)
-        elif event.key() == PyQt5.QtCore.Qt.Key_Return:  # 16777220 leftEnter
+        elif event.key() == PyQt5.QtCore.Qt.Key_Return:
             print('Key_Return (leftEnter) ... ', event.key().numerator)
-            print(event.modifiers())
-
         else:
-            print('another key ... ', event.key().numerator)
+            print('unknown ... ', event.key().numerator)
 
         # print(self.focusWidget().objectName(), self.focusWidget())
         # print(self.clearFocus())
         # print(self.hasFocus())
         # print(self.setFocus())
+        # print(event.modifiers())
 
         super().keyPressEvent(event)
 
@@ -653,6 +658,14 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             return obj.split('_')[2]
         elif obj_name_col == 'sportik':
             return obj.split('_')[3]
+
+    # функция смещения фокуса на форме по рекции клавиш клавиатуры
+    def shift_on_key(self, obj) -> None:
+        """Функция смещения фокуса на форме по рекции клавиш клавиатуры"""
+        print(self.shift_on_key.__name__) if DEBUG else ...
+
+
+
 
     # функция получения координат и запись их в переменную экземпляр класса
     def get_coords(self) -> None:
