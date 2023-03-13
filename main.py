@@ -477,8 +477,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
         # узнать на какой колонке нажато, заблочено или нет, и заблочить или разблочить колонку
         obj_cur = self.sender()
-        obj_cur_col = obj_cur.objectName().split('_')[-1]
         obj_cur_name = obj_cur.objectName().split('_')[1]
+
+        obj_cur_col = obj_cur.objectName().split('_')[-1]
 
         # определение - какой чекбокс в какой колонке нажат
         if obj_cur_name == 'lottery':
@@ -611,23 +612,36 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         elif event.key() == PyQt5.QtCore.Qt.Key_Right:
             print('Key_Right ... ', event.key().numerator)
 
-        elif event.key() == PyQt5.QtCore.Qt.Key_Enter:   # 16777221 right
-            print('Key_Enter ... ', event.key().numerator)
-        elif event.key() == 16777220:    # 16777220 left
-            print('Key 16777220 ... ', event.key().numerator)
+        elif event.key() == PyQt5.QtCore.Qt.Key_Enter:        # 16777221 right
+            print('Key_Enter right ... ', event.key().numerator)
+        elif event.key() == 16777220:                         # 16777220 left
+            print('Key_Enter left ... ', event.key().numerator)
 
         else:
             print('another key ... ', event.key().numerator)
 
-        # print(self.focusInEvent())
-        # print(self.focusOutEvent())
-        # print(self.focusPolicy())
+        print(True if self.focusWidget().objectName() in self.dict_all_units else False)
         print(self.focusWidget().objectName(), self.focusWidget())
+        print(self.get_num_col_of_unit(self.focusWidget().objectName()))
         # print(self.clearFocus())
-        print(self.hasFocus())
+        # print(self.hasFocus())
         # print(self.setFocus())
 
         super().keyPressEvent(event)
+
+    # функция получения номера колонки из названия объекта на форме
+    def get_num_col_of_unit(self, obj) -> str:
+        """Функция получения номера колонки из названия объекта на форме"""
+        print(self.get_num_col_of_unit.__name__) if DEBUG else ...
+
+        # получаю имя колонки по первому вхождению в имя объекта
+        obj_name_col = obj.split('_')[0]
+
+        # получение номера колонки (тип - текстовый)
+        if obj_name_col in ('checkbox', 'label'):
+            return obj.split('_')[2]
+        elif obj_name_col == 'sportik':
+            return obj.split('_')[3]
 
     # функция переназначения нажатия мыши в главном окне
     def mousePressEvent(self, event):
