@@ -613,21 +613,21 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             self.exit_common()
 
         elif event.key() == PyQt5.QtCore.Qt.Key_Up:
-            print('Key_Up ... ', event.key().numerator)
-            self.shift_focus_on_key(unit_name)
+            # print('Key_Up ... ', event.key().numerator)
+            self.shift_focus_up(unit_name)
         elif event.key() == PyQt5.QtCore.Qt.Key_Down:
-            print('Key_Down ... ', event.key().numerator)
-            self.shift_focus_on_key(unit_name)
+            # print('Key_Down ... ', event.key().numerator)
+            self.shift_focus_down(unit_name)
         elif event.key() == PyQt5.QtCore.Qt.Key_Left:
             print('Key_Left ... ', event.key().numerator)
         elif event.key() == PyQt5.QtCore.Qt.Key_Right:
             print('Key_Right ... ', event.key().numerator)
         elif event.key() == PyQt5.QtCore.Qt.Key_Enter:
-            print('Key_Enter (rightEnter) ... ', event.key().numerator)
-            self.shift_focus_on_key(unit_name)
+            # print('Key_Enter (rightEnter) ... ', event.key().numerator)
+            self.shift_focus_down(unit_name)
         elif event.key() == PyQt5.QtCore.Qt.Key_Return:
-            print('Key_Return (leftEnter) ... ', event.key().numerator)
-            self.shift_focus_on_key(unit_name)
+            # print('Key_Return (leftEnter) ... ', event.key().numerator)
+            self.shift_focus_down(unit_name)
         else:
             print('unknown ... ', event.key().numerator)
 
@@ -664,13 +664,50 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             return obj.split('_')[3]
 
     # функция смещения фокуса на форме по рекции клавиш клавиатуры
-    def shift_focus_on_key(self, obj) -> None:
+    def shift_focus_down(self, obj) -> None:
         """Функция смещения фокуса на форме по рекции клавиш клавиатуры"""
-        print(self.shift_on_key.__name__) if DEBUG else ...
+        print(self.shift_focus_down.__name__) if DEBUG else ...
 
-        print('смещаю фокус')
-        print(obj)
-        self.dict_all_units['sportik_fio_3_3'].setFocus()
+        # переменная для определения прыжка в начало строк
+        q_anglers = SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers']
+
+        # временный список разделения строки имени объекта
+        temp_list = obj.split('_')
+
+        # опеределение следующего номера строки
+        if int(temp_list[2]) >= int(q_anglers):
+            temp_list[2] = '1'
+        else:
+            temp_list[2] = str(int(temp_list[2])+1)
+
+        # сбор нового имени объекта
+        new_temp_list = '_'.join(temp_list)
+
+        # смещение фокуса на новый объект
+        self.dict_all_units[new_temp_list].setFocus()
+
+    # функция смещения фокуса на форме по рекции клавиш клавиатуры
+    def shift_focus_up(self, obj) -> None:
+        """Функция смещения фокуса на форме по рекции клавиш клавиатуры"""
+        print(self.shift_focus_up.__name__) if DEBUG else ...
+
+        # переменная для определения прыжка в начало строк
+        q_anglers = SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers']
+
+        # временный список разделения строки имени объекта
+        temp_list = obj.split('_')
+
+        # опеределение следующего номера строки
+        if int(temp_list[2]) <= 1:
+            temp_list[2] = str(q_anglers)
+        else:
+            temp_list[2] = str(int(temp_list[2])-1)
+
+        # сбор нового имени объекта
+        new_temp_list = '_'.join(temp_list)
+
+        # смещение фокуса на новый объект
+        self.dict_all_units[new_temp_list].setFocus()
 
     # функция получения координат и запись их в переменную экземпляр класса
     def get_coords(self) -> None:
