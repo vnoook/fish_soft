@@ -668,46 +668,48 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         """Функция смещения фокуса на форме по рекции клавиш клавиатуры"""
         print(self.shift_focus_down.__name__) if DEBUG else ...
 
-        # переменная для определения прыжка в начало строк
-        q_anglers = SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers']
-
         # временный список разделения строки имени объекта
         temp_list = obj.split('_')
 
-        # опеределение следующего номера строки
-        if int(temp_list[2]) >= int(q_anglers):
-            temp_list[2] = '1'
-        else:
-            temp_list[2] = str(int(temp_list[2])+1)
+        if temp_list[0] == 'sportik':
+            # переменная для определения прыжка в начало строк
+            q_anglers = SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers']
 
-        # сбор нового имени объекта
-        new_temp_list = '_'.join(temp_list)
+            # опеределение следующего номера строки
+            if int(temp_list[2]) >= int(q_anglers):
+                temp_list[2] = '1'
+            else:
+                temp_list[2] = str(int(temp_list[2])+1)
 
-        # смещение фокуса на новый объект
-        self.dict_all_units[new_temp_list].setFocus()
+            # сбор нового имени объекта
+            new_temp_list = '_'.join(temp_list)
+
+            # смещение фокуса на новый объект
+            self.dict_all_units[new_temp_list].setFocus()
 
     # функция смещения фокуса на форме по рекции клавиш клавиатуры
     def shift_focus_up(self, obj) -> None:
         """Функция смещения фокуса на форме по рекции клавиш клавиатуры"""
         print(self.shift_focus_up.__name__) if DEBUG else ...
 
-        # переменная для определения прыжка в начало строк
-        q_anglers = SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers']
-
         # временный список разделения строки имени объекта
         temp_list = obj.split('_')
 
-        # опеределение следующего номера строки
-        if int(temp_list[2]) <= 1:
-            temp_list[2] = str(q_anglers)
-        else:
-            temp_list[2] = str(int(temp_list[2])-1)
+        if temp_list[0] == 'sportik':
+            # переменная для определения прыжка в начало строк
+            q_anglers = SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers']
 
-        # сбор нового имени объекта
-        new_temp_list = '_'.join(temp_list)
+            # опеределение следующего номера строки
+            if int(temp_list[2]) <= 1:
+                temp_list[2] = str(q_anglers)
+            else:
+                temp_list[2] = str(int(temp_list[2])-1)
 
-        # смещение фокуса на новый объект
-        self.dict_all_units[new_temp_list].setFocus()
+            # сбор нового имени объекта
+            new_temp_list = '_'.join(temp_list)
+
+            # смещение фокуса на новый объект
+            self.dict_all_units[new_temp_list].setFocus()
 
     # функция получения координат и запись их в переменную экземпляр класса
     def get_coords(self) -> None:
