@@ -18,15 +18,15 @@ SETT_DEF_SOFT = {
         'COMP_q_tur': 2,
         'COMP_q_period': 4,
         'COMP_q_zone': 2,
-        'COMP_q_sector': 1,
-        'COMP_d_period': 45,
+        # 'COMP_q_sector': 1,
+        # 'COMP_d_period': 45,
         'COMP_q_anglers': 10},
     'misc': {}
 }
 
 # константы для работы программе, остаются в памяти
 SETT_DEF_COMMON = {
-    'version': '0.1.9',
+    'version': '0.1.10',
     'window_name_main': 'ЧСВ - НХНЧ',
     'about_text': 'Чтобы Соревнования Выиграть - "Ни хвоста, Ни чешуи"',
     'window_name_set_comp': 'Настройки соревнования',
@@ -34,7 +34,7 @@ SETT_DEF_COMMON = {
     'window_name_about': 'О программе',
     # 'soft_db_file': 'db_competition.db',
     'file_settings_soft': 'fish_settings.toml',
-    'name_of_zone': ['Зона А', 'Зона Б', 'Зона В', 'Зона Г', 'Зона Д', 'Зона Е', 'Зона Ж', 'Зона З'],
+    'name_of_zone': ['Зона А', 'Зона Б', 'Зона В', 'Зона Г', 'Зона Д', 'Зона Е', 'Зона Ж', 'Зона З', 'Зона И'],
     # 'name_of_sector': 'Сектор XXX',    # Сектор 1, Сектор 2, Сектор 3 ...
     'form_sizes': {
         'min_width': 300,

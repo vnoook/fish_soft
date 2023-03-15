@@ -318,7 +318,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     elif unit_model == 'team':
                         line_edit.setMaxLength(20)
                     elif unit_model == 'period':
-                        line_edit.setMaxLength(4)
+                        line_edit.setMaxLength(5)
                         line_edit.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
                         line_edit.setValidator(PyQt5.QtGui.QIntValidator(line_edit))
                     elif unit_model in ('points', 'teams', 'self'):
@@ -630,12 +630,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             self.shift_focus_down(unit_name)
         else:
             print('unknown ... ', event.key().numerator)
-
-        # print(self.focusWidget().objectName(), self.focusWidget())
-        # print(self.clearFocus())
-        # print(self.hasFocus())
-        # print(self.setFocus())
-        # print(event.modifiers())
 
         super().keyPressEvent(event)
 
@@ -1050,3 +1044,8 @@ if __name__ == '__main__':
 # print(f'{event.key().conjugate() = } ... {event.key().denominator = }')
 # print(f'{event.key().numerator = } ... {event.key().real = }')
 # print(f'{event.key().imag = }')
+
+# print(self.clearFocus())
+# print(self.hasFocus())
+# print(self.setFocus())
+# print(event.modifiers())
