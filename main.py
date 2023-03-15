@@ -133,7 +133,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
     # функция очистки главного окна от объектов
     def del_form_units(self) -> None:
         """Функция очистки главного окна от объектов"""
-        print(self.clean_form.__name__) if DEBUG else ...
+        print(self.del_form_units.__name__) if DEBUG else ...
 
         # если словарь с объектами не пуст, то удалить все объекты в нём и очистить его
         if self.dict_all_units:
@@ -263,7 +263,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
         # изменения размера окна под объекты из списка объектов
         self.resize_main_windows_for_render(list_of_units)
-        # print(*list_of_units, sep='\n')
 
         # вставка на форму объектов
         q_steps = 6  # количество шагов считывания из списка
@@ -439,7 +438,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
     # изменения размера окна
     def resize_main_windows_for_render(self, list_objects: list) -> None:
         """Изменения размера окна"""
-        print(self.render_objects_main_window.__name__) if DEBUG else ...
+        print(self.resize_main_windows_for_render.__name__) if DEBUG else ...
 
         rez_x = SETTINGS_DATA_DEF['settings_soft']['screen_resolution_x']
         rez_y = SETTINGS_DATA_DEF['settings_soft']['screen_resolution_y']
@@ -534,7 +533,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                                                         f'Заполните все поля в колонке')
 
         else:
-            print(obj_cur_name)
+            # print(obj_cur_name)
             pass
 
     # функция определения заполнены ли все объекты в колонке
@@ -562,7 +561,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                 elif hasattr(obj_unit, 'itemText'):
                     list_of_fill_col.append(True if obj_unit.currentText() else False)
 
-        # print(list_of_fill_col)
         # установка флага заполненности колонки
         flag_fill_col = True if all(list_of_fill_col) else False
 
@@ -603,7 +601,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
         # выбор нажатой кнопки
         if event.key() == PyQt5.QtCore.Qt.Key_Escape:
-            print('Key_Escape ... ', event.key().numerator)
+            # print('Key_Escape ... ', event.key().numerator)
 
             # TODO
             # написать выбор выхода из программы ДА-НЕТ
@@ -1029,6 +1027,7 @@ if __name__ == '__main__':
     run()
 
 # print(*list_of_fields, sep='\n')
+# print(*list_of_units, sep='\n')
 
 # print()
 # for i in dir(event):
