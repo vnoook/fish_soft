@@ -13,7 +13,7 @@ else:
 import tomli_w
 import fish_consts as fcs
 
-# from pprint import pprint as pp
+from pprint import pprint as pp
 
 
 # определение констант
@@ -529,6 +529,14 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                         else:
                             obj_unit.setEnabled(True)
 
+                # действия после блокировки колонки - расчёт очков в периоде
+                if obj_cur_name == 'period':
+                    # если нужные колонки тоже заблокированы, то можно делать расчёт
+                    if self.check_for_calc():
+                        self.calc_period(obj_cur)
+                        # ('fio', 'team', 'rank', 'zona', 'period')
+                        # checkbox_fio_3, checkbox_team_4, checkbox_rank_5, checkbox_zona_6
+
             else:
                 # если не всё заполнено, то возвращаю исходное состояние чекбокса
                 obj_cur.setChecked(False)
@@ -540,10 +548,20 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             # print(obj_cur_name)
             pass
 
-        if obj_cur_name == 'period':
-            print(obj_cur.objectName())
-            # ('fio', 'team', 'rank', 'zona', 'period')
-            # checkbox_fio_3, checkbox_team_4, checkbox_rank_5, checkbox_zona_6
+
+    # функция проверки блокировки нужных колонок перед расчётом
+    def check_for_calc(self) -> bool:
+        """Функция проверки блокировки нужных колонок перед расчётом"""
+        print(self.check_for_calc.__name__) if DEBUG else ...
+
+        return True
+
+    # функция расчёта очков в периоде
+    def calc_period(self, cacl_column):
+        """Функция расчёта очков в периоде"""
+        print(self.calc_period.__name__) if DEBUG else ...
+
+        print('расчёт очков в периоде', cacl_column.objectName(), cacl_column)
 
     # функция определения заполнены ли все объекты в колонке
     def get_flag_fill_column(self, cur_column) -> bool:
