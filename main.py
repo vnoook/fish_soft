@@ -479,9 +479,11 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         print(self.change_status_checkbox.__name__) if DEBUG else ...
 
         # узнать на какой колонке нажато, заблочено или нет, и заблочить или разблочить колонку
+        # объект, который послал событие
         obj_cur = self.sender()
+        # имя объекта пославшего событие
         obj_cur_name = obj_cur.objectName().split('_')[1]
-
+        # колонка в которой объект находится
         obj_cur_col = obj_cur.objectName().split('_')[-1]
 
         # определение - какой чекбокс в какой колонке нажат
@@ -537,6 +539,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         else:
             # print(obj_cur_name)
             pass
+
+        if obj_cur_name == 'period':
+            print(obj_cur.objectName())
 
     # функция определения заполнены ли все объекты в колонке
     def get_flag_fill_column(self, cur_column) -> bool:
