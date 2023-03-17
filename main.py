@@ -305,10 +305,12 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                         line_edit.setMaxLength(4)
                         line_edit.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
                     elif unit_model == 'fio':
+
                         # TODO
                         # перенести в константы
                         # количество символом на ФИО
                         length_fio = 30
+
                         # длина ввода для ФИО
                         line_edit.setMaxLength(length_fio)
                         # регулярное выражение для ввода только букв
@@ -594,10 +596,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
         # имя объекта, который послал событие
         unit_name = self.focusWidget().objectName()
-        # колонка объекта, который послал событие
-        unit_col = self.get_num_col_of_unit(unit_name)
-        # количество спортсменов, нужно для определения движения фокуса по строкам
-        q_anglers = SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers']
+
+        # # колонка объекта, который послал событие
+        # unit_col = self.get_num_col_of_unit(unit_name)
 
         # выбор нажатой кнопки
         if event.key() == PyQt5.QtCore.Qt.Key_Escape:
@@ -655,9 +656,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         elif obj_name_col == 'sportik':
             return obj.split('_')[3]
 
-    # функция смещения фокуса на форме по рекции клавиш клавиатуры
+    # функция смещения фокуса на форме по реакции клавиш клавиатуры
     def shift_focus_down(self, obj) -> None:
-        """Функция смещения фокуса на форме по рекции клавиш клавиатуры"""
+        """Функция смещения фокуса на форме по реакции клавиш клавиатуры"""
         print(self.shift_focus_down.__name__) if DEBUG else ...
 
         # временный список разделения строки имени объекта
@@ -667,7 +668,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             # переменная для определения прыжка в начало строк
             q_anglers = SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers']
 
-            # опеределение следующего номера строки
+            # определение следующего номера строки
             if int(temp_list[2]) >= int(q_anglers):
                 temp_list[2] = '1'
             else:
@@ -679,9 +680,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             # смещение фокуса на новый объект
             self.dict_all_units[new_temp_list].setFocus()
 
-    # функция смещения фокуса на форме по рекции клавиш клавиатуры
+    # функция смещения фокуса на форме по реакции клавиш клавиатуры
     def shift_focus_up(self, obj) -> None:
-        """Функция смещения фокуса на форме по рекции клавиш клавиатуры"""
+        """Функция смещения фокуса на форме по реакции клавиш клавиатуры"""
         print(self.shift_focus_up.__name__) if DEBUG else ...
 
         # временный список разделения строки имени объекта
@@ -691,7 +692,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             # переменная для определения прыжка в начало строк
             q_anglers = SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers']
 
-            # опеределение следующего номера строки
+            # определение следующего номера строки
             if int(temp_list[2]) <= 1:
                 temp_list[2] = str(q_anglers)
             else:

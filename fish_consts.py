@@ -20,7 +20,7 @@ SETT_DEF_SOFT = {
         'COMP_q_zone': 2,
         # 'COMP_q_sector': 1,
         # 'COMP_d_period': 45,
-        'COMP_q_anglers': 10},
+        'COMP_q_anglers': 8},
     'misc': {}
 }
 
