@@ -542,6 +542,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
         if obj_cur_name == 'period':
             print(obj_cur.objectName())
+            # ('fio', 'team', 'rank', 'zona', 'period')
+            # checkbox_fio_3, checkbox_team_4, checkbox_rank_5, checkbox_zona_6
 
     # функция определения заполнены ли все объекты в колонке
     def get_flag_fill_column(self, cur_column) -> bool:
