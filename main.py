@@ -486,13 +486,13 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # колонка в которой объект находится
         obj_cur_col = obj_cur.objectName().split('_')[-1]
         # списки имен объектов для реакции
-        tuple_of_lottery = 'lottery'
-        tuple_of_names = ('fio', 'team', 'rank', 'zona')
-        tuple_of_period = 'period'
+        checkbox_of_lottery = 'lottery'
+        checkbox_of_names = ('fio', 'team', 'rank', 'zona')
+        checkbox_of_period = 'period'
 
         # определение - какой чекбокс в какой колонке нажат:
         # если чекбокс "жеребьёвка"
-        if obj_cur_name == tuple_of_lottery:
+        if obj_cur_name == checkbox_of_lottery:
             # количество спортсменов
             q_anglers = SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers']
             lottery_list = [x for x in range(1, q_anglers + 1)]
@@ -513,7 +513,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                 obj_cur.setVisible(False)
 
         # если чекбоксы с полями о спортсмене
-        elif obj_cur_name in tuple_of_names:
+        elif obj_cur_name in checkbox_of_names:
             # получение флага заполненности колонки
             flag_fill = self.get_flag_fill_column(obj_cur_col)
 
@@ -549,43 +549,54 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                                                         f'Заполните все поля в колонке')
 
         # если чекбоксы "период"
-        elif obj_cur_name == tuple_of_period:
-            # получение флага заполненности "нужных" чекбоксов
+        elif obj_cur_name == checkbox_of_period:
+            # получение флага заполненности чекбоксов спортсмена
             flag_for_calc = self.check_for_calc()
             # получение флага заполненности колонки
             flag_fill = self.get_flag_fill_column(obj_cur_col)
 
+            # если все "нужные" чекбоксы и поля в колонке "период" заполнены, то можно блокировать объекты
+            if not flag_for_calc:
+                # информационное окно про полное заполнение колонки
+                PyQt5.QtWidgets.QMessageBox.information(self, 'Блокировка не получилась',
+                                                        f'Зафиксируйте все колонки о спортсменах, кроме Жеребьёвки')
+                # если не всё зафиксированно, то возвращаю исходное состояние чекбокса
+                obj_cur.setChecked(False)
 
-            # # если все поля в колонке заполнены, то можно блокировать объекты
-            # if flag_fill:
-            #     # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
-            #     for unit, obj_unit in self.dict_all_units.items():
-            #         # номер колонки
-            #         obj_unit_col = unit.split('_')[-1]
-            #
-            #         # поиск конкретных объектов из конкретной колонки
-            #         if (obj_cur_col == obj_unit_col) and \
-            #                 ((obj_unit.__class__ is PyQt5.QtWidgets.QComboBox) or
-            #                  (obj_unit.__class__ is PyQt5.QtWidgets.QLineEdit)):
-            #
-            #             # блокировка или разблокировка объекта на форме
-            #             if obj_cur.isChecked():
-            #                 obj_unit.setEnabled(False)
-            #             else:
-            #                 obj_unit.setEnabled(True)
-            #
-            #     # действия после блокировки колонки - расчёт очков в периоде
-            #     if (obj_cur_name == 'period') and (obj_cur.isChecked()):
-            #         # если нужные колонки тоже заблокированы, то можно делать расчёт
-            #         if self.check_for_calc():
-            #             self.calc_period(obj_cur)
-            #
-            # else:
-            #     # если не всё заполнено, то возвращаю исходное состояние чекбокса
-            #     obj_cur.setChecked(False)
-            #     # информационное окно про полное заполнение колонки
-            #     PyQt5.QtWidgets.QMessageBox.information(self, 'Блокировка не получилась',
-            #                                             f'Заполните все поля в колонке')
+            else:
+                if flag_fill:
+                    if not obj_cur.isChecked():
+                        print('"нужные" чекбоксы зафиксированы и поля в колонке "период" заполнены')
+
+                        # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
+                        for unit, obj_unit in self.dict_all_units.items():
+                            # номер колонки
+                            obj_unit_col = unit.split('_')[-1]
+
+                            # поиск конкретных объектов из конкретной колонки
+                            if (obj_cur_col == obj_unit_col) and \
+                                    ((obj_unit.__class__ is PyQt5.QtWidgets.QComboBox) or
+                                     (obj_unit.__class__ is PyQt5.QtWidgets.QLineEdit)):
+
+                                # блокировка или разблокировка объекта на форме
+                                if obj_cur.isChecked():
+                                    obj_unit.setEnabled(False)
+                                else:
+                                    obj_unit.setEnabled(True)
+
+                        # # действия после блокировки колонки - расчёт очков в периоде
+                        # if (obj_cur_name == 'period') and (obj_cur.isChecked()):
+                        #     # если нужные колонки тоже заблокированы, то можно делать расчёт
+                        #     if self.check_for_calc():
+                        #         self.calc_period(obj_cur)
+                    else:
+                        obj_cur.setChecked(True)
+                else:
+                    # если не всё заполнено, то возвращаю исходное состояние чекбокса
+                    obj_cur.setChecked(False)
+                    # информационное окно про полное заполнение колонки
+                    PyQt5.QtWidgets.QMessageBox.information(self, 'Блокировка не получилась',
+                                                            f'Заполните все поля в колонке')
 
         # оставшийся вариант для неизвестной ситуации
         else:
