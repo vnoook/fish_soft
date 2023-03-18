@@ -13,7 +13,7 @@ else:
 import tomli_w
 import fish_consts as fcs
 
-from pprint import pprint as pp
+# from pprint import pprint as pp
 
 
 # определение констант
@@ -558,7 +558,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         flag_for_calc = False
 
         # список для сбора всех значений чекбоксов
-        list_checkbox_cheked = []
+        list_checkbox_checked = []
 
         # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
         for unit, unit_obj in self.dict_all_units.items():
@@ -569,21 +569,21 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
             # поиск конкретных объектов с названием из множества
             if (unit_class is PyQt5.QtWidgets.QCheckBox) and (unit_name in tuple_of_names):
-                list_checkbox_cheked.append(unit_obj.isChecked())
+                list_checkbox_checked.append(unit_obj.isChecked())
 
         # проверка на "нажатость" всех чекбоксов
-        if all(list_checkbox_cheked):
+        if all(list_checkbox_checked):
             # если все нажаты, то можно приступить к расчёту
             flag_for_calc = True
 
         return flag_for_calc
 
     # функция расчёта очков в периоде
-    def calc_period(self, cacl_column):
+    def calc_period(self, calculate_column):
         """Функция расчёта очков в периоде"""
         print(self.calc_period.__name__) if DEBUG else ...
 
-        print('расчёт очков в периоде', cacl_column.objectName(), cacl_column)
+        print('расчёт очков в периоде', calculate_column.objectName(), calculate_column)
 
     # функция определения заполнены ли все объекты в колонке
     def get_flag_fill_column(self, cur_column) -> bool:
@@ -848,7 +848,8 @@ def repair_settings(cur_dict: dict, def_dict: dict) -> dict:
         if not cur_dict.get(key, False):
             cur_dict[key] = def_dict[key]
         else:
-            if type(val) != type(cur_dict[key]):
+            # if type(val) != type(cur_dict[key]):
+            if isinstance(val, type(cur_dict[key])):
                 cur_dict[key] = val
 
         if isinstance(val, dict):
