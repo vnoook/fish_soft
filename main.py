@@ -13,7 +13,7 @@ else:
 import tomli_w
 import fish_consts as fcs
 
-# from pprint import pprint as pp
+from pprint import pprint as pp
 
 
 # определение констант
@@ -530,7 +530,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                             obj_unit.setEnabled(True)
 
                 # действия после блокировки колонки - расчёт очков в периоде
-                if obj_cur_name == 'period':
+                if (obj_cur_name == 'period') and (obj_cur.isChecked()):
                     # если нужные колонки тоже заблокированы, то можно делать расчёт
                     if self.check_for_calc():
                         self.calc_period(obj_cur)
@@ -848,8 +848,9 @@ def repair_settings(cur_dict: dict, def_dict: dict) -> dict:
         if not cur_dict.get(key, False):
             cur_dict[key] = def_dict[key]
         else:
+            # первая версия проверки через сравнение типов
             # if type(val) != type(cur_dict[key]):
-            if isinstance(val, type(cur_dict[key])):
+            if not isinstance(val, type(cur_dict[key])):
                 cur_dict[key] = val
 
         if isinstance(val, dict):
