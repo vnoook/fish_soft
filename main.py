@@ -485,9 +485,16 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         obj_cur_name = obj_cur.objectName().split('_')[1]
         # колонка в которой объект находится
         obj_cur_col = obj_cur.objectName().split('_')[-1]
+        # списки имен объектов для реакции
+        tuple_of_lottery = 'lottery'
+        tuple_of_names = ('fio', 'team', 'rank', 'zona', 'period')
+        tuple_of_period = 'period'
 
-        # определение - какой чекбокс в какой колонке нажат
-        if obj_cur_name == 'lottery':
+        print(f'{type(tuple_of_lottery) = } ... {type(tuple_of_period) = }')
+
+        # определение - какой чекбокс в какой колонке нажат:
+        # если колонка "жеребьёвка"
+        if obj_cur_name == tuple_of_lottery:
             # количество спортсменов
             q_anglers = SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers']
             lottery_list = [x for x in range(1, q_anglers + 1)]
@@ -507,7 +514,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                 obj_cur.setEnabled(False)
                 obj_cur.setVisible(False)
 
-        elif obj_cur_name in ('fio', 'team', 'rank', 'zona', 'period'):
+        # если колонки с полями о спортсмене
+        elif obj_cur_name in tuple_of_names:
             # получение флага заполненности колонки
             flag_fill = self.get_flag_fill_column(obj_cur_col)
 
