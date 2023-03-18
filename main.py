@@ -534,8 +534,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     # если нужные колонки тоже заблокированы, то можно делать расчёт
                     if self.check_for_calc():
                         self.calc_period(obj_cur)
-                        # ('fio', 'team', 'rank', 'zona', 'period')
-                        # checkbox_fio_3, checkbox_team_4, checkbox_rank_5, checkbox_zona_6
 
             else:
                 # если не всё заполнено, то возвращаю исходное состояние чекбокса
@@ -548,11 +546,34 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             # print(obj_cur_name)
             pass
 
-
     # функция проверки блокировки нужных колонок перед расчётом
     def check_for_calc(self) -> bool:
         """Функция проверки блокировки нужных колонок перед расчётом"""
         print(self.check_for_calc.__name__) if DEBUG else ...
+
+        # множество названий колонок, которые должны быть "нажаты" чтобы начать считать
+        tuple_of_names = ('fio', 'team', 'rank', 'zona')
+
+        # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
+        for unit, obj_unit in self.dict_all_units.items():
+            # имя колонки
+            obj_unit_name = unit.split('_')[1]
+
+            # print(unit, obj_unit_col, obj_unit_name, obj_unit, obj_unit.isChecked())
+
+            if (obj_unit is PyQt5.QtWidgets.QCheckBox) and (obj_unit_name in tuple_of_names):
+                print(obj_unit.isChecked())
+
+            # # поиск конкретных объектов из конкретной колонки
+            # if (obj_cur_col == obj_unit_col) and \
+            #         ((obj_unit.__class__ == PyQt5.QtWidgets.QComboBox) or
+            #          (obj_unit.__class__ == PyQt5.QtWidgets.QLineEdit)):
+            #
+            #     # блокировка или разблокировка объекта на форме
+            #     if obj_cur.isChecked():
+            #         obj_unit.setEnabled(False)
+            #     else:
+            #         obj_unit.setEnabled(True)
 
         return True
 
