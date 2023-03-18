@@ -515,10 +515,10 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # если чекбоксы с полями о спортсмене
         elif obj_cur_name in checkbox_of_names:
             # получение флага заполненности колонки
-            flag_fill = self.get_flag_fill_column(obj_cur_col)
+            flag_fill_col = self.get_flag_fill_column(obj_cur_col)
 
             # если все поля в колонке заполнены, то можно блокировать объекты
-            if flag_fill:
+            if flag_fill_col:
                 # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
                 for unit, obj_unit in self.dict_all_units.items():
                     # номер колонки
@@ -551,46 +551,42 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # если чекбоксы "период"
         elif obj_cur_name == checkbox_of_period:
             # получение флага заполненности чекбоксов спортсмена
-            flag_for_calc = self.check_for_calc()
+            flag_checkboxes = self.check_for_calc()
             # получение флага заполненности колонки
-            flag_fill = self.get_flag_fill_column(obj_cur_col)
+            flag_fill_col = self.get_flag_fill_column(obj_cur_col)
 
-            # если все "нужные" чекбоксы и поля в колонке "период" заполнены, то можно блокировать объекты
-            if not flag_for_calc:
+            # если чекбоксы о спортсменах и поля в колонке "период" заполнены, то можно блокировать объекты
+            if not flag_checkboxes:
+                # если не всё зафиксированно, то возвращаю исходное состояние чекбокса
+                obj_cur.setChecked(False)
                 # информационное окно про полное заполнение колонки
                 PyQt5.QtWidgets.QMessageBox.information(self, 'Блокировка не получилась',
                                                         f'Зафиксируйте все колонки о спортсменах, кроме Жеребьёвки')
-                # если не всё зафиксированно, то возвращаю исходное состояние чекбокса
-                obj_cur.setChecked(False)
 
             else:
-                if flag_fill:
-                    if not obj_cur.isChecked():
-                        print('"нужные" чекбоксы зафиксированы и поля в колонке "период" заполнены')
+                if flag_fill_col:
+                    print('"нужные" чекбоксы зафиксированы и поля в колонке "период" заполнены')
 
-                        # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
-                        for unit, obj_unit in self.dict_all_units.items():
-                            # номер колонки
-                            obj_unit_col = unit.split('_')[-1]
+                    # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
+                    for unit, obj_unit in self.dict_all_units.items():
+                        # номер колонки
+                        obj_unit_col = unit.split('_')[-1]
 
-                            # поиск конкретных объектов из конкретной колонки
-                            if (obj_cur_col == obj_unit_col) and \
-                                    ((obj_unit.__class__ is PyQt5.QtWidgets.QComboBox) or
-                                     (obj_unit.__class__ is PyQt5.QtWidgets.QLineEdit)):
+                        # поиск конкретных объектов из конкретной колонки
+                        if (obj_cur_col == obj_unit_col) and \
+                                ((obj_unit.__class__ is PyQt5.QtWidgets.QComboBox) or
+                                 (obj_unit.__class__ is PyQt5.QtWidgets.QLineEdit)):
 
-                                # блокировка или разблокировка объекта на форме
-                                if obj_cur.isChecked():
-                                    obj_unit.setEnabled(False)
-                                else:
-                                    obj_unit.setEnabled(True)
+                            # блокировка или разблокировка объекта на форме
+                            if obj_cur.isChecked():
+                                obj_unit.setEnabled(False)
+                            else:
+                                obj_unit.setEnabled(True)
 
-                        # # действия после блокировки колонки - расчёт очков в периоде
-                        # if (obj_cur_name == 'period') and (obj_cur.isChecked()):
-                        #     # если нужные колонки тоже заблокированы, то можно делать расчёт
-                        #     if self.check_for_calc():
-                        #         self.calc_period(obj_cur)
-                    else:
-                        obj_cur.setChecked(True)
+                    if obj_cur.isChecked():
+                        # действия после блокировки колонки - расчёт очков в периоде
+                        self.calc_period(obj_cur)
+
                 else:
                     # если не всё заполнено, то возвращаю исходное состояние чекбокса
                     obj_cur.setChecked(False)
