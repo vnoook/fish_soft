@@ -520,8 +520,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
                     # поиск конкретных объектов из конкретной колонки
                     if (obj_cur_col == obj_unit_col) and \
-                            ((obj_unit.__class__ == PyQt5.QtWidgets.QComboBox) or
-                             (obj_unit.__class__ == PyQt5.QtWidgets.QLineEdit)):
+                            ((obj_unit.__class__ is PyQt5.QtWidgets.QComboBox) or
+                             (obj_unit.__class__ is PyQt5.QtWidgets.QLineEdit)):
 
                         # блокировка или разблокировка объекта на форме
                         if obj_cur.isChecked():
@@ -554,28 +554,29 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # множество названий колонок, которые должны быть "нажаты" чтобы начать считать
         tuple_of_names = ('fio', 'team', 'rank', 'zona')
 
+        # флаг нажатия всех нужных чекбоксов
+        flag_for_calc = False
+
+        # список для сбора всех значений чекбоксов
+        list_checkbox_cheked = []
+
         # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
-        for unit, obj_unit in self.dict_all_units.items():
+        for unit, unit_obj in self.dict_all_units.items():
             # имя колонки
-            obj_unit_name = unit.split('_')[1]
+            unit_name = unit.split('_')[1]
+            # класс объекта
+            unit_class = unit_obj.__class__
 
-            # print(unit, obj_unit_col, obj_unit_name, obj_unit, obj_unit.isChecked())
+            # поиск конкретных объектов с названием из множества
+            if (unit_class is PyQt5.QtWidgets.QCheckBox) and (unit_name in tuple_of_names):
+                list_checkbox_cheked.append(unit_obj.isChecked())
 
-            if (obj_unit is PyQt5.QtWidgets.QCheckBox) and (obj_unit_name in tuple_of_names):
-                print(obj_unit.isChecked())
+        # проверка на "нажатость" всех чекбоксов
+        if all(list_checkbox_cheked):
+            # если все нажаты, то можно приступить к расчёту
+            flag_for_calc = True
 
-            # # поиск конкретных объектов из конкретной колонки
-            # if (obj_cur_col == obj_unit_col) and \
-            #         ((obj_unit.__class__ == PyQt5.QtWidgets.QComboBox) or
-            #          (obj_unit.__class__ == PyQt5.QtWidgets.QLineEdit)):
-            #
-            #     # блокировка или разблокировка объекта на форме
-            #     if obj_cur.isChecked():
-            #         obj_unit.setEnabled(False)
-            #     else:
-            #         obj_unit.setEnabled(True)
-
-        return True
+        return flag_for_calc
 
     # функция расчёта очков в периоде
     def calc_period(self, cacl_column):
@@ -598,8 +599,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
             # поиск объектов из конкретной колонки
             if (cur_column == obj_unit_col) and \
-                    ((obj_unit.__class__ == PyQt5.QtWidgets.QComboBox) or
-                     (obj_unit.__class__ == PyQt5.QtWidgets.QLineEdit)):
+                    ((obj_unit.__class__ is PyQt5.QtWidgets.QComboBox) or
+                     (obj_unit.__class__ is PyQt5.QtWidgets.QLineEdit)):
 
                 # проверка на пустоту значения объекта
                 # если у объекта есть параметр который содержит визуальное значение (text или item)
