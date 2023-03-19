@@ -665,11 +665,15 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                 # то - если не пустое пишется True, иначе False
                 if hasattr(obj_unit, 'text'):
                     list_of_fill_col.append(True if obj_unit.text() else False)
+                    print(obj_unit.text())
                 elif hasattr(obj_unit, 'itemText'):
                     list_of_fill_col.append(True if obj_unit.currentText() else False)
+                    print(obj_unit.itemText())
 
         # установка флага заполненности колонки
         flag_fill_col = True if all(list_of_fill_col) else False
+
+        print(list_of_fill_col)
 
         return flag_fill_col
 
