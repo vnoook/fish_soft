@@ -562,7 +562,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
             # если чекбоксы о спортсменах и поля в колонке "период" заполнены, то можно блокировать объекты
             if not flag_checkboxes:
-                # если не всё зафиксированно, то возвращаю исходное состояние чекбокса
+                # если не всё зафиксировано, то возвращаю исходное состояние чекбокса
                 obj_cur.setChecked(False) if obj_cur.isChecked() else obj_cur.setChecked(True)
                 # информационное окно про полное заполнение колонки
                 PyQt5.QtWidgets.QMessageBox.information(self, 'Блокировка не получилась',
@@ -665,15 +665,11 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                 # то - если не пустое пишется True, иначе False
                 if hasattr(obj_unit, 'text'):
                     list_of_fill_col.append(True if obj_unit.text() else False)
-                    print(obj_unit.text())
                 elif hasattr(obj_unit, 'itemText'):
                     list_of_fill_col.append(True if obj_unit.currentText() else False)
-                    print(obj_unit.itemText())
 
         # установка флага заполненности колонки
         flag_fill_col = True if all(list_of_fill_col) else False
-
-        print(list_of_fill_col)
 
         return flag_fill_col
 
