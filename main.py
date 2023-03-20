@@ -637,7 +637,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         return flag_for_calc
 
     # функция расчёта очков в периоде
-    def calc_period(self, calculate_column):
+    def calc_period(self, calculate_column) -> None:
         """Функция расчёта очков в периоде"""
         print(self.calc_period.__name__) if DEBUG else ...
 
@@ -836,6 +836,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
         # установка флага заполненности колонки
         flag_fill_col = True if all(list_of_fill_col) else False
+
+        # смещение фокуса на новый объект
+        self.dict_all_units[new_temp_list].setFocus()
 
         return flag_fill_col
 
