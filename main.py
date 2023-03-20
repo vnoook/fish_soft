@@ -823,16 +823,21 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         print(self.shift_focus_on_empty_unit.__name__) if DEBUG else ...
 
         for unit, unit_obj in self.dict_all_units.items():
-            # номер колонки
+            # номер колонки объекта
             unit_col = unit.split('_')[-1]
-
-            # if hasattr(unit, 'text'):
-            #     print(getattr(unit, 'text'))
-            # elif hasattr(unit, 'itemText'):
-            #     print(getattr(unit, 'itemText'))
+            # класс объекта
+            unit_class = unit_obj.__class__
 
             # поиск объектов из конкретной колонки
-            if (cur_column == unit_col) and (unit_obj.__class__ is PyQt5.QtWidgets.QLineEdit):
+            if (cur_column == unit_col) and (unit_class is PyQt5.QtWidgets.QLineEdit):
+                # ((unit_class is PyQt5.QtWidgets.QComboBox) or (unit_class is PyQt5.QtWidgets.QLineEdit))
+
+                # print(unit_obj)
+                # if hasattr(unit_obj, 'text'):
+                #     print(getattr(unit_obj, 'text')())
+                # elif hasattr(unit_obj, 'itemText'):
+                #     print(getattr(unit_obj, 'itemText'))
+
                 # проверка на пустоту значения объекта
                 if not unit_obj.text() or unit_obj.text().isspace():
                     # смещение фокуса на "пустой" объект
