@@ -549,6 +549,10 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             else:
                 # если не всё заполнено, то возвращаю исходное состояние чекбокса
                 obj_cur.setChecked(False)
+
+                # если не всё заполнено, то перевожу фокус на первый "пустой" объект в колонке
+                self.shift_focus_on_empty_unit(obj_cur_col)
+
                 # информационное окно про полное заполнение колонки
                 PyQt5.QtWidgets.QMessageBox.information(self, 'Блокировка не получилась',
                                                         f'Заполните все поля в колонке')
@@ -595,6 +599,10 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                 else:
                     # если не всё заполнено, то возвращаю исходное состояние чекбокса
                     obj_cur.setChecked(False)
+
+                    # если не всё заполнено, то перевожу фокус на первый "пустой" объект в колонке
+                    self.shift_focus_on_empty_unit(obj_cur_col)
+
                     # информационное окно про полное заполнение колонки
                     PyQt5.QtWidgets.QMessageBox.information(self, 'Блокировка не получилась',
                                                             f'Заполните все поля в колонке')
@@ -814,37 +822,21 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         """Функция смещения фокуса на форме на пустой объект"""
         print(self.shift_focus_on_empty_unit.__name__) if DEBUG else ...
 
-        # список для хранения заполненности объекта в колонке
-        list_of_fill_col = []
-
-        for unit, obj_unit in self.dict_all_units.items():
+        for unit, unit_obj in self.dict_all_units.items():
             # номер колонки
-            obj_unit_col = unit.split('_')[-1]
+            unit_col = unit.split('_')[-1]
+
+            # if hasattr(unit, 'text'):
+            #     print(getattr(unit, 'text'))
+            # elif hasattr(unit, 'itemText'):
+            #     print(getattr(unit, 'itemText'))
 
             # поиск объектов из конкретной колонки
-            if (cur_column == obj_unit_col) and \
-                    ((obj_unit.__class__ is PyQt5.QtWidgets.QComboBox) or
-                     (obj_unit.__class__ is PyQt5.QtWidgets.QLineEdit)):
-
+            if (cur_column == unit_col) and (unit_obj.__class__ is PyQt5.QtWidgets.QLineEdit):
                 # проверка на пустоту значения объекта
-                # если у объекта есть параметр который содержит значение (text или item)
-                # то True если не пустое (строка из пробелов считается пустой), иначе False
-                if hasattr(obj_unit, 'text'):
-                    list_of_fill_col.append(True if obj_unit.text() and not obj_unit.text().isspace() else False)
-                elif hasattr(obj_unit, 'itemText'):
-                    list_of_fill_col.append(True if obj_unit.currentText() else False)
-
-        # установка флага заполненности колонки
-        flag_fill_col = True if all(list_of_fill_col) else False
-
-        # смещение фокуса на новый объект
-        self.dict_all_units[new_temp_list].setFocus()
-
-        return flag_fill_col
-
-
-
-
+                if not unit_obj.text() or unit_obj.text().isspace():
+                    # смещение фокуса на "пустой" объект
+                    self.dict_all_units[unit].setFocus()
 
     # функция получения координат и запись их в переменную экземпляр класса
     def get_coords(self) -> None:
