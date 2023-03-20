@@ -809,6 +809,40 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             # смещение фокуса на новый объект
             self.dict_all_units[new_temp_list].setFocus()
 
+    # функция смещения фокуса на форме на пустой объект
+    def shift_focus_on_empty_unit(self, cur_column) -> bool:
+        """Функция смещения фокуса на форме на пустой объект"""
+        print(self.shift_focus_on_empty_unit.__name__) if DEBUG else ...
+
+        # список для хранения заполненности объекта в колонке
+        list_of_fill_col = []
+
+        for unit, obj_unit in self.dict_all_units.items():
+            # номер колонки
+            obj_unit_col = unit.split('_')[-1]
+
+            # поиск объектов из конкретной колонки
+            if (cur_column == obj_unit_col) and \
+                    ((obj_unit.__class__ is PyQt5.QtWidgets.QComboBox) or
+                     (obj_unit.__class__ is PyQt5.QtWidgets.QLineEdit)):
+
+                # проверка на пустоту значения объекта
+                # если у объекта есть параметр который содержит значение (text или item)
+                # то True если не пустое (строка из пробелов считается пустой), иначе False
+                if hasattr(obj_unit, 'text'):
+                    list_of_fill_col.append(True if obj_unit.text() and not obj_unit.text().isspace() else False)
+                elif hasattr(obj_unit, 'itemText'):
+                    list_of_fill_col.append(True if obj_unit.currentText() else False)
+
+        # установка флага заполненности колонки
+        flag_fill_col = True if all(list_of_fill_col) else False
+
+        return flag_fill_col
+
+
+
+
+
     # функция получения координат и запись их в переменную экземпляр класса
     def get_coords(self) -> None:
         """Функция получения координат и запись их в переменную экземпляра класса"""
