@@ -661,15 +661,10 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                      (obj_unit.__class__ is PyQt5.QtWidgets.QLineEdit)):
 
                 # проверка на пустоту значения объекта
-                # если у объекта есть параметр который содержит визуальное значение (text или item)
-                # то - если не пустое пишется True, иначе False
+                # если у объекта есть параметр который содержит значение (text или item)
+                # то True если не пустое (строка из пробелов считается пустой), иначе False
                 if hasattr(obj_unit, 'text'):
-
-                    print(f'{hasattr(obj_unit, "text") = }')
-                    print(f'{getattr(obj_unit, "text")() = }')
-                    print()
-
-                    list_of_fill_col.append(True if obj_unit.text() else False)
+                    list_of_fill_col.append(True if obj_unit.text() and not obj_unit.text().isspace() else False)
                 elif hasattr(obj_unit, 'itemText'):
                     list_of_fill_col.append(True if obj_unit.currentText() else False)
 
@@ -1161,3 +1156,8 @@ if __name__ == '__main__':
 # print(self.hasFocus())
 # print(self.setFocus())
 # print(event.modifiers())
+
+# .strip() .isspace()
+
+# print(f'{hasattr(obj_unit, "text") = }')
+# print(f'{getattr(obj_unit, "text")() = }')
