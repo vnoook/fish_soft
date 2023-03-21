@@ -673,7 +673,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                 # то True если не пустое (строка из пробелов считается пустой), иначе False
                 if hasattr(obj_unit, 'text'):
                     list_of_fill_col.append(True if obj_unit.text() and not obj_unit.text().isspace() else False)
-                elif hasattr(obj_unit, 'itemText'):
+                elif hasattr(obj_unit, 'currentText'):
                     list_of_fill_col.append(True if obj_unit.currentText() else False)
 
         # установка флага заполненности колонки
@@ -825,21 +825,17 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         for unit, unit_obj in self.dict_all_units.items():
             # номер колонки объекта
             unit_col = unit.split('_')[-1]
-            # класс объекта
-            unit_class = unit_obj.__class__
 
             # поиск объектов из конкретной колонки
-            if (cur_column == unit_col) and (unit_class is PyQt5.QtWidgets.QLineEdit):
-                # ((unit_class is PyQt5.QtWidgets.QComboBox) or (unit_class is PyQt5.QtWidgets.QLineEdit))
-
-                # print(unit_obj)
-                # if hasattr(unit_obj, 'text'):
-                #     print(getattr(unit_obj, 'text')())
-                # elif hasattr(unit_obj, 'itemText'):
-                #     print(getattr(unit_obj, 'itemText'))
+            if (cur_column == unit_col) and (isinstance(unit_obj, PyQt5.QtWidgets.QComboBox)
+                                             or isinstance(unit_obj, PyQt5.QtWidgets.QLineEdit)):
+                if hasattr(unit_obj, 'text'):
+                    content = getattr(unit_obj, 'text')()
+                elif hasattr(unit_obj, 'currentText'):
+                    content = getattr(unit_obj, 'currentText')()
 
                 # проверка на пустоту значения объекта
-                if not unit_obj.text() or unit_obj.text().isspace():
+                if not content or content.isspace():
                     # смещение фокуса на "пустой" объект
                     self.dict_all_units[unit].setFocus()
 
