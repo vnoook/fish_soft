@@ -643,14 +643,14 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         return flag_for_calc
 
     # функция расчёта очков в периоде
-    def calc_period(self, calculate_column) -> None:
+    def calc_period(self, calculate_column: PyQt5.QtWidgets.QCheckBox) -> None:
         """Функция расчёта очков в периоде"""
         print(self.calc_period.__name__) if DEBUG else ...
 
         print('расчёт очков в периоде', calculate_column.objectName(), calculate_column)
 
     # функция определения заполнены ли все объекты в колонке
-    def get_flag_fill_column(self, cur_column) -> bool:
+    def get_flag_fill_column(self, cur_column: str) -> bool:
         """Функция определения заполнены ли все объекты в колонке"""
         print(self.get_flag_fill_column.__name__) if DEBUG else ...
 
@@ -754,7 +754,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # super().mousePressEvent(event)
 
     # функция получения номера колонки из названия объекта на форме
-    def get_num_col_of_unit(self, obj) -> str:
+    def get_num_col_of_unit(self, obj: str) -> str:
         """Функция получения номера колонки из названия объекта на форме"""
         print(self.get_num_col_of_unit.__name__) if DEBUG else ...
 
@@ -768,7 +768,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             return obj.split('_')[3]
 
     # функция смещения фокуса на форме по реакции клавиш клавиатуры
-    def shift_focus_down(self, obj) -> None:
+    def shift_focus_down(self, obj: str) -> None:
         """Функция смещения фокуса на форме по реакции клавиш клавиатуры"""
         print(self.shift_focus_down.__name__) if DEBUG else ...
 
@@ -792,7 +792,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             self.dict_all_units[new_temp_list].setFocus()
 
     # функция смещения фокуса на форме по реакции клавиш клавиатуры
-    def shift_focus_up(self, obj) -> None:
+    def shift_focus_up(self, obj: str) -> None:
         """Функция смещения фокуса на форме по реакции клавиш клавиатуры"""
         print(self.shift_focus_up.__name__) if DEBUG else ...
 
@@ -816,7 +816,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             self.dict_all_units[new_temp_list].setFocus()
 
     # функция смещения фокуса на форме на пустой объект
-    def shift_focus_on_empty_unit(self, cur_column) -> None:
+    def shift_focus_on_empty_unit(self, cur_column: str) -> None:
         """Функция смещения фокуса на форме на пустой объект"""
         print(self.shift_focus_on_empty_unit.__name__) if DEBUG else ...
 
