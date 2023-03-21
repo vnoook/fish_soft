@@ -1,7 +1,5 @@
 # TODO
 # сделать проверку вводимых данных в периоды, чтобы было без "000"
-# сделать проверку вводимых данных в фио, команду и разряд, чтобы было без пробелов
-# сделать прыжки фокуса на пустые поля при нажатии на чекбоксы
 
 import sys
 import os.path
@@ -18,7 +16,7 @@ else:
 import tomli_w
 import fish_consts as fcs
 
-from pprint import pprint as pp
+# from pprint import pprint as pp
 
 
 # определение констант
@@ -504,12 +502,12 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             random.shuffle(lottery_list)
 
             # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
-            for unit, obj_unit in self.dict_all_units.items():
+            for unit, unit_obj in self.dict_all_units.items():
                 if 'sportik_lottery' in unit:
                     # номер строки спортсмена
-                    obj_unit_row = int(unit.split('_')[2])
+                    unit_row = int(unit.split('_')[2])
                     # заполнение поля жеребьёвки соответствующим значением из списка жеребьёвок
-                    obj_unit.setText(str(lottery_list[obj_unit_row - 1]))
+                    unit_obj.setText(str(lottery_list[unit_row - 1]))
 
             # блокирую и скрываю чекбокс потому, что жеребьёвка проводится один раз за соревнования
             if obj_cur.isChecked():
@@ -525,20 +523,20 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             # если все поля в колонке заполнены, то можно блокировать объекты
             if flag_fill_col:
                 # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
-                for unit, obj_unit in self.dict_all_units.items():
+                for unit, unit_obj in self.dict_all_units.items():
                     # номер колонки
-                    obj_unit_col = unit.split('_')[-1]
+                    unit_col = unit.split('_')[-1]
 
                     # поиск конкретных объектов из конкретной колонки
-                    if (obj_cur_col == obj_unit_col) and \
-                            ((obj_unit.__class__ is PyQt5.QtWidgets.QComboBox) or
-                             (obj_unit.__class__ is PyQt5.QtWidgets.QLineEdit)):
+                    if (obj_cur_col == unit_col) and \
+                            ((unit_obj.__class__ is PyQt5.QtWidgets.QComboBox) or
+                             (unit_obj.__class__ is PyQt5.QtWidgets.QLineEdit)):
 
                         # блокировка или разблокировка объекта на форме
                         if obj_cur.isChecked():
-                            obj_unit.setEnabled(False)
+                            unit_obj.setEnabled(False)
                         else:
-                            obj_unit.setEnabled(True)
+                            unit_obj.setEnabled(True)
 
                 # действия после блокировки колонки - расчёт очков в периоде
                 if (obj_cur_name == 'period') and (obj_cur.isChecked()):
@@ -577,20 +575,20 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     print('"нужные" чекбоксы зафиксированы и поля в колонке "период" заполнены')
 
                     # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
-                    for unit, obj_unit in self.dict_all_units.items():
+                    for unit, unit_obj in self.dict_all_units.items():
                         # номер колонки
-                        obj_unit_col = unit.split('_')[-1]
+                        unit_col = unit.split('_')[-1]
 
                         # поиск конкретных объектов из конкретной колонки
-                        if (obj_cur_col == obj_unit_col) and \
-                                ((obj_unit.__class__ is PyQt5.QtWidgets.QComboBox) or
-                                 (obj_unit.__class__ is PyQt5.QtWidgets.QLineEdit)):
+                        if (obj_cur_col == unit_col) and \
+                                ((unit_obj.__class__ is PyQt5.QtWidgets.QComboBox) or
+                                 (unit_obj.__class__ is PyQt5.QtWidgets.QLineEdit)):
 
                             # блокировка или разблокировка объекта на форме
                             if obj_cur.isChecked():
-                                obj_unit.setEnabled(False)
+                                unit_obj.setEnabled(False)
                             else:
-                                obj_unit.setEnabled(True)
+                                unit_obj.setEnabled(True)
 
                     if obj_cur.isChecked():
                         # действия после блокировки колонки - расчёт очков в периоде
@@ -659,22 +657,22 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # список для хранения заполненности объекта в колонке
         list_of_fill_col = []
 
-        for unit, obj_unit in self.dict_all_units.items():
+        for unit, unit_obj in self.dict_all_units.items():
             # номер колонки
-            obj_unit_col = unit.split('_')[-1]
+            unit_col = unit.split('_')[-1]
 
             # поиск объектов из конкретной колонки
-            if (cur_column == obj_unit_col) and \
-                    ((obj_unit.__class__ is PyQt5.QtWidgets.QComboBox) or
-                     (obj_unit.__class__ is PyQt5.QtWidgets.QLineEdit)):
+            if (cur_column == unit_col) and \
+                    ((unit_obj.__class__ is PyQt5.QtWidgets.QComboBox) or
+                     (unit_obj.__class__ is PyQt5.QtWidgets.QLineEdit)):
 
                 # проверка на пустоту значения объекта
                 # если у объекта есть параметр который содержит значение (text или item)
                 # то True если не пустое (строка из пробелов считается пустой), иначе False
-                if hasattr(obj_unit, 'text'):
-                    list_of_fill_col.append(True if obj_unit.text() and not obj_unit.text().isspace() else False)
-                elif hasattr(obj_unit, 'currentText'):
-                    list_of_fill_col.append(True if obj_unit.currentText() else False)
+                if hasattr(unit_obj, 'text'):
+                    list_of_fill_col.append(True if unit_obj.text() and not unit_obj.text().isspace() else False)
+                elif hasattr(unit_obj, 'currentText'):
+                    list_of_fill_col.append(True if unit_obj.currentText() else False)
 
         # установка флага заполненности колонки
         flag_fill_col = True if all(list_of_fill_col) else False
@@ -818,7 +816,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             self.dict_all_units[new_temp_list].setFocus()
 
     # функция смещения фокуса на форме на пустой объект
-    def shift_focus_on_empty_unit(self, cur_column) -> bool:
+    def shift_focus_on_empty_unit(self, cur_column) -> None:
         """Функция смещения фокуса на форме на пустой объект"""
         print(self.shift_focus_on_empty_unit.__name__) if DEBUG else ...
 
@@ -829,6 +827,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             # поиск объектов из конкретной колонки
             if (cur_column == unit_col) and (isinstance(unit_obj, PyQt5.QtWidgets.QComboBox)
                                              or isinstance(unit_obj, PyQt5.QtWidgets.QLineEdit)):
+
+                # выбор поля с текстом у текущего объекта
                 if hasattr(unit_obj, 'text'):
                     content = getattr(unit_obj, 'text')()
                 elif hasattr(unit_obj, 'currentText'):
@@ -1189,5 +1189,5 @@ if __name__ == '__main__':
 
 # .strip() .isspace()
 
-# print(f'{hasattr(obj_unit, "text") = }')
-# print(f'{getattr(obj_unit, "text")() = }')
+# print(f'{hasattr(unit_obj, "text") = }')
+# print(f'{getattr(unit_obj, "text")() = }')
