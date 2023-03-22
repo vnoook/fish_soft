@@ -14,7 +14,7 @@ table_anglers = {1: 'Иванов', 2: 'Петров', 3: 'Ветров', 4: 'Ф
                  5: 'Попков', 6: 'Котова', 7: 'Рыбова', 8: 'Локтев'}
 
 # таблица рыбаков с id и разрядами
-table_anglers_rank = {1: '1 разряд', 2: '2 разряд', 3: '3 разряд', 4: '1 разряд',
+table_anglers_rank = {1: '1', 2: '2 разряд', 3: '3 разряд', 4: '1 разряд',
                       5: None, 6: 'МС', 7: 'КМС', 8: 'МС'}
 
 # таблица рыбаков с id и командами
@@ -137,10 +137,15 @@ def create_anglers():
 
 
 # функция подсчёта очков с известными - начальное место одинаковых уловов, количество одинаковых уловов
-def calc_scores(index_start, index_quantity):
+def calc_scores(index_start: int, index_quantity: int) -> int:
+    """Функция подсчёта очков в повторных уловах - начальное место одинаковых уловов, количество одинаковых уловов"""
+
+    # переменная счётчик
     scores = 0
+    # подсчёт повторных уловов в периоде
     for x_q in range(index_start, index_start + index_quantity):
         scores = scores + x_q / index_quantity
+
     return scores
 
 
@@ -150,7 +155,11 @@ def calc_scores(index_start, index_quantity):
 # (место, ид участника, улов, количество очков за этот период)
 # TODO
 # избавиться от лишних списков и реализовать расчёты с помощью обращений к первоначальному отсортированному списку
-def calc_period(p_catches, n_period):
+def calc_period(p_catches: dict, n_period: int):
+
+    print(type(p_catches), p_catches)
+    print(type(n_period), n_period)
+
     # список id рыбаков с уловами в конкретном n_period туре
     catches_period = [[k, v[n_period - 1]] for k, v in p_catches.items()]
     print(f'{catches_period      = }')
