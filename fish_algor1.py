@@ -155,7 +155,7 @@ def calc_scores(index_start: int, index_quantity: int) -> int:
 # (место, ид участника, улов, количество очков за этот период)
 # TODO
 # избавиться от лишних списков и реализовать расчёты с помощью обращений к первоначальному отсортированному списку
-def calc_period(p_catches: dict, n_period: int):
+def calc_period(p_catches: dict, n_period: int) -> list:
 
     print(type(p_catches), p_catches)
     print(type(n_period), n_period)
@@ -225,7 +225,7 @@ def calc_period(p_catches: dict, n_period: int):
 
     print()
     # итоговая таблица с местами и очками
-    print(f'{period_result = }')
+    print(f'{period_result = } ... {type(period_result) = }')
 
     return period_result
 
