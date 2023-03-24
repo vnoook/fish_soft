@@ -116,8 +116,8 @@ class Angler:
 
 # функция по созданию сорев, чисто утилитарная для хранения переменных в конкретных соревах
 def create_tournament():
-    tournament = Tournament(q_tur=1, q_period=4, q_zone=1, q_sector=None, d_period=45, q_anglers=8)
-    print(tournament.get_tournament_info())
+    tournament = Tournament(q_tur=1, q_period=6, q_zone=1, q_sector=None, d_period=45, q_anglers=8)
+    # print(tournament.get_tournament_info())
 
 
 # функция по созданию рыбака на соревах
@@ -133,7 +133,7 @@ def create_anglers():
                                                 a_rank=table_anglers_rank[angler_id],
                                                 a_team=table_anglers_teams[angler_id]
                                                 )
-        print(f'{globals()["Angler" + str(angler_id)].get_all_info()}')
+        # print(f'{globals()["Angler" + str(angler_id)].get_all_info()}')
 
 
 # функция подсчёта очков с известными - начальное место одинаковых уловов, количество одинаковых уловов
@@ -157,24 +157,24 @@ def calc_scores(index_start: int, index_quantity: int) -> int:
 # избавиться от лишних списков и реализовать расчёты с помощью обращений к первоначальному отсортированному списку
 def calc_period(p_catches: dict, n_period: int) -> list:
 
-    print(type(p_catches), p_catches)
-    print(type(n_period), n_period)
+    # print(type(p_catches), p_catches)
+    # print(type(n_period), n_period)
 
     # список id рыбаков с уловами в конкретном n_period туре
     catches_period = [[k, v[n_period - 1]] for k, v in p_catches.items()]
-    print(f'{catches_period      = }')
+    # print(f'{catches_period      = }')
 
     # сортировка списка рыбаков по уловам с уменьшением
     catches_period_sort = sorted(catches_period, key=lambda nud: nud[1], reverse=True)
-    print(f'{catches_period_sort = }')
+    # print(f'{catches_period_sort = }')
 
     # список только поимок в туре отсортированное с уменьшением
     catches = sorted((v[1] for v in catches_period_sort), reverse=True)
-    print(f'{catches          = }')
+    # print(f'{catches          = }')
 
     # уникальные поимки в туре отсортированные с уменьшением
     unique_catches = sorted(list(set(catches)), reverse=True)
-    print(f'{unique_catches   = }')
+    # print(f'{unique_catches   = }')
 
     # итоговая таблица с очками и местами тура
     # копирование отсортированной таблицы
@@ -196,14 +196,14 @@ def calc_period(p_catches: dict, n_period: int) -> list:
         catch_index += 1
 
         # улов
-        print(f'{catch = }', end=',   ')
+        # print(f'{catch = }', end=',   ')
 
         # индекс улова
-        print(f'{catch_index = }', end=',   ')
+        # print(f'{catch_index = }', end=',   ')
 
         # место
         angler_place = catch_index + 1
-        print(f'{angler_place = }', end=',   ')
+        # print(f'{angler_place = }', end=',   ')
 
         # очки
         # если текущий улов не равен предыдущему, то значит это первый элемент за которым пойдут повторные
@@ -214,7 +214,7 @@ def calc_period(p_catches: dict, n_period: int) -> list:
             angler_score = calc_scores(angler_place, q_catch)
         else:  # ситуация когда повтор улова есть
             angler_score = calc_scores(first_repeat_catch, q_catch)
-        print(f'{angler_score = }')
+        # print(f'{angler_score = }')
 
         # запоминание предыдущего улова
         prev_catch = catch
@@ -223,19 +223,19 @@ def calc_period(p_catches: dict, n_period: int) -> list:
         period_result[catch_index].append(angler_place)
         period_result[catch_index].append(angler_score)
 
-    print()
+    # print()
     # итоговая таблица с местами и очками
-    print(f'{period_result = } ... {type(period_result) = }')
+    # print(f'{period_result = } ... {type(period_result) = }')
 
     return period_result
 
 
 if __name__ == '__main__':
-    print()
+    # print()
     create_tournament()
-    print()
+    # print()
     create_anglers()
 
     for period in range(1, len(table_catches[1]) + 1):
-        print(period, '*' * 50)
+        # print(period, '*' * 50)
         calc_period(table_catches, period)
