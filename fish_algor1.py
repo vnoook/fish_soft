@@ -115,13 +115,13 @@ class Angler:
 
 
 # функция по созданию сорев, чисто утилитарная для хранения переменных в конкретных соревах
-def create_tournament():
+def create_tournament() -> None:
     tournament = Tournament(q_tur=1, q_period=6, q_zone=1, q_sector=None, d_period=45, q_anglers=8)
     # print(tournament.get_tournament_info())
 
 
 # функция по созданию рыбака на соревах
-def create_anglers():
+def create_anglers() -> None:
     # создание экземпляров рыбаков по количеству из table_anglers
     for angler_id, angler_fio in table_anglers.items():
         # создаётся название экземпляра
@@ -155,14 +155,14 @@ def calc_scores(index_start: int, index_quantity: int) -> int:
 # (место, ид участника, улов, количество очков за этот период)
 # TODO
 # избавиться от лишних списков и реализовать расчёты с помощью обращений к первоначальному отсортированному списку
-def calc_period(p_catches: dict, n_period: int) -> list:
+def calc_table(p_catches: dict, n_period: int) -> list:
 
     # print(type(p_catches), p_catches)
     # print(type(n_period), n_period)
 
-    # список id рыбаков с уловами в конкретном n_period туре
+    # список id рыбаков с уловами в конкретном n_period периоде
     catches_period = [[k, v[n_period - 1]] for k, v in p_catches.items()]
-    # print(f'{catches_period      = }')
+    print(f'{catches_period      = }')
 
     # сортировка списка рыбаков по уловам с уменьшением
     catches_period_sort = sorted(catches_period, key=lambda nud: nud[1], reverse=True)
@@ -238,4 +238,4 @@ if __name__ == '__main__':
 
     for period in range(1, len(table_catches[1]) + 1):
         # print(period, '*' * 50)
-        calc_period(table_catches, period)
+        calc_table(table_catches, period)
