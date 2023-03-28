@@ -15,9 +15,9 @@ SETT_DEF_SOFT = {
         'screen_resolution_x': 1400,
         'screen_resolution_y': 900},
     'competition_action': {
-        'COMP_q_tur': 1,
-        'COMP_q_period': 3,
-        'COMP_q_zone': 1,
+        'COMP_q_tur': 2,
+        'COMP_q_period': 4,
+        'COMP_q_zone': 2,
         # 'COMP_q_sector': 1,
         # 'COMP_d_period': 45,
         'COMP_q_anglers': 8},

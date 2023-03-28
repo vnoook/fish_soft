@@ -162,7 +162,7 @@ def calc_table(p_catches: dict, n_period: int) -> list:
 
     # список id рыбаков с уловами в конкретном n_period периоде
     catches_period = [[k, v[n_period - 1]] for k, v in p_catches.items()]
-    print(f'{catches_period      = }')
+    # print(f'{catches_period      = }')
 
     # сортировка списка рыбаков по уловам с уменьшением
     catches_period_sort = sorted(catches_period, key=lambda nud: nud[1], reverse=True)
