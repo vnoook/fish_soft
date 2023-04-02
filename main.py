@@ -215,6 +215,11 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         window_settings.setWindowTitle(comp_window_n)
         window_settings.setWindowModality(PyQt5.QtCore.Qt.WindowModal)
         window_settings.setGeometry(comp_window_x + 25, comp_window_y + 25, comp_window_w, comp_window_h)
+
+        # QLineEdit
+        line_edit1 = PyQt5.QtWidgets.QLineEdit(window_settings)
+        line_edit1.setGeometry(5, 5, 20, 20)
+
         window_settings.show()
 
     # окно правил соревнований
