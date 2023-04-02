@@ -209,6 +209,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         comp_window_y = SETTINGS_COMMON_DEF['settings_window_set_comp']['window_coords_y']
         comp_window_w = SETTINGS_COMMON_DEF['settings_window_set_comp']['window_coords_w']
         comp_window_h = SETTINGS_COMMON_DEF['settings_window_set_comp']['window_coords_h']
+        section = SETTINGS_DATA_DEF['competition_action']
 
         # окно настроек, надпись на нём и размеры
         window_settings = PyQt5.QtWidgets.QWidget(self, PyQt5.QtCore.Qt.Window)
@@ -219,6 +220,16 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # QLineEdit
         line_edit1 = PyQt5.QtWidgets.QLineEdit(window_settings)
         line_edit1.setGeometry(5, 5, 20, 20)
+
+        for key, val in section.items():
+            print(key, val)
+        print(type(section))
+
+        echoLayout = PyQt5.QtWidgets.QGridLayout()
+        echoLayout.addWidget(echoLabel, 0, 0)
+        echoLayout.addWidget(echoComboBox, 0, 1)
+        echoLayout.addWidget(self.echoLineEdit, 1, 0, 1, 2)
+        echoGroup.setLayout(echoLayout)
 
         window_settings.show()
 
