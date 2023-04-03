@@ -217,19 +217,36 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         window_settings.setWindowModality(PyQt5.QtCore.Qt.WindowModal)
         window_settings.setGeometry(comp_window_x + 25, comp_window_y + 25, comp_window_w, comp_window_h)
 
-        # QLineEdit
-        line_edit1 = PyQt5.QtWidgets.QLineEdit(window_settings)
-        line_edit1.setGeometry(5, 5, 20, 20)
+        # алгоритм автоматического вывода настроек в окно
+        # переменная индекс
+        ind = 0
 
+        ws_group = PyQt5.QtWidgets.QGroupBox('ws_group')
+
+        # слой для автоматического распределения в окне
+        ws_layout = PyQt5.QtWidgets.QGridLayout(window_settings)
         for key, val in section.items():
-            print(key, val)
-        print(type(section))
+            print(key, val, type(val))
 
-        echoLayout = PyQt5.QtWidgets.QGridLayout()
-        echoLayout.addWidget(echoLabel, 0, 0)
-        echoLayout.addWidget(echoComboBox, 0, 1)
-        echoLayout.addWidget(self.echoLineEdit, 1, 0, 1, 2)
-        echoGroup.setLayout(echoLayout)
+            ws_label = PyQt5.QtWidgets.QLabel(window_settings)
+            ws_label.setObjectName('ws_label_'+key)
+            ws_label.setText(key)
+
+            ws_edit = PyQt5.QtWidgets.QLineEdit(window_settings)
+            ws_edit.setObjectName('ws_edit'+key)
+            ws_edit.setText(str(val))
+            ws_edit.setValidator(PyQt5.QtGui.QIntValidator(ws_edit))
+
+            ws_layout.addWidget(ws_label, 0+ind, 0)
+            ws_layout.addWidget(ws_edit, 0+ind, 1)
+
+            ind += 1
+
+        ws_group.setLayout(ws_layout)
+
+        layout = PyQt5.QtWidgets.QGridLayout(window_settings)
+        layout.addWidget(ws_group, 0, 0)
+        window_settings.setLayout(layout)
 
         window_settings.show()
 
