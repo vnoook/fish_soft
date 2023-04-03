@@ -220,45 +220,55 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # алгоритм автоматического вывода настроек в окно
         # переменная индекс
         ind = 0
+
         # группа для выводимых настроек
-        ws_group = PyQt5.QtWidgets.QGroupBox('Введите новые параметры и объекты на форме перерисуются')
+        ws_group = PyQt5.QtWidgets.QGroupBox('Введите новые параметры соревнований')
 
         # слой для автоматического распределения в окне
         ws_layout = PyQt5.QtWidgets.QGridLayout(window_settings)
-        for key, val in section.items():
-            print(key, val, type(val))
 
+        # цикл в котором создаются объекты настроек
+        for key, val in section.items():
+            # QLabel
             ws_label = PyQt5.QtWidgets.QLabel(window_settings)
             ws_label.setObjectName('ws_label_'+key)
             ws_label.setText(key)
-
+            ws_label.adjustSize()
+            # QLineEdit
             ws_edit = PyQt5.QtWidgets.QLineEdit(window_settings)
             ws_edit.setObjectName('ws_edit'+key)
             ws_edit.setText(str(val))
+            ws_edit.adjustSize()
             ws_edit.setValidator(PyQt5.QtGui.QIntValidator(ws_edit))
 
+            # добавление юнитов в слой
             ws_layout.addWidget(ws_label, 0+ind, 0)
             ws_layout.addWidget(ws_edit, 0+ind, 1)
 
+            # увеличение счетчика
             ind += 1
 
-        btnYES = PyQt5.QtWidgets.QPushButton(window_settings)
-        btnYES.setText('yes')
-        btnYES.setGeometry(PyQt5.QtCore.QRect(10, 70, 50, 20))
-        btnYES.setFixedWidth(50)
-        # btnYES.clicked.connect()
+        # кнопки OK-Cancel
+        btn_yes = PyQt5.QtWidgets.QPushButton(window_settings)
+        btn_yes.setText('Сохранить')
+        btn_yes.adjustSize()
+        # btn_yes.setGeometry(PyQt5.QtCore.QRect(10, 70, 20, 20))
+        btn_yes.setFixedWidth(150)
+        # btn_yes.clicked.connect()
 
-        btnNO = PyQt5.QtWidgets.QPushButton(window_settings)
-        btnNO.setText('no')
-        btnNO.setGeometry(PyQt5.QtCore.QRect(10, 70, 50, 20))
-        btnNO.setFixedWidth(50)
-        # btnNO.clicked.connect()
+        btn_no = PyQt5.QtWidgets.QPushButton(window_settings)
+        btn_no.setText('Отмена')
+        btn_no.adjustSize()
+        # btn_no.setGeometry(PyQt5.QtCore.QRect(10, 70, 50, 20))
+        btn_no.setFixedWidth(150)
+        # btn_no.clicked.connect()
 
-        ws_layout.addWidget(btnYES, 0+ind, 0)
-        ws_layout.addWidget(btnNO, 0+ind, 1)
+        # добавление кнопок в слой
+        ws_layout.addWidget(btn_yes, 0+ind, 0)
+        ws_layout.addWidget(btn_no, 0+ind, 1)
 
+        # добавление слоя в группу
         ws_group.setLayout(ws_layout)
-
         layout = PyQt5.QtWidgets.QGridLayout(window_settings)
         layout.addWidget(ws_group, 0, 0)
         window_settings.setLayout(layout)
