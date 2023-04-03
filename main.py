@@ -254,7 +254,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         btn_yes.adjustSize()
         # btn_yes.setGeometry(PyQt5.QtCore.QRect(10, 70, 20, 20))
         btn_yes.setFixedWidth(150)
-        # btn_yes.clicked.connect()
+        btn_yes.clicked.connect(self.window_settings_ok)
 
         btn_no = PyQt5.QtWidgets.QPushButton(window_settings)
         btn_no.setText('Отмена')
@@ -274,6 +274,15 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         window_settings.setLayout(layout)
 
         window_settings.show()
+
+    # функция действия по кнопке подтверждения в настройках соревнования
+    def window_settings_ok(self) -> None:
+        """Функция действия по кнопке подтверждения в настройках соревнования"""
+        print(self.window_settings_ok.__name__) if DEBUG else ...
+
+        print('---')
+
+        self.window_settings.close()
 
     # окно правил соревнований
     def window_rules_competition(self) -> None:
