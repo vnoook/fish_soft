@@ -220,8 +220,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # алгоритм автоматического вывода настроек в окно
         # переменная индекс
         ind = 0
-
-        ws_group = PyQt5.QtWidgets.QGroupBox('ws_group')
+        # группа для выводимых настроек
+        ws_group = PyQt5.QtWidgets.QGroupBox('Введите новые параметры и объекты на форме перерисуются')
 
         # слой для автоматического распределения в окне
         ws_layout = PyQt5.QtWidgets.QGridLayout(window_settings)
@@ -241,6 +241,21 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             ws_layout.addWidget(ws_edit, 0+ind, 1)
 
             ind += 1
+
+        btnYES = PyQt5.QtWidgets.QPushButton(window_settings)
+        btnYES.setText('yes')
+        btnYES.setGeometry(PyQt5.QtCore.QRect(10, 70, 50, 20))
+        btnYES.setFixedWidth(50)
+        # btnYES.clicked.connect()
+
+        btnNO = PyQt5.QtWidgets.QPushButton(window_settings)
+        btnNO.setText('no')
+        btnNO.setGeometry(PyQt5.QtCore.QRect(10, 70, 50, 20))
+        btnNO.setFixedWidth(50)
+        # btnNO.clicked.connect()
+
+        ws_layout.addWidget(btnYES, 0+ind, 0)
+        ws_layout.addWidget(btnNO, 0+ind, 1)
 
         ws_group.setLayout(ws_layout)
 
