@@ -261,7 +261,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         btn_no.adjustSize()
         # btn_no.setGeometry(PyQt5.QtCore.QRect(10, 70, 50, 20))
         btn_no.setFixedWidth(150)
-        # btn_no.clicked.connect()
+        btn_no.clicked.connect(window_settings.close)
 
         # добавление кнопок в слой
         ws_layout.addWidget(btn_yes, 0+ind, 0)
