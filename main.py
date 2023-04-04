@@ -296,11 +296,11 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         if btn_name == 'ws_btn_no':
             pass
             print(btn_name)
-            # self.window_settings.close()
         elif btn_name == 'ws_btn_yes':
             pass
             print(btn_name)
-        print()
+
+        # self.window_settings.close()
 
     # окно правил соревнований
     def window_rules_competition(self) -> None:

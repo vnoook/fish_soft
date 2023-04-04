@@ -2,4 +2,4 @@
 /data/
 /res/
 /*.xlsx
-fish_settings.toml
+/fish_settings.toml
