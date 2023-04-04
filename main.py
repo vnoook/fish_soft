@@ -235,6 +235,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             ws_label.setObjectName('ws_label_'+key)
             ws_label.setText(key)
             ws_label.adjustSize()
+
             # QLineEdit
             ws_edit = PyQt5.QtWidgets.QLineEdit(window_settings)
             ws_edit.setObjectName('ws_edit'+key)
@@ -256,15 +257,15 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         ws_btn_yes.adjustSize()
         # ws_btn_yes.setGeometry(PyQt5.QtCore.QRect(10, 70, 20, 20))
         ws_btn_yes.setFixedWidth(150)
-        ws_btn_yes.clicked.connect(self.window_settings_ok)
+        ws_btn_yes.clicked.connect(self.window_settings_btn)
 
         ws_btn_no = PyQt5.QtWidgets.QPushButton(window_settings)
-        ws_btn_yes.setObjectName('ws_btn_no')
+        ws_btn_no.setObjectName('ws_btn_no')
         ws_btn_no.setText('Отмена')
         ws_btn_no.adjustSize()
         # ws_btn_no.setGeometry(PyQt5.QtCore.QRect(10, 70, 50, 20))
         ws_btn_no.setFixedWidth(150)
-        ws_btn_no.clicked.connect(window_settings.close)
+        ws_btn_no.clicked.connect(self.window_settings_btn)
 
         # добавление кнопок в слой
         ws_layout.addWidget(ws_btn_yes, 0+ws_ind, 0)
@@ -280,18 +281,26 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         window_settings.show()
 
     # функция действия по кнопке подтверждения в настройках соревнования
-    def window_settings_ok(self) -> None:
+    def window_settings_btn(self) -> None:
         """Функция действия по кнопке подтверждения в настройках соревнования"""
-        print(self.window_settings_ok.__name__) if DEBUG else ...
+        print(self.window_settings_btn.__name__) if DEBUG else ...
 
-        # кнопка, которая послала событие
-        btn_sender = self.sender()
         # имя кнопки, пославшей событие
-        btn_name = self.sender().objectName()#.split('_')[1]
+        btn_name = self.sender().objectName()
 
-        print(btn_sender, '='+btn_name+'=')
+        # print(self.sender())
+        # print(self.__dict__)
+        # print(self.sender().__dict__)
+        # print(self.window_settings.__dict__)
 
-        # self.window_settings.close()
+        if btn_name == 'ws_btn_no':
+            pass
+            print(btn_name)
+            # self.window_settings.close()
+        elif btn_name == 'ws_btn_yes':
+            pass
+            print(btn_name)
+        print()
 
     # окно правил соревнований
     def window_rules_competition(self) -> None:
