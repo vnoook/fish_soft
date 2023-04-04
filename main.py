@@ -209,7 +209,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         comp_window_y = SETTINGS_COMMON_DEF['settings_window_set_comp']['window_coords_y']
         comp_window_w = SETTINGS_COMMON_DEF['settings_window_set_comp']['window_coords_w']
         comp_window_h = SETTINGS_COMMON_DEF['settings_window_set_comp']['window_coords_h']
-        section = SETTINGS_DATA_DEF['competition_action']
+        comp_section = SETTINGS_DATA_DEF['competition_action']
 
         # окно настроек, надпись на нём и размеры
         window_settings = PyQt5.QtWidgets.QWidget(self, PyQt5.QtCore.Qt.Window)
@@ -218,8 +218,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         window_settings.setGeometry(comp_window_x + 25, comp_window_y + 25, comp_window_w, comp_window_h)
 
         # алгоритм автоматического вывода настроек в окно
+        # все объекты далее в этом окне будут иметь начало имён ws_
         # переменная индекс
-        ind = 0
+        ws_ind = 0
 
         # группа для выводимых настроек
         ws_group = PyQt5.QtWidgets.QGroupBox('Введите новые параметры соревнований')
@@ -228,7 +229,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         ws_layout = PyQt5.QtWidgets.QGridLayout(window_settings)
 
         # цикл в котором создаются объекты настроек
-        for key, val in section.items():
+        for key, val in comp_section.items():
             # QLabel
             ws_label = PyQt5.QtWidgets.QLabel(window_settings)
             ws_label.setObjectName('ws_label_'+key)
@@ -242,30 +243,32 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             ws_edit.setValidator(PyQt5.QtGui.QIntValidator(ws_edit))
 
             # добавление юнитов в слой
-            ws_layout.addWidget(ws_label, 0+ind, 0)
-            ws_layout.addWidget(ws_edit, 0+ind, 1)
+            ws_layout.addWidget(ws_label, 0+ws_ind, 0)
+            ws_layout.addWidget(ws_edit, 0+ws_ind, 1)
 
             # увеличение счетчика
-            ind += 1
+            ws_ind += 1
 
         # кнопки OK-Cancel
-        btn_yes = PyQt5.QtWidgets.QPushButton(window_settings)
-        btn_yes.setText('Сохранить')
-        btn_yes.adjustSize()
-        # btn_yes.setGeometry(PyQt5.QtCore.QRect(10, 70, 20, 20))
-        btn_yes.setFixedWidth(150)
-        btn_yes.clicked.connect(self.window_settings_ok)
+        ws_btn_yes = PyQt5.QtWidgets.QPushButton(window_settings)
+        ws_btn_yes.setObjectName('ws_btn_yes')
+        ws_btn_yes.setText('Сохранить')
+        ws_btn_yes.adjustSize()
+        # ws_btn_yes.setGeometry(PyQt5.QtCore.QRect(10, 70, 20, 20))
+        ws_btn_yes.setFixedWidth(150)
+        ws_btn_yes.clicked.connect(self.window_settings_ok)
 
-        btn_no = PyQt5.QtWidgets.QPushButton(window_settings)
-        btn_no.setText('Отмена')
-        btn_no.adjustSize()
-        # btn_no.setGeometry(PyQt5.QtCore.QRect(10, 70, 50, 20))
-        btn_no.setFixedWidth(150)
-        btn_no.clicked.connect(window_settings.close)
+        ws_btn_no = PyQt5.QtWidgets.QPushButton(window_settings)
+        ws_btn_yes.setObjectName('ws_btn_no')
+        ws_btn_no.setText('Отмена')
+        ws_btn_no.adjustSize()
+        # ws_btn_no.setGeometry(PyQt5.QtCore.QRect(10, 70, 50, 20))
+        ws_btn_no.setFixedWidth(150)
+        ws_btn_no.clicked.connect(window_settings.close)
 
         # добавление кнопок в слой
-        ws_layout.addWidget(btn_yes, 0+ind, 0)
-        ws_layout.addWidget(btn_no, 0+ind, 1)
+        ws_layout.addWidget(ws_btn_yes, 0+ws_ind, 0)
+        ws_layout.addWidget(ws_btn_no, 0+ws_ind, 1)
 
         # добавление слоя в группу
         ws_group.setLayout(ws_layout)
@@ -273,6 +276,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         layout.addWidget(ws_group, 0, 0)
         window_settings.setLayout(layout)
 
+        # показать окно настроек
         window_settings.show()
 
     # функция действия по кнопке подтверждения в настройках соревнования
@@ -280,9 +284,14 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         """Функция действия по кнопке подтверждения в настройках соревнования"""
         print(self.window_settings_ok.__name__) if DEBUG else ...
 
-        print('---')
+        # кнопка, которая послала событие
+        btn_sender = self.sender()
+        # имя кнопки, пославшей событие
+        btn_name = self.sender().objectName()#.split('_')[1]
 
-        self.window_settings.close()
+        print(btn_sender, '='+btn_name+'=')
+
+        # self.window_settings.close()
 
     # окно правил соревнований
     def window_rules_competition(self) -> None:
