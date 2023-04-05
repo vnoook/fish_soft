@@ -237,7 +237,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
             # QLineEdit
             ws_edit = PyQt5.QtWidgets.QLineEdit(self.window_settings)
-            ws_edit.setObjectName('ws_edit'+key)
+            ws_edit.setObjectName('ws_edit_'+key)
             ws_edit.setText(str(val))
             ws_edit.adjustSize()
             ws_edit.setValidator(PyQt5.QtGui.QIntValidator(ws_edit))
@@ -257,6 +257,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # ws_btn_yes.setGeometry(PyQt5.QtCore.QRect(10, 70, 20, 20))
         ws_btn_yes.setFixedWidth(150)
         ws_btn_yes.clicked.connect(self.window_settings_btn)
+
         # кнопка NO
         ws_btn_no = PyQt5.QtWidgets.QPushButton(self.window_settings)
         ws_btn_no.setObjectName('ws_btn_no')
@@ -287,27 +288,33 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # имя кнопки, пославшей событие
         btn_name = self.sender().objectName()
 
-        # если кнопка ОК, то нужно
-        # получить новые числа, сохранить в константы новые параметры, перерендерить главное окно
+        # если кнопка ОК, то нужно:
+        # получить новые числа, сохранить в константы и файл новые параметры,
+        # закрыть окно настроек, перерендерить главное окно, поставить фокус на что-то
         if btn_name == 'ws_btn_yes':
-            SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers'] = 8
-            SETTINGS_DATA_DEF['competition_action']['COMP_q_period'] = 4
-            SETTINGS_DATA_DEF['competition_action']['COMP_q_tur'] = 2
-            SETTINGS_DATA_DEF['competition_action']['COMP_q_zone'] = 2
+            comp_section = SETTINGS_DATA_DEF['competition_action']
+            list_of_edits = self.window_settings.findChildren(PyQt5.QtWidgets.QLineEdit)
 
-            for unit in self.window_settings.children():
-                print(unit)
-                print(unit.children())
+            for section in comp_section:
+                print(section)
+                for unit in list_of_edits:
+                    if section in unit.objectName():
+                        SETTINGS_DATA_DEF['competition_action'][section] = int(unit.text())
+                        # print(f'{unit.objectName() = }')
+                        # print(f'{unit.text() = }')
+                        # print()
 
-                if unit.children().__class__ is PyQt5.QtWidgets.QGroupBox:
-                    print(unit)
-                    print(unit.children())
+        # SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers'] = 1
+        # SETTINGS_DATA_DEF['competition_action']['COMP_q_period'] = 1
+        # SETTINGS_DATA_DEF['competition_action']['COMP_q_tur'] = 1
+        # SETTINGS_DATA_DEF['competition_action']['COMP_q_zone'] = 1
 
         # закрытие окна в любом случае
         self.window_settings.close()
 
         self.del_form_units()
         self.add_form_units()
+        save_settings()
 
     # окно правил соревнований
     def window_rules_competition(self) -> None:
