@@ -99,10 +99,10 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.file_send = self.file.addAction('Отправить')
         self.file_sep = self.file.addSeparator()
 
-        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         self.cleaner = self.file.addAction('cleaner')
         self.adder = self.file.addAction('adder')
-        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         self.file_sep = self.file.addSeparator()
         self.file_exit = self.file.addAction('Выход')
@@ -111,10 +111,10 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.file_send.triggered.connect(self.window_file_send)
         self.file_exit.triggered.connect(self.window_file_exit)
 
-        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         self.cleaner.triggered.connect(self.del_form_units)
         self.adder.triggered.connect(self.add_form_units)
-        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         # НАСТРОЙКИ
         self.settings = self.menu.addMenu('Настройки')
@@ -132,7 +132,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.about = self.menu.addAction('О программе')
         self.about.triggered.connect(self.window_about_soft)
 
-    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     # функция очистки главного окна от объектов
     def del_form_units(self) -> None:
         """Функция очистки главного окна от объектов"""
@@ -153,7 +153,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         if not self.dict_all_units:
             # генерация объектов для ввода данных по соревнованиям
             self.render_objects_main_window()
-    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     # функция по открытию меню Файл-Открыть
     def window_file_open(self) -> None:
@@ -442,7 +442,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     # line_edit.setClearButtonEnabled(False)
 
                     # дополнительная обработка полей
-                    # !!!
+                    # TODO
                     # заполнение номеров спортсменов, можно заменить на заполнение через количество спортиков q_anglers
                     unit_model = unit_name.split('_')[1]
                     if unit_model == 'number':
@@ -798,7 +798,12 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         print(self.keyPressEvent.__name__) if DEBUG else ...
 
         # имя объекта, который послал событие
-        unit_name = self.focusWidget().objectName()
+        if self.focusWidget():
+            unit_name = self.focusWidget().objectName()
+        else:
+            # TODO
+            # !!! Поставить тут фокус на что-нибудь
+            pass
 
         # # колонка объекта, который послал событие
         # unit_col = self.get_num_col_of_unit(unit_name)
