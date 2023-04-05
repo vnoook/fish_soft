@@ -16,7 +16,7 @@ else:
 import tomli_w
 import fish_consts as fcs
 
-# from pprint import pprint as pp
+from pprint import pprint as pp
 
 
 # определение констант
@@ -153,7 +153,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         if not self.dict_all_units:
             # генерация объектов для ввода данных по соревнованиям
             self.render_objects_main_window()
-
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     # функция по открытию меню Файл-Открыть
@@ -288,16 +287,27 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # имя кнопки, пославшей событие
         btn_name = self.sender().objectName()
 
-        if btn_name == 'ws_btn_no':
-            print(btn_name)
-        elif btn_name == 'ws_btn_yes':
-            pass
-            print(btn_name)
+        # если кнопка ОК, то нужно
+        # получить новые числа, сохранить в константы новые параметры, перерендерить главное окно
+        if btn_name == 'ws_btn_yes':
+            SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers'] = 8
+            SETTINGS_DATA_DEF['competition_action']['COMP_q_period'] = 4
+            SETTINGS_DATA_DEF['competition_action']['COMP_q_tur'] = 2
+            SETTINGS_DATA_DEF['competition_action']['COMP_q_zone'] = 2
 
-            print(self.__dict__)
-            print(self.dict_all_units)
+            for unit in self.window_settings.children():
+                print(unit)
+                print(unit.children())
 
+                if unit.children().__class__ is PyQt5.QtWidgets.QGroupBox:
+                    print(unit)
+                    print(unit.children())
+
+        # закрытие окна в любом случае
         self.window_settings.close()
+
+        self.del_form_units()
+        self.add_form_units()
 
     # окно правил соревнований
     def window_rules_competition(self) -> None:
