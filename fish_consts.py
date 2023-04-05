@@ -20,13 +20,13 @@ SETT_DEF_SOFT = {
         'COMP_q_zone': 2,
         # 'COMP_q_sector': 1,
         # 'COMP_d_period': 45,
-        'COMP_q_anglers': 8},
+        'COMP_q_anglers': 15},
     'misc': {}
 }
 
 # константы для работы программе, остаются в памяти
 SETT_DEF_COMMON = {
-    'version': '0.1.14',
+    'version': '0.1.15',
     'window_name_main': 'ЧСВ - НХНЧ',
     'about_text': 'Чтобы Соревнования Выиграть - "Ни хвоста, Ни чешуи"',
     'window_name_set_comp': 'Настройки соревнования',

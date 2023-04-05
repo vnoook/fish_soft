@@ -292,29 +292,30 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # получить новые числа, сохранить в константы и файл новые параметры,
         # закрыть окно настроек, перерендерить главное окно, поставить фокус на что-то
         if btn_name == 'ws_btn_yes':
+            # собираются секции настроек соревнования
             comp_section = SETTINGS_DATA_DEF['competition_action']
+            # ищутся все объекты для редактирования
             list_of_edits = self.window_settings.findChildren(PyQt5.QtWidgets.QLineEdit)
 
+            # в цикле по секциям находятся имена объектов с совпадающими именами
+            # и из этих объектов значения устанавливаются в константы
             for section in comp_section:
-                print(section)
                 for unit in list_of_edits:
                     if section in unit.objectName():
+                        # TODO
+                        # добавить проверка чисел, чтобы пользователь не ввёл слишком большие числа
                         SETTINGS_DATA_DEF['competition_action'][section] = int(unit.text())
-                        # print(f'{unit.objectName() = }')
-                        # print(f'{unit.text() = }')
-                        # print()
 
-        # SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers'] = 1
-        # SETTINGS_DATA_DEF['competition_action']['COMP_q_period'] = 1
-        # SETTINGS_DATA_DEF['competition_action']['COMP_q_tur'] = 1
-        # SETTINGS_DATA_DEF['competition_action']['COMP_q_zone'] = 1
+            # если были изменения настроек, то сделать следующие действия
+            # чистится главное окно
+            self.del_form_units()
+            # добавляются объекты на главное окно
+            self.add_form_units()
+            # сохраняются настройки в файл
+            save_settings()
 
         # закрытие окна в любом случае
         self.window_settings.close()
-
-        self.del_form_units()
-        self.add_form_units()
-        save_settings()
 
     # окно правил соревнований
     def window_rules_competition(self) -> None:
