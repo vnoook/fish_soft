@@ -30,6 +30,7 @@ LAST_STATE_FILE = 'last_state.toml'
 SETTINGS_DATA_DEF = None
 SETTINGS_COMMON_DEF = None
 SETT_MODEL = None
+LAST_STATE = None
 
 
 # класс главного окна
@@ -1250,17 +1251,18 @@ def load_last_state() -> None:
     """Функция загрузки последнего состояния значений на форме"""
     print(load_last_state.__name__) if DEBUG else ...
 
-    print('загружаю предыдущее состояние')
-    print()
+    global LAST_STATE
+
+    # если файл существует, то читаю его и правлю настройки, рендерю и заполняю значениями из файла
+    if os.path.exists(LAST_STATE_FILE):
+        with open(LAST_STATE_FILE, "rb") as fl_last_state:
+            LAST_STATE = tomllib.load(fl_last_state)
 
 
 # функция сохранения последнего состояния значений на форме
-def save_last_state(obj) -> None:
+def save_last_state(obj: PyQt5.QtWidgets.QMainWindow) -> None:
     """Функция сохранения последнего состояния значений на форме"""
     print(save_last_state.__name__) if DEBUG else ...
-
-    print('сохраняю предыдущее состояние')
-    print()
 
     # словарь для хранения настроек с последующим переводом в toml
     last_state_dict = {}
@@ -1309,6 +1311,12 @@ def run() -> None:
     """Основная функция запуска приложения"""
     print(run.__name__) if DEBUG else ...
 
+    # загрузка последнего состояния значений на форме
+    load_last_state()
+
+    # чтение настроек программы
+    read_settings()
+
     app = PyQt5.QtWidgets.QApplication(sys.argv)
     app.setStyle('Fusion')
 
@@ -1322,13 +1330,6 @@ def run() -> None:
 
 
 if __name__ == '__main__':
-    # загрузка последнего состояния значений на форме
-    load_last_state()
-
-    # чтение настроек программы
-    read_settings()
-
-    # запуск самой программы
     run()
 
 # print(*list_of_fields, sep='\n')
@@ -1352,15 +1353,3 @@ if __name__ == '__main__':
 
 # print(f'{hasattr(unit_obj, "text") = }')
 # print(f'{getattr(unit_obj, "text")() = }')
-
-# # функция чтения файла с настройками
-# def read_settings(file_settings: str):
-#     # если файл существует, то прочитать содержимое
-#     if os.path.exists(file_settings):
-#         with open(file_settings, "rb") as fl_set:
-#             data = tomllib.load(fl_set)
-#         return data
-#     else:
-#         # иначе содержимое считается значениями по-умолчанию
-#         save_settings(SETTINGS_DATA_DEF, SETTINGS_FILE_DEF)
-#         return SETTINGS_DATA_DEF
