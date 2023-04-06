@@ -1020,17 +1020,11 @@ def read_settings() -> None:
         else:
             SETTINGS_DATA_DEF = repair_settings(data, fcs.SETT_DEF_SOFT)
 
-
+    # константа последнего состояния
     global LAST_STATE
-    print('-'*30)
-    pp(SETTINGS_DATA_DEF['competition_action'])
     # сюда добавить обработку данных из последнего состояния
-    print('-'*30)
-    if LAST_STATE == None:
-        pp(LAST_STATE)
-    else:
-        pp(LAST_STATE['competition_action'])
-    print('-' * 30)
+    if LAST_STATE != None:
+        SETTINGS_DATA_DEF['competition_action'] = LAST_STATE['competition_action']
 
 
 # функция валидности ключей и их количества в хранилище настроек
