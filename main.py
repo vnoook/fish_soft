@@ -42,6 +42,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         super().__init__()
 
         # словарь всех объектов рендеринга, нужен для хранения, поиска и чистки на форме
+        # можно было использовать findChildren, но этот вариант мне кажется уместнее
         self.dict_all_units = {}
 
         # версия программы
