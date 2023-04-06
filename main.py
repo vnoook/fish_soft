@@ -1021,6 +1021,18 @@ def read_settings() -> None:
             SETTINGS_DATA_DEF = repair_settings(data, fcs.SETT_DEF_SOFT)
 
 
+    global LAST_STATE
+    print('-'*30)
+    pp(SETTINGS_DATA_DEF['competition_action'])
+    # сюда добавить обработку данных из последнего состояния
+    print('-'*30)
+    if LAST_STATE == None:
+        pp(LAST_STATE)
+    else:
+        pp(LAST_STATE['competition_action'])
+    print('-' * 30)
+
+
 # функция валидности ключей и их количества в хранилище настроек
 def repair_settings(cur_dict: dict, def_dict: dict) -> dict:
     """Функция валидности ключей и их количества в хранилище настроек"""
@@ -1270,20 +1282,20 @@ def save_last_state(obj: PyQt5.QtWidgets.QMainWindow) -> None:
     # СЕКЦИЯ НАСТРОЕК соревнования
     comp_section = SETTINGS_DATA_DEF['competition_action']
     # беру сразу всю секцию из настроек
-    last_state_dict['soft'] = comp_section
+    last_state_dict['competition_action'] = comp_section
 
     # СЕКЦИЯ ЗНАЧЕНИЙ полей которые редактируются на главной форме
     # читаю все объекты двух типов и складываю их в словарь значений
     list_of_edits = obj.findChildren(PyQt5.QtWidgets.QLineEdit)
     list_of_combo = obj.findChildren(PyQt5.QtWidgets.QComboBox)
     # словарь значений объектов на форме
-    last_state_dict['comp'] = {}
+    last_state_dict['competition_fields'] = {}
 
     # получение имён и значений объектов
     for unit in list_of_edits:
-        last_state_dict['comp'][unit.objectName()] = unit.text()
+        last_state_dict['competition_fields'][unit.objectName()] = unit.text()
     for unit in list_of_combo:
-        last_state_dict['comp'][unit.objectName()] = unit.currentIndex()
+        last_state_dict['competition_fields'][unit.objectName()] = unit.currentIndex()
 
     # СЕКЦИЯ ДЛЯ ДОП ПОЛЕЙ, например для сохранения состояния жеребьёвки
     last_state_dict['misc'] = {}
