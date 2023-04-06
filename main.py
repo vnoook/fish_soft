@@ -1352,3 +1352,15 @@ if __name__ == '__main__':
 
 # print(f'{hasattr(unit_obj, "text") = }')
 # print(f'{getattr(unit_obj, "text")() = }')
+
+# # функция чтения файла с настройками
+# def read_settings(file_settings: str):
+#     # если файл существует, то прочитать содержимое
+#     if os.path.exists(file_settings):
+#         with open(file_settings, "rb") as fl_set:
+#             data = tomllib.load(fl_set)
+#         return data
+#     else:
+#         # иначе содержимое считается значениями по-умолчанию
+#         save_settings(SETTINGS_DATA_DEF, SETTINGS_FILE_DEF)
+#         return SETTINGS_DATA_DEF
