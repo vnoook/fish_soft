@@ -245,7 +245,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             ws_edit.adjustSize()
             ws_edit.setValidator(PyQt5.QtGui.QIntValidator(ws_edit))
 
-            # добавление юнитов в слой
+            # добавление объектов в слой
             ws_layout.addWidget(ws_label, 0+ws_ind, 0)
             ws_layout.addWidget(ws_edit, 0+ws_ind, 1)
 
@@ -293,7 +293,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
         # если кнопка ОК, то нужно:
         # получить новые числа, сохранить в константы и файл новые параметры,
-        # закрыть окно настроек, перерендерить главное окно, поставить фокус на что-то
+        # закрыть окно настроек, перерисовать главное окно, поставить фокус на что-то
         if btn_name == 'ws_btn_yes':
             # собираются секции настроек соревнования
             comp_section = SETTINGS_DATA_DEF['competition_action']
@@ -1253,6 +1253,7 @@ def load_last_state() -> None:
     print('загружаю предыдущее состояние')
     print()
 
+
 # функция сохранения последнего состояния значений на форме
 def save_last_state(obj) -> None:
     """Функция сохранения последнего состояния значений на форме"""
@@ -1264,12 +1265,12 @@ def save_last_state(obj) -> None:
     # словарь для хранения настроек с последующим переводом в toml
     last_state_dict = {}
 
-    # секция настроек соревнования
+    # СЕКЦИЯ НАСТРОЕК соревнования
     comp_section = SETTINGS_DATA_DEF['competition_action']
     # беру сразу всю секцию из настроек
     last_state_dict['soft'] = comp_section
 
-    # секция значений полей которые редактируются на главной форме
+    # СЕКЦИЯ ЗНАЧЕНИЙ полей которые редактируются на главной форме
     # читаю все объекты двух типов и складываю их в словарь значений
     list_of_edits = obj.findChildren(PyQt5.QtWidgets.QLineEdit)
     list_of_combo = obj.findChildren(PyQt5.QtWidgets.QComboBox)
@@ -1282,9 +1283,13 @@ def save_last_state(obj) -> None:
     for unit in list_of_combo:
         last_state_dict['comp'][unit.objectName()] = unit.currentIndex()
 
-    # секция для доп полей, например для сохранения состояния жеребьёвки
+    # СЕКЦИЯ ДЛЯ ДОП ПОЛЕЙ, например для сохранения состояния жеребьёвки
     last_state_dict['misc'] = {}
-    print(obj)
+
+    # перенос состояния жеребьёвки
+    for unit in obj.findChildren(PyQt5.QtWidgets.QCheckBox):
+        if 'checkbox_lottery' in unit.objectName():
+            last_state_dict['misc'][unit.objectName()] = unit.isChecked()
 
     # запись настроек в файл
     with open(LAST_STATE_FILE, "wb") as file_settings:
