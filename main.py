@@ -974,6 +974,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
         # сохранение настроек перед выходом
         save_settings()
+        # сохранения последнего состояния значений на форме
+        save_last_state(self)
         # выход из приложения
         exit_app()
 
@@ -1249,13 +1251,38 @@ def load_last_state() -> None:
     print(load_last_state.__name__) if DEBUG else ...
 
     print('загружаю предыдущее состояние')
+    print()
 
 # функция сохранения последнего состояния значений на форме
-def save_last_state() -> None:
+def save_last_state(obj) -> None:
     """Функция сохранения последнего состояния значений на форме"""
     print(save_last_state.__name__) if DEBUG else ...
 
     print('сохраняю предыдущее состояние')
+    print()
+
+    # словарь для хранения настроек с последующим переводом в toml
+    last_state_dict = {}
+
+    # секция настроек соревнования
+    comp_section = SETTINGS_DATA_DEF['competition_action']
+    # беру сразу всю секцию из настроек
+    last_state_dict['soft'] = comp_section
+
+    # секция значений полей которые редактируются на главной форме
+    # читаю все объекты двух типов и складываю их в словарь значений
+    list_of_edits = obj.findChildren(PyQt5.QtWidgets.QLineEdit)
+    list_of_combo = obj.findChildren(PyQt5.QtWidgets.QComboBox)
+    # словарь значений объектов на форме
+    last_state_dict['comp'] = {}
+
+    # получение имён и значений объектов
+    for unit in list_of_edits:
+        last_state_dict['comp'][unit.objectName()] = unit.text()
+    for unit in list_of_combo:
+        last_state_dict['comp'][unit.objectName()] = unit.currentIndex()
+
+    pp(last_state_dict)
 
 
 # функция непосредственного выхода из программы
@@ -1284,11 +1311,16 @@ def run() -> None:
 
 
 if __name__ == '__main__':
+    # загрузка последнего состояния значений на форме
+    load_last_state()
+
+    # чтение настроек программы
     read_settings()
+
+    # запуск самой программы
     run()
 
 # print(*list_of_fields, sep='\n')
-# print(*list_of_units, sep='\n')
 
 # print()
 # for i in dir(event):
@@ -1304,11 +1336,6 @@ if __name__ == '__main__':
 # print(f'{event.key().conjugate() = } ... {event.key().denominator = }')
 # print(f'{event.key().numerator = } ... {event.key().real = }')
 # print(f'{event.key().imag = }')
-
-# print(self.clearFocus())
-# print(self.hasFocus())
-# print(self.setFocus())
-# print(event.modifiers())
 
 # .strip() .isspace()
 
