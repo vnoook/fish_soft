@@ -24,6 +24,8 @@ from pprint import pprint as pp
 DEBUG = False
 # название файла с настройками
 SETTINGS_FILE = 'fish_settings.toml'
+# файл для хранения последнего состояния значений на форме
+LAST_STATE_FILE = 'last_state.toml'
 # набор констант для открытого и закрытого хранения
 SETTINGS_DATA_DEF = None
 SETTINGS_COMMON_DEF = None
@@ -1239,6 +1241,21 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
     list_of_fields = list_desc_of_fields + list_coord_of_fields
 
     return list_of_fields
+
+
+# функция загрузки последнего состояния значений на форме
+def load_last_state() -> None:
+    """Функция загрузки последнего состояния значений на форме"""
+    print(load_last_state.__name__) if DEBUG else ...
+
+    print('загружаю предыдущее состояние')
+
+# функция сохранения последнего состояния значений на форме
+def save_last_state() -> None:
+    """Функция сохранения последнего состояния значений на форме"""
+    print(save_last_state.__name__) if DEBUG else ...
+
+    print('сохраняю предыдущее состояние')
 
 
 # функция непосредственного выхода из программы
