@@ -3,3 +3,4 @@
 /res/
 /*.xlsx
 /fish_settings.toml
+/last_state.toml

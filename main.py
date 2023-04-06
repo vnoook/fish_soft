@@ -1282,7 +1282,13 @@ def save_last_state(obj) -> None:
     for unit in list_of_combo:
         last_state_dict['comp'][unit.objectName()] = unit.currentIndex()
 
-    pp(last_state_dict)
+    # секция для доп полей, например для сохранения состояния жеребьёвки
+    last_state_dict['misc'] = {}
+    print(obj)
+
+    # запись настроек в файл
+    with open(LAST_STATE_FILE, "wb") as file_settings:
+        tomli_w.dump(last_state_dict, file_settings)
 
 
 # функция непосредственного выхода из программы
