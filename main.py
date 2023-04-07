@@ -1010,7 +1010,7 @@ def read_settings() -> None:
     # константа последнего состояния
     global LAST_STATE
     # замена секции настроек на такую же секцию из последнего состояния ибо они равны
-    if LAST_STATE is None:
+    if LAST_STATE is not None:
         SETTINGS_DATA_DEF['competition_action'] = LAST_STATE['competition_action']
 
 
@@ -1240,16 +1240,16 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
 
 
 # функция загрузки последнего состояния значений на форме
-def load_last_state() -> None:
+def read_last_state() -> None:
     """Функция загрузки последнего состояния значений на форме"""
-    print(load_last_state.__name__) if DEBUG else ...
+    print(read_last_state.__name__) if DEBUG else ...
 
     global LAST_STATE
 
     # если файл существует, то читаю его и правлю настройки, рендерю и заполняю значениями из файла
     if os.path.exists(LAST_STATE_FILE):
-        with open(LAST_STATE_FILE, "rb") as fl_last_state:
-            LAST_STATE = tomllib.load(fl_last_state)
+        with open(LAST_STATE_FILE, "rb") as file_last_state:
+            LAST_STATE = tomllib.load(file_last_state)
 
 
 # функция сохранения последнего состояния значений на форме
@@ -1305,7 +1305,7 @@ def run() -> None:
     print(run.__name__) if DEBUG else ...
 
     # загрузка последнего состояния значений на форме
-    load_last_state()
+    read_last_state()
 
     # чтение настроек программы
     read_settings()
