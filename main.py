@@ -226,6 +226,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
         # окно настроек, надпись на нём и размеры
         self.window_settings_comp = PyQt5.QtWidgets.QWidget(self, PyQt5.QtCore.Qt.Window)
+        # добавил эту строку для установки атрибута удаления всего с содержимым виджета после закрытия его
+        self.window_settings_comp.setAttribute(PyQt5.QtCore.Qt.WA_DeleteOnClose)
         self.window_settings_comp.setWindowTitle(comp_window_n)
         self.window_settings_comp.setWindowModality(PyQt5.QtCore.Qt.WindowModal)
         self.window_settings_comp.setGeometry(comp_window_x + 25, comp_window_y + 25, comp_window_w, comp_window_h)
@@ -294,7 +296,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.window_settings_comp.show()
 
     # функция действия по кнопке подтверждения в настройках соревнования
-    def window_settings_btn(self) -> None:
+    def window_settings_btn(self: PyQt5.QtCore.Qt.Window) -> None:
         """Функция действия по кнопке подтверждения в настройках соревнования"""
         print(self.window_settings_btn.__name__) if DEBUG else ...
 
@@ -327,9 +329,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             # сохраняются настройки в файл
             save_settings()
 
-        # закрытие окна в любом случае
-        # TODO
-        # сделать уничтожение формы и объектов на ней
+        # закрытие окна
+        # при этом удаляются и все объекты, так как установлен атрибут WA_DeleteOnClose
         self.window_settings_comp.close()
 
     # окно правил соревнований
