@@ -1008,6 +1008,8 @@ def read_settings() -> None:
         # если файла нет, то настройки берутся по-умолчанию
         SETTINGS_DATA_DEF = fcs.SETT_DEF_SOFT
     else:
+        # TODO
+        # сделать правильный except
         try:
             # пробую открыть, прочитать и распознать данные в файле
             with open(SETTINGS_FILE, "rb") as file_settings:
@@ -1022,8 +1024,8 @@ def read_settings() -> None:
 
     # константа последнего состояния
     global LAST_STATE
-    # сюда добавить обработку данных из последнего состояния
-    if LAST_STATE != None:
+    # замена секции настроек на такую же секцию из последнего состояния ибо они равны
+    if LAST_STATE is None:
         SETTINGS_DATA_DEF['competition_action'] = LAST_STATE['competition_action']
 
 
