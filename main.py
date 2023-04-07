@@ -543,12 +543,30 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         global LAST_STATE
 
         if LAST_STATE is not None:
-            # установка флага у жеребьёвки
-            pp(LAST_STATE['misc']['checkbox_lottery_2'])
+            # установка флага у жеребьёвки, если жеребьёвка была, то объект нужно "заблокировать"
+            flag_checked_unit = LAST_STATE['misc']['checkbox_lottery_2']
+            if flag_checked_unit:
+                # !!! костыльно подставляю конкретный объект checkbox_lottery_2
+                unit = self.findChild(PyQt5.QtWidgets.QCheckBox, 'checkbox_lottery_2')
+                unit.setChecked(flag_checked_unit)
+                unit.setEnabled(False)
 
             # установка значений в объекты на форме
-            # pp(LAST_STATE['competition_fields'])
+            section_of_values = LAST_STATE['competition_fields']
+            for obj_name, obj_value in section_of_values.items():
+                obj = self.dict_all_units.get(obj_name)
+                obj_type = self.dict_all_units.get(obj_name).__class__
+                print(obj_name, obj_value, obj, obj_type)
 
+                if obj_type is PyQt5.QtWidgets.QLineEdit:
+                    pass
+                elif obj_type is PyQt5.QtWidgets.QComboBox:
+                    pass
+                else:
+                    pass
+
+            # pp(self.dict_all_units)
+            # print('*'*50)
 
     # изменения размера окна
     def resize_main_windows_for_render(self, list_objects: list) -> None:
