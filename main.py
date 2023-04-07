@@ -87,6 +87,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # генерация объектов для ввода данных по соревнованиям
         self.render_objects_main_window()
 
+        # переменная окна настроек
+        self.window_settings_comp = None
+
     # функция создания главного меню
     def create_menu(self) -> None:
         """Функция создания главного меню"""
@@ -187,19 +190,22 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         """Функция окна настроек программы"""
         print(self.window_settings_soft.__name__) if DEBUG else ...
 
-        # переменные
-        soft_window_n = SETTINGS_COMMON_DEF['window_name_set_soft']
-        soft_window_x = SETTINGS_COMMON_DEF['settings_window_set_soft']['window_coords_x']
-        soft_window_y = SETTINGS_COMMON_DEF['settings_window_set_soft']['window_coords_y']
-        soft_window_w = SETTINGS_COMMON_DEF['settings_window_set_soft']['window_coords_w']
-        soft_window_h = SETTINGS_COMMON_DEF['settings_window_set_soft']['window_coords_h']
+        # TODO
+        # переписать заглушку
 
-        # окно настроек, надпись на нём и размеры
-        window_settings = PyQt5.QtWidgets.QWidget(self, PyQt5.QtCore.Qt.Window)
-        window_settings.setWindowTitle(soft_window_n)
-        window_settings.setWindowModality(PyQt5.QtCore.Qt.WindowModal)
-        window_settings.setGeometry(soft_window_x + 25, soft_window_y + 25, soft_window_w, soft_window_h)
-        window_settings.show()
+        # # переменные
+        # soft_window_n = SETTINGS_COMMON_DEF['window_name_set_soft']
+        # soft_window_x = SETTINGS_COMMON_DEF['settings_window_set_soft']['window_coords_x']
+        # soft_window_y = SETTINGS_COMMON_DEF['settings_window_set_soft']['window_coords_y']
+        # soft_window_w = SETTINGS_COMMON_DEF['settings_window_set_soft']['window_coords_w']
+        # soft_window_h = SETTINGS_COMMON_DEF['settings_window_set_soft']['window_coords_h']
+        #
+        # # окно настроек, надпись на нём и размеры
+        # window_settings = PyQt5.QtWidgets.QWidget(self, PyQt5.QtCore.Qt.Window)
+        # window_settings.setWindowTitle(soft_window_n)
+        # window_settings.setWindowModality(PyQt5.QtCore.Qt.WindowModal)
+        # window_settings.setGeometry(soft_window_x + 25, soft_window_y + 25, soft_window_w, soft_window_h)
+        # window_settings.show()
 
     # окно настроек соревнований
     def window_settings_competition(self) -> None:
@@ -215,10 +221,10 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         comp_section = SETTINGS_DATA_DEF['competition_action']
 
         # окно настроек, надпись на нём и размеры
-        self.window_settings = PyQt5.QtWidgets.QWidget(self, PyQt5.QtCore.Qt.Window)
-        self.window_settings.setWindowTitle(comp_window_n)
-        self.window_settings.setWindowModality(PyQt5.QtCore.Qt.WindowModal)
-        self.window_settings.setGeometry(comp_window_x + 25, comp_window_y + 25, comp_window_w, comp_window_h)
+        self.window_settings_comp = PyQt5.QtWidgets.QWidget(self, PyQt5.QtCore.Qt.Window)
+        self.window_settings_comp.setWindowTitle(comp_window_n)
+        self.window_settings_comp.setWindowModality(PyQt5.QtCore.Qt.WindowModal)
+        self.window_settings_comp.setGeometry(comp_window_x + 25, comp_window_y + 25, comp_window_w, comp_window_h)
 
         # алгоритм автоматического вывода настроек в окно
         # все объекты далее в этом окне будут иметь начало имён ws_
@@ -226,21 +232,21 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         ws_ind = 0
 
         # группа для выводимых настроек
-        ws_group = PyQt5.QtWidgets.QGroupBox('Введите новые параметры соревнований')
+        ws_group = PyQt5.QtWidgets.QGroupBox('Новые параметры очистят уже введённые значения')
 
         # слой для автоматического распределения в окне
-        ws_layout = PyQt5.QtWidgets.QGridLayout(self.window_settings)
+        ws_layout = PyQt5.QtWidgets.QGridLayout(self.window_settings_comp)
 
         # цикл в котором создаются объекты настроек
         for key, val in comp_section.items():
             # QLabel
-            ws_label = PyQt5.QtWidgets.QLabel(self.window_settings)
+            ws_label = PyQt5.QtWidgets.QLabel(self.window_settings_comp)
             ws_label.setObjectName('ws_label_'+key)
             ws_label.setText(key)
             ws_label.adjustSize()
 
             # QLineEdit
-            ws_edit = PyQt5.QtWidgets.QLineEdit(self.window_settings)
+            ws_edit = PyQt5.QtWidgets.QLineEdit(self.window_settings_comp)
             ws_edit.setObjectName('ws_edit_'+key)
             ws_edit.setText(str(val))
             ws_edit.adjustSize()
@@ -254,16 +260,15 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             ws_ind += 1
 
         # кнопка YES
-        ws_btn_yes = PyQt5.QtWidgets.QPushButton(self.window_settings)
+        ws_btn_yes = PyQt5.QtWidgets.QPushButton(self.window_settings_comp)
         ws_btn_yes.setObjectName('ws_btn_yes')
         ws_btn_yes.setText('Сохранить')
         ws_btn_yes.adjustSize()
-        # ws_btn_yes.setGeometry(PyQt5.QtCore.QRect(10, 70, 20, 20))
         ws_btn_yes.setFixedWidth(150)
         ws_btn_yes.clicked.connect(self.window_settings_btn)
 
         # кнопка NO
-        ws_btn_no = PyQt5.QtWidgets.QPushButton(self.window_settings)
+        ws_btn_no = PyQt5.QtWidgets.QPushButton(self.window_settings_comp)
         ws_btn_no.setObjectName('ws_btn_no')
         ws_btn_no.setText('Отмена')
         ws_btn_no.adjustSize()
@@ -277,12 +282,12 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
         # добавление слоя в группу
         ws_group.setLayout(ws_layout)
-        layout = PyQt5.QtWidgets.QGridLayout(self.window_settings)
+        layout = PyQt5.QtWidgets.QGridLayout(self.window_settings_comp)
         layout.addWidget(ws_group, 0, 0)
-        self.window_settings.setLayout(layout)
+        self.window_settings_comp.setLayout(layout)
 
         # показать окно настроек
-        self.window_settings.show()
+        self.window_settings_comp.show()
 
     # функция действия по кнопке подтверждения в настройках соревнования
     def window_settings_btn(self) -> None:
@@ -299,7 +304,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             # собираются секции настроек соревнования
             comp_section = SETTINGS_DATA_DEF['competition_action']
             # ищутся все объекты для редактирования
-            list_of_edits = self.window_settings.findChildren(PyQt5.QtWidgets.QLineEdit)
+            list_of_edits = self.window_settings_comp.findChildren(PyQt5.QtWidgets.QLineEdit)
 
             # в цикле по секциям находятся имена объектов с совпадающими именами
             # и из этих объектов значения устанавливаются в константы
@@ -319,7 +324,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             save_settings()
 
         # закрытие окна в любом случае
-        self.window_settings.close()
+        self.window_settings_comp.close()
 
     # окно правил соревнований
     def window_rules_competition(self) -> None:
@@ -330,6 +335,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
     def window_about_soft(self) -> None:
         """Функция окна О программе"""
         print(self.window_about_soft.__name__) if DEBUG else ...
+
+        # TODO
+        # Возможно тут можно применить специальное окно "о программе" от QT5
 
         # переменные
         soft_version = SETTINGS_COMMON_DEF['version']
@@ -347,6 +355,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         print(self.render_objects_main_window.__name__) if DEBUG else ...
 
         # сбор переменных для формирования объектов на форме
+        global SETT_MODEL
         start_x = SETTINGS_COMMON_DEF['form_sizes']['start_x']
         start_y = SETTINGS_COMMON_DEF['form_sizes']['start_y']
         gap_x = SETTINGS_COMMON_DEF['form_gaps']['gap_x']
@@ -400,11 +409,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                                          str(unit_x) + '-' + str(unit_y) + '-' +
                                          str(unit_w) + '-' + str(unit_h))
                     self.dict_all_units[line_edit_name] = line_edit
-                    # line_edit.setPlaceholderText(unit_name)
-                    # line_edit.setText(unit_name)
-                    # line_edit.setText(str(unit_x) + '-' + str(unit_y) + '-' + str(unit_w) + '-' + str(unit_h))
-                    # line_edit.setClearButtonEnabled(False)
-                    # line_edit.setEnabled(True)
 
                     # дополнительная обработка полей
                     unit_model = unit_name.split('_')[1]
@@ -448,10 +452,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                                          str(unit_x) + '-' + str(unit_y) + '-' +
                                          str(unit_w) + '-' + str(unit_h))
                     self.dict_all_units[line_edit_name] = line_edit
-                    # line_edit.setPlaceholderText(unit_name)
-                    # line_edit.setText(unit_name)
-                    # line_edit.setText(str(unit_x) + '-' + str(unit_y) + '-' + str(unit_w) + '-' + str(unit_h))
-                    # line_edit.setClearButtonEnabled(False)
 
                     # дополнительная обработка полей
                     # TODO
@@ -474,8 +474,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     combo_box.addItem('')
                     combo_box.setGeometry(unit_x, unit_y, unit_w, unit_h)
                     self.dict_all_units[combo_box_name] = combo_box
-                    # combo_box.setPlaceholderText(unit_name)
-                    # combo_box.setEnabled(True)
 
                     # дополнительная обработка полей
                     for zone in range(q_zone):
@@ -499,10 +497,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                         check_box.setGeometry(unit_x, unit_y, unit_w, unit_h)
                         check_box.clicked.connect(self.change_status_checkbox)
                         self.dict_all_units[check_box_name] = check_box
-                        # check_box.setVisible(True)
-
-                        # дополнительная обработка полей
-                        ...
 
                         # рендеринг объектов
                         check_box.show()
@@ -517,6 +511,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                         counter_period += 1
                         counter = counter_period
                     else:
+                        # TODO
+                        # зачем тут пустая строка, лучше None поставить
                         counter = ''
 
                     # общее описание полей
@@ -532,14 +528,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                                      str(unit_w) + '-' + str(unit_h) + '\n' + label_text)
                     label.setGeometry(unit_x, unit_y, unit_w, unit_h)
                     self.dict_all_units[label_name] = label
-
-                    # font = PyQt5.QtGui.QFont()
-                    # font.setPointSize(8)
-                    # label.setFont(font)
-                    # label.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
-
-                    # дополнительная обработка полей
-                    ...
 
                     # показывание объектов
                     label.show()
@@ -577,7 +565,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             new_height = rez_y - win_y
 
         self.setFixedSize(new_width, new_height)
-        # self.resize(new_width, new_height)
         self.show()
 
     # функция нажатия на чекбокс в описании
@@ -964,8 +951,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         SETTINGS_COMMON_DEF['settings_window_set_comp']['window_coords_y'] = self.frame_geometry.y()
         SETTINGS_COMMON_DEF['settings_window_set_soft']['window_coords_x'] = self.frame_geometry.x()
         SETTINGS_COMMON_DEF['settings_window_set_soft']['window_coords_y'] = self.frame_geometry.y()
-        # SETTINGS_COMMON_DEF['settings_window_about']['window_coords_x'] = self.frame_geometry.x()
-        # SETTINGS_COMMON_DEF['settings_window_about']['window_coords_y'] = self.frame_geometry.y()
 
     # функция общего выхода из программы
     def exit_common(self) -> None:
@@ -1361,3 +1346,19 @@ if __name__ == '__main__':
 
 # print(f'{hasattr(unit_obj, "text") = }')
 # print(f'{getattr(unit_obj, "text")() = }')
+
+# line_edit.setPlaceholderText(unit_name)
+# line_edit.setText(unit_name)
+# line_edit.setText(str(unit_x) + '-' + str(unit_y) + '-' + str(unit_w) + '-' + str(unit_h))
+# line_edit.setClearButtonEnabled(False)
+# line_edit.setEnabled(True)
+
+# combo_box.setPlaceholderText(unit_name)
+# combo_box.setEnabled(True)
+
+# font = PyQt5.QtGui.QFont()
+# font.setPointSize(8)
+# label.setFont(font)
+# label.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
+
+# self.resize(new_width, new_height)
