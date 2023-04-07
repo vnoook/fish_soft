@@ -5,6 +5,8 @@
 import sys
 import os.path
 import random
+from email.contentmanager import set_text_content
+
 import PyQt5.QtGui
 import PyQt5.QtCore
 import PyQt5.QtWidgets
@@ -557,22 +559,18 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                 unit.setEnabled(False)
 
             # установка значений в объекты на форме
-            # pp(LAST_STATE)
             section_of_values = LAST_STATE['competition_fields']
             for obj_name, obj_value in section_of_values.items():
                 obj = self.dict_all_units.get(obj_name)
                 obj_type = self.dict_all_units.get(obj_name).__class__
-                # print(obj_name, obj_value, obj, obj_type)
 
                 if obj_type is PyQt5.QtWidgets.QLineEdit:
-                    pass
+                    obj.setText(obj_value)
                 elif obj_type is PyQt5.QtWidgets.QComboBox:
+                    obj.setCurrentIndex(obj_value)
+                elif obj_type is PyQt5.QtWidgets.QCheckBox:
                     pass
-                else:
-                    pass
-
-            # pp(self.dict_all_units)
-            # print('*'*50)
+                    # print(obj_name, obj_value, obj_type, obj)
 
     # изменения размера окна
     def resize_main_windows_for_render(self, list_objects: list) -> None:
