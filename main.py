@@ -87,6 +87,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # генерация объектов для ввода данных по соревнованиям
         self.render_objects_main_window()
 
+        # заполнение полей на форме из последнего состояния, если оно имеется
+        self.fill_form_from_last_state()
+
         # переменная окна настроек
         self.window_settings_comp = None
 
@@ -532,6 +535,21 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     # показывание объектов
                     label.show()
 
+    # заполнение полей на форме значениями из последнего состояния, если оно не None
+    def fill_form_from_last_state(self) -> None:
+        """Заполнение полей на форме значениями из последнего состояния, если оно не None"""
+        print(self.fill_form_from_last_state.__name__) if DEBUG else ...
+
+        global LAST_STATE
+
+        if LAST_STATE is not None:
+            # установка флага у жеребьёвки
+            pp(LAST_STATE['misc']['checkbox_lottery_2'])
+
+            # установка значений в объекты на форме
+            # pp(LAST_STATE['competition_fields'])
+
+
     # изменения размера окна
     def resize_main_windows_for_render(self, list_objects: list) -> None:
         """Изменения размера окна"""
@@ -602,9 +620,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
             # блокирую и скрываю чекбокс потому, что жеребьёвка проводится один раз за соревнования
             if obj_cur.isChecked():
-                # нужно ли прятать чекбокс или нет? пока буду прятать
+                # !!! нужно ли прятать чекбокс или нет
                 obj_cur.setEnabled(False)
-                obj_cur.setVisible(False)
+                # obj_cur.setVisible(False)
 
         # если чекбоксы с полями о спортсмене
         elif obj_cur_name in checkbox_of_names:
