@@ -1,5 +1,6 @@
 # TODO
 # сделать проверку вводимых данных в периоды, чтобы было без "000"
+# при открытии окна настроек в LAST_STATE пишутся и объекты с этих окон
 
 import sys
 import os.path
@@ -327,6 +328,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             save_settings()
 
         # закрытие окна в любом случае
+        # TODO
+        # сделать уничтожение формы и объектов на ней
         self.window_settings_comp.close()
 
     # окно правил соревнований
@@ -552,11 +555,12 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                 unit.setEnabled(False)
 
             # установка значений в объекты на форме
+            # pp(LAST_STATE)
             section_of_values = LAST_STATE['competition_fields']
             for obj_name, obj_value in section_of_values.items():
                 obj = self.dict_all_units.get(obj_name)
                 obj_type = self.dict_all_units.get(obj_name).__class__
-                print(obj_name, obj_value, obj, obj_type)
+                # print(obj_name, obj_value, obj, obj_type)
 
                 if obj_type is PyQt5.QtWidgets.QLineEdit:
                     pass
