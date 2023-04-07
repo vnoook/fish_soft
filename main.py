@@ -550,13 +550,13 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         global LAST_STATE
 
         if LAST_STATE is not None:
-            # установка флага у жеребьёвки, если жеребьёвка была, то объект нужно "заблокировать"
-            flag_checked_unit = LAST_STATE['misc']['checkbox_lottery_2']
-            if flag_checked_unit:
-                # !!! костыльно подставляю конкретный объект checkbox_lottery_2
-                unit = self.findChild(PyQt5.QtWidgets.QCheckBox, 'checkbox_lottery_2')
-                unit.setChecked(flag_checked_unit)
-                unit.setEnabled(False)
+            # # установка флага у жеребьёвки, если жеребьёвка была, то объект нужно "заблокировать"
+            # flag_checked_unit = LAST_STATE['competition_fields']['checkbox_lottery_2']
+            # if flag_checked_unit:
+            #     # !!! костыльно подставляю конкретный объект checkbox_lottery_2
+            #     unit = self.findChild(PyQt5.QtWidgets.QCheckBox, 'checkbox_lottery_2')
+            #     unit.setChecked(flag_checked_unit)
+            #     unit.setEnabled(False)
 
             # установка значений в объекты на форме
             section_of_values = LAST_STATE['competition_fields']
@@ -1297,7 +1297,7 @@ def save_last_state(obj: PyQt5.QtWidgets.QMainWindow) -> None:
     """Функция сохранения последнего состояния значений на форме"""
     print(save_last_state.__name__) if DEBUG else ...
 
-    # словарь для хранения настроек с последующим переводом в toml
+    # словарь для хранения настроек
     last_state_dict = {}
 
     # СЕКЦИЯ НАСТРОЕК соревнования
@@ -1306,29 +1306,23 @@ def save_last_state(obj: PyQt5.QtWidgets.QMainWindow) -> None:
     last_state_dict['competition_action'] = comp_section
 
     # СЕКЦИЯ ЗНАЧЕНИЙ полей которые редактируются на главной форме
-    # читаю все объекты двух типов и складываю их в словарь значений
-    list_of_edits = obj.findChildren(PyQt5.QtWidgets.QLineEdit)
-    list_of_combo = obj.findChildren(PyQt5.QtWidgets.QComboBox)
+    # читаю все объекты нужных классов и складываю их в словарь значений
     # словарь значений объектов на форме
     last_state_dict['competition_fields'] = {}
 
-    # получение имён и значений объектов
-    for unit in list_of_edits:
-        last_state_dict['competition_fields'][unit.objectName()] = unit.text()
-    for unit in list_of_combo:
-        last_state_dict['competition_fields'][unit.objectName()] = unit.currentIndex()
+    # получение имён и значений объектов и перенос их в словарь "имя:значение"
+    for unit_name, unit in obj.dict_all_units.items():
+        # print(unit_name, unit)
+        if unit.__class__ is PyQt5.QtWidgets.QCheckBox:
+            last_state_dict['competition_fields'][unit.objectName()] = unit.isChecked()
+        elif unit.__class__ is PyQt5.QtWidgets.QLineEdit:
+            last_state_dict['competition_fields'][unit.objectName()] = unit.text()
+        elif unit.__class__ is PyQt5.QtWidgets.QComboBox:
+            last_state_dict['competition_fields'][unit.objectName()] = unit.currentIndex()
 
-    # СЕКЦИЯ ДЛЯ ДОП ПОЛЕЙ, например для сохранения состояния жеребьёвки
-    last_state_dict['misc'] = {}
-
-    # перенос состояния жеребьёвки
-    for unit in obj.findChildren(PyQt5.QtWidgets.QCheckBox):
-        if 'checkbox_lottery' in unit.objectName():
-            last_state_dict['misc'][unit.objectName()] = unit.isChecked()
-
-    # запись настроек в файл
-    with open(LAST_STATE_FILE, "wb") as file_settings:
-        tomli_w.dump(last_state_dict, file_settings)
+    # запись словаря для хранения настроек, полей и значений этих полей в файл
+    with open(LAST_STATE_FILE, "wb") as file_last_state:
+        tomli_w.dump(last_state_dict, file_last_state)
 
 
 # функция непосредственного выхода из программы
