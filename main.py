@@ -1,6 +1,8 @@
 # TODO
 # сделать проверку вводимых данных в периоды, чтобы было без "000"
 # проверить все открываемые окна на необходимость атрибута WA_DeleteOnClose
+# есть мысль, что можно сэкономить на проверке пустого значения при сохранении последнего состояния,
+#     чтобы не писать лишние значения, файл будет меньше
 
 import sys
 import os.path
@@ -547,30 +549,32 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         """Заполнение полей на форме значениями из последнего состояния, если оно не None"""
         print(self.fill_form_from_last_state.__name__) if DEBUG else ...
 
+        # глобальная переменная для хранения последнего состояния
         global LAST_STATE
 
+        # перенос данных из последнего состояния в поля на форме
         if LAST_STATE is not None:
-            # # установка флага у жеребьёвки, если жеребьёвка была, то объект нужно "заблокировать"
-            # flag_checked_unit = LAST_STATE['competition_fields']['checkbox_lottery_2']
-            # if flag_checked_unit:
-            #     # !!! костыльно подставляю конкретный объект checkbox_lottery_2
-            #     unit = self.findChild(PyQt5.QtWidgets.QCheckBox, 'checkbox_lottery_2')
-            #     unit.setChecked(flag_checked_unit)
-            #     unit.setEnabled(False)
-
             # установка значений в объекты на форме
             section_of_values = LAST_STATE['competition_fields']
             for obj_name, obj_value in section_of_values.items():
+                # получение дополнительных переменных
                 obj = self.dict_all_units.get(obj_name)
                 obj_type = self.dict_all_units.get(obj_name).__class__
 
+                # проверки на тип объекта для выбора реакции на него
                 if obj_type is PyQt5.QtWidgets.QLineEdit:
                     obj.setText(obj_value)
                 elif obj_type is PyQt5.QtWidgets.QComboBox:
                     obj.setCurrentIndex(obj_value)
                 elif obj_type is PyQt5.QtWidgets.QCheckBox:
-                    pass
-                    # print(obj_name, obj_value, obj_type, obj)
+                    if obj_value:
+                        # если колонка Жеребьёвка, то надо ещё "заблокировать" чекбокс, иначе просто поставить галку
+                        if obj_name == 'checkbox_lottery_2':
+                            obj.setChecked(obj_value)
+                            obj.setEnabled(False)
+                        # !!! нужно ли чекать чекбоксы? и если чекнуть, то надо блокировать колонку
+                        # else:
+                        #     obj.setChecked(obj_value)
 
     # изменения размера окна
     def resize_main_windows_for_render(self, list_objects: list) -> None:
@@ -1302,7 +1306,7 @@ def save_last_state(obj: PyQt5.QtWidgets.QMainWindow) -> None:
 
     # СЕКЦИЯ НАСТРОЕК соревнования
     comp_section = SETTINGS_DATA_DEF['competition_action']
-    # беру сразу всю секцию из настроек
+    # беру сразу всю секцию из настроек и записываюю её целиком в словарь
     last_state_dict['competition_action'] = comp_section
 
     # СЕКЦИЯ ЗНАЧЕНИЙ полей которые редактируются на главной форме
@@ -1312,7 +1316,6 @@ def save_last_state(obj: PyQt5.QtWidgets.QMainWindow) -> None:
 
     # получение имён и значений объектов и перенос их в словарь "имя:значение"
     for unit_name, unit in obj.dict_all_units.items():
-        # print(unit_name, unit)
         if unit.__class__ is PyQt5.QtWidgets.QCheckBox:
             last_state_dict['competition_fields'][unit.objectName()] = unit.isChecked()
         elif unit.__class__ is PyQt5.QtWidgets.QLineEdit:
