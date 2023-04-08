@@ -3,12 +3,12 @@
 # проверить все открываемые окна на необходимость атрибута WA_DeleteOnClose
 # есть мысль, что можно сэкономить на проверке пустого значения при сохранении последнего состояния,
 #     чтобы не писать лишние значения, файл будет меньше
+# !!! жеребьёвка перед каждым туром, чтобы суммы входа в зону была одинакова
+# !!! количество зон больше чем в списке, колонка и игровая
 
 import sys
 import os.path
 import random
-from email.contentmanager import set_text_content
-
 import PyQt5.QtGui
 import PyQt5.QtCore
 import PyQt5.QtWidgets
@@ -17,8 +17,8 @@ if sys.version_info < (3, 11):
     import tomli as tomllib
 else:
     import tomllib
-
 import tomli_w
+
 import fish_consts as fcs
 
 from pprint import pprint as pp
@@ -283,7 +283,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         ws_btn_no.setObjectName('ws_btn_no')
         ws_btn_no.setText('Отмена')
         ws_btn_no.adjustSize()
-        # ws_btn_no.setGeometry(PyQt5.QtCore.QRect(10, 70, 50, 20))
         ws_btn_no.setFixedWidth(150)
         ws_btn_no.clicked.connect(self.window_settings_btn)
 
@@ -572,7 +571,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                         if obj_name == 'checkbox_lottery_2':
                             obj.setChecked(obj_value)
                             obj.setEnabled(False)
-                        # !!! нужно ли чекать чекбоксы? и если чекнуть, то надо блокировать колонку
+                        # TODO
+                        # нужно ли чекать чекбоксы? и если чекнуть, то надо блокировать колонку
                         # else:
                         #     obj.setChecked(obj_value)
 
@@ -646,9 +646,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
             # блокирую и скрываю чекбокс потому, что жеребьёвка проводится один раз за соревнования
             if obj_cur.isChecked():
-                # !!! нужно ли прятать чекбокс или нет
                 obj_cur.setEnabled(False)
-                # obj_cur.setVisible(False)
 
         # если чекбоксы с полями о спортсмене
         elif obj_cur_name in checkbox_of_names:
@@ -740,10 +738,10 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     PyQt5.QtWidgets.QMessageBox.information(self, 'Блокировка не получилась',
                                                             f'Заполните все поля в колонке')
 
-        # оставшийся вариант для неизвестной ситуации
-        else:
-            print('!!! ...', obj_cur_name)
-            pass
+        # # оставшийся вариант для неизвестной ситуации
+        # else:
+        #     print('!!! ...', obj_cur_name)
+        #     pass
 
     # функция проверки блокировки нужных колонок перед расчётом
     def check_for_calc(self) -> bool:
@@ -843,13 +841,10 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # имя объекта, который послал событие
         if self.focusWidget():
             unit_name = self.focusWidget().objectName()
-        else:
-            # TODO
-            # !!! Поставить тут фокус на что-нибудь
-            pass
-
-        # # колонка объекта, который послал событие
-        # unit_col = self.get_num_col_of_unit(unit_name)
+        # else:
+        #     # TODO
+        #     # Поставить тут фокус на что-нибудь
+        #     pass
 
         # выбор нажатой кнопки
         if event.key() == PyQt5.QtCore.Qt.Key_Escape:
@@ -868,18 +863,18 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         elif event.key() == PyQt5.QtCore.Qt.Key_Down:
             # print('Key_Down ... ', event.key().numerator)
             self.shift_focus_down(unit_name)
-        elif event.key() == PyQt5.QtCore.Qt.Key_Left:
-            print('Key_Left ... ', event.key().numerator)
-        elif event.key() == PyQt5.QtCore.Qt.Key_Right:
-            print('Key_Right ... ', event.key().numerator)
+        # elif event.key() == PyQt5.QtCore.Qt.Key_Left:
+        #     print('Key_Left ... ', event.key().numerator)
+        # elif event.key() == PyQt5.QtCore.Qt.Key_Right:
+        #     print('Key_Right ... ', event.key().numerator)
         elif event.key() == PyQt5.QtCore.Qt.Key_Enter:
             # print('Key_Enter (rightEnter) ... ', event.key().numerator)
             self.shift_focus_down(unit_name)
         elif event.key() == PyQt5.QtCore.Qt.Key_Return:
             # print('Key_Return (leftEnter) ... ', event.key().numerator)
             self.shift_focus_down(unit_name)
-        else:
-            print('unknown ... ', event.key().numerator)
+        # else:
+        #     print('unknown ... ', event.key().numerator)
 
         super().keyPressEvent(event)
 
@@ -1306,7 +1301,7 @@ def save_last_state(obj: PyQt5.QtWidgets.QMainWindow) -> None:
 
     # СЕКЦИЯ НАСТРОЕК соревнования
     comp_section = SETTINGS_DATA_DEF['competition_action']
-    # беру сразу всю секцию из настроек и записываюю её целиком в словарь
+    # беру сразу всю секцию из настроек и записываю её целиком в словарь
     last_state_dict['competition_action'] = comp_section
 
     # СЕКЦИЯ ЗНАЧЕНИЙ полей которые редактируются на главной форме

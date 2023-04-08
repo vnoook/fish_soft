@@ -26,7 +26,7 @@ SETT_DEF_SOFT = {
 
 # константы для работы программе, остаются в памяти
 SETT_DEF_COMMON = {
-    'version': '0.1.18',
+    'version': '0.1.19',
     'window_name_main': 'ЧСВ - НХНЧ',
     'about_text': 'Чтобы Соревнования Выиграть - "Ни хвоста, Ни чешуи"',
     'window_name_set_comp': 'Настройки соревнования',
@@ -45,10 +45,6 @@ SETT_DEF_COMMON = {
     'form_gaps': {
         'gap_x': 5,
         'gap_y': 5},
-    # 'competition_stat': {
-    #     'COMP_q_fio': 1,
-    #     'COMP_q_checkbox_in_line': 1,
-    #     'COMP_q_desc_in_line': 1},
     'settings_window_set_comp': {
         'window_coords_h': 100,
         'window_coords_w': 100,
@@ -59,11 +55,6 @@ SETT_DEF_COMMON = {
         'window_coords_w': 400,
         'window_coords_x': 100,
         'window_coords_y': 100},
-    # 'settings_window_about': {
-    #     'window_coords_h': 100,
-    #     'window_coords_w': 400,
-    #     'window_coords_x': 100,
-    #     'window_coords_y': 100},
     'misc': {}
 }
 
