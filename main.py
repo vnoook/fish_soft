@@ -1108,10 +1108,6 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
     """Универсальная функция для описания полей и расчёта их координат на форме"""
     print(get_list_fields_and_coords.__name__) if DEBUG else ...
 
-    # --- СОЗДАНИЕ СПИСКА ОБЪЕКТОВ
-    # итоговый список всех полей и их координаты
-    list_coord_of_fields = []
-
     # распределение входных переменных
     # расстояние между объектами на форме
     gap_x = shift_x
@@ -1136,9 +1132,12 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
     # пустой список для сбора конечного списка объектов для рендеринга
     total_model = []
 
+    # --- СОЗДАНИЕ СПИСКА ОБЪЕКТОВ
+    # итоговый список всех полей и их координаты
+    list_coord_of_fields = []
+
     # цикл для генерации объектов конечного списка на основе общей модели
     for block in model:
-        print(block)
         # есть колонки, которые могут повторяться
         # если это та колонка, то добавляется она столько, сколько в настройках соревнования
         if block[0] == 'zona':
@@ -1150,6 +1149,7 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
             pass
 
         elif block[0] == 'period':
+
             # TODO
             # тут нужно добавить обработку жеребьёвки
             # жеребьёвок столько сколько туров, жеребьёвка перед туром
@@ -1172,8 +1172,6 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
         else:
             # простое добавление колонки из модели
             total_model.append(block)
-
-    # pp(total_model)
 
     # цикл расчёта координат полей для соревнования
     for n_sportik in range(1, q_sportiks + 1):
