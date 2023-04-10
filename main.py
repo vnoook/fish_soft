@@ -119,8 +119,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.file_sep = self.file.addSeparator()
 
         # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        self.cleaner = self.file.addAction('cleaner')
-        self.adder = self.file.addAction('adder')
+        self.restart = self.file.addAction('restarter')
+        self.restart.triggered.connect(self.restarter)
         # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         self.file_sep = self.file.addSeparator()
@@ -129,11 +129,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.file_save.triggered.connect(self.window_file_save)
         self.file_send.triggered.connect(self.window_file_send)
         self.file_exit.triggered.connect(self.window_file_exit)
-
-        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        self.cleaner.triggered.connect(self.del_form_units)
-        self.adder.triggered.connect(self.add_form_units)
-        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         # НАСТРОЙКИ
         self.settings = self.menu.addMenu('Настройки')
@@ -152,21 +147,16 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.about.triggered.connect(self.window_about_soft)
 
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    # функция очистки главного окна от объектов
-    def del_form_units(self) -> None:
-        """Функция очистки главного окна от объектов"""
-        print(self.del_form_units.__name__) if DEBUG else ...
+    # функция рестарта главного окна
+    def restarter(self) -> None:
+        """Функция рестарта главного окна"""
+        print(self.restarter.__name__) if DEBUG else ...
 
         # если словарь с объектами не пуст, то удалить все объекты в нём и очистить его
         if self.dict_all_units:
             for unit in self.dict_all_units:
                 self.dict_all_units[unit].deleteLater()
             self.dict_all_units = {}
-
-    # функция добавления объектов на главное окно
-    def add_form_units(self) -> None:
-        """Функция добавления объектов на главное окно"""
-        print(self.add_form_units.__name__) if DEBUG else ...
 
         # если словарь с объектами пуст, то добавить все объекты на форму
         if not self.dict_all_units:
@@ -1161,10 +1151,16 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
 
         elif block[0] == 'period':
             # TODO
-            # тут нужно добавить обработку жеребьёвку
+            # тут нужно добавить обработку жеребьёвки
+            # жеребьёвок столько сколько туров, жеребьёвка перед туром
+            # TODO
+            # переделать в вызов по имени, чтобы при смене model ничего не поломалось
 
-            # разбивка периодов по турам
+            # разбивка периодов по турам, перед каждым туром жеребьёвка
             for i in range(1, q_tur + 1):
+                # вывод жеребьёвки перед первым периодом тура
+                total_model.append(model[1])
+                # добавление количество периодов
                 for j in range(1, q_period + 1):
                     total_model.append(block)
                 # добавление после каждого тура колонки points как итога за тур
