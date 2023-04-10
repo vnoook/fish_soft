@@ -1138,37 +1138,46 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
 
     # переменные которые могут принимать значение больше "1"
     q_zone = SETTINGS_DATA_DEF['competition_action']['COMP_q_zone']
+    q_list_zone = SETTINGS_DATA_DEF['competition_action']['COMP_list_zone']
     q_tur = SETTINGS_DATA_DEF['competition_action']['COMP_q_tur']
     q_period = SETTINGS_DATA_DEF['competition_action']['COMP_q_period']
     model = SETT_MODEL
 
-    # пустой список для собирания конечного списка объектов для рендеринга
+    # пустой список для сбора конечного списка объектов для рендеринга
     total_model = []
 
     # цикл для генерации объектов конечного списка на основе общей модели
     for block in model:
+        print(block)
         # есть колонки, которые могут повторяться
         # если это та колонка, то добавляется она столько, сколько в настройках соревнования
         if block[0] == 'zona':
             for i in range(1, q_zone + 1):
                 total_model.append(block)
 
+        elif block[0] == 'lottery':
+            # пропускаю потому, что эта строка нужна перед каждым туром, а не по-очереди в модели
+            pass
+
         elif block[0] == 'period':
+            # TODO
+            # тут нужно добавить обработку жеребьёвку
+
             # разбивка периодов по турам
             for i in range(1, q_tur + 1):
                 for j in range(1, q_period + 1):
                     total_model.append(block)
-
                 # добавление после каждого тура колонки points как итога за тур
                 total_model.append(model[7])
 
         elif block[0] == 'points':
             # пропускаю потому, что эта строка нужна после каждого тура, а не по-очереди в модели
             pass
-
         else:
             # простое добавление колонки из модели
             total_model.append(block)
+
+    # pp(total_model)
 
     # цикл расчёта координат полей для соревнования
     for n_sportik in range(1, q_sportiks + 1):
