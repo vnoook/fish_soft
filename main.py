@@ -319,10 +319,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                         SETTINGS_DATA_DEF['competition_action'][section] = int(unit.text())
 
             # если были изменения настроек, то сделать следующие действия
-            # чистится главное окно
-            self.del_form_units()
-            # добавляются объекты на главное окно
-            self.add_form_units()
+            # перерисовывается главное окно
+            self.restarter()
+
             # сохраняются настройки в файл
             save_settings()
 
