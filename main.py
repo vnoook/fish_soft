@@ -44,7 +44,7 @@ LAST_STATE = None
 class WindowMain(PyQt5.QtWidgets.QMainWindow):
     """Класс главного окна"""
 
-    # описание главного окна
+    # Метод инициализации класса главного окна
     def __init__(self) -> None:
         """Метод инициализации класса главного окна"""
         print(self.__init__.__name__) if DEBUG else ...
@@ -89,6 +89,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.help_rules_competition = None
         self.about = None
 
+        # переменная окна настроек
+        self.window_settings_comp = None
+
         # создание главного меню
         self.create_menu()
 
@@ -98,8 +101,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # заполнение полей на форме из последнего состояния, если оно имеется
         self.fill_form_from_last_state()
 
-        # переменная окна настроек
-        self.window_settings_comp = None
 
     # функция создания главного меню
     def create_menu(self) -> None:
@@ -362,13 +363,15 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         window_about.setText(about_window_text + ', версия ' + soft_version)
         window_about.show()
 
-    # генерация объектов для ввода данных по соревнованиям
+    # генерация объектов для ввода данных по соревнованию
     def render_objects_main_window(self) -> None:
-        """Генерация объектов для ввода данных"""
+        """Генерация объектов для ввода данных по соревнованию"""
         print(self.render_objects_main_window.__name__) if DEBUG else ...
 
-        # сбор переменных для формирования объектов на форме
+        # получение модели объектов
         global SETT_MODEL
+
+        # сбор переменных для формирования объектов на форме
         start_x = SETTINGS_COMMON_DEF['form_sizes']['start_x']
         start_y = SETTINGS_COMMON_DEF['form_sizes']['start_y']
         gap_x = SETTINGS_COMMON_DEF['form_gaps']['gap_x']
@@ -1348,7 +1351,7 @@ def run() -> None:
     app = PyQt5.QtWidgets.QApplication(sys.argv)
     app.setStyle('Fusion')
 
-    # установка геометрии окна
+    # получение разрешения экрана компьютера на котором запустилось приложение
     screen_geometry = app.desktop().screenGeometry()
     SETTINGS_DATA_DEF['settings_soft']['screen_resolution_x'] = screen_geometry.width()
     SETTINGS_DATA_DEF['settings_soft']['screen_resolution_y'] = screen_geometry.height()
