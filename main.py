@@ -1344,13 +1344,16 @@ def run() -> None:
     # чтение настроек программы
     read_settings()
 
+    # запуск приложения
     app = PyQt5.QtWidgets.QApplication(sys.argv)
     app.setStyle('Fusion')
 
+    # установка геометрии окна
     screen_geometry = app.desktop().screenGeometry()
     SETTINGS_DATA_DEF['settings_soft']['screen_resolution_x'] = screen_geometry.width()
     SETTINGS_DATA_DEF['settings_soft']['screen_resolution_y'] = screen_geometry.height()
 
+    # создание главного окна
     app_window_main = WindowMain()
     app_window_main.show()
     sys.exit(app.exec_())
