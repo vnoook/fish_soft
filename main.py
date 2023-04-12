@@ -249,12 +249,19 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             ws_label.setText(key)
             ws_label.adjustSize()
 
-            # QLineEdit
-            ws_edit = PyQt5.QtWidgets.QLineEdit(self.window_settings_comp)
-            ws_edit.setObjectName('ws_edit_'+key)
-            ws_edit.setText(str(val))
-            ws_edit.adjustSize()
-            ws_edit.setValidator(PyQt5.QtGui.QIntValidator(ws_edit))
+            if key == 'COMP_lottery_auto':
+                # QComboBox
+                ws_edit = PyQt5.QtWidgets.QComboBox(self.window_settings_comp)
+                ws_edit.setObjectName('ws_edit_'+key)
+                ws_edit.addItem('Программная', True)
+                ws_edit.addItem('Ручная', False)
+            else:
+                # QLineEdit
+                ws_edit = PyQt5.QtWidgets.QLineEdit(self.window_settings_comp)
+                ws_edit.setObjectName('ws_edit_'+key)
+                ws_edit.setText(str(val))
+                ws_edit.adjustSize()
+                ws_edit.setValidator(PyQt5.QtGui.QIntValidator(ws_edit))
 
             # добавление объектов в слой
             ws_layout.addWidget(ws_label, 0+ws_ind, 0)
@@ -317,6 +324,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                         # TODO
                         # добавить проверка чисел, чтобы пользователь не ввёл слишком большие числа
                         SETTINGS_DATA_DEF['competition_action'][section] = int(unit.text())
+
+                        print(unit.currentData()) if 'COMP_lottery_auto' in unit.objectName() else ...
 
             # если были изменения настроек, то сделать следующие действия
             # перерисовывается главное окно
