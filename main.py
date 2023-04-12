@@ -313,9 +313,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         if btn_name == 'ws_btn_yes':
             # собираются секции настроек соревнования
             comp_section = SETTINGS_DATA_DEF['competition_action']
-            # ищутся все объекты для редактирования
-            list_of_edits = self.window_settings_comp.findChildren(PyQt5.QtWidgets.QLineEdit)
-
+            # ищутся все объекты для редактирования, оказалось что работает кортеж для поиска
+            list_of_edits = self.window_settings_comp.findChildren((PyQt5.QtWidgets.QLineEdit,
+                                                                    PyQt5.QtWidgets.QComboBox))
             # в цикле по секциям находятся имена объектов с совпадающими именами
             # и из этих объектов значения устанавливаются в константы
             for section in comp_section:
@@ -323,9 +323,11 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     if section in unit.objectName():
                         # TODO
                         # добавить проверка чисел, чтобы пользователь не ввёл слишком большие числа
-                        SETTINGS_DATA_DEF['competition_action'][section] = int(unit.text())
-
-                        print(unit.currentData()) if 'COMP_lottery_auto' in unit.objectName() else ...
+                        # разные типы для разного получения значений
+                        if unit.__class__ is PyQt5.QtWidgets.QLineEdit:
+                            SETTINGS_DATA_DEF['competition_action'][section] = int(unit.text())
+                        elif unit.__class__ is PyQt5.QtWidgets.QComboBox:
+                            SETTINGS_DATA_DEF['competition_action'][section] = unit.currentData()
 
             # если были изменения настроек, то сделать следующие действия
             # перерисовывается главное окно
