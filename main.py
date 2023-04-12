@@ -1322,11 +1322,14 @@ def save_last_state(obj: PyQt5.QtWidgets.QMainWindow) -> None:
     # получение имён и значений объектов и перенос их в словарь "имя:значение"
     for unit_name, unit in obj.dict_all_units.items():
         if unit.__class__ is PyQt5.QtWidgets.QCheckBox:
-            last_state_dict['competition_fields'][unit.objectName()] = unit.isChecked()
+            if check_empty_value(unit.isChecked()):
+                last_state_dict['competition_fields'][unit.objectName()] = unit.isChecked()
         elif unit.__class__ is PyQt5.QtWidgets.QLineEdit:
-            last_state_dict['competition_fields'][unit.objectName()] = unit.text()
+            if check_empty_value(unit.text()):
+                last_state_dict['competition_fields'][unit.objectName()] = unit.text()
         elif unit.__class__ is PyQt5.QtWidgets.QComboBox:
-            last_state_dict['competition_fields'][unit.objectName()] = unit.currentIndex()
+            if check_empty_value(unit.currentIndex()):
+                last_state_dict['competition_fields'][unit.objectName()] = unit.currentIndex()
 
     # запись словаря для хранения настроек, полей и значений этих полей в файл
     with open(LAST_STATE_FILE, "wb") as file_last_state:
