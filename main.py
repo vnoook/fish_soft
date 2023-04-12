@@ -391,7 +391,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # '6' - это размер среза в общем списке, список сплошной, неплохо было бы переписать на отдельные структуры
         q_steps = 6
         for unit_sting in list_of_units:
-            print(unit_sting)
             # временный счётчик для добавления к описанию - порядковый номер описания
             counter_zona = 0
             counter_period = 0
@@ -1332,6 +1331,16 @@ def save_last_state(obj: PyQt5.QtWidgets.QMainWindow) -> None:
     # запись словаря для хранения настроек, полей и значений этих полей в файл
     with open(LAST_STATE_FILE, "wb") as file_last_state:
         tomli_w.dump(last_state_dict, file_last_state)
+
+
+# Функция проверки строкового значения переменной на пустоту
+def check_empty_value(value: str) -> bool:
+    """Функция проверки строкового значения переменной на пустоту"""
+    print(check_empty_value.__name__) if DEBUG else ...
+    if value:
+        return True
+    else:
+        return False
 
 
 # функция непосредственного выхода из программы
