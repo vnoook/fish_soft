@@ -254,8 +254,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                 # QComboBox
                 ws_edit = PyQt5.QtWidgets.QComboBox(self.window_settings_comp)
                 ws_edit.setObjectName('ws_edit_'+key)
-                ws_edit.addItem('Программная', True)
-                ws_edit.addItem('Ручная', False)
+                ws_edit.addItem('Программная')
+                ws_edit.addItem('Ручная')
+                ws_edit.setCurrentIndex(val)
             else:
                 # QLineEdit
                 ws_edit = PyQt5.QtWidgets.QLineEdit(self.window_settings_comp)
@@ -329,7 +330,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                         if unit.__class__ is PyQt5.QtWidgets.QLineEdit:
                             SETTINGS_DATA_DEF['competition_action'][section] = int(unit.text())
                         elif unit.__class__ is PyQt5.QtWidgets.QComboBox:
-                            SETTINGS_DATA_DEF['competition_action'][section] = unit.currentData()
+                            SETTINGS_DATA_DEF['competition_action'][section] = unit.currentIndex()
 
             # если были изменения настроек, то сделать следующие действия
             # перерисовывается главное окно
