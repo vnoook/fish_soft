@@ -382,6 +382,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         obj_h = SETTINGS_COMMON_DEF['form_sizes']['obj_h']
         q_anglers = SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers']
         q_zone = SETTINGS_DATA_DEF['competition_action']['COMP_q_zone']
+        list_zone = SETTINGS_DATA_DEF['competition_action']['COMP_list_zone']
         zones = SETTINGS_COMMON_DEF['name_of_zone']
 
         # хитрое вычисление текста строки label
@@ -498,7 +499,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     self.dict_all_units[combo_box_name] = combo_box
 
                     # дополнительная обработка полей
-                    for zone in range(q_zone):
+                    for zone in range(list_zone):
                         combo_box.addItem(zones[zone])
 
                     # рендеринг объектов
