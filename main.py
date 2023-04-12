@@ -249,6 +249,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             ws_label.setText(key)
             ws_label.adjustSize()
 
+            # выбор - какую настройку выводить
             if key == 'COMP_lottery_auto':
                 # QComboBox
                 ws_edit = PyQt5.QtWidgets.QComboBox(self.window_settings_comp)
@@ -323,6 +324,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     if section in unit.objectName():
                         # TODO
                         # добавить проверка чисел, чтобы пользователь не ввёл слишком большие числа
+
                         # разные типы для разного получения значений
                         if unit.__class__ is PyQt5.QtWidgets.QLineEdit:
                             SETTINGS_DATA_DEF['competition_action'][section] = int(unit.text())
@@ -336,7 +338,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             # сохраняются настройки в файл
             save_settings()
 
-        # закрытие окна
+        # закрытие окна при нажатии любой кнопки
         # при этом удаляются и все объекты, так как установлен атрибут WA_DeleteOnClose
         self.window_settings_comp.close()
 
