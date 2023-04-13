@@ -101,7 +101,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # заполнение полей на форме из последнего состояния, если оно имеется
         self.fill_form_from_last_state()
 
-
     # функция создания главного меню
     def create_menu(self) -> None:
         """Функция создания главного меню"""
@@ -381,7 +380,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         gap_y = SETTINGS_COMMON_DEF['form_gaps']['gap_y']
         obj_h = SETTINGS_COMMON_DEF['form_sizes']['obj_h']
         q_anglers = SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers']
-        q_zone = SETTINGS_DATA_DEF['competition_action']['COMP_q_zone']
         list_zone = SETTINGS_DATA_DEF['competition_action']['COMP_list_zone']
         zones = SETTINGS_COMMON_DEF['name_of_zone']
 
@@ -1141,7 +1139,6 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
 
     # переменные которые могут принимать значение больше "1"
     q_zone = SETTINGS_DATA_DEF['competition_action']['COMP_q_zone']
-    q_list_zone = SETTINGS_DATA_DEF['competition_action']['COMP_list_zone']
     q_tur = SETTINGS_DATA_DEF['competition_action']['COMP_q_tur']
     q_period = SETTINGS_DATA_DEF['competition_action']['COMP_q_period']
     model = SETT_MODEL
