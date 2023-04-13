@@ -253,7 +253,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                 # QComboBox
                 ws_edit = PyQt5.QtWidgets.QComboBox(self.window_settings_comp)
                 ws_edit.setObjectName('ws_edit_'+key)
-                ws_edit.addItem('Программная')
+                ws_edit.addItem('Автомат')
                 ws_edit.addItem('Ручная')
                 ws_edit.setCurrentIndex(val)
             else:
@@ -454,8 +454,11 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                         line_edit.setMaxLength(5)
                         line_edit.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
                         line_edit.setValidator(PyQt5.QtGui.QIntValidator(line_edit))
-                    elif unit_model in ('points', 'teams', 'self', 'lottery'):
+                    elif unit_model in ('points', 'teams', 'self'):
                         line_edit.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
+                    elif unit_model == 'lottery':
+                        line_edit.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
+                        line_edit.setValidator(PyQt5.QtGui.QIntValidator(line_edit))
 
                     # рендеринг объектов
                     line_edit.show()
@@ -1141,7 +1144,7 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
     q_zone = SETTINGS_DATA_DEF['competition_action']['COMP_q_zone']
     q_tur = SETTINGS_DATA_DEF['competition_action']['COMP_q_tur']
     q_period = SETTINGS_DATA_DEF['competition_action']['COMP_q_period']
-
+    # считываю режим жеребьёвки
     lottery_mode = SETTINGS_DATA_DEF['competition_action']['COMP_lottery_mode']
     model = SETT_MODEL
 
