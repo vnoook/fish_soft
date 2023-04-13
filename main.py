@@ -249,7 +249,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             ws_label.adjustSize()
 
             # выбор - какую настройку выводить
-            if key == 'COMP_lottery_auto':
+            if key == 'COMP_lottery_mode':
                 # QComboBox
                 ws_edit = PyQt5.QtWidgets.QComboBox(self.window_settings_comp)
                 ws_edit.setObjectName('ws_edit_'+key)
@@ -1141,6 +1141,8 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
     q_zone = SETTINGS_DATA_DEF['competition_action']['COMP_q_zone']
     q_tur = SETTINGS_DATA_DEF['competition_action']['COMP_q_tur']
     q_period = SETTINGS_DATA_DEF['competition_action']['COMP_q_period']
+
+    lottery_mode = SETTINGS_DATA_DEF['competition_action']['COMP_lottery_mode']
     model = SETT_MODEL
 
     # пустой список для сбора конечного списка объектов для рендеринга
@@ -1163,17 +1165,18 @@ def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
             pass
 
         elif block[0] == 'period':
-
-            # TODO
-            # тут нужно добавить обработку жеребьёвки
-            # жеребьёвок столько сколько туров, жеребьёвка перед туром
             # TODO
             # переделать в вызов по имени, чтобы при смене model ничего не поломалось
 
             # разбивка периодов по турам, перед каждым туром жеребьёвка
             for i in range(1, q_tur + 1):
                 # вывод жеребьёвки перед первым периодом тура
-                total_model.append(model[1])
+                # разделение жеребьёвки на режим - ручной или автоматический
+                if lottery_mode == 1:
+                    total_model.append(model[10])
+                elif lottery_mode == 0:
+                    total_model.append(model[1])
+
                 # добавление количество периодов
                 for j in range(1, q_period + 1):
                     total_model.append(block)
