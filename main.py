@@ -247,7 +247,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             ws_label.setObjectName('ws_label_'+key)
             ws_label.setText(key)
             ws_label.adjustSize()
-
             # выбор - какую настройку выводить
             if key == 'COMP_lottery_mode':
                 # QComboBox
@@ -255,7 +254,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                 ws_edit.setObjectName('ws_edit_'+key)
                 ws_edit.addItem('Автомат')
                 ws_edit.addItem('Ручная')
-                ws_edit.setCurrentIndex(val)
+                ws_edit.setCurrentIndex(1)
             else:
                 # QLineEdit
                 ws_edit = PyQt5.QtWidgets.QLineEdit(self.window_settings_comp)
@@ -314,6 +313,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         if btn_name == 'ws_btn_yes':
             # собираются секции настроек соревнования
             comp_section = SETTINGS_DATA_DEF['competition_action']
+
             # ищутся все объекты для редактирования, оказалось что работает кортеж для поиска
             list_of_edits = self.window_settings_comp.findChildren((PyQt5.QtWidgets.QLineEdit,
                                                                     PyQt5.QtWidgets.QComboBox))
