@@ -247,14 +247,16 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             ws_label.setObjectName('ws_label_'+key)
             ws_label.setText(key)
             ws_label.adjustSize()
+
             # выбор - какую настройку выводить
             if key == 'COMP_lottery_mode':
                 # QComboBox
                 ws_edit = PyQt5.QtWidgets.QComboBox(self.window_settings_comp)
                 ws_edit.setObjectName('ws_edit_'+key)
+
                 ws_edit.addItem('Автомат')
                 ws_edit.addItem('Ручная')
-                ws_edit.setCurrentIndex(1)
+                ws_edit.setCurrentIndex(val)
             else:
                 # QLineEdit
                 ws_edit = PyQt5.QtWidgets.QLineEdit(self.window_settings_comp)
@@ -276,7 +278,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         ws_btn_yes.setText('Сохранить')
         ws_btn_yes.adjustSize()
         ws_btn_yes.setFixedWidth(150)
-        ws_btn_yes.clicked.connect(self.window_settings_btn)
+        ws_btn_yes.clicked.connect(self.window_settings_competition_btn)
 
         # кнопка NO
         ws_btn_no = PyQt5.QtWidgets.QPushButton(self.window_settings_comp)
@@ -284,7 +286,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         ws_btn_no.setText('Отмена')
         ws_btn_no.adjustSize()
         ws_btn_no.setFixedWidth(150)
-        ws_btn_no.clicked.connect(self.window_settings_btn)
+        ws_btn_no.clicked.connect(self.window_settings_competition_btn)
 
         # добавление кнопок в слой
         ws_layout.addWidget(ws_btn_yes, 0+ws_ind, 0)
@@ -300,9 +302,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         self.window_settings_comp.show()
 
     # функция действия по кнопке подтверждения в настройках соревнования
-    def window_settings_btn(self: PyQt5.QtCore.Qt.Window) -> None:
+    def window_settings_competition_btn(self: PyQt5.QtCore.Qt.Window) -> None:
         """Функция действия по кнопке подтверждения в настройках соревнования"""
-        print(self.window_settings_btn.__name__) if DEBUG else ...
+        print(self.window_settings_competition_btn.__name__) if DEBUG else ...
 
         # имя кнопки, пославшей событие
         btn_name = self.sender().objectName()
@@ -1328,7 +1330,7 @@ def save_last_state(obj: PyQt5.QtWidgets.QMainWindow) -> None:
     last_state_dict = {}
 
     # СЕКЦИЯ НАСТРОЕК соревнования
-    comp_section = SETTINGS_DATA_DEF['competition_action']
+    comp_section = SETTINGS_DATA_DEF['competition_action']  # ???
     # беру сразу всю секцию из настроек и записываю её целиком в словарь
     last_state_dict['competition_action'] = comp_section
 
@@ -1438,3 +1440,5 @@ if __name__ == '__main__':
 # label.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
 
 # self.resize(new_width, new_height)
+
+# self.comboBox.currentIndexChanged['int'].connect(self.lineEdit.clear)
