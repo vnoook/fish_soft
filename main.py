@@ -1094,6 +1094,11 @@ def repair_settings(cur_dict: dict, def_dict: dict) -> dict:
 
     # проверяю на нехватку нужных ключей в словаре и если нет, то добавляю из дефолтных
     for key, val in def_dict.items():
+
+        # print(key, val, cur_dict.get(key, False))
+        # print(key, val, cur_dict.get('COMP_lottery_mode', False))
+        print(cur_dict.get('COMP_lottery_mode'), type(key), key, type(val), val)
+
         if not cur_dict.get(key, False):
             cur_dict[key] = def_dict[key]
         else:
