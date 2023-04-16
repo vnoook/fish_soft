@@ -7,6 +7,7 @@
 # !!! жеребьёвка ручная или автоматическая
 # !!! список зон больше чем их количество, колонка и игровая
 # !!! расчёт сложнее чем оказывалось
+# добавить проверку последнего состояния через repair_settings
 
 import sys
 import os.path
@@ -1071,9 +1072,9 @@ def read_settings() -> None:
         SETTINGS_DATA_DEF['competition_action'] = LAST_STATE['competition_action']
 
 
-# функция валидности ключей и их количества в хранилище настроек
+# функция проверки и исправления валидности ключей и их количества в хранилище настроек
 def repair_settings(cur_dict: dict, def_dict: dict) -> dict:
-    """Функция валидности ключей и их количества в хранилище настроек"""
+    """Функция проверки и исправления валидности ключей и их количества в хранилище настроек"""
     print(repair_settings.__name__) if DEBUG else ...
 
     # проверяю на наличие лишних ключей в словаре и если есть лишние, то удаляю их
@@ -1094,20 +1095,24 @@ def repair_settings(cur_dict: dict, def_dict: dict) -> dict:
 
     # проверяю на нехватку нужных ключей в словаре и если нет, то добавляю из дефолтных
     for key, val in def_dict.items():
-        if isinstance(val, dict):
-            pp(cur_dict[key])
-            pp(val)
-            print('-'*100)
-            repair_settings(cur_dict[key], val)
-
-        elif not cur_dict.get(key, False):
+        if not cur_dict.get(key, False):
             # если такого ключа нет, то добавляется из дефолтных
             cur_dict[key] = def_dict[key]
         else:
-            # первая версия проверки через сравнение типов
-            # if type(val) != type(cur_dict[key]):
-            if not isinstance(val, type(cur_dict[key])):
+            # если такой ключ есть и он словарь, то рекурсивно запустить проверку
+            if isinstance(val, dict):
+                repair_settings(cur_dict[key], val)
+
+            # если ключ есть и он не словарь, то сравниваю только тип значений - если они сходятся, то пропускаю
+            # потому, что проверка на величину значений будет происходить в другом месте, во вводе данных
+            # elif type(val) != type(cur_dict[key]):  # первая версия проверки через сравнение типов
+            elif not isinstance(val, type(cur_dict[key])):
+                pp(cur_dict[key])
+                pp(val)
                 cur_dict[key] = val
+            else:
+                # действие над корректными данными, можно удалить
+                pass
 
     # возвращаю поправленный словарь настроек
     return cur_dict
