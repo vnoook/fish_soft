@@ -1094,21 +1094,20 @@ def repair_settings(cur_dict: dict, def_dict: dict) -> dict:
 
     # проверяю на нехватку нужных ключей в словаре и если нет, то добавляю из дефолтных
     for key, val in def_dict.items():
+        if isinstance(val, dict):
+            pp(cur_dict[key])
+            pp(val)
+            print('-'*100)
+            repair_settings(cur_dict[key], val)
 
-        # print(key, val, cur_dict.get(key, False))
-        # print(key, val, cur_dict.get('COMP_lottery_mode', False))
-        print(cur_dict.get('COMP_lottery_mode'), type(key), key, type(val), val)
-
-        if not cur_dict.get(key, False):
+        elif not cur_dict.get(key, False):
+            # если такого ключа нет, то добавляется из дефолтных
             cur_dict[key] = def_dict[key]
         else:
             # первая версия проверки через сравнение типов
             # if type(val) != type(cur_dict[key]):
             if not isinstance(val, type(cur_dict[key])):
                 cur_dict[key] = val
-
-        if isinstance(val, dict):
-            repair_settings(cur_dict[key], val)
 
     # возвращаю поправленный словарь настроек
     return cur_dict
