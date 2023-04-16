@@ -326,7 +326,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                 for unit in list_of_edits:
                     if section in unit.objectName():
                         # TODO
-                        # добавить проверка чисел, чтобы пользователь не ввёл слишком большие числа
+                        # добавить проверку чисел, чтобы пользователь не ввёл слишком большие числа
 
                         # разные типы для разного получения значений
                         if unit.__class__ is PyQt5.QtWidgets.QLineEdit:
@@ -1102,17 +1102,18 @@ def repair_settings(cur_dict: dict, def_dict: dict) -> dict:
             # если такой ключ есть и он словарь, то рекурсивно запустить проверку
             if isinstance(val, dict):
                 repair_settings(cur_dict[key], val)
-
-            # если ключ есть и он не словарь, то сравниваю только тип значений - если они сходятся, то пропускаю
-            # потому, что проверка на величину значений будет происходить в другом месте, во вводе данных
-            # elif type(val) != type(cur_dict[key]):  # первая версия проверки через сравнение типов
-            elif not isinstance(val, type(cur_dict[key])):
-                pp(cur_dict[key])
-                pp(val)
-                cur_dict[key] = val
             else:
-                # действие над корректными данными, можно удалить
-                pass
+                # если ключ есть и он не словарь, то сравниваю только тип значений - если они сходятся, то пропускаю
+                # потому, что проверка на величину значений будет происходить в другом месте, во вводе данных
+                # if type(val) != type(cur_dict[key]):  # первая версия проверки через сравнение типов
+                if not isinstance(val, type(cur_dict[key])):
+                    pp(cur_dict[key])
+                    pp(val)
+                    cur_dict[key] = val
+                else:
+                    # действие над корректными данными, можно удалить
+                    pass
+                    print(11111111)
 
     # возвращаю поправленный словарь настроек
     return cur_dict
