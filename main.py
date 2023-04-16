@@ -340,6 +340,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             # сохраняются настройки в файл
             save_settings()
 
+            # сохранения последнего состояния значений на форме
+            save_last_state(self)
+
         # закрытие окна при нажатии любой кнопки
         # при этом удаляются и все объекты, так как установлен атрибут WA_DeleteOnClose
         self.window_settings_comp.close()
