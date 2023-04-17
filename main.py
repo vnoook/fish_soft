@@ -337,12 +337,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             # если были изменения настроек, то сделать следующие действия
             # перерисовывается главное окно
             self.restarter()
-
             # сохраняются настройки в файл
             save_settings()
-
-            # сохранения последнего состояния значений на форме
-            save_last_state(self)
 
         # закрытие окна при нажатии любой кнопки
         # при этом удаляются и все объекты, так как установлен атрибут WA_DeleteOnClose
@@ -1113,7 +1109,6 @@ def repair_settings(cur_dict: dict, def_dict: dict) -> dict:
                 else:
                     # действие над корректными данными, можно удалить
                     pass
-                    print(11111111)
 
     # возвращаю поправленный словарь настроек
     return cur_dict
@@ -1127,8 +1122,12 @@ def save_settings() -> None:
     global SETTINGS_DATA_DEF
     global SETTINGS_FILE
 
-    # проверка на корректность и наличие ключей настроек
-    data = repair_settings(SETTINGS_DATA_DEF, fcs.SETT_DEF_SOFT)
+    # TODO
+    # Зачем проверка настроек перед сохранением?
+    # # проверка на корректность и наличие ключей настроек
+    # data = repair_settings(SETTINGS_DATA_DEF, fcs.SETT_DEF_SOFT)
+    data = SETTINGS_DATA_DEF
+    print(data)
 
     # запись настроек в файл
     with open(SETTINGS_FILE, "wb") as file_settings:
