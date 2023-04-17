@@ -1127,7 +1127,6 @@ def save_settings() -> None:
     # # проверка на корректность и наличие ключей настроек
     # data = repair_settings(SETTINGS_DATA_DEF, fcs.SETT_DEF_SOFT)
     data = SETTINGS_DATA_DEF
-    print(data)
 
     # запись настроек в файл
     with open(SETTINGS_FILE, "wb") as file_settings:
