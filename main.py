@@ -667,12 +667,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     obj_cur.setEnabled(False)
 
             elif lottery_mode == 1:
-                pass
-                # TODO
-                # тут надо просто заблочить колонку для редактирования
-                # !!!
-                # и вообще нужна отдельная функция по блокировке колонки
-
                 self.block_unblock_col_of_unit(obj_cur.objectName())
 
         # если чекбоксы с полями о спортсмене
