@@ -670,6 +670,23 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     obj_cur.setEnabled(False)
 
             elif lottery_mode == 1:
+                # TODO
+                # тут надо просто заблочить колонку для редактирования
+                # !!!
+                # и вообще нужна отдельная функция по блокировке колонки
+
+                # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
+                for unit, unit_obj in self.dict_all_units.items():
+                    if 'sportik_lottery' in unit:
+                        # номер строки спортсмена
+                        unit_row = int(unit.split('_')[2])
+                        # заполнение поля жеребьёвки соответствующим значением из списка жеребьёвок
+                        unit_obj.setText(str(lottery_list[unit_row - 1]))
+
+                # блокирую и скрываю чекбокс потому, что жеребьёвка проводится один раз за соревнования
+                if obj_cur.isChecked():
+                    obj_cur.setEnabled(False)
+
                 pass
 
         # если чекбоксы с полями о спортсмене
