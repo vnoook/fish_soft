@@ -647,22 +647,30 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # определение - какой чекбокс в какой колонке нажат:
         # если чекбокс "жеребьёвка"
         if obj_cur_name == checkbox_of_lottery:
-            # количество спортсменов
-            q_anglers = SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers']
-            lottery_list = [x for x in range(1, q_anglers + 1)]
-            random.shuffle(lottery_list)
+            # режим жеребьёвки - 0 авто, 1 ручная
+            lottery_mode = SETTINGS_DATA_DEF['competition_action']['COMP_lottery_mode']
 
-            # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
-            for unit, unit_obj in self.dict_all_units.items():
-                if 'sportik_lottery' in unit:
-                    # номер строки спортсмена
-                    unit_row = int(unit.split('_')[2])
-                    # заполнение поля жеребьёвки соответствующим значением из списка жеребьёвок
-                    unit_obj.setText(str(lottery_list[unit_row - 1]))
+            # реакция на выбор режима жеребьёвки
+            if lottery_mode == 0:
+                # количество спортсменов
+                q_anglers = SETTINGS_DATA_DEF['competition_action']['COMP_q_anglers']
+                lottery_list = [x for x in range(1, q_anglers + 1)]
+                random.shuffle(lottery_list)
 
-            # блокирую и скрываю чекбокс потому, что жеребьёвка проводится один раз за соревнования
-            if obj_cur.isChecked():
-                obj_cur.setEnabled(False)
+                # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
+                for unit, unit_obj in self.dict_all_units.items():
+                    if 'sportik_lottery' in unit:
+                        # номер строки спортсмена
+                        unit_row = int(unit.split('_')[2])
+                        # заполнение поля жеребьёвки соответствующим значением из списка жеребьёвок
+                        unit_obj.setText(str(lottery_list[unit_row - 1]))
+
+                # блокирую и скрываю чекбокс потому, что жеребьёвка проводится один раз за соревнования
+                if obj_cur.isChecked():
+                    obj_cur.setEnabled(False)
+
+            elif lottery_mode == 1:
+                pass
 
         # если чекбоксы с полями о спортсмене
         elif obj_cur_name in checkbox_of_names:
