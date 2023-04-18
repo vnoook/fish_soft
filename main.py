@@ -2,13 +2,16 @@
 # !!! сделать проверку вводимых данных в периоды, чтобы было без "000"
 # !!! проверить все открываемые окна на необходимость атрибута WA_DeleteOnClose
 # \/ есть мысль, что можно сэкономить на проверке пустого значения при сохранении последнего состояния,
-#        чтобы не писать лишние значения, файл будет меньше
+#        чтобы не писать лишние значения, и файл будет меньше
 # \/ жеребьёвка перед каждым туром
 # !!! жеребьёвка, чтобы суммы входа в зону была одинакова
 # \/ жеребьёвка ручная или автоматическая
 # \/ список зон больше чем их количество, колонка и игровая
 # !!! расчёт сложнее чем оказывалось
 # !!! добавить проверку последнего состояния через repair_settings
+# !!! заменить куски кода где происходит получение номера колонки из юнита на функцию get_num_col_of_unit
+# \/ написать функцию блокировки колонки по её номеру (номер строковое значение из get_num_col_of_unit)
+# !!! заменить все куски кода где происходит блокировка колонки на функцию block_unblock_col_of_unit
 
 import sys
 import os.path
@@ -665,29 +668,18 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                         # заполнение поля жеребьёвки соответствующим значением из списка жеребьёвок
                         unit_obj.setText(str(lottery_list[unit_row - 1]))
 
-                # блокирую и скрываю чекбокс потому, что жеребьёвка проводится один раз за соревнования
+                # блокирую чекбокс потому, что жеребьёвка проводится один раз за соревнования
                 if obj_cur.isChecked():
                     obj_cur.setEnabled(False)
 
             elif lottery_mode == 1:
+                pass
                 # TODO
                 # тут надо просто заблочить колонку для редактирования
                 # !!!
                 # и вообще нужна отдельная функция по блокировке колонки
 
-                # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
-                for unit, unit_obj in self.dict_all_units.items():
-                    if 'sportik_lottery' in unit:
-                        # номер строки спортсмена
-                        unit_row = int(unit.split('_')[2])
-                        # заполнение поля жеребьёвки соответствующим значением из списка жеребьёвок
-                        unit_obj.setText(str(lottery_list[unit_row - 1]))
-
-                # блокирую и скрываю чекбокс потому, что жеребьёвка проводится один раз за соревнования
-                if obj_cur.isChecked():
-                    obj_cur.setEnabled(False)
-
-                pass
+                self.block_unblock_col_of_unit(obj_cur.objectName())
 
         # если чекбоксы с полями о спортсмене
         elif obj_cur_name in checkbox_of_names:
@@ -930,9 +922,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # super().mousePressEvent(event)
 
     # функция получения номера колонки из названия объекта на форме
-    def get_num_col_of_unit(self, obj: str) -> str:
+    def get_num_col_by_unit_name(self, obj: str) -> str:
         """Функция получения номера колонки из названия объекта на форме"""
-        print(self.get_num_col_of_unit.__name__) if DEBUG else ...
+        print(self.get_num_col_by_unit_name.__name__) if DEBUG else ...
 
         # получаю имя колонки по первому вхождению в имя объекта
         obj_name_col = obj.split('_')[0]
@@ -942,6 +934,23 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             return obj.split('_')[2]
         elif obj_name_col == 'sportik':
             return obj.split('_')[3]
+
+    # функция блокировки и разблокировки колонки по её номеру
+    # (номер - строковое значение, обычно берётся из get_num_col_of_unit)
+    def block_unblock_col_of_unit(self, obj_name: str):
+        """Функция блокировки колонки по её номеру"""
+        print(self.block_unblock_col_of_unit.__name__) if DEBUG else ...
+
+        obj = self.dict_all_units[obj_name]
+        # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
+        for unit_name, unit_obj in self.dict_all_units.items():
+            # если номер колонки совпадает
+            if self.get_num_col_by_unit_name(unit_name) == self.get_num_col_by_unit_name(obj_name):
+                if unit_obj.__class__ is PyQt5.QtWidgets.QLineEdit:
+                    if obj.isChecked():
+                        unit_obj.setEnabled(False)
+                    else:
+                        unit_obj.setEnabled(True)
 
     # функция смещения фокуса на форме по реакции клавиш клавиатуры
     def shift_focus_down(self, obj: str) -> None:
