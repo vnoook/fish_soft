@@ -11,25 +11,37 @@ import uuid
 
 # таблица рыбаков с id и fio
 table_anglers = {1: 'Иванов', 2: 'Петров', 3: 'Ветров', 4: 'Фролов',
-                 5: 'Попков', 6: 'Котова', 7: 'Рыбова', 8: 'Локтев'}
+                 5: 'Попков', 6: 'Котова', 7: 'Рыбова', 8: 'Локтев'
+                 }
 
 # таблица рыбаков с id и разрядами
-table_anglers_rank = {1: '1', 2: '2 разряд', 3: '3 разряд', 4: '1 разряд',
-                      5: None, 6: 'МС', 7: 'КМС', 8: 'МС'}
+table_anglers_rank = {1: '1 разряд', 2: '2 разряд', 3: '3 разряд', 4: '1 разряд',
+                      5: None, 6: 'МС', 7: 'КМС', 8: 'МС'
+                      }
 
 # таблица рыбаков с id и командами
 table_anglers_teams = {1: 'Караси', 2: 'Караси', 3: 'Тим-Ту', 4: 'FreeHunt',
-                       5: 'Тим-Ту', 6: 'FreeHunt', 7: None, 8: None}
+                       5: 'Тим-Ту', 6: 'FreeHunt', 7: None, 8: None
+                       }
 
 # таблица поимок в Tournament.quantity_period периодах
-table_catches = {1: [1, 4, 7, 1, 1, 9],
-                 2: [2, 52, 7, 2, 2, 9],
-                 3: [43, 4, 7, 6, 3, 9],
-                 4: [1, 0, 12, 22, 4, 9],
-                 5: [15, 4, 12, 71, 5, 9],
-                 6: [15, 18, 1, 0, 6, 9],
-                 7: [0, 16, 13, 3, 7, 9],
-                 8: [5, 17, 1, 4, 8, 9]}
+table_catches = {1: (1, 4, 7, 1, 1, 9),
+                 2: (2, 52, 7, 2, 2, 9),
+                 3: (43, 4, 7, 6, 3, 9),
+                 4: (1, 0, 12, 22, 4, 9),
+                 5: (15, 4, 12, 71, 5, 9),
+                 6: (15, 18, 1, 0, 6, 9),
+                 7: (0, 16, 13, 3, 7, 9),
+                 8: (5, 17, 1, 4, 8, 9)}
+# таблица поимок в Tournament.quantity_period периодах
+table_catches = {1: [1],
+                 2: [2],
+                 3: [4],
+                 4: [1],
+                 5: [15],
+                 6: [15],
+                 7: [0],
+                 8: [5]}
 
 
 # класс Соревнование
@@ -74,7 +86,8 @@ class Tournament:
 class Angler:
     """Класс Рыбак"""
 
-    # переменная класса для подсчёта количества экземпляров класса
+    # TODO
+    # описать переменную и зачем она?
     angler_count = 0
 
     def __init__(self, a_id, a_fio, a_rank=None, a_team=None):
@@ -115,13 +128,13 @@ class Angler:
 
 
 # функция по созданию сорев, чисто утилитарная для хранения переменных в конкретных соревах
-def create_tournament() -> None:
-    tournament = Tournament(q_tur=1, q_period=6, q_zone=1, q_sector=None, d_period=45, q_anglers=8)
-    # print(tournament.get_tournament_info())
+def create_tournament():
+    tournament = Tournament(q_tur=1, q_period=4, q_zone=1, q_sector=None, d_period=45, q_anglers=8)
+    print(tournament.get_tournament_info())
 
 
 # функция по созданию рыбака на соревах
-def create_anglers() -> None:
+def create_anglers():
     # создание экземпляров рыбаков по количеству из table_anglers
     for angler_id, angler_fio in table_anglers.items():
         # создаётся название экземпляра
@@ -133,19 +146,20 @@ def create_anglers() -> None:
                                                 a_rank=table_anglers_rank[angler_id],
                                                 a_team=table_anglers_teams[angler_id]
                                                 )
-        # print(f'{globals()["Angler" + str(angler_id)].get_all_info()}')
+        print(f'{globals()["Angler" + str(angler_id)].get_all_info()}')
+
+
+# функция для проверки входных данных на наличие только цифр
+def only_numbers():
+    # TODO
+    pass
 
 
 # функция подсчёта очков с известными - начальное место одинаковых уловов, количество одинаковых уловов
-def calc_scores(index_start: int, index_quantity: int) -> int:
-    """Функция подсчёта очков в повторных уловах - начальное место одинаковых уловов, количество одинаковых уловов"""
-
-    # переменная счётчик
+def calc_scores(index_start, index_quantity):
     scores = 0
-    # подсчёт повторных уловов в периоде
     for x_q in range(index_start, index_start + index_quantity):
         scores = scores + x_q / index_quantity
-
     return scores
 
 
@@ -155,26 +169,22 @@ def calc_scores(index_start: int, index_quantity: int) -> int:
 # (место, ид участника, улов, количество очков за этот период)
 # TODO
 # избавиться от лишних списков и реализовать расчёты с помощью обращений к первоначальному отсортированному списку
-def calc_table(p_catches: dict, n_period: int) -> list:
-
-    print(type(p_catches), p_catches)
-    print(type(n_period), n_period)
-
-    # список id рыбаков с уловами в конкретном n_period периоде
+def calc_period(p_catches, n_period):
+    # список id рыбаков с уловами в конкретном n_period туре
     catches_period = [[k, v[n_period - 1]] for k, v in p_catches.items()]
-    # print(f'{catches_period      = }')
+    print(f'{catches_period      = }')
 
     # сортировка списка рыбаков по уловам с уменьшением
     catches_period_sort = sorted(catches_period, key=lambda nud: nud[1], reverse=True)
-    # print(f'{catches_period_sort = }')
+    print(f'{catches_period_sort = }')
 
     # список только поимок в туре отсортированное с уменьшением
     catches = sorted((v[1] for v in catches_period_sort), reverse=True)
-    # print(f'{catches          = }')
+    print(f'{catches          = }')
 
     # уникальные поимки в туре отсортированные с уменьшением
     unique_catches = sorted(list(set(catches)), reverse=True)
-    # print(f'{unique_catches   = }')
+    print(f'{unique_catches   = }')
 
     # итоговая таблица с очками и местами тура
     # копирование отсортированной таблицы
@@ -196,14 +206,14 @@ def calc_table(p_catches: dict, n_period: int) -> list:
         catch_index += 1
 
         # улов
-        # print(f'{catch = }', end=',   ')
+        print(f'{catch = }', end=',   ')
 
         # индекс улова
-        # print(f'{catch_index = }', end=',   ')
+        print(f'{catch_index = }', end=',   ')
 
         # место
         angler_place = catch_index + 1
-        # print(f'{angler_place = }', end=',   ')
+        print(f'{angler_place = }', end=',   ')
 
         # очки
         # если текущий улов не равен предыдущему, то значит это первый элемент за которым пойдут повторные
@@ -214,7 +224,7 @@ def calc_table(p_catches: dict, n_period: int) -> list:
             angler_score = calc_scores(angler_place, q_catch)
         else:  # ситуация когда повтор улова есть
             angler_score = calc_scores(first_repeat_catch, q_catch)
-        # print(f'{angler_score = }')
+        print(f'{angler_score = }')
 
         # запоминание предыдущего улова
         prev_catch = catch
@@ -223,19 +233,19 @@ def calc_table(p_catches: dict, n_period: int) -> list:
         period_result[catch_index].append(angler_place)
         period_result[catch_index].append(angler_score)
 
-    # print()
+    print()
     # итоговая таблица с местами и очками
-    print(f'{period_result = } ... {type(period_result) = }')
+    print(f'{period_result = }')
 
     return period_result
 
 
 if __name__ == '__main__':
-    # print()
+    print()
     create_tournament()
-    # print()
+    print()
     create_anglers()
 
     for period in range(1, len(table_catches[1]) + 1):
-        # print(period, '*' * 50)
-        calc_table(table_catches, period)
+        print(period, '*' * 50)
+        calc_period(table_catches, period)
