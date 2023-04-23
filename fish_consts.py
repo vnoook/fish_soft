@@ -20,15 +20,17 @@ SETT_DEF_SOFT = {
         'COMP_q_zone': 2,
         'COMP_list_zone': 3,
         'COMP_lottery_mode': 1,  # 0 авто, 1 ручная
+        'COMP_calc_mode': 0,  # 0 клубная, 1 фрс
         # 'COMP_q_sector': 1,
         # 'COMP_d_period': 45,
+        'COMP_q_anglers_in_team': 2,
         'COMP_q_anglers': 15},
     'misc': {}
 }
 
 # константы для работы программе, остаются в памяти
 SETT_DEF_COMMON = {
-    'version': '0.1.23',
+    'version': '0.1.24',
     'window_name_main': 'ЧСВ - НХНЧ',
     'about_text': 'Чтобы Соревнования Выиграть - "Ни хвоста, Ни чешуи"',
     'window_name_set_comp': 'Настройки соревнования',

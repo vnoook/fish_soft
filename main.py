@@ -802,6 +802,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         print(self.calc_period.__name__) if DEBUG else ...
 
         print('расчёт очков в периоде', calculate_column.objectName(), calculate_column)
+        # TODO
+        # получить режим расчёта, получить всю таблицу уловов,
+        # по колонке на которой нажали посчитать очки,
 
     # функция определения заполнены ли все объекты в колонке
     def get_flag_fill_column(self, cur_column: str) -> bool:
