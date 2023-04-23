@@ -21,6 +21,7 @@ else:
 import tomli_w
 
 import fish_consts as fcs
+from fish_score_algorithm import calc_period as fsa
 
 from pprint import pprint as pp
 
@@ -797,14 +798,40 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         return flag_for_calc
 
     # функция расчёта очков в периоде
-    def calc_score_period(self, calculate_column: PyQt5.QtWidgets.QCheckBox) -> None:
+    def calc_score_period(self, unit: PyQt5.QtWidgets.QCheckBox) -> None:
         """Функция расчёта очков в периоде"""
         print(self.calc_score_period.__name__) if DEBUG else ...
 
-        print('расчёт очков в периоде', calculate_column.objectName(), calculate_column)
+        # имя юнита на форме
+        unit_name = unit.objectName()
+        # получаю режим расчёта
+        calc_mode = SETTINGS_DATA_DEF['competition_action']['COMP_calc_mode']
+
+        # колонка в которой нажата блокировка
+        score_col = self.get_num_col_by_unit_name(unit_name)
+        print(f'{score_col = }')
+
         # TODO
-        # получить режим расчёта, получить таблицу уловов, проверить на корректность данные,
+        # получить таблицу уловов, проверить на корректность данные,
         # по колонке на которой нажали посчитать очки, вывести очки в результаты за тур
+
+        # # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
+        # for unit_name, unit_obj in self.dict_all_units.items():
+        #     # если номер колонки совпадает
+        #     if self.get_num_col_by_unit_name(unit_name) == self.get_num_col_by_unit_name(obj_name):
+        #         if unit_obj.__class__ is PyQt5.QtWidgets.QLineEdit:
+        #             if obj.isChecked():
+        #                 unit_obj.setEnabled(False)
+        #             else:
+        #                 unit_obj.setEnabled(True)
+
+        # формула расчёта - 0 клубная, 1 фрс
+        if calc_mode == 0:
+            # fsa(p_catches, n_period):
+            pass
+        elif calc_mode == 1:
+            pass
+        print(f'{calc_mode = }')
 
     # функция определения заполнены ли все объекты в колонке
     def get_flag_fill_column(self, cur_column: str) -> bool:
@@ -1015,9 +1042,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     # смещение фокуса на "пустой" объект
                     self.dict_all_units[unit].setFocus()
 
-    # функция получения координат и запись их в переменную экземпляр класса
+    # функция получения координат главного окна и запись их в переменную экземпляр класса
     def get_coords(self) -> None:
-        """Функция получения координат и запись их в переменную экземпляре класса"""
+        """Функция получения координат главного окна и запись их в переменную экземпляр класса"""
         print(self.get_coords.__name__) if DEBUG else ...
 
         # переопределение встроенной переменной в локальную для доступа к координатам
@@ -1159,7 +1186,7 @@ def save_settings() -> None:
         tomli_w.dump(data, file_settings)
 
 
-# универсальная функция для описания полей и расчёта их координат на форме
+# функция генерации описания полей и расчёта их координат на форме
 def get_list_fields_and_coords(start_x: int, start_y: int, shift_x: int,
                                shift_y: int, field_h: int, q_sportsmen: int) -> list:
     """Универсальная функция для описания полей и расчёта их координат на форме"""
@@ -1393,7 +1420,7 @@ def save_last_state(obj: PyQt5.QtWidgets.QMainWindow) -> None:
         tomli_w.dump(last_state_dict, file_last_state)
 
 
-# Функция проверки строкового значения переменной на пустоту
+# функция проверки строкового значения переменной на пустоту
 def check_empty_value(value: str) -> bool:
     """Функция проверки строкового значения переменной на пустоту"""
     print(check_empty_value.__name__) if DEBUG else ...
