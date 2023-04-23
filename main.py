@@ -696,7 +696,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                 if (obj_cur_name == 'period') and (obj_cur.isChecked()):
                     # если нужные колонки тоже заблокированы, то можно делать расчёт
                     if self.check_for_calc():
-                        self.calc_period(obj_cur)
+                        self.calc_score_period(obj_cur)
 
             else:
                 # если не всё заполнено, то возвращаю исходное состояние чекбокса
@@ -746,7 +746,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
                     if obj_cur.isChecked():
                         # действия после блокировки колонки - расчёт очков в периоде
-                        self.calc_period(obj_cur)
+                        self.calc_score_period(obj_cur)
 
                 else:
                     # если не всё заполнено, то возвращаю исходное состояние чекбокса
@@ -797,14 +797,14 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         return flag_for_calc
 
     # функция расчёта очков в периоде
-    def calc_period(self, calculate_column: PyQt5.QtWidgets.QCheckBox) -> None:
+    def calc_score_period(self, calculate_column: PyQt5.QtWidgets.QCheckBox) -> None:
         """Функция расчёта очков в периоде"""
-        print(self.calc_period.__name__) if DEBUG else ...
+        print(self.calc_score_period.__name__) if DEBUG else ...
 
         print('расчёт очков в периоде', calculate_column.objectName(), calculate_column)
         # TODO
-        # получить режим расчёта, получить всю таблицу уловов,
-        # по колонке на которой нажали посчитать очки,
+        # получить режим расчёта, получить таблицу уловов, проверить на корректность данные,
+        # по колонке на которой нажали посчитать очки, вывести очки в результаты за тур
 
     # функция определения заполнены ли все объекты в колонке
     def get_flag_fill_column(self, cur_column: str) -> bool:

@@ -34,14 +34,7 @@ table_catches = {1: (1, 4, 7, 1, 1, 9),
                  7: (0, 16, 13, 3, 7, 9),
                  8: (5, 17, 1, 4, 8, 9)}
 # таблица поимок в Tournament.quantity_period периодах
-table_catches = {1: [1],
-                 2: [2],
-                 3: [4],
-                 4: [1],
-                 5: [15],
-                 6: [15],
-                 7: [0],
-                 8: [5]}
+# table_catches = {1: [1], 2: [2], 3: [4], 4: [1], 5: [15], 6: [15], 7: [0], 8: [5]}
 
 
 # класс Соревнование
@@ -206,7 +199,7 @@ def calc_period(p_catches, n_period):
         catch_index += 1
 
         # улов
-        print(f'{catch = }', end=',   ')
+        print(f'{catch = :2}', end=',   ')
 
         # индекс улова
         print(f'{catch_index = }', end=',   ')
@@ -237,6 +230,7 @@ def calc_period(p_catches, n_period):
     # итоговая таблица с местами и очками
     print(f'{period_result = }')
 
+    # формат вывода список из списков - ид спортика, улов в периоде, место, очки за улов
     return period_result
 
 
