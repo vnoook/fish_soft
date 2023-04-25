@@ -809,7 +809,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
         # колонка в которой нажата блокировка
         score_col = self.get_num_col_by_unit_name(obj_name)
-        print(f'{score_col = }')
+        # print(f'{score_col = }')
 
         # выходной словарь с результатами уловов в периоде
         result_of_period = {}
@@ -821,12 +821,15 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
         for unit_name, unit_obj in self.dict_all_units.items():
             # если номер колонки совпадает с чекбоксом
-            if self.get_num_col_by_unit_name(unit_name) == self.get_num_col_by_unit_name(obj_name):
+            if self.get_num_col_by_unit_name(unit_name) == score_col:
                 if unit_obj.__class__ is PyQt5.QtWidgets.QLineEdit:
+                    print(f'{self.get_sportik_number(unit_name) = }')
+
                     unit_content = unit_obj.text()
-                    print(unit_content)
+                    # print(f'{unit_content = }')
                     result_of_period[1] = [unit_content]
-        print(result_of_period)
+
+        print(f'{result_of_period = }')
 
         # формула расчёта - 0 клубная, 1 фрс
         if calc_mode == 0:
@@ -838,11 +841,14 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # print(f'{calc_mode = }')
 
     # функция получения номера спортика по объекту в той же строке
-    def get_sportik_number(self, obj_name: any) -> any:
+    def get_sportik_number(self, obj_name: str) -> str:
         """Функция получения номера спортика по объекту в той же строке"""
         print(self.get_sportik_number.__name__) if DEBUG else ...
 
         # sportik_number_1_1
+        print(self.get_num_row_by_unit_name(obj_name))
+
+        sportik_number = None
 
         return sportik_number
 
@@ -953,18 +959,34 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # super().mousePressEvent(event)
 
     # функция получения номера колонки из названия объекта на форме
-    def get_num_col_by_unit_name(self, obj: str) -> str:
+    def get_num_col_by_unit_name(self, obj_name: str) -> str:
         """Функция получения номера колонки из названия объекта на форме"""
         print(self.get_num_col_by_unit_name.__name__) if DEBUG else ...
 
         # получаю имя колонки по первому вхождению в имя объекта
-        obj_name_col = obj.split('_')[0]
+        obj_name_col = obj_name.split('_')[0]
 
         # получение номера колонки (тип - текстовый)
         if obj_name_col in ('checkbox', 'label'):
-            return obj.split('_')[2]
+            return obj_name.split('_')[2]
         elif obj_name_col == 'sportik':
-            return obj.split('_')[3]
+            return obj_name.split('_')[3]
+
+    # функция получения номера строки из названия объекта QLineEdit на форме
+    def get_num_row_by_unit_name(self, obj_name: str) -> (str, None):
+        """Функция получения номера строки из названия объекта QLineEdit на форме"""
+        print(self.get_num_row_by_unit_name.__name__) if DEBUG else ...
+
+        # объект юнита
+        unit_obj = self.dict_all_units[obj_name]
+
+        # получаю имя строки по третьему вхождению в имя объекта
+        if unit_obj.__class__ is PyQt5.QtWidgets.QLineEdit:
+            obj_name_row = obj_name.split('_')[2]
+            # print(f'{obj_name = } ... {obj_name_row = }')
+            return obj_name_row
+        else:
+            return None
 
     # функция блокировки и разблокировки колонки по её номеру
     # (номер - строковое значение, обычно берётся из get_num_col_of_unit)
