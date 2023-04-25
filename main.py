@@ -727,7 +727,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
             else:
                 if flag_fill_col:
-                    print('"нужные" чекбоксы зафиксированы и поля в колонке "период" заполнены')
+                    # print('"нужные" чекбоксы зафиксированы и поля в колонке "период" заполнены')
 
                     # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
                     for unit, unit_obj in self.dict_all_units.items():
@@ -798,32 +798,35 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         return flag_for_calc
 
     # функция расчёта очков в периоде
-    def calc_score_period(self, unit: PyQt5.QtWidgets.QCheckBox) -> None:
+    def calc_score_period(self, obj: PyQt5.QtWidgets.QCheckBox) -> None:
         """Функция расчёта очков в периоде"""
         print(self.calc_score_period.__name__) if DEBUG else ...
 
         # имя юнита на форме
-        unit_name = unit.objectName()
+        obj_name = obj.objectName()
         # получаю режим расчёта
         calc_mode = SETTINGS_DATA_DEF['competition_action']['COMP_calc_mode']
 
         # колонка в которой нажата блокировка
-        score_col = self.get_num_col_by_unit_name(unit_name)
+        score_col = self.get_num_col_by_unit_name(obj_name)
         print(f'{score_col = }')
+
+        # выходной словарь с результатами уловов в периоде
+        result_of_period = {}
 
         # TODO
         # получить таблицу уловов, проверить на корректность данные,
         # по колонке на которой нажали посчитать очки, вывести очки в результаты за тур
 
-        # # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
-        # for unit_name, unit_obj in self.dict_all_units.items():
-        #     # если номер колонки совпадает
-        #     if self.get_num_col_by_unit_name(unit_name) == self.get_num_col_by_unit_name(obj_name):
-        #         if unit_obj.__class__ is PyQt5.QtWidgets.QLineEdit:
-        #             if obj.isChecked():
-        #                 unit_obj.setEnabled(False)
-        #             else:
-        #                 unit_obj.setEnabled(True)
+        # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
+        for unit_name, unit_obj in self.dict_all_units.items():
+            # если номер колонки совпадает с чекбоксом
+            if self.get_num_col_by_unit_name(unit_name) == self.get_num_col_by_unit_name(obj_name):
+                if unit_obj.__class__ is PyQt5.QtWidgets.QLineEdit:
+                    unit_content = unit_obj.text()
+                    print(unit_content)
+                    result_of_period[1] = [unit_content]
+        print(result_of_period)
 
         # формула расчёта - 0 клубная, 1 фрс
         if calc_mode == 0:
@@ -831,7 +834,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             pass
         elif calc_mode == 1:
             pass
-        print(f'{calc_mode = }')
+
+        # print(f'{calc_mode = }')
 
     # функция определения заполнены ли все объекты в колонке
     def get_flag_fill_column(self, cur_column: str) -> bool:
@@ -1506,3 +1510,8 @@ if __name__ == '__main__':
 # self.resize(new_width, new_height)
 
 # self.comboBox.currentIndexChanged['int'].connect(self.lineEdit.clear)
+
+# # функция
+# def foo(self, arg: None) -> None:
+#     """Функция"""
+#     print(self.foo.__name__) if DEBUG else ...
