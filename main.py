@@ -837,6 +837,13 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
         # print(f'{calc_mode = }')
 
+    # функция получения номера спортика по объекту в той же строке
+    def get_sportik_number(self, obj_name: any) -> any:
+        """Функция получения номера спортика по объекту в той же строке"""
+        print(self.get_sportik_number.__name__) if DEBUG else ...
+
+        return sportik_number
+
     # функция определения заполнены ли все объекты в колонке
     def get_flag_fill_column(self, cur_column: str) -> bool:
         """Функция определения заполнены ли все объекты в колонке"""
