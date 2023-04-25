@@ -842,6 +842,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         """Функция получения номера спортика по объекту в той же строке"""
         print(self.get_sportik_number.__name__) if DEBUG else ...
 
+        # sportik_number_1_1
+
         return sportik_number
 
     # функция определения заполнены ли все объекты в колонке
