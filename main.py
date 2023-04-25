@@ -845,11 +845,16 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         """Функция получения номера спортика по объекту в той же строке"""
         print(self.get_sportik_number.__name__) if DEBUG else ...
 
+        # строка в которой находится объект
+        obj_row = self.get_num_row_by_unit_name(obj_name)
+
         # sportik_number_1_1
-        print(self.get_num_row_by_unit_name(obj_name))
+        # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
+        for unit_name, unit_obj in self.dict_all_units.items():
+            if self.get_num_row_by_unit_name(unit_name) == obj_row:
+                print(f'{unit_name = }')
 
         sportik_number = None
-
         return sportik_number
 
     # функция определения заполнены ли все объекты в колонке
@@ -980,7 +985,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # объект юнита
         unit_obj = self.dict_all_units[obj_name]
 
-        # получаю имя строки по третьему вхождению в имя объекта
+        # получаю имя строки по третьему вхождению в имя юнита
         if unit_obj.__class__ is PyQt5.QtWidgets.QLineEdit:
             obj_name_row = obj_name.split('_')[2]
             # print(f'{obj_name = } ... {obj_name_row = }')
