@@ -829,7 +829,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     # print(f'{unit_content = }')
                     result_of_period[1] = [unit_content]
 
-        print(f'{result_of_period = }')
+        # print(f'{result_of_period = }')
 
         # формула расчёта - 0 клубная, 1 фрс
         if calc_mode == 0:
@@ -845,17 +845,14 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         """Функция получения номера спортика по объекту в той же строке"""
         print(self.get_sportik_number.__name__) if DEBUG else ...
 
-        # строка в которой находится объект
+        # координаты объекта
+        obj_col = '1'  # костыль
         obj_row = self.get_num_row_by_unit_name(obj_name)
 
-        # sportik_number_1_1
-        # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
-        for unit_name, unit_obj in self.dict_all_units.items():
-            if self.get_num_row_by_unit_name(unit_name) == obj_row:
-                print(f'{unit_name = }')
+        # собираю название объекта где хранится номер спортика
+        sportik_name = '_'.join(('sportik_number', obj_row, obj_col))
 
-        sportik_number = None
-        return sportik_number
+        return self.dict_all_units[sportik_name].text()
 
     # функция определения заполнены ли все объекты в колонке
     def get_flag_fill_column(self, cur_column: str) -> bool:
