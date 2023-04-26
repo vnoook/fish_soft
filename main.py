@@ -814,22 +814,18 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # выходной словарь с результатами уловов в периоде
         result_of_period = {}
 
-        # TODO
-        # получить таблицу уловов, проверить на корректность данные,
-        # по колонке на которой нажали посчитать очки, вывести очки в результаты за тур
-
-        # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
+        # пробегает по всем объектам, ищет по совпадению в имени название колонки
+        # и формирует словарь для передачи в алгоритм расчёта периода
         for unit_name, unit_obj in self.dict_all_units.items():
             # если номер колонки совпадает с чекбоксом
             if self.get_num_col_by_unit_name(unit_name) == score_col:
                 if unit_obj.__class__ is PyQt5.QtWidgets.QLineEdit:
-                    print(f'{self.get_sportik_number(unit_name) = }')
-
                     unit_content = unit_obj.text()
-                    # print(f'{unit_content = }')
-                    result_of_period[1] = [unit_content]
-
-        # print(f'{result_of_period = }')
+                    result_of_period[int(self.get_sportik_number(unit_name))] = [int(unit_content)]
+        # TODO
+        # проверить на корректность данные,
+        # по колонке на которой нажали посчитать очки,
+        # вывести очки в результаты за тур
 
         # формула расчёта - 0 клубная, 1 фрс
         if calc_mode == 0:
