@@ -829,8 +829,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
         # формула расчёта - 0 клубная, 1 фрс
         if calc_mode == 0:
-            # fsa(p_catches, n_period):
-            pass
+            period_val = fsa(result_of_period, 1)
+            print(f'{period_val = }')
         elif calc_mode == 1:
             pass
 

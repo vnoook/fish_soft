@@ -165,19 +165,19 @@ def calc_scores(index_start, index_quantity):
 def calc_period(p_catches: dict, n_period: int) -> list:
     # список id рыбаков с уловами в конкретном n_period туре
     catches_period = [[k, v[n_period - 1]] for k, v in p_catches.items()]
-    print(f'{catches_period      = }')
+    # print(f'{catches_period      = }')
 
     # сортировка списка рыбаков по уловам с уменьшением
     catches_period_sort = sorted(catches_period, key=lambda nud: nud[1], reverse=True)
-    print(f'{catches_period_sort = }')
+    # print(f'{catches_period_sort = }')
 
     # список только поимок в туре отсортированное с уменьшением
     catches = sorted((v[1] for v in catches_period_sort), reverse=True)
-    print(f'{catches          = }')
+    # print(f'{catches          = }')
 
     # уникальные поимки в туре отсортированные с уменьшением
     unique_catches = sorted(list(set(catches)), reverse=True)
-    print(f'{unique_catches   = }')
+    # print(f'{unique_catches   = }')
 
     # итоговая таблица с очками и местами тура
     # копирование отсортированной таблицы
@@ -199,14 +199,14 @@ def calc_period(p_catches: dict, n_period: int) -> list:
         catch_index += 1
 
         # улов
-        print(f'{catch = :2}', end=',   ')
+        # print(f'{catch = :2}', end=',   ')
 
         # индекс улова
-        print(f'{catch_index = }', end=',   ')
+        # print(f'{catch_index = }', end=',   ')
 
         # место
         angler_place = catch_index + 1
-        print(f'{angler_place = }', end=',   ')
+        # print(f'{angler_place = }', end=',   ')
 
         # очки
         # если текущий улов не равен предыдущему, то значит это первый элемент за которым пойдут повторные
@@ -217,7 +217,7 @@ def calc_period(p_catches: dict, n_period: int) -> list:
             angler_score = calc_scores(angler_place, q_catch)
         else:  # ситуация когда повтор улова есть
             angler_score = calc_scores(first_repeat_catch, q_catch)
-        print(f'{angler_score = }')
+        # print(f'{angler_score = }')
 
         # запоминание предыдущего улова
         prev_catch = catch
@@ -228,7 +228,7 @@ def calc_period(p_catches: dict, n_period: int) -> list:
 
     print()
     # итоговая таблица с местами и очками
-    print(f'{period_result = }')
+    # print(f'{period_result = }')
 
     # формат вывода список из списков - ид спортика, улов в периоде, место, очки за улов
     return period_result
