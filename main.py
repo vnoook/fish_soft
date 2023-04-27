@@ -6,6 +6,8 @@
 # !!! добавить проверку последнего состояния через repair_settings
 # !!! заменить куски кода где происходит получение номера колонки из юнита на функцию get_num_col_of_unit
 # !!! заменить все куски кода где происходит блокировка колонки на функцию block_unblock_col_of_unit
+# !!! заменить пару валидаций
+#     self.validatorLineEdit.setValidator(QDoubleValidator(-999.0, 999.0, 2, self.validatorLineEdit))
 
 import sys
 import os.path
@@ -809,22 +811,21 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
         # колонка в которой нажата блокировка
         score_col = self.get_num_col_by_unit_name(obj_name)
-        # print(f'{score_col = }')
 
         # выходной словарь с результатами уловов в периоде
         result_of_period = {}
 
         # пробегает по всем объектам, ищет по совпадению в имени название колонки
-        # и формирует словарь для передачи в алгоритм расчёта периода
+        # и формирует выходной словарь для передачи в алгоритм расчёта периода
         for unit_name, unit_obj in self.dict_all_units.items():
             # если номер колонки совпадает с чекбоксом
             if self.get_num_col_by_unit_name(unit_name) == score_col:
                 if unit_obj.__class__ is PyQt5.QtWidgets.QLineEdit:
                     unit_content = unit_obj.text()
                     result_of_period[int(self.get_sportik_number(unit_name))] = [int(unit_content)]
+
         # TODO
         # проверить на корректность данные,
-        # по колонке на которой нажали посчитать очки,
         # вывести очки в результаты за тур
 
         # формула расчёта - 0 клубная, 1 фрс
@@ -833,8 +834,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             print(f'{period_val = }')
         elif calc_mode == 1:
             pass
-
-        # print(f'{calc_mode = }')
 
     # функция получения номера спортика по объекту в той же строке
     def get_sportik_number(self, obj_name: str) -> str:
