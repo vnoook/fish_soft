@@ -6,7 +6,7 @@
 # !!! добавить проверку последнего состояния через repair_settings
 # !!! заменить куски кода где происходит получение номера колонки из юнита на функцию get_num_col_of_unit
 # !!! заменить все куски кода где происходит блокировка колонки на функцию block_unblock_col_of_unit
-# !!! заменить пару валидаций
+# !!! заменить валидации в колонках очков периода на валидацию дробных чисел
 #     self.validatorLineEdit.setValidator(QDoubleValidator(-999.0, 999.0, 2, self.validatorLineEdit))
 
 import sys
@@ -825,8 +825,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     result_of_period[int(self.get_sportik_number(unit_name))] = [int(unit_content)]
 
         # TODO
-        # проверить на корректность данные,
-        # вывести очки в результаты за тур
+        # вывести очки в результаты за тур в отдельной функции fill_result_period
+        # проверить заблокированы ли все колонки периодов, чтобы заполнить общие очки
 
         # формула расчёта - 0 клубная, 1 фрс
         if calc_mode == 0:
