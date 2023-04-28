@@ -841,6 +841,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         """Функция заполнения колонки периода по данным из списка результатов периода"""
         print(self.fill_col_by_result_period.__name__) if DEBUG else ...
 
+        print(self.fill_col_by_result_period.__name__)
+        
         pass
 
     # функция получения номера спортика по объекту в той же строке
