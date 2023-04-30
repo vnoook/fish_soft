@@ -842,12 +842,20 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         """Функция заполнения колонки периода по данным из списка результатов периода"""
         print(self.fill_col_by_result_period.__name__) if DEBUG else ...
 
-        print('*'*55)
+        # получаю колонку в которой происходит заполнение
+        current_col = self.get_num_col_by_unit_name(self.sender().objectName())
+
+        # список для имён юнитов типа points
         list_of_points_units = []
+
         # надо определить в какой юнит заполнять, через поиск ближнего справа юнита с именем points
         for unit_name, unit_obj in self.dict_all_units.items():
             if ('points' in unit_name) and (unit_obj.__class__ is PyQt5.QtWidgets.QLineEdit):
-                list_of_points_units.append(unit_name)
+                if int(self.get_num_col_by_unit_name(unit_name)) > int(current_col):
+                    # TODO
+                    # получить все колонки из выбранных и узнать минимальное число - это и будет колонка для заполнения
+                    list_of_points_units.append(unit_name)
+
         print(list_of_points_units)
 
         print('*'*55)
@@ -858,6 +866,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         for unit_val in result_period:
             print(unit_val)
 
+        del list_of_points_units
+
     # функция получения номера спортика по объекту в той же строке
     def get_sportik_number(self, obj_name: str) -> str:
         """Функция получения номера спортика по объекту в той же строке"""
@@ -867,7 +877,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         obj_col = '1'  # костыль
         obj_row = self.get_num_row_by_unit_name(obj_name)
 
-        # собираю название объекта где хранится номер спортика
+        # собираю название объекта, где хранится номер спортика
         sportik_name = '_'.join(('sportik_number', obj_row, obj_col))
 
         return self.dict_all_units[sportik_name].text()
