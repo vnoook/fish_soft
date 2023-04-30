@@ -845,28 +845,31 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # получаю колонку в которой происходит заполнение
         current_col = self.get_num_col_by_unit_name(self.sender().objectName())
 
-        # список для имён юнитов типа points
+        # список имён юнитов с именем points
         list_of_points_units = []
 
-        # надо определить в какой юнит заполнять, через поиск ближнего справа юнита с именем points
+        # определение в какой юнит заполнять, через поиск ближнего справа юнита с именем points
+        # выбор всех юнитов с именем points справа
         for unit_name, unit_obj in self.dict_all_units.items():
             if ('points' in unit_name) and (unit_obj.__class__ is PyQt5.QtWidgets.QLineEdit):
                 if int(self.get_num_col_by_unit_name(unit_name)) > int(current_col):
-                    # TODO
-                    # получить все колонки из выбранных и узнать минимальное число - это и будет колонка для заполнения
                     list_of_points_units.append(unit_name)
 
-        print(list_of_points_units)
+        # поиск номера ближайшей (минимальной) колонки points для вывода результатов
+        min_col = min([self.get_num_col_by_unit_name(x) for x in list_of_points_units])
+
+        # удаление(чистка) лишних юнитов, которые не в минимальной колонке
+        for unit in list_of_points_units:
+            if self.get_num_col_by_unit_name(unit) != min_col:
+                list_of_points_units.remove(unit)
 
         print('*'*55)
-        print('входящий список')
-        print(result_period)
-        print()
+        # print('входящий список')
+        # print(result_period)
+        # print()
 
         for unit_val in result_period:
             print(unit_val)
-
-        del list_of_points_units
 
     # функция получения номера спортика по объекту в той же строке
     def get_sportik_number(self, obj_name: str) -> str:
