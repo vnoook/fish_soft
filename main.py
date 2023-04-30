@@ -831,9 +831,10 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # формула расчёта - 0 клубная, 1 фрс
         if calc_mode == 0:
             period_val = fsa(result_of_period, 1)
-            print(f'{period_val = }')
+            # print(f'{period_val = }')
             self.fill_col_by_result_period(period_val)
         elif calc_mode == 1:
+            print(self.calc_score_period.__name__, 'режим расчёта очков форматом ФРС')
             pass
 
     # функция заполнения колонки периода по данным из списка результатов периода
@@ -841,9 +842,21 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         """Функция заполнения колонки периода по данным из списка результатов периода"""
         print(self.fill_col_by_result_period.__name__) if DEBUG else ...
 
-        print(self.fill_col_by_result_period.__name__)
-        
-        pass
+        print('*'*55)
+        list_of_points_units = []
+        # надо определить в какой юнит заполнять, через поиск ближнего справа юнита с именем points
+        for unit_name, unit_obj in self.dict_all_units.items():
+            if ('points' in unit_name) and (unit_obj.__class__ is PyQt5.QtWidgets.QLineEdit):
+                list_of_points_units.append(unit_name)
+        print(list_of_points_units)
+
+        print('*'*55)
+        print('входящий список')
+        print(result_period)
+        print()
+
+        for unit_val in result_period:
+            print(unit_val)
 
     # функция получения номера спортика по объекту в той же строке
     def get_sportik_number(self, obj_name: str) -> str:
