@@ -863,13 +863,27 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             if self.get_num_col_by_unit_name(unit) != min_col:
                 list_of_points_units.remove(unit)
 
-        print('*'*55)
+        # print('*'*55)
         # print('входящий список')
         # print(result_period)
         # print()
 
         for unit_val in result_period:
-            print(unit_val)
+            for unit_name in list_of_points_units:
+                if unit_val[0] == int(self.get_num_row_by_unit_name(unit_name)):
+                    print(unit_val, unit_name)
+                    print(self.dict_all_units[unit_name].text())
+                    print(int(self.dict_all_units[unit_name].text()))
+                    print(float(self.dict_all_units[unit_name].text()))
+
+                    # a = float(self.dict_all_units[unit_name].text())
+                    # print(f'{a = }')
+                    # b = unit_val[3]
+                    # print(f'{b = }')
+                    # c = a + b
+                    # print(f'{c = }')
+                    # self.dict_all_units[unit_name].setText(str(c))
+                    # a, b, c = '0', '0', '0'
 
     # функция получения номера спортика по объекту в той же строке
     def get_sportik_number(self, obj_name: str) -> str:
