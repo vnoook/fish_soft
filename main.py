@@ -460,6 +460,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                         line_edit.setValidator(PyQt5.QtGui.QIntValidator(line_edit))
                     elif unit_model in ('points', 'teams', 'self'):
                         line_edit.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
+                        line_edit.setValidator(PyQt5.QtGui.QDoubleValidator(line_edit))
                     elif unit_model == 'lottery':
                         line_edit.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
                         line_edit.setValidator(PyQt5.QtGui.QIntValidator(line_edit))
