@@ -730,8 +730,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
             else:
                 if flag_fill_col:
-                    # print('"нужные" чекбоксы зафиксированы и поля в колонке "период" заполнены')
-
                     # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
                     for unit, unit_obj in self.dict_all_units.items():
                         # номер колонки
@@ -762,11 +760,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     # информационное окно про полное заполнение колонки
                     PyQt5.QtWidgets.QMessageBox.information(self, 'Блокировка не получилась',
                                                             f'Заполните все поля в колонке')
-
-        # # оставшийся вариант для неизвестной ситуации
-        # else:
-        #     print('!!! ...', obj_cur_name)
-        #     pass
 
     # функция проверки блокировки нужных колонок перед расчётом
     def check_for_calc(self) -> bool:
@@ -832,7 +825,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # формула расчёта - 0 клубная, 1 фрс
         if calc_mode == 0:
             period_val = fsa(result_of_period, 1)
-            # print(f'{period_val = }')
             self.fill_col_by_result_period(period_val)
         elif calc_mode == 1:
             print(self.calc_score_period.__name__, 'режим расчёта очков форматом ФРС')
@@ -864,18 +856,13 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             if self.get_num_col_by_unit_name(unit) != min_col:
                 list_of_points_units.remove(unit)
 
-        # print('*'*55)
-        # print('входящий список')
-        # print(result_period)
-        # print()
-
         for unit_val in result_period:
             for unit_name in list_of_points_units:
                 if unit_val[0] == int(self.get_num_row_by_unit_name(unit_name)):
                     print(unit_val, unit_name)
 
                     a = 0.0 if self.dict_all_units[unit_name].text() == ''\
-                            else float(self.dict_all_units[unit_name].text())
+                        else float(self.dict_all_units[unit_name].text())
                     print(f'{a = } ... {type(a) = }')
                     b = unit_val[3]
                     print(f'{b = } ... {type(b) = }')
@@ -965,8 +952,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
         # выбор нажатой кнопки
         if event.key() == PyQt5.QtCore.Qt.Key_Escape:
-            # print('Key_Escape ... ', event.key().numerator)
-
             # TODO
             # написать выбор выхода из программы ДА-НЕТ
             # написать обработку нажатия ENTER - переход на строку ниже в одной колонке
@@ -1030,7 +1015,6 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # получаю имя строки по третьему вхождению в имя юнита
         if unit_obj.__class__ is PyQt5.QtWidgets.QLineEdit:
             obj_name_row = obj_name.split('_')[2]
-            # print(f'{obj_name = } ... {obj_name_row = }')
             return obj_name_row
         else:
             return None
@@ -1485,7 +1469,7 @@ def save_last_state(obj: PyQt5.QtWidgets.QMainWindow) -> None:
     # словарь значений объектов на форме
     last_state_dict['competition_fields'] = {}
 
-    # несохраняемые поля
+    # не сохраняемые поля
     missing_fields = ('points', 'teams', 'self')
 
     # получение имён и значений объектов и перенос их в словарь "имя:значение"
