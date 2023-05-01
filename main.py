@@ -8,6 +8,7 @@
 # !!! заменить все куски кода где происходит блокировка колонки на функцию block_unblock_col_of_unit
 # !!! заменить валидации в колонках очков периода на валидацию дробных чисел
 #     self.validatorLineEdit.setValidator(QDoubleValidator(-999.0, 999.0, 2, self.validatorLineEdit))
+# !!! сделать установку чекбоксов на форме из последнего состояния
 
 import sys
 import os.path
@@ -872,18 +873,17 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             for unit_name in list_of_points_units:
                 if unit_val[0] == int(self.get_num_row_by_unit_name(unit_name)):
                     print(unit_val, unit_name)
-                    print(self.dict_all_units[unit_name].text())
-                    print(int(self.dict_all_units[unit_name].text()))
-                    print(float(self.dict_all_units[unit_name].text()))
 
-                    # a = float(self.dict_all_units[unit_name].text())
-                    # print(f'{a = }')
-                    # b = unit_val[3]
-                    # print(f'{b = }')
-                    # c = a + b
-                    # print(f'{c = }')
-                    # self.dict_all_units[unit_name].setText(str(c))
-                    # a, b, c = '0', '0', '0'
+                    a = 0.0 if self.dict_all_units[unit_name].text() == ''\
+                            else float(self.dict_all_units[unit_name].text())
+                    print(f'{a = } ... {type(a) = }')
+                    b = unit_val[3]
+                    print(f'{b = } ... {type(b) = }')
+                    c = a + b
+                    print(f'{c = } ... {type(c) = }')
+
+                    self.dict_all_units[unit_name].setText(str(c))
+                    a, b, c = '0', '0', '0'
 
     # функция получения номера спортика по объекту в той же строке
     def get_sportik_number(self, obj_name: str) -> str:
@@ -1485,17 +1485,21 @@ def save_last_state(obj: PyQt5.QtWidgets.QMainWindow) -> None:
     # словарь значений объектов на форме
     last_state_dict['competition_fields'] = {}
 
+    # несохраняемые поля
+    missing_fields = ('points', 'teams', 'self')
+
     # получение имён и значений объектов и перенос их в словарь "имя:значение"
-    for unit_name, unit in obj.dict_all_units.items():
-        if unit.__class__ is PyQt5.QtWidgets.QCheckBox:
-            if check_empty_value(unit.isChecked()):
-                last_state_dict['competition_fields'][unit.objectName()] = unit.isChecked()
-        elif unit.__class__ is PyQt5.QtWidgets.QLineEdit:
-            if check_empty_value(unit.text()):
-                last_state_dict['competition_fields'][unit.objectName()] = unit.text()
-        elif unit.__class__ is PyQt5.QtWidgets.QComboBox:
-            if check_empty_value(unit.currentIndex()):
-                last_state_dict['competition_fields'][unit.objectName()] = unit.currentIndex()
+    for unit_name, unit_obj in obj.dict_all_units.items():
+        if unit_obj.__class__ is PyQt5.QtWidgets.QCheckBox:
+            if check_empty_value(unit_obj.isChecked()):
+                last_state_dict['competition_fields'][unit_obj.objectName()] = unit_obj.isChecked()
+        elif unit_obj.__class__ is PyQt5.QtWidgets.QLineEdit:
+            # пропускаю юниты с именами из missing_fields, пусть каждый раз считаются заново
+            if check_empty_value(unit_obj.text()) and (unit_name.split('_')[1] not in missing_fields):
+                last_state_dict['competition_fields'][unit_obj.objectName()] = unit_obj.text()
+        elif unit_obj.__class__ is PyQt5.QtWidgets.QComboBox:
+            if check_empty_value(unit_obj.currentIndex()):
+                last_state_dict['competition_fields'][unit_obj.objectName()] = unit_obj.currentIndex()
 
     # запись словаря для хранения настроек, полей и значений этих полей в файл
     with open(LAST_STATE_FILE, "wb") as file_last_state:
