@@ -643,7 +643,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         obj_cur_col = obj_cur.objectName().split('_')[-1]
         # списки имен объектов для реакции
         checkbox_of_lottery = 'lottery'
-        checkbox_of_names = ('fio', 'team', 'rank', 'zona')
+        checkbox_info_of_sportik = ('fio', 'team', 'rank', 'zona')
         checkbox_of_period = 'period'
 
         # определение - какой чекбокс в какой колонке нажат:
@@ -675,7 +675,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                 self.block_unblock_col_of_unit(obj_cur.objectName())
 
         # если чекбоксы с полями о спортсмене
-        elif obj_cur_name in checkbox_of_names:
+        elif obj_cur_name in checkbox_info_of_sportik:
             # получение флага заполненности колонки
             flag_fill_col = self.get_flag_fill_column(obj_cur_col)
 
@@ -702,6 +702,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     # если нужные колонки тоже заблокированы, то можно делать расчёт
                     if self.check_for_calc():
                         self.calc_score_period(obj_cur)
+                        print('-----------------------------------1')
+                        # ??????????????
 
             else:
                 # если не всё заполнено, то возвращаю исходное состояние чекбокса
@@ -750,6 +752,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     if obj_cur.isChecked():
                         # действия после блокировки колонки - расчёт очков в периоде
                         self.calc_score_period(obj_cur)
+                        print('-----------------------------------2')
 
                 else:
                     # если не всё заполнено, то возвращаю исходное состояние чекбокса
