@@ -824,17 +824,12 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     unit_content = unit_obj.text()
                     result_of_period[int(self.get_sportik_number(unit_name))] = [int(unit_content)]
 
-        # TODO
-        # вывести очки в результаты за тур в отдельной функции fill_col_by_result_period
-        # проверить заблокированы ли все колонки периодов, чтобы заполнить общие очки
-
         # формула расчёта - 0 клубная, 1 фрс
         if calc_mode == 0:
             period_val = fsa(result_of_period, 1)
             self.fill_col_by_result_period(period_val)
         elif calc_mode == 1:
             print(self.calc_score_period.__name__, 'режим расчёта очков форматом ФРС')
-            pass
 
     # функция заполнения колонки периода по данным из списка результатов периода
     def fill_col_by_result_period(self, result_period: list) -> None:
