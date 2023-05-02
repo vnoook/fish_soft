@@ -860,22 +860,23 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             if self.get_num_col_by_unit_name(unit) != min_col:
                 list_of_points_units.remove(unit)
 
+        # сложение или вычитание итогов с результатом периода
         for unit_val in result_period:
             for unit_name in list_of_points_units:
                 if unit_val[0] == int(self.get_num_row_by_unit_name(unit_name)):
                     if obj.isChecked():
-                        a = 0.0 if self.dict_all_units[unit_name].text() == '' \
-                            else float(self.dict_all_units[unit_name].text())
-                        b = unit_val[3]
-                        c = a + b
-                        self.dict_all_units[unit_name].setText(str(c))
+                        val_points = 0.0 if self.dict_all_units[unit_name].text() == '' \
+                                         else float(self.dict_all_units[unit_name].text())
+                        val_period = unit_val[3]
+                        sum_points = val_points + val_period
+                        self.dict_all_units[unit_name].setText(str(sum_points))
                     else:
-                        a = 0.0 if self.dict_all_units[unit_name].text() == '' \
-                            else float(self.dict_all_units[unit_name].text())
-                        b = unit_val[3]
-                        c = '' if a - b == 0.0 else a - b
-                        self.dict_all_units[unit_name].setText(str(c))
-                    del a, b, c
+                        val_points = 0.0 if self.dict_all_units[unit_name].text() == '' \
+                                         else float(self.dict_all_units[unit_name].text())
+                        val_period = unit_val[3]
+                        sum_points = '' if val_points - val_period == 0.0 else val_points - val_period
+                        self.dict_all_units[unit_name].setText(str(sum_points))
+                    del val_points, val_period, sum_points
 
     # функция получения номера спортика по объекту в той же строке
     def get_sportik_number(self, obj_name: str) -> str:
