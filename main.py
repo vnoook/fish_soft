@@ -750,10 +750,11 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                             else:
                                 unit_obj.setEnabled(True)
 
-                    if obj_cur.isChecked():
-                        # действия после блокировки колонки - расчёт очков в периоде
-                        self.calc_score_period(obj_cur)
-                        print('-----------------------------------2')
+                    # действия после блокировки колонки - расчёт очков в периоде
+                    self.calc_score_period(obj_cur)
+                    # if obj_cur.isChecked():
+                    #     # действия после блокировки колонки - расчёт очков в периоде
+                    #     self.calc_score_period(obj_cur)
 
                 else:
                     # если не всё заполнено, то возвращаю исходное состояние чекбокса
