@@ -752,9 +752,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
                     # действия после блокировки колонки - расчёт очков в периоде
                     self.calc_score_period(obj_cur)
-                    # if obj_cur.isChecked():
-                    #     # действия после блокировки колонки - расчёт очков в периоде
-                    #     self.calc_score_period(obj_cur)
+                    # действия после блокировки колонки - расчёт очков в периоде
+                    self.calc_score_self(obj_cur)
 
                 else:
                     # если не всё заполнено, то возвращаю исходное состояние чекбокса
@@ -830,6 +829,13 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             self.fill_col_by_result_period(period_val)
         elif calc_mode == 1:
             print(self.calc_score_period.__name__, 'режим расчёта очков форматом ФРС')
+
+    # функция расчёта суммарных очков в личке
+    def calc_score_self(self, obj: PyQt5.QtWidgets.QCheckBox) -> None:
+        """Функция расчёта суммарных очков в личке"""
+        print(self.calc_score_self.__name__) if DEBUG else ...
+
+        print(111)
 
     # функция заполнения колонки периода по данным из списка результатов периода
     def fill_col_by_result_period(self, result_period: list) -> None:
