@@ -697,13 +697,14 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                         else:
                             unit_obj.setEnabled(True)
 
-                # действия после блокировки колонки - расчёт очков в периоде
-                if (obj_cur_name == 'period') and (obj_cur.isChecked()):
-                    # если нужные колонки тоже заблокированы, то можно делать расчёт
-                    if self.check_for_calc():
-                        self.calc_score_period(obj_cur)
-                        print('-----------------------------------1')
-                        # ??????????????
+                # # действия после блокировки колонки - расчёт очков в периоде
+                # print(obj_cur_name)
+                # if (obj_cur_name == 'period') and (obj_cur.isChecked()):
+                #     # если нужные колонки тоже заблокированы, то можно делать расчёт
+                #     if self.check_for_calc():
+                #         self.calc_score_period(obj_cur)
+                #         print('-----------------------------------1')
+                #         # ??????????????
 
             else:
                 # если не всё заполнено, то возвращаю исходное состояние чекбокса
@@ -863,18 +864,18 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         for unit_val in result_period:
             for unit_name in list_of_points_units:
                 if unit_val[0] == int(self.get_num_row_by_unit_name(unit_name)):
-                    print(unit_val, unit_name)
+                    # print(unit_val, unit_name)
 
                     a = 0.0 if self.dict_all_units[unit_name].text() == ''\
                         else float(self.dict_all_units[unit_name].text())
-                    print(f'{a = } ... {type(a) = }')
+                    # print(f'{a = } ... {type(a) = }')
                     b = unit_val[3]
-                    print(f'{b = } ... {type(b) = }')
+                    # print(f'{b = } ... {type(b) = }')
                     c = a + b
-                    print(f'{c = } ... {type(c) = }')
+                    # print(f'{c = } ... {type(c) = }')
 
                     self.dict_all_units[unit_name].setText(str(c))
-                    a, b, c = '0', '0', '0'
+                    del a, b, c
 
     # функция получения номера спортика по объекту в той же строке
     def get_sportik_number(self, obj_name: str) -> str:
