@@ -839,6 +839,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # получаю колонку в которой происходит заполнение
         current_col = self.get_num_col_by_unit_name(self.sender().objectName())
 
+        # юнит пославший расчёт колонки
+        obj = self.sender()
+
         # список имён юнитов с именем points
         list_of_points_units = []
 
@@ -860,17 +863,18 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         for unit_val in result_period:
             for unit_name in list_of_points_units:
                 if unit_val[0] == int(self.get_num_row_by_unit_name(unit_name)):
-                    # print(unit_val, unit_name)
-
-                    a = 0.0 if self.dict_all_units[unit_name].text() == ''\
-                        else float(self.dict_all_units[unit_name].text())
-                    # print(f'{a = } ... {type(a) = }')
-                    b = unit_val[3]
-                    # print(f'{b = } ... {type(b) = }')
-                    c = a + b
-                    # print(f'{c = } ... {type(c) = }')
-
-                    self.dict_all_units[unit_name].setText(str(c))
+                    if obj.isChecked():
+                        a = 0.0 if self.dict_all_units[unit_name].text() == '' \
+                            else float(self.dict_all_units[unit_name].text())
+                        b = unit_val[3]
+                        c = a + b
+                        self.dict_all_units[unit_name].setText(str(c))
+                    else:
+                        a = 0.0 if self.dict_all_units[unit_name].text() == '' \
+                            else float(self.dict_all_units[unit_name].text())
+                        b = unit_val[3]
+                        c = '' if a - b == 0.0 else a - b
+                        self.dict_all_units[unit_name].setText(str(c))
                     del a, b, c
 
     # функция получения номера спортика по объекту в той же строке
