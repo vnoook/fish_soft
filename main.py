@@ -753,7 +753,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     # действия после блокировки колонки - расчёт очков в периоде
                     self.calc_score_period(obj_cur)
                     # действия после блокировки колонки - расчёт очков в периоде
-                    self.calc_score_self(obj_cur)
+                    self.calc_and_fill_score_self(obj_cur)
 
                 else:
                     # если не всё заполнено, то возвращаю исходное состояние чекбокса
@@ -821,6 +821,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             if self.get_num_col_by_unit_name(unit_name) == score_col:
                 if unit_obj.__class__ is PyQt5.QtWidgets.QLineEdit:
                     unit_content = unit_obj.text()
+                    # TODO
+                    # точно ли тут надо int или float ???
                     result_of_period[int(self.get_sportik_number(unit_name))] = [int(unit_content)]
 
         # формула расчёта - 0 клубная, 1 фрс
@@ -831,11 +833,27 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             print(self.calc_score_period.__name__, 'режим расчёта очков форматом ФРС')
 
     # функция расчёта суммарных очков в личке
-    def calc_score_self(self, obj: PyQt5.QtWidgets.QCheckBox) -> None:
+    def calc_and_fill_score_self(self, obj: PyQt5.QtWidgets.QCheckBox) -> None:
         """Функция расчёта суммарных очков в личке"""
-        print(self.calc_score_self.__name__) if DEBUG else ...
+        print(self.calc_and_fill_score_self.__name__) if DEBUG else ...
 
-        print(111)
+        # найти все points, суммировать их построчно и вывести в колонку self
+        # print(111)
+        dict_sum_by_row = {}
+        for unit_name, unit_obj in self.dict_all_units.items():
+            unit_row = self.get_num_row_by_unit_name(unit_name)
+            unit_col = self.get_num_col_by_unit_name(unit_name)
+
+            if ('points' in unit_name) and (unit_obj.__class__ is PyQt5.QtWidgets.QLineEdit):
+                # print(unit_name, unit_row, unit_col, unit_obj.text())
+
+                a = 0.0 if dict_sum_by_row.get(unit_row, '') == '' else float(dict_sum_by_row[unit_row])
+                b = 0.0 if unit_obj.text() == '' else float(unit_obj.text())
+                # print(f'{a = } ... {type(a) = }')
+                # print(f'{b = } ... {type(b) = }')
+                # print()
+                dict_sum_by_row[unit_row] = a + b
+        pp(dict_sum_by_row)
 
     # функция заполнения колонки периода по данным из списка результатов периода
     def fill_col_by_result_period(self, result_period: list) -> None:
