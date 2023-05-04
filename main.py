@@ -883,9 +883,12 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         min_col = min([self.get_num_col_by_unit_name(x) for x in list_of_points_units])
 
         # удаление(чистка) лишних юнитов, которые не в минимальной колонке
+        temp_list_of_points_units = []
         for unit in list_of_points_units:
-            if self.get_num_col_by_unit_name(unit) != min_col:
-                list_of_points_units.remove(unit)
+            if self.get_num_col_by_unit_name(unit) == min_col:
+                temp_list_of_points_units.append(unit)
+        list_of_points_units = temp_list_of_points_units[:]
+        del temp_list_of_points_units
 
         # сложение или вычитание итогов с результатом периода
         for unit_val in result_period:
