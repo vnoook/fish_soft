@@ -850,7 +850,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                 else:
                     a = 0.0 if dict_sum_by_row.get(unit_row, '') == '' else float(dict_sum_by_row[unit_row])
                     b = 0.0 if unit_obj.text() == '' else float(unit_obj.text())
-                    dict_sum_by_row[unit_row] = a - b
+                    dict_sum_by_row[unit_row] = abs(a - b)
                 del a, b
 
         for unit_name, unit_obj in self.dict_all_units.items():
@@ -880,15 +880,16 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     list_of_points_units.append(unit_name)
 
         # поиск номера ближайшей (минимальной) колонки points для вывода результатов
-        min_col = min([self.get_num_col_by_unit_name(x) for x in list_of_points_units])
+        min_col = min({int(self.get_num_col_by_unit_name(x)) for x in list_of_points_units})
 
         # удаление(чистка) лишних юнитов, которые не в минимальной колонке
         temp_list_of_points_units = []
+        # print(list_of_points_units)
         for unit in list_of_points_units:
-            if self.get_num_col_by_unit_name(unit) == min_col:
+            if self.get_num_col_by_unit_name(unit) == str(min_col):
                 temp_list_of_points_units.append(unit)
         list_of_points_units = temp_list_of_points_units[:]
-        del temp_list_of_points_units
+        # print(list_of_points_units)
 
         # сложение или вычитание итогов с результатом периода
         for unit_val in result_period:
