@@ -835,7 +835,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         """Функция расчёта суммарных очков в личке"""
         print(self.calc_score_self.__name__) if DEBUG else ...
 
-        # найти все points, суммировать их построчно и вывести в колонку self
+        # найти все points, суммировать их построчно
+        # множество для хранения сумм по строкам
         dict_sum_by_row = {}
         for unit_name, unit_obj in self.dict_all_units.items():
             unit_row = self.get_num_row_by_unit_name(unit_name)
@@ -853,6 +854,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     dict_sum_by_row[unit_row] = abs(var_sum_by_row - var_content_unit)
                 del var_sum_by_row, var_content_unit
 
+        # и вывести в колонку self
         for unit_name, unit_obj in self.dict_all_units.items():
             if ('self' in unit_name) and (unit_obj.__class__ is PyQt5.QtWidgets.QLineEdit):
                 unit_obj.setText(str(dict_sum_by_row[self.get_num_row_by_unit_name(unit_name)]))
