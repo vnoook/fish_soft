@@ -847,21 +847,16 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     a = 0.0 if dict_sum_by_row.get(unit_row, '') == '' else float(dict_sum_by_row[unit_row])
                     b = 0.0 if unit_obj.text() == '' else float(unit_obj.text())
                     dict_sum_by_row[unit_row] = a + b
-                    # print(a, b, a + b)
                 else:
                     a = 0.0 if dict_sum_by_row.get(unit_row, '') == '' else float(dict_sum_by_row[unit_row])
                     b = 0.0 if unit_obj.text() == '' else float(unit_obj.text())
-                    print(f'{a = } ... {b = } ... {a-b = }')
                     dict_sum_by_row[unit_row] = a - b
-                    print(f'{a = } ... {b = } ... {a-b = }')
-                # pp(dict_sum_by_row)
-                print()
                 del a, b
-            pp(dict_sum_by_row)
 
         for unit_name, unit_obj in self.dict_all_units.items():
             if ('self' in unit_name) and (unit_obj.__class__ is PyQt5.QtWidgets.QLineEdit):
                 unit_obj.setText(str(dict_sum_by_row[self.get_num_row_by_unit_name(unit_name)]))
+        pp(dict_sum_by_row)
 
     # функция заполнения колонки периода по данным из списка результатов периода
     def fill_col_by_result_period(self, result_period: list) -> None:
