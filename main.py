@@ -856,11 +856,13 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                 print(unit_name, unit_row, unit_col, unit_obj.text())
                 # выбор, что делать - если нажали, то суммировать, а если отжали, то вычитать
                 if obj.isChecked():
-                    var_sum_by_row = 0.0 if dict_sum_by_row.get(unit_row, '') == '' else float(dict_sum_by_row[unit_row])
+                    var_sum_by_row = 0.0 if dict_sum_by_row.get(unit_row, '') == ''\
+                                            else float(dict_sum_by_row[unit_row])
                     var_content_unit = 0.0 if unit_obj.text() == '' else float(unit_obj.text())
                     dict_sum_by_row[unit_row] = var_sum_by_row + var_content_unit
                 else:
-                    var_sum_by_row = 0.0 if dict_sum_by_row.get(unit_row, '') == '' else float(dict_sum_by_row[unit_row])
+                    var_sum_by_row = 0.0 if dict_sum_by_row.get(unit_row, '') == ''\
+                                            else float(dict_sum_by_row[unit_row])
                     var_content_unit = 0.0 if unit_obj.text() == '' else float(unit_obj.text())
                     dict_sum_by_row[unit_row] = abs(var_sum_by_row - var_content_unit)
 
