@@ -9,6 +9,8 @@
 # !!! заменить валидации в колонках очков периода на валидацию дробных чисел
 #     self.validatorLineEdit.setValidator(QDoubleValidator(-999.0, 999.0, 2, self.validatorLineEdit))
 # !!! сделать установку чекбоксов на форме из последнего состояния
+# !!! заменить все obj на unit
+
 
 import sys
 import os.path
@@ -156,8 +158,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
         # если словарь с объектами не пуст, то удалить все объекты в нём и очистить его
         if self.dict_all_units:
-            for unit in self.dict_all_units:
-                self.dict_all_units[unit].deleteLater()
+            for unit_name in self.dict_all_units:
+                self.dict_all_units[unit_name].deleteLater()
             self.dict_all_units = {}
 
         # если словарь с объектами пуст, то добавить все объекты на форму
@@ -660,10 +662,13 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                 random.shuffle(lottery_list)
 
                 # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
-                for unit, unit_obj in self.dict_all_units.items():
-                    if 'sportik_lottery' in unit:
+                for unit_name, unit_obj in self.dict_all_units.items():
+                    if 'sportik_lottery' in unit_name:
+                        # TODO
+                        # заменить unit_row на написанную функцию
                         # номер строки спортсмена
-                        unit_row = int(unit.split('_')[2])
+                        # unit_row = int(unit_name.split('_')[2])  # старая версия поиска номера строки
+                        unit_row = int(self.get_num_row_by_unit_name(unit_name))
                         # заполнение поля жеребьёвки соответствующим значением из списка жеребьёвок
                         unit_obj.setText(str(lottery_list[unit_row - 1]))
 
@@ -682,9 +687,10 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             # если все поля в колонке заполнены, то можно блокировать объекты
             if flag_fill_col:
                 # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
-                for unit, unit_obj in self.dict_all_units.items():
+                for unit_name, unit_obj in self.dict_all_units.items():
                     # номер колонки
-                    unit_col = unit.split('_')[-1]
+                    # unit_col = unit_name.split('_')[-1]  # старая версия
+                    unit_col = self.get_num_col_by_unit_name(unit_name)
 
                     # поиск конкретных объектов из конкретной колонки
                     if (obj_cur_col == unit_col) and \
@@ -735,9 +741,10 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             else:
                 if flag_fill_col:
                     # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
-                    for unit, unit_obj in self.dict_all_units.items():
+                    for unit_name, unit_obj in self.dict_all_units.items():
                         # номер колонки
-                        unit_col = unit.split('_')[-1]
+                        # unit_col = unit_name.split('_')[-1]  # старая версия
+                        unit_col = self.get_num_col_by_unit_name(unit_name)
 
                         # поиск конкретных объектов из конкретной колонки
                         if (obj_cur_col == unit_col) and \
@@ -781,14 +788,15 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         list_checkbox_checked = []
 
         # пробегает по всем объектам, ищет по совпадению в имени название колонки и реагирует
-        for unit, unit_obj in self.dict_all_units.items():
+        for unit_name, unit_obj in self.dict_all_units.items():
             # имя колонки
-            unit_name = unit.split('_')[1]
+            # unit_col = unit_name.split('_')[1]  # старая версия
+            unit_col = self.get_num_col_by_unit_name(unit_name)
             # класс объекта
             unit_class = unit_obj.__class__
 
             # поиск конкретных объектов с названием из множества
-            if (unit_class is PyQt5.QtWidgets.QCheckBox) and (unit_name in tuple_of_names):
+            if (unit_class is PyQt5.QtWidgets.QCheckBox) and (unit_col in tuple_of_names):
                 list_checkbox_checked.append(unit_obj.isChecked())
 
         # проверка на "нажатость" всех чекбоксов
@@ -838,12 +846,15 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # найти все points, суммировать их построчно
         # множество для хранения сумм по строкам
         dict_sum_by_row = {}
+        # проход по всем юнитам
         for unit_name, unit_obj in self.dict_all_units.items():
             unit_row = self.get_num_row_by_unit_name(unit_name)
             unit_col = self.get_num_col_by_unit_name(unit_name)
 
+            # выбор только определённых юнитов
             if ('points' in unit_name) and (unit_obj.__class__ is PyQt5.QtWidgets.QLineEdit):
-                # print(unit_name, unit_row, unit_col, unit_obj.text())
+                print(unit_name, unit_row, unit_col, unit_obj.text())
+                # выбор, что делать - если нажали, то суммировать, а если отжали, то вычитать
                 if obj.isChecked():
                     var_sum_by_row = 0.0 if dict_sum_by_row.get(unit_row, '') == '' else float(dict_sum_by_row[unit_row])
                     var_content_unit = 0.0 if unit_obj.text() == '' else float(unit_obj.text())
@@ -852,13 +863,14 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     var_sum_by_row = 0.0 if dict_sum_by_row.get(unit_row, '') == '' else float(dict_sum_by_row[unit_row])
                     var_content_unit = 0.0 if unit_obj.text() == '' else float(unit_obj.text())
                     dict_sum_by_row[unit_row] = abs(var_sum_by_row - var_content_unit)
+
                 del var_sum_by_row, var_content_unit
 
         # и вывести в колонку self
         for unit_name, unit_obj in self.dict_all_units.items():
             if ('self' in unit_name) and (unit_obj.__class__ is PyQt5.QtWidgets.QLineEdit):
                 unit_obj.setText(str(dict_sum_by_row[self.get_num_row_by_unit_name(unit_name)]))
-        # pp(dict_sum_by_row)
+        pp(dict_sum_by_row)
 
     # функция заполнения колонки периода по данным из списка результатов периода
     def fill_col_by_result_period(self, result_period: list) -> None:
@@ -933,9 +945,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # список для хранения заполненности объекта в колонке
         list_of_fill_col = []
 
-        for unit, unit_obj in self.dict_all_units.items():
+        for unit_name, unit_obj in self.dict_all_units.items():
             # номер колонки
-            unit_col = unit.split('_')[-1]
+            unit_col = unit_name.split('_')[-1]
 
             # поиск объектов из конкретной колонки
             if (cur_column == unit_col) and \
@@ -1128,9 +1140,9 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         """Функция смещения фокуса на форме на пустой объект"""
         print(self.shift_focus_on_empty_unit.__name__) if DEBUG else ...
 
-        for unit, unit_obj in self.dict_all_units.items():
+        for unit_name, unit_obj in self.dict_all_units.items():
             # номер колонки объекта
-            unit_col = unit.split('_')[-1]
+            unit_col = unit_name.split('_')[-1]
 
             # поиск объектов из конкретной колонки
             if (cur_column == unit_col) and (isinstance(unit_obj, PyQt5.QtWidgets.QComboBox)
@@ -1145,7 +1157,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                 # проверка на пустоту значения объекта
                 if not content or content.isspace():
                     # смещение фокуса на "пустой" объект
-                    self.dict_all_units[unit].setFocus()
+                    self.dict_all_units[unit_name].setFocus()
 
     # функция получения координат главного окна и запись их в переменную экземпляр класса
     def get_coords(self) -> None:
