@@ -30,7 +30,6 @@ from fish_score_algorithm import calc_period as fsa
 
 from pprint import pprint as pp
 
-
 # определение констант
 # выводит информацию по входу в каждую функцию
 DEBUG = False
@@ -166,6 +165,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         if not self.dict_all_units:
             # генерация объектов для ввода данных по соревнованиям
             self.render_objects_main_window()
+
     # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     # функция по открытию меню Файл-Открыть
@@ -249,7 +249,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         for key, val in comp_section.items():
             # QLabel
             ws_label = PyQt5.QtWidgets.QLabel(self.window_settings_comp)
-            ws_label.setObjectName('ws_label_'+key)
+            ws_label.setObjectName('ws_label_' + key)
             ws_label.setText(key)
             ws_label.adjustSize()
 
@@ -257,7 +257,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             if key == 'COMP_lottery_mode':
                 # QComboBox
                 ws_edit = PyQt5.QtWidgets.QComboBox(self.window_settings_comp)
-                ws_edit.setObjectName('ws_edit_'+key)
+                ws_edit.setObjectName('ws_edit_' + key)
 
                 ws_edit.addItem('Автомат')
                 ws_edit.addItem('Ручная')
@@ -265,14 +265,14 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             else:
                 # QLineEdit
                 ws_edit = PyQt5.QtWidgets.QLineEdit(self.window_settings_comp)
-                ws_edit.setObjectName('ws_edit_'+key)
+                ws_edit.setObjectName('ws_edit_' + key)
                 ws_edit.setText(str(val))
                 ws_edit.adjustSize()
                 ws_edit.setValidator(PyQt5.QtGui.QIntValidator(ws_edit))
 
             # добавление объектов в слой
-            ws_layout.addWidget(ws_label, 0+ws_ind, 0)
-            ws_layout.addWidget(ws_edit, 0+ws_ind, 1)
+            ws_layout.addWidget(ws_label, 0 + ws_ind, 0)
+            ws_layout.addWidget(ws_edit, 0 + ws_ind, 1)
 
             # увеличение счетчика
             ws_ind += 1
@@ -294,8 +294,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         ws_btn_no.clicked.connect(self.window_settings_competition_btn)
 
         # добавление кнопок в слой
-        ws_layout.addWidget(ws_btn_yes, 0+ws_ind, 0)
-        ws_layout.addWidget(ws_btn_no, 0+ws_ind, 1)
+        ws_layout.addWidget(ws_btn_yes, 0 + ws_ind, 0)
+        ws_layout.addWidget(ws_btn_no, 0 + ws_ind, 1)
 
         # добавление слоя в группу
         ws_group.setLayout(ws_layout)
@@ -760,7 +760,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     # действия после блокировки колонки - расчёт очков в периоде
                     self.calc_score_period(obj_cur)
                     # действия после блокировки колонки - расчёт очков в периоде
-                    self.calc_and_fill_score_self(obj_cur)
+                    self.calc_and_fill_score_self()
 
                 else:
                     # если не всё заполнено, то возвращаю исходное состояние чекбокса
@@ -838,47 +838,35 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             print(self.calc_score_period.__name__, 'режим расчёта очков форматом ФРС')
 
     # функция расчёта суммарных очков в личке
-    def calc_and_fill_score_self(self, obj: PyQt5.QtWidgets.QCheckBox) -> None:
+    def calc_and_fill_score_self(self) -> None:
         """Функция расчёта суммарных очков в личке"""
         print(self.calc_and_fill_score_self.__name__) if DEBUG else ...
 
         # найти все points, суммировать их построчно
-        # множество для хранения сумм по строкам
+        # словарь для хранения сумм по строкам
         dict_sum_by_row = {}
         # проход по всем юнитам
         for unit_name, unit_obj in self.dict_all_units.items():
             # выбор только определённых юнитов
             if ('points' in unit_name) and (unit_obj.__class__ is PyQt5.QtWidgets.QLineEdit):
+                # номер ряда юнита
                 unit_row = self.get_num_row_by_unit_name(unit_name)
-                unit_col = self.get_num_col_by_unit_name(unit_name)
 
-                # print(unit_name, unit_row, unit_col, unit_obj.text())
-                var_sum_by_row = 0.0 if dict_sum_by_row.get(unit_row, '') == ''\
-                                     else float(dict_sum_by_row[unit_row])
-                var_content_unit = 0.0 if unit_obj.text() == ''\
-                                       else float(unit_obj.text())
-                dict_sum_by_row[unit_row] = '' if var_sum_by_row + var_content_unit == 0\
-                                               else var_sum_by_row + var_content_unit
+                # получение суммы в ряду и значение юнита
+                var_sum_by_row = 0.0 if dict_sum_by_row.get(unit_row, '') == '' else float(dict_sum_by_row[unit_row])
+                var_content_unit = 0.0 if unit_obj.text() == '' else float(unit_obj.text())
 
-                # # выбор, что делать - если нажали, то суммировать, а если отжали, то вычитать
-                # if obj.isChecked():
-                #     var_sum_by_row = 0.0 if dict_sum_by_row.get(unit_row, '') == ''\
-                #                             else float(dict_sum_by_row[unit_row])
-                #     var_content_unit = 0.0 if unit_obj.text() == '' else float(unit_obj.text())
-                #     dict_sum_by_row[unit_row] = var_sum_by_row + var_content_unit
-                # else:
-                #     var_sum_by_row = 0.0 if dict_sum_by_row.get(unit_row, '') == ''\
-                #                             else float(dict_sum_by_row[unit_row])
-                #     var_content_unit = 0.0 if unit_obj.text() == '' else float(unit_obj.text())
-                #     dict_sum_by_row[unit_row] = abs(var_sum_by_row - var_content_unit)
-                # del var_sum_by_row, var_content_unit
-
-        pp(dict_sum_by_row)
+                # заполнение словаря значениями сумм
+                var_sum_content = var_sum_by_row + var_content_unit
+                dict_sum_by_row[unit_row] = '' if var_sum_content == 0 else var_sum_content
 
         # и вывести в колонку self
         for unit_name, unit_obj in self.dict_all_units.items():
             if ('self' in unit_name) and (unit_obj.__class__ is PyQt5.QtWidgets.QLineEdit):
                 unit_obj.setText(str(dict_sum_by_row[self.get_num_row_by_unit_name(unit_name)]))
+
+        # TODO
+        # продолжить писать вывод именно места, а не очков
 
     # функция заполнения колонки периода по данным из списка результатов периода
     def fill_col_by_result_period(self, result_period: list) -> None:
@@ -919,13 +907,13 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                 if unit_val[0] == int(self.get_num_row_by_unit_name(unit_name)):
                     if obj.isChecked():
                         val_points = 0.0 if self.dict_all_units[unit_name].text() == '' \
-                                         else float(self.dict_all_units[unit_name].text())
+                            else float(self.dict_all_units[unit_name].text())
                         val_period = unit_val[3]
                         sum_points = val_points + val_period
                         self.dict_all_units[unit_name].setText(str(sum_points))
                     else:
                         val_points = 0.0 if self.dict_all_units[unit_name].text() == '' \
-                                         else float(self.dict_all_units[unit_name].text())
+                            else float(self.dict_all_units[unit_name].text())
                         val_period = unit_val[3]
                         sum_points = '' if val_points - val_period == 0.0 else val_points - val_period
                         self.dict_all_units[unit_name].setText(str(sum_points))
@@ -1111,7 +1099,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             if int(temp_list[2]) >= int(q_anglers):
                 temp_list[2] = '1'
             else:
-                temp_list[2] = str(int(temp_list[2])+1)
+                temp_list[2] = str(int(temp_list[2]) + 1)
 
             # сбор нового имени объекта
             new_temp_list = '_'.join(temp_list)
@@ -1135,7 +1123,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             if int(temp_list[2]) <= 1:
                 temp_list[2] = str(q_anglers)
             else:
-                temp_list[2] = str(int(temp_list[2])-1)
+                temp_list[2] = str(int(temp_list[2]) - 1)
 
             # сбор нового имени объекта
             new_temp_list = '_'.join(temp_list)
