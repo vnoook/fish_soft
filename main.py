@@ -760,7 +760,7 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                     # действия после блокировки колонки - расчёт очков в периоде
                     self.calc_score_period(obj_cur)
                     # действия после блокировки колонки - расчёт очков в периоде
-                    self.calc_score_self(obj_cur)
+                    self.calc_and_fill_score_self(obj_cur)
 
                 else:
                     # если не всё заполнено, то возвращаю исходное состояние чекбокса
@@ -838,40 +838,47 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
             print(self.calc_score_period.__name__, 'режим расчёта очков форматом ФРС')
 
     # функция расчёта суммарных очков в личке
-    def calc_score_self(self, obj: PyQt5.QtWidgets.QCheckBox) -> None:
+    def calc_and_fill_score_self(self, obj: PyQt5.QtWidgets.QCheckBox) -> None:
         """Функция расчёта суммарных очков в личке"""
-        print(self.calc_score_self.__name__) if DEBUG else ...
+        print(self.calc_and_fill_score_self.__name__) if DEBUG else ...
 
         # найти все points, суммировать их построчно
         # множество для хранения сумм по строкам
         dict_sum_by_row = {}
         # проход по всем юнитам
         for unit_name, unit_obj in self.dict_all_units.items():
-            unit_row = self.get_num_row_by_unit_name(unit_name)
-            unit_col = self.get_num_col_by_unit_name(unit_name)
-
             # выбор только определённых юнитов
             if ('points' in unit_name) and (unit_obj.__class__ is PyQt5.QtWidgets.QLineEdit):
-                # print(unit_name, unit_row, unit_col, unit_obj.text())
-                # выбор, что делать - если нажали, то суммировать, а если отжали, то вычитать
-                if obj.isChecked():
-                    var_sum_by_row = 0.0 if dict_sum_by_row.get(unit_row, '') == ''\
-                                            else float(dict_sum_by_row[unit_row])
-                    var_content_unit = 0.0 if unit_obj.text() == '' else float(unit_obj.text())
-                    dict_sum_by_row[unit_row] = var_sum_by_row + var_content_unit
-                else:
-                    var_sum_by_row = 0.0 if dict_sum_by_row.get(unit_row, '') == ''\
-                                            else float(dict_sum_by_row[unit_row])
-                    var_content_unit = 0.0 if unit_obj.text() == '' else float(unit_obj.text())
-                    dict_sum_by_row[unit_row] = abs(var_sum_by_row - var_content_unit)
+                unit_row = self.get_num_row_by_unit_name(unit_name)
+                unit_col = self.get_num_col_by_unit_name(unit_name)
 
-                del var_sum_by_row, var_content_unit
+                # print(unit_name, unit_row, unit_col, unit_obj.text())
+                var_sum_by_row = 0.0 if dict_sum_by_row.get(unit_row, '') == ''\
+                                     else float(dict_sum_by_row[unit_row])
+                var_content_unit = 0.0 if unit_obj.text() == ''\
+                                       else float(unit_obj.text())
+                dict_sum_by_row[unit_row] = '' if var_sum_by_row + var_content_unit == 0\
+                                               else var_sum_by_row + var_content_unit
+
+                # # выбор, что делать - если нажали, то суммировать, а если отжали, то вычитать
+                # if obj.isChecked():
+                #     var_sum_by_row = 0.0 if dict_sum_by_row.get(unit_row, '') == ''\
+                #                             else float(dict_sum_by_row[unit_row])
+                #     var_content_unit = 0.0 if unit_obj.text() == '' else float(unit_obj.text())
+                #     dict_sum_by_row[unit_row] = var_sum_by_row + var_content_unit
+                # else:
+                #     var_sum_by_row = 0.0 if dict_sum_by_row.get(unit_row, '') == ''\
+                #                             else float(dict_sum_by_row[unit_row])
+                #     var_content_unit = 0.0 if unit_obj.text() == '' else float(unit_obj.text())
+                #     dict_sum_by_row[unit_row] = abs(var_sum_by_row - var_content_unit)
+                # del var_sum_by_row, var_content_unit
+
+        pp(dict_sum_by_row)
 
         # и вывести в колонку self
         for unit_name, unit_obj in self.dict_all_units.items():
             if ('self' in unit_name) and (unit_obj.__class__ is PyQt5.QtWidgets.QLineEdit):
                 unit_obj.setText(str(dict_sum_by_row[self.get_num_row_by_unit_name(unit_name)]))
-        # pp(dict_sum_by_row)
 
     # функция заполнения колонки периода по данным из списка результатов периода
     def fill_col_by_result_period(self, result_period: list) -> None:
