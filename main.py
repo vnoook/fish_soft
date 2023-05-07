@@ -867,6 +867,14 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
         # TODO
         # продолжить писать вывод именно места, а не очков
+        pp(dict_sum_by_row)
+
+        print(sorted(dict_sum_by_row))
+        print(sorted(dict_sum_by_row.values()))
+        print(sorted(dict_sum_by_row.items(), key= lambda x: x[1]))
+
+        elements_sorted = {k: dict_sum_by_row[k] for k in sorted(dict_sum_by_row, key=dict_sum_by_row.get)}
+        print(elements_sorted)
 
     # функция заполнения колонки периода по данным из списка результатов периода
     def fill_col_by_result_period(self, result_period: list) -> None:
