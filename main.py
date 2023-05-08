@@ -868,13 +868,13 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # TODO
         # продолжить писать вывод именно места, а не очков
         pp(dict_sum_by_row)
-
-        print(sorted(dict_sum_by_row))
-        print(sorted(dict_sum_by_row.values()))
-        print(sorted(dict_sum_by_row.items(), key= lambda x: x[1]))
-
+        print(f'{sorted(dict_sum_by_row) = }')
+        print(f'{sorted(dict_sum_by_row.values()) = }')
+        print(f'{sorted(dict_sum_by_row.items(), key= lambda x: x[1]) = }')
+        print(f'{sorted(dict_sum_by_row, key=dict_sum_by_row.get) = }')
         elements_sorted = {k: dict_sum_by_row[k] for k in sorted(dict_sum_by_row, key=dict_sum_by_row.get)}
         print(elements_sorted)
+        print('*'*55)
 
     # функция заполнения колонки периода по данным из списка результатов периода
     def fill_col_by_result_period(self, result_period: list) -> None:
