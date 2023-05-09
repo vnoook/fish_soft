@@ -23,14 +23,14 @@ SETT_DEF_SOFT = {
         'COMP_calc_mode': 0,  # 0 клубная, 1 фрс
         # 'COMP_q_sector': 1,
         # 'COMP_d_period': 45,
-        'COMP_q_anglers_in_team': 2,
+        'COMP_q_anglers_in_team': 3,
         'COMP_q_anglers': 15},
     'misc': {}
 }
 
 # константы для работы программе, остаются в памяти
 SETT_DEF_COMMON = {
-    'version': '0.1.28',
+    'version': '0.1.29',
     'window_name_main': 'ЧСВ - НХНЧ',
     'about_text': 'Чтобы Соревнования Выиграть - "Ни хвоста, Ни чешуи"',
     'window_name_set_comp': 'Настройки соревнования',
