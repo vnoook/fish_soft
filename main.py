@@ -862,20 +862,18 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
 
         # TODO
         # продолжить писать вывод именно места, а не очков
-        print(f'{dict_sum_by_row      = }')
-        # print(f'{sorted(dict_sum_by_row) = }')
-        # print(f'{sorted(dict_sum_by_row.values()) = }')
+
+        # сортировка словаря с суммой в строке
+        # print(f'{dict_sum_by_row      = }')
         # print(f'{sorted(dict_sum_by_row.items(), key= lambda x: x[1]) = }')
-        # print(f'{sorted(dict_sum_by_row, key=dict_sum_by_row.get) = }')
-        # print(f'{dict((k, dict_sum_by_row[k]) for k in sorted(dict_sum_by_row, key=dict_sum_by_row.get)) = }')
-        dict_sum_by_row_self = {k: dict_sum_by_row[k] for k in sorted(dict_sum_by_row, key=dict_sum_by_row.get)}
-        print(f'{dict_sum_by_row_self = }')
-        print('*'*55)
+        dict_sort_sum_by_row = {k: dict_sum_by_row[k] for k in sorted(dict_sum_by_row, key=dict_sum_by_row.get)}
+        # print(f'{dict_sort_sum_by_row = }')
+        # print('*'*55)
 
         # и вывести в колонку self
         for unit_name, unit_obj in self.dict_all_units.items():
             if ('self' in unit_name) and (unit_obj.__class__ is PyQt5.QtWidgets.QLineEdit):
-                unit_obj.setText(str(dict_sum_by_row[self.get_num_row_by_unit_name(unit_name)]))
+                unit_obj.setText(str(place))
 
     # функция заполнения колонки периода по данным из списка результатов периода
     def fill_col_by_result_period(self, result_period: list) -> None:
