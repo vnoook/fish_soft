@@ -860,27 +860,17 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                 var_sum_content = var_sum_by_row + var_content_unit
                 dict_sum_by_row[unit_row] = '' if var_sum_content == 0 else var_sum_content
 
-        # TODO
-        # продолжить писать вывод именно места, а не очков
-
         # сортировка словаря с суммой в строке
-        # print(f'{dict_sum_by_row      = }')
-        # print(f'{sorted(dict_sum_by_row.items(), key= lambda x: x[1]) = }')
         dict_sort_sum_by_row = {k: dict_sum_by_row[k] for k in sorted(dict_sum_by_row, key=dict_sum_by_row.get)}
-        # print(f'{dict_sort_sum_by_row = }')
-        # print('*'*55)
 
         # и вывести в колонку self
         # иду по сортированному словарю
         for position, row_of_unit in enumerate(dict_sort_sum_by_row, start=1):
-            # print(position, row_of_unit)
             # ищу нужный юнит для выдачи места спортсмена
             for unit_name, unit_obj in self.dict_all_units.items():
                 if ('self' in unit_name) and\
                         (unit_obj.__class__ is PyQt5.QtWidgets.QLineEdit) and\
                         (self.get_num_row_by_unit_name(unit_name) == row_of_unit):
-                    # place = dict_sum_by_row[self.get_num_row_by_unit_name(unit_name)]
-                    # unit_obj.setText(str(position))
                     unit_obj.setText(str('' if dict_sort_sum_by_row.get(row_of_unit, '') == '' else position))
 
     # функция заполнения колонки периода по данным из списка результатов периода
