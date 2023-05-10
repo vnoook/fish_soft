@@ -262,6 +262,16 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                 ws_edit.addItem('Автомат')
                 ws_edit.addItem('Ручная')
                 ws_edit.setCurrentIndex(val)
+
+            elif key == 'COMP_calc_mode':
+                # QComboBox
+                ws_edit = PyQt5.QtWidgets.QComboBox(self.window_settings_comp)
+                ws_edit.setObjectName('ws_edit_' + key)
+
+                ws_edit.addItem('0 Клубный расчёт')
+                ws_edit.addItem('1 Расчёт ФРС')
+                ws_edit.setCurrentIndex(val)
+
             else:
                 # QLineEdit
                 ws_edit = PyQt5.QtWidgets.QLineEdit(self.window_settings_comp)
