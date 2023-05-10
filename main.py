@@ -871,9 +871,17 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
         # print('*'*55)
 
         # и вывести в колонку self
-        for unit_name, unit_obj in self.dict_all_units.items():
-            if ('self' in unit_name) and (unit_obj.__class__ is PyQt5.QtWidgets.QLineEdit):
-                unit_obj.setText(str(place))
+        # иду по сортированному словарю
+        for position, row_of_unit in enumerate(dict_sort_sum_by_row, start=1):
+            # print(position, row_of_unit)
+            # ищу нужный юнит для выдачи места спортсмена
+            for unit_name, unit_obj in self.dict_all_units.items():
+                if ('self' in unit_name) and\
+                        (unit_obj.__class__ is PyQt5.QtWidgets.QLineEdit) and\
+                        (self.get_num_row_by_unit_name(unit_name) == row_of_unit):
+                    # place = dict_sum_by_row[self.get_num_row_by_unit_name(unit_name)]
+                    # unit_obj.setText(str(position))
+                    unit_obj.setText(str('' if dict_sort_sum_by_row.get(row_of_unit, '') == '' else position))
 
     # функция заполнения колонки периода по данным из списка результатов периода
     def fill_col_by_result_period(self, result_period: list) -> None:
