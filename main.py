@@ -1,15 +1,15 @@
 # TODO
-# !!! сделать проверку вводимых данных в периоды, чтобы было без "000"
-# !!! проверить все открываемые окна на необходимость атрибута WA_DeleteOnClose
-# !!! жеребьёвка, чтобы суммы входа в зону была одинакова
-# !!! расчёт сложнее чем оказывалось
-# !!! добавить проверку последнего состояния через repair_settings
-# !!! заменить куски кода где происходит получение номера колонки из юнита на функцию get_num_col_of_unit
-# !!! заменить все куски кода где происходит блокировка колонки на функцию block_unblock_col_of_unit
-# !!! заменить валидации в колонках очков периода на валидацию дробных чисел
-#     self.validatorLineEdit.setValidator(QDoubleValidator(-999.0, 999.0, 2, self.validatorLineEdit))
-# !!! сделать установку чекбоксов на форме из последнего состояния
-# !!! заменить все obj на unit
+# !! сделать проверку вводимых данных в периоды, чтобы было без "000"
+# !! проверить все открываемые окна на необходимость атрибута WA_DeleteOnClose
+# !! жеребьёвка, чтобы суммы входа в зону была одинакова
+# !! расчёт сложнее чем оказывалось
+# !! добавить проверку последнего состояния через repair_settings
+# !! заменить куски кода где происходит получение номера колонки из юнита на функцию get_num_col_of_unit
+# !! заменить все куски кода где происходит блокировка колонки на функцию block_unblock_col_of_unit
+# \/ заменить валидации в колонках очков периода на валидацию дробных чисел
+#        self.validatorLineEdit.setValidator(QDoubleValidator(-999.0, 999.0, 2, self.validatorLineEdit))
+# !! сделать установку чекбоксов на форме из последнего состояния
+# !! заменить все obj на unit
 
 
 import sys
@@ -470,9 +470,12 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                         line_edit.setMaxLength(5)
                         line_edit.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
                         line_edit.setValidator(PyQt5.QtGui.QIntValidator(line_edit))
-                    elif unit_model in ('points', 'teams', 'self'):
+                    elif unit_model in ('points', 'teams'):
                         line_edit.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
                         line_edit.setValidator(PyQt5.QtGui.QDoubleValidator(line_edit))
+                    elif unit_model in ('self'):
+                        line_edit.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
+                        line_edit.setValidator(PyQt5.QtGui.QIntValidator(line_edit))
                     elif unit_model == 'lottery':
                         line_edit.setAlignment(PyQt5.QtCore.Qt.AlignCenter)
                         line_edit.setValidator(PyQt5.QtGui.QIntValidator(line_edit))
