@@ -268,8 +268,8 @@ class WindowMain(PyQt5.QtWidgets.QMainWindow):
                 ws_edit = PyQt5.QtWidgets.QComboBox(self.window_settings_comp)
                 ws_edit.setObjectName('ws_edit_' + key)
 
-                ws_edit.addItem('0 Клубный расчёт')
-                ws_edit.addItem('1 Расчёт ФРС')
+                ws_edit.addItem('0 Клубный расчёт с одной зоной')
+                ws_edit.addItem('1 Расчёт ФРС, секция спиннинг')
                 ws_edit.setCurrentIndex(val)
 
             else:
