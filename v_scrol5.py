@@ -1,55 +1,61 @@
 import sys
-from PyQt5.Qt import *
+import PyQt5.Qt
+import PyQt5.QtGui
+import PyQt5.QtCore
+import PyQt5.QtWidgets
 
-class MainWindow(QMainWindow):
+class MainWindow(PyQt5.QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
 
         self.setWindowTitle('Title MainWindow')
-        self.resize(500, 300)
+        self.resize(500, 500)
 
-        # self.centralwidget = QWidget(MainWindow)
-        # self.centralwidget.setObjectName(u"centralwidget")
-        # self.widget = QWidget(self.centralwidget)
-        # self.widget.setObjectName(u"widget")
-        # self.widget.setGeometry(QRect(20, 20, 381, 301))
-        # MainWindow.setCentralWidget(self.centralwidget)
+        self.centralwidget = PyQt5.QtWidgets.QWidget()
+        self.setCentralWidget(self.centralwidget)
 
-        self.widget0 = QWidget()
-        self.widget0.resize(100, 100)
-        self.vbox0 = QVBoxLayout(self.widget0)
+        self.widget1 = PyQt5.QtWidgets.QWidget(self.centralwidget)
+        # self.widget1.setGeometry(PyQt5.QtCore.QRect(10, 10, 200, 200))
+        self.widget1.resize(200, 500)
 
-        self.widget = QWidget()
-        self.widget.resize(100, 100)
-        self.vbox = QVBoxLayout(self.widget)
+        self.widget2 = PyQt5.QtWidgets.QWidget(self.centralwidget)
+        # self.widget2.setGeometry(PyQt5.QtCore.QRect(10, 200, 200, 200))
+        self.widget2.resize(200, 500)
 
-        w = QWidget()
-        hbox = QHBoxLayout(w)
-        label = QLabel(f'Label---')
-        lineEdit = QLineEdit(f'LineEdit---')
-        button = QPushButton(f'Button---')
+        self.vbox1 = PyQt5.QtWidgets.QVBoxLayout(self.widget1)
+        self.vbox2 = PyQt5.QtWidgets.QVBoxLayout(self.widget2)
+
+        w = PyQt5.QtWidgets.QWidget()
+        hbox = PyQt5.QtWidgets.QHBoxLayout(w)
+        label = PyQt5.QtWidgets.QLabel(f'Label---')
+        lineEdit = PyQt5.QtWidgets.QLineEdit(f'LineEdit---')
+        button = PyQt5.QtWidgets.QPushButton(f'Button---')
         hbox.addWidget(label)
         hbox.addWidget(lineEdit)
         hbox.addWidget(button)
-        self.vbox.addWidget(w)
+        self.vbox1.addWidget(w)
 
-        w = QWidget()
-        hbox = QHBoxLayout(w)
-        label1 = QLabel(f'Label---1')
-        label2 = QLabel(f'Label---2')
-        label3 = QLabel(f'Label---3')
+        w = PyQt5.QtWidgets.QWidget()
+        hbox = PyQt5.QtWidgets.QHBoxLayout(w)
+        label1 = PyQt5.QtWidgets.QLabel(f'Label---1')
+        label2 = PyQt5.QtWidgets.QLabel(f'Label---2')
+        label3 = PyQt5.QtWidgets.QLabel(f'Label---3')
         hbox.addWidget(label1)
         hbox.addWidget(label2)
         hbox.addWidget(label3)
-        self.vbox.addWidget(w)
+        self.vbox1.addWidget(w)
+
+        # self.widget = PyQt5.QtWidgets.QWidget()
+        # self.widget.resize(100, 100)
+        # self.vbox = PyQt5.QtWidgets.QVBoxLayout(self.widget)
 
         for i in range(1, 15+1):
-            w = QWidget()
-            hbox = QHBoxLayout(w)
+            w = PyQt5.QtWidgets.QWidget()
+            hbox = PyQt5.QtWidgets.QHBoxLayout(w)
 
-            label = QLabel(f'Label {i}')
-            lineEdit = QLineEdit(f'LineEdit {i}')
-            button = QPushButton(f'Button {i}')
+            label = PyQt5.QtWidgets.QLabel(f'Label {i}')
+            lineEdit = PyQt5.QtWidgets.QLineEdit(f'LineEdit {i}')
+            button = PyQt5.QtWidgets.QPushButton(f'Button {i}')
 
             hbox.addWidget(label)
             hbox.addWidget(lineEdit)
@@ -57,19 +63,19 @@ class MainWindow(QMainWindow):
             
             button.clicked.connect(lambda ch, lb=label, le=lineEdit: print(
                 f'label -> {lb.text()}, lineEdit -> {le.text()}'))
-            self.vbox.addWidget(w)
+            self.vbox2.addWidget(w)
 
-        self.scroll = QScrollArea()
-        self.scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-        self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.scroll = PyQt5.QtWidgets.QScrollArea()
+        self.scroll.setVerticalScrollBarPolicy(PyQt5.QtCore.Qt.ScrollBarAlwaysOn)
+        self.scroll.setHorizontalScrollBarPolicy(PyQt5.QtCore.Qt.ScrollBarAlwaysOff)
         self.scroll.setWidgetResizable(True)
-        self.scroll.setWidget(self.widget)
+        self.scroll.setWidget(self.widget2)
 
         self.setCentralWidget(self.scroll)
 
 
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
+    app = PyQt5.QtWidgets.QApplication(sys.argv)
     main = MainWindow()
     # main.setWindowTitle('Title MainWindow')
     # main.resize(500, 300)
