@@ -15,11 +15,11 @@ class MainWindow(PyQt5.QtWidgets.QMainWindow):
         self.setCentralWidget(self.centralwidget)
 
         self.widget1 = PyQt5.QtWidgets.QWidget(self.centralwidget)
-        self.widget1.setGeometry(PyQt5.QtCore.QRect(10, 10, 200, 200))
+        self.widget1.setGeometry(PyQt5.QtCore.QRect(10, 10, 500, 200))
         # self.widget1.resize(200, 500)
 
         self.widget2 = PyQt5.QtWidgets.QWidget(self.centralwidget)
-        self.widget2.setGeometry(PyQt5.QtCore.QRect(10, 200, 200, 200))
+        self.widget2.setGeometry(PyQt5.QtCore.QRect(10, 200, 500, 450))
         # self.widget2.resize(200, 500)
 
         self.vbox1 = PyQt5.QtWidgets.QVBoxLayout(self.widget1)
@@ -28,13 +28,13 @@ class MainWindow(PyQt5.QtWidgets.QMainWindow):
         w11 = PyQt5.QtWidgets.QWidget()
         hbox1 = PyQt5.QtWidgets.QHBoxLayout(w11)
 
-        horizontalSpacer1 = PyQt5.QtWidgets.QSpacerItem(20, 20, PyQt5.Qt.QSizePolicy.Fixed, PyQt5.Qt.QSizePolicy.Fixed)
+        horizontalSpacer1 = PyQt5.QtWidgets.QSpacerItem(20, 20, PyQt5.Qt.QSizePolicy.MinimumExpanding, PyQt5.Qt.QSizePolicy.MinimumExpanding)
         label1 = PyQt5.QtWidgets.QLabel(f'Label---1')
-        horizontalSpacer2 = PyQt5.QtWidgets.QSpacerItem(20, 20, PyQt5.Qt.QSizePolicy.Fixed, PyQt5.Qt.QSizePolicy.Fixed)
+        horizontalSpacer2 = PyQt5.QtWidgets.QSpacerItem(20, 20, PyQt5.Qt.QSizePolicy.MinimumExpanding, PyQt5.Qt.QSizePolicy.MinimumExpanding)
         lineEdit1 = PyQt5.QtWidgets.QLineEdit(f'LineEdit---1')
-        horizontalSpacer3 = PyQt5.QtWidgets.QSpacerItem(20, 20, PyQt5.Qt.QSizePolicy.Fixed, PyQt5.Qt.QSizePolicy.Fixed)
+        horizontalSpacer3 = PyQt5.QtWidgets.QSpacerItem(20, 20, PyQt5.Qt.QSizePolicy.MinimumExpanding, PyQt5.Qt.QSizePolicy.MinimumExpanding)
         button1 = PyQt5.QtWidgets.QPushButton(f'Button---1')
-        horizontalSpacer4 = PyQt5.QtWidgets.QSpacerItem(20, 20, PyQt5.Qt.QSizePolicy.Fixed, PyQt5.Qt.QSizePolicy.Fixed)
+        horizontalSpacer4 = PyQt5.QtWidgets.QSpacerItem(20, 20, PyQt5.Qt.QSizePolicy.MinimumExpanding, PyQt5.Qt.QSizePolicy.MinimumExpanding)
         hbox1.addItem(horizontalSpacer1)
         hbox1.addWidget(label1)
         hbox1.addItem(horizontalSpacer2)
