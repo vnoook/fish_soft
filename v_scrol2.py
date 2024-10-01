@@ -8,12 +8,13 @@ import PyQt5.QtGui
 class Example(PyQt5.QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
-        self.initUI()
 
-    def initUI(self):
         self.q_x = 40
         self.q_y = 40
 
+        self.init_ui()
+
+    def init_ui(self):
         # Create main layout
         main_layout = PyQt5.QtWidgets.QHBoxLayout(self)
 
