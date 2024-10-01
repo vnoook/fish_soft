@@ -11,6 +11,9 @@ class Example(PyQt5.QtWidgets.QWidget):
         self.initUI()
 
     def initUI(self):
+        self.q_x = 40
+        self.q_y = 40
+
         # Create main layout
         main_layout = PyQt5.QtWidgets.QHBoxLayout(self)
 
@@ -20,8 +23,8 @@ class Example(PyQt5.QtWidgets.QWidget):
 
         # Create checkboxes (5 columns x 100 rows)
         self.checkboxes = []
-        for row in range(20):
-            for col in range(20):
+        for row in range(self.q_x):
+            for col in range(self.q_y):
                 checkbox = PyQt5.QtWidgets.QCheckBox(f"{row * 5 + col + 1}", self)
                 self.checkboxes.append(checkbox)
                 checkbox.setFixedSize(PyQt5.QtCore.QSize(15, 15))  # Set checkbox size
